@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conferences - UTSA NSBE</title>
+  <meta name="description" content="Explore upcoming conferences and professional development opportunities with UTSA NSBE.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="images/logopic.jpg">
+  
+  <!-- Creative Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <style>
+      /* Enhanced Conference Page Styles */
+      .scroll-reveal {
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .scroll-reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+      }
+      
+      .scroll-reveal-left {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .scroll-reveal-left.revealed {
+          opacity: 1;
+          transform: translateX(0);
+      }
+      
+      .scroll-reveal-right {
+          opacity: 0;
+          transform: translateX(50px);
+          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .scroll-reveal-right.revealed {
+          opacity: 1;
+          transform: translateX(0);
+      }
+      
+      .scroll-reveal-scale {
+          opacity: 0;
+          transform: scale(0.8);
+          transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .scroll-reveal-scale.revealed {
+          opacity: 1;
+          transform: scale(1);
+      }
+      
+      .conference-hero-background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: url('images/conferencehomephoto.jpg');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          filter: brightness(0.5) contrast(0.1) saturate(0.1);
+          z-index: 0;
+          transition: all 0.3s ease;
+      }
+
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+          .conference-hero-background {
+              background-image: url('images/conferencehomephoto.jpg');
+              filter: brightness(0.7) contrast(1.15) saturate(1.15);
+          }
+      }
+      
+      /* Enhanced Hero Animations */
+      .hero-title .title-line {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(100px);
+          animation: heroTitleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+      
+      .hero-title .title-line:nth-child(1) {
+          animation-delay: 0.3s;
+      }
+      
+      .hero-title .title-line:nth-child(2) {
+          animation-delay: 0.5s;
+      }
+      
+      @keyframes heroTitleReveal {
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      
+      .hero-description {
+          opacity: 0;
+          transform: translateY(30px);
+          animation: fadeInUp 1s ease-out 0.8s forwards;
+      }
+      
+      @keyframes fadeInUp {
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      
+      /* Enhanced Conference List Styles */
+      .conference-list-section {
+          padding: 120px 0 60px;
+          position: relative;
+          background: var(--bg-secondary);
+          z-index: 1;
+      }
+      
+      .conference-list-section::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: 
+              radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(0, 153, 204, 0.1) 0%, transparent 50%);
+          z-index: -1;
+      }
+      
+      .conference-list-header {
+          text-align: center;
+          margin-bottom: 3rem;
+      }
+      
+      .conference-list-title {
+          font-family: var(--font-heading);
+          font-size: clamp(2rem, 5vw, 3rem);
+          font-weight: 700;
+          margin-bottom: 1rem;
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+      }
+      
+      .conference-list-subtitle {
+          font-size: 1.2rem;
+          color: var(--text-secondary);
+          max-width: 700px;
+          margin: 0 auto;
+      }
+      
+      .conference-list {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+          gap: 2.5rem;
+          padding: 0;
+          list-style: none;
+      }
+      
+      .conference-item {
+          background: var(--bg-glass);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: var(--border-radius);
+          backdrop-filter: blur(12px);
+          padding: 2rem;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.4s ease;
+      }
+      
+      .conference-item::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 4px;
+          height: 100%;
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          opacity: 0.8;
+      }
+      
+      .conference-item::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+          transition: left 0.8s ease;
+          z-index: 1;
+      }
+      
+      .conference-item:hover::after {
+          left: 100%;
+      }
+      
+      .conference-item:hover {
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 25px 50px rgba(0, 212, 255, 0.2);
+          border-color: rgba(0, 212, 255, 0.3);
+      }
+      
+      .conference-item:hover .conference-register-btn {
+          opacity: 1;
+          transform: translateY(0);
+      }
+      
+      .conference-item-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
+          position: relative;
+          z-index: 2;
+      }
+      
+      .conference-icon {
+          width: 50px;
+          height: 50px;
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          color: white;
+          box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+      }
+      
+      .conference-name {
+          font-family: var(--font-heading);
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin: 0;
+      }
+      
+      .conference-details {
+          margin-bottom: 1.5rem;
+          position: relative;
+          z-index: 2;
+      }
+      
+      .conference-detail {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 0.75rem;
+      }
+      
+      .conference-detail i {
+          color: #00d4ff;
+          width: 20px;
+          text-align: center;
+      }
+      
+      .conference-detail span {
+          color: var(--text-secondary);
+      }
+      
+      .conference-description {
+          color: var(--text-secondary);
+          margin-bottom: 1.5rem;
+          line-height: 1.6;
+          position: relative;
+          z-index: 2;
+      }
+      
+      .conference-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+          position: relative;
+          z-index: 2;
+      }
+      
+      .conference-tag {
+          background: rgba(0, 212, 255, 0.15);
+          color: #00d4ff;
+          padding: 0.35rem 0.75rem;
+          border-radius: 50px;
+          font-size: 0.85rem;
+          font-weight: 500;
+      }
+      
+      .conference-register-btn {
+          width: 100%;
+          padding: 0.75rem;
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          color: white;
+          border: none;
+          border-radius: 12px;
+          font-family: var(--font-heading);
+          font-weight: 600;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          opacity: 0.9;
+          transform: translateY(5px);
+          position: relative;
+          z-index: 2;
+      }
+      
+      .conference-register-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
+      }
+      
+      .conference-status {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          padding: 0.35rem 0.75rem;
+          border-radius: 50px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          z-index: 2;
+      }
+      
+      .status-upcoming {
+          background: rgba(34, 197, 94, 0.15);
+          color: #22c55e;
+      }
+      
+      .status-past {
+          background: rgba(100, 116, 139, 0.15);
+          color: #64748b;
+      }
+      
+      .status-live {
+          background: rgba(239, 68, 68, 0.15);
+          color: #ef4444;
+          animation: pulse 2s infinite;
+      }
+      
+      @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+      }
+      
+      /* Enhanced Benefits Section */
+      .mission {
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 153, 204, 0.05));
+      }
+      
+      .mission::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+          opacity: 0.3;
+      }
+      
+      .mission-content {
+          position: relative;
+          z-index: 2;
+      }
+      
+      .mission-icon {
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+      }
+      
+      .mission-icon::before {
+          border-color: rgba(0, 212, 255, 0.4);
+      }
+      
+      .mission-title {
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+      }
+      
+      .benefits-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+          margin-top: 3rem;
+      }
+      
+      .benefit-card {
+          position: relative;
+          overflow: hidden;
+          transition: all 0.4s ease;
+      }
+      
+      .benefit-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+          transition: left 0.8s ease;
+          z-index: 1;
+      }
+      
+      .benefit-card:hover::before {
+          left: 100%;
+      }
+      
+      .benefit-card:hover {
+          transform: translateY(-10px) scale(1.02);
+          border-color: #00d4ff;
+          box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+      }
+      
+      .benefit-icon-container {
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+      }
+      
+      .benefit-title {
+          color: #00d4ff;
+      }
+      
+      /* Enhanced CTA Section */
+      .cta {
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 204, 0.1));
+      }
+      
+      .cta::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+          opacity: 0.3;
+      }
+      
+      .cta-content {
+          position: relative;
+          z-index: 2;
+      }
+      
+      .cta-badge {
+          border-color: rgba(0, 212, 255, 0.3);
+          color: #00d4ff;
+      }
+      
+      .cta-title {
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+      }
+      
+      /* Footer Enhancements */
+      .footer-social-link {
+          transition: all 0.3s ease;
+      }
+      
+      .footer-social-link:hover {
+          color: #00d4ff !important;
+          transform: translateY(-2px);
+      }
+      
+      .footer-social-link:hover i {
+          transform: scale(1.1);
+      }
+      
+      .footer-links a {
+          transition: all 0.3s ease;
+      }
+      
+      .footer-links a:hover {
+          color: #00d4ff;
+          transform: translateX(5px);
+      }
+      
+      .footer-contact .contact-item a:hover {
+          color: #00d4ff;
+      }
+      
+      .footer-bottom-links a:hover {
+          color: #00d4ff;
+      }
+      
+      /* Enhanced Loading Animation */
+      .loading-screen {
+          background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      }
+      
+      .loading-spinner {
+          width: 50px;
+          height: 50px;
+          border: 3px solid rgba(0, 212, 255, 0.3);
+          border-top: 3px solid #00d4ff;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }
+      
+      /* Staggered Animation Delays */
+      .conference-list .conference-item:nth-child(1) { animation-delay: 0.1s; }
+      .conference-list .conference-item:nth-child(2) { animation-delay: 0.2s; }
+      .conference-list .conference-item:nth-child(3) { animation-delay: 0.3s; }
+      .conference-list .conference-item:nth-child(4) { animation-delay: 0.4s; }
+      .conference-list .conference-item:nth-child(5) { animation-delay: 0.5s; }
+      .conference-list .conference-item:nth-child(6) { animation-delay: 0.6s; }
+      
+      .benefits-grid .benefit-card:nth-child(1) { animation-delay: 0.1s; }
+      .benefits-grid .benefit-card:nth-child(2) { animation-delay: 0.2s; }
+      .benefits-grid .benefit-card:nth-child(3) { animation-delay: 0.3s; }
+      .benefits-grid .benefit-card:nth-child(4) { animation-delay: 0.4s; }
+      .benefits-grid .benefit-card:nth-child(5) { animation-delay: 0.5s; }
+      .benefits-grid .benefit-card:nth-child(6) { animation-delay: 0.6s; }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+          .conference-list {
+              grid-template-columns: 1fr;
+          }
+          
+          .benefits-grid {
+              grid-template-columns: 1fr;
+              gap: 1.5rem;
+          }
+      }
+
+      /* Adding background image to the body */
+      body {
+          background-image: url('images/conferencehomephoto.jpg');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+      }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="animated-bg">
+      <div class="floating-particles"></div>
+      <div class="grid-overlay"></div>
+  </div>
+
+  <!-- Loading Screen -->
+  <div class="loading-screen">
+      <div class="loading-content">
+          <div class="loading-logo">
+              <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+          </div>
+          <div class="loading-spinner"></div>
+          <p><strong>Loading Conferences...</strong></p>      </div>
+  </div>
+
+  <!-- Enhanced Header -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-background-blur"></div>
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-container">
+                <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="nav-logo">
+                <div class="logo-glow"></div>
+            </div>
+            <div class="nav-brand-text">
+                <h2 class="nav-title">UTSA NSBE</h2>
+                <p class="nav-subtitle">National Society of Black Engineers</p>
+            </div>
+        </a>
+        <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <div class="nav-menu" id="nav-menu">
+            <div class="nav-links-group">
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i> 
+                    <span class="nav-text">Home</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-info-circle"></i> 
+                    <span class="nav-text">About</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+                <a href="leadership.html" class="nav-link">
+                    <i class="fas fa-users"></i> 
+                    <span class="nav-text">Leadership</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+                <a href="conferences.html" class="nav-link">
+                    <i class="fas fa-briefcase"></i> 
+                    <span class="nav-text">Conferences</span>
+                    <span class="nav-link-indicator"></span>
+                </a>                
+                <a href="gallery.html" class="nav-link">
+                    <i class="fas fa-image"></i> 
+                    <span class="nav-text">Gallery</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+                <a href="contact.html" class="nav-link">
+                    <i class="fas fa-envelope"></i> 
+                    <span class="nav-text">Contact</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+            </div>
+            <div class="nav-social">
+                <a href="https://instagram.com/utsansbe" class="social-link instagram" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span class="social-tooltip">Instagram</span>
+                </a>
+                <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link linkedin" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                    <span class="social-tooltip">LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+      <div class="hero-background-container">
+          <div class="conference-hero-background"></div>
+          <div class="hero-overlay"></div>
+          <div class="hero-geometric-shapes">
+              <div class="shape shape-1"></div>
+              <div class="shape shape-2"></div>
+              <div class="shape shape-3"></div>
+          </div>
+      </div>
+      
+      <div class="hero-content">
+          <div class="hero-badge">
+              <span class="badge-text">PROFESSIONAL DEVELOPMENT</span>
+              <div class="badge-glow"></div>
+          </div>
+          
+          <h1 class="hero-title">
+              <span class="title-line" data-text="Conferences &">Conferences &</span>
+              <span class="title-line accent" data-text="Events">Events</span>
+          </h1>
+          
+          <p class="hero-description">
+              Professional development opportunities and networking events to advance your engineering career and connect with industry leaders.
+          </p>
+      </div>
+  </section>
+
+  <!-- Enhanced Conference List Section -->
+  <section class="conference-list-section" id="all-conferences">
+      <div class="container">
+          <div class="conference-list-header scroll-reveal">
+              <h2 class="conference-list-title">All Conferences & Events</h2>
+              <p class="conference-list-subtitle">Browse our complete list of conferences, workshops, and networking events for the academic year.</p>
+          </div>
+          
+          <ul class="conference-list">
+
+              <li class="conference-item futuristic-card scroll-reveal-scale">
+                <div class="conference-status status-upcoming">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Upcoming</span>
+                </div>
+                <div class="conference-item-header">
+                    <div class="conference-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="conference-name">Regional V Fall Regional Conference</h3>
+                </div>
+                <div class="conference-details">
+                    <div class="conference-detail">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>To Be Annouced</span>
+                    </div>
+                    <div class="conference-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>To Be Annouced</span>
+                    </div>
+                    <div class="conference-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>To Be Annouced</span>
+                    </div>
+                </div>
+                <p class="conference-description">Annual fall conference featuring academic competitions, professional development, and networking sessions.</p>
+                <div class="conference-tags">
+                    <span class="conference-tag">Academic</span>
+                    <span class="conference-tag">Professional</span>
+                    <span class="conference-tag">Networking</span>
+                </div>
+                <button class="conference-register-btn btn futuristic-btn">
+                    <i class="fas fa-ticket-alt"></i>
+                    Registration Coming Soon
+                    <span class="btn-shine"></span>
+                    <div class="btn-glow"></div>
+                </button>
+                <div class="card-glow"></div>
+                <div class="card-border"></div>
+            </li>
+
+            <li class="conference-item futuristic-card scroll-reveal-scale">
+                <div class="conference-status status-upcoming">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Upcoming</span>
+                  </div>
+                  <div class="conference-item-header">
+                      <div class="conference-icon">
+                          <i class="fas fa-globe"></i>
+                      </div>
+                      <h3 class="conference-name">NSBE 2026 Annual Convention</h3>
+                  </div>
+                  <div class="conference-details">
+                      <div class="conference-detail">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span>March 18-26, 2026</span>
+                      </div>
+                      <div class="conference-detail">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <span>Baltimore, MD</span>
+                      </div>
+                  </div>
+                  <p class="conference-description">The largest gathering of Black engineers in the world, featuring career fairs, technical sessions, and networking opportunities.</p>
+                  <div class="conference-tags">
+                      <span class="conference-tag">Career Fair</span>
+                      <span class="conference-tag">Technical Sessions</span>
+                      <span class="conference-tag">Networking</span>
+                  </div>
+                  <button class="conference-register-btn btn futuristic-btn">
+                      <i class="fas fa-ticket-alt"></i>
+                      Registration Coming Soon
+                      <span class="btn-shine"></span>
+                      <div class="btn-glow"></div>
+                  </button>
+                  <div class="card-glow"></div>
+                  <div class="card-border"></div>
+              </li>
+              
+             
+              
+    
+          </ul>
+      </div>
+  </section>
+
+  <!-- Conference Benefits -->
+  <section class="mission" id="conference-benefits">
+      <div class="container">
+          <div class="mission-content">
+              <div class="mission-icon-container scroll-reveal-scale">
+                  <div class="mission-icon">
+                      <i class="fas fa-trophy"></i>
+                      <div class="icon-orbit"></div>
+                  </div>
+              </div>
+              
+              <h2 class="mission-title scroll-reveal">Conference Benefits</h2>
+              <p class="mission-description scroll-reveal">
+                  Discover the value of attending NSBE conferences and professional events that will accelerate your engineering career.
+              </p>
+              
+              <div class="benefits-grid stats-grid">
+                  <div class="benefit-card futuristic-card scroll-reveal-scale">
+                      <div class="benefit-icon-container feature-icon-container">
+                          <div class="benefit-icon feature-icon">
+                              <i class="fas fa-users"></i>
+                          </div>
+                          <div class="icon-bg"></div>
+                      </div>
+                      <h3 class="benefit-title feature-title">Networking Opportunities</h3>
+                      <p class="benefit-description feature-description">Connect with industry professionals, fellow students, and potential mentors from across the country.</p>
+                      <div class="card-glow"></div>
+                      <div class="card-border"></div>
+                  </div>
+
+                  <div class="benefit-card futuristic-card scroll-reveal-scale">
+                      <div class="benefit-icon-container feature-icon-container">
+                          <div class="benefit-icon feature-icon">
+                              <i class="fas fa-briefcase"></i>
+                          </div>
+                          <div class="icon-bg"></div>
+                      </div>
+                      <h3 class="benefit-title feature-title">Career Fair Access</h3>
+                      <p class="benefit-description feature-description">Meet with top engineering companies and explore internship and full-time job opportunities.</p>
+                      <div class="card-glow"></div>
+                      <div class="card-border"></div>
+                  </div>
+
+                  <div class="benefit-card futuristic-card scroll-reveal-scale">
+                      <div class="benefit-icon-container feature-icon-container">
+                          <div class="benefit-icon feature-icon">
+                              <i class="fas fa-graduation-cap"></i>
+                          </div>
+                          <div class="icon-bg"></div>
+                      </div>
+                      <h3 class="benefit-title feature-title">Professional Development</h3>
+                      <p class="benefit-description feature-description">Attend workshops and sessions designed to enhance your technical and leadership skills.</p>
+                      <div class="card-glow"></div>
+                      <div class="card-border"></div>
+                  </div>
+
+                  <div class="benefit-card futuristic-card scroll-reveal-scale">
+                      <div class="benefit-icon-container feature-icon-container">
+                          <div class="benefit-icon feature-icon">
+                              <i class="fas fa-medal"></i>
+                          </div>
+                          <div class="icon-bg"></div>
+                      </div>
+                      <h3 class="benefit-title feature-title">Academic Competitions</h3>
+                      <p class="benefit-description feature-description">Participate in technical competitions and showcase your engineering knowledge and skills.</p>
+                      <div class="card-glow"></div>
+                      <div class="card-border"></div>
+                  </div>
+
+                  <div class="benefit-card futuristic-card scroll-reveal-scale">
+                      <div class="benefit-icon-container feature-icon-container">
+                          <div class="benefit-icon feature-icon">
+                              <i class="fas fa-lightbulb"></i>
+                          </div>
+                          <div class="icon-bg"></div>
+                      </div>
+                      <h3 class="benefit-title feature-title">Innovation Showcase</h3>
+                      <p class="benefit-description feature-description">Present your research and innovative projects to industry experts and peers.</p>
+                      <div class="card-glow"></div>
+                      <div class="card-border"></div>
+                  </div>
+
+                  <div class="benefit-card futuristic-card scroll-reveal-scale">
+                      <div class="benefit-icon-container feature-icon-container">
+                          <div class="benefit-icon feature-icon">
+                              <i class="fas fa-dollar-sign"></i>
+                          </div>
+                          <div class="icon-bg"></div>
+                      </div>
+                      <h3 class="benefit-title feature-title">Scholarship Opportunities</h3>
+                      <p class="benefit-description feature-description">Learn about and apply for scholarships and financial aid opportunities for engineering students.</p>
+                      <div class="card-glow"></div>
+                      <div class="card-border"></div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta" id="join-conferences">
+      <div class="container">
+          <div class="cta-content scroll-reveal">
+              <div class="cta-badge">
+                  <span class="badge-text">READY TO ATTEND</span>
+                  <div class="badge-glow"></div>
+              </div>
+              
+              <h2 class="cta-title">Ready to Attend Your First Conference?</h2>
+              <p class="cta-description">
+                  Join us at upcoming conferences and take your engineering career to the next level through networking and professional development.
+              </p>
+              
+              <div class="cta-buttons">
+                  <a href="contact.html" class="btn btn-primary futuristic-btn">
+                      <i class="fas fa-info-circle"></i>
+                      <span class="btn-text">Get More Info</span>
+                      <div class="btn-glow"></div>
+                      <span class="btn-shine"></span>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section footer-brand">
+                <div class="footer-brand-container">
+                    <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3>UTSA NSBE</h3>
+                        <p>National Society of Black Engineers</p>
+                    </div>
+                </div>
+                <p class="footer-description">
+                    Empowering the next generation of Black engineers through academic excellence, 
+                    professional development, and community impact at the University of Texas at San Antonio.
+                </p>
+                <div class="footer-social">
+                    <a href="https://instagram.com/utsansbe" class="footer-social-link instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link linkedin" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#journey" class="footer-social-link journey" aria-label="Our Journey">
+                        <i class="fas fa-rocket"></i>
+                    </a>
+                    <a href="mailto:utsa.nsbe.historian@gmail.com" class="footer-social-link email" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="conferences.html">Conferences</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </div>      
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>San Antonio, TX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 UTSA NSBE. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                </div>
+            </div>
+            <p class="footer-powered">Powered by the National Society of Black Engineers</p>
+        </div>
+    </div>
+</footer>
+
+  <script src="script.js"></script>
+  <script>
+      // Enhanced scroll reveal functionality
+      function revealOnScroll() {
+          const reveals = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
+          
+          reveals.forEach(element => {
+              const windowHeight = window.innerHeight;
+              const elementTop = element.getBoundingClientRect().top;
+              const elementVisible = 150;
+              
+              if (elementTop < windowHeight - elementVisible) {
+                  element.classList.add('revealed');
+              }
+          });
+      }
+      
+      // Enhanced card animations
+      function enhanceCardAnimations() {
+          const cards = document.querySelectorAll('.conference-item, .benefit-card');
+          
+          cards.forEach(card => {
+              card.addEventListener('mouseenter', function() {
+                  this.style.transform = 'translateY(-8px) scale(1.02)';
+              });
+              
+              card.addEventListener('mouseleave', function() {
+                  this.style.transform = 'translateY(0) scale(1)';
+              });
+          });
+      }
+      
+      // Preload background image
+      const preloadImage = new Image();
+      preloadImage.src = 'images/conferencehomephoto.jpg';
+      
+      // Initialize animations when page loads
+      window.addEventListener('load', () => {
+          setTimeout(() => {
+              revealOnScroll();
+              enhanceCardAnimations();
+          }, 500);
+      });
+      
+      window.addEventListener('scroll', revealOnScroll);
+  </script>
+</body>
+</html>
