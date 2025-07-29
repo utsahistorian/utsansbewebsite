@@ -65,6 +65,7 @@
           transform: scale(1);
       }
       
+      /* FIXED BACKGROUND IMAGE IMPLEMENTATION */
       .conference-hero-background {
           position: absolute;
           top: 0;
@@ -76,15 +77,23 @@
           background-position: center;
           background-repeat: no-repeat;
           background-attachment: fixed;
-          filter: brightness(0.5) contrast(0.1) saturate(0.1);
+          filter: brightness(0.4) contrast(1.2) saturate(0.9);
           z-index: 0;
           transition: all 0.3s ease;
       }
 
+      /* Mobile background fix */
+      @media (max-width: 768px) {
+          .conference-hero-background {
+              background-attachment: scroll; /* Fixed attachment doesn't work well on mobile */
+              background-size: cover;
+              background-position: center center;
+          }
+      }
+
       @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
           .conference-hero-background {
-              background-image: url('images/conferencehomephoto.jpg');
-              filter: brightness(0.7) contrast(1.15) saturate(1.15);
+              filter: brightness(0.5) contrast(1.15) saturate(1.1);
           }
       }
       
@@ -556,13 +565,23 @@
           }
       }
 
-      /* Adding background image to the body */
+      /* FIXED: Body background image implementation */
       body {
           background-image: url('images/conferencehomephoto.jpg');
           background-size: cover;
-          background-position: center;
+          background-position: center center;
           background-repeat: no-repeat;
           background-attachment: fixed;
+          min-height: 100vh;
+      }
+
+      /* Mobile body background fix */
+      @media (max-width: 768px) {
+          body {
+              background-attachment: scroll;
+              background-size: cover;
+              background-position: center center;
+          }
       }
   </style>
 </head>
