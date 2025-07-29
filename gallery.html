@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - UTSA NSBE</title>
+    <meta name="description" content="Browse photos from UTSA NSBE events, activities, and memorable moments from the 2024-2025 school year.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="images/logopic.jpg">
+    
+    <!-- Creative Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Gallery-specific styles */
+        .gallery-filter-section {
+            padding: 2rem 0;
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .gallery-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn:hover {
+            background: rgba(0, 255, 255, 0.2);
+            border-color: rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #00ffff, #0080ff);
+            border-color: #00ffff;
+            color: #000;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .gallery-view-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 0.75rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .view-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .view-btn.active {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            border-color: #ff6b6b;
+        }
+
+        .gallery-main-section {
+            padding: 4rem 0;
+            background: rgba(5, 5, 15, 0.98);
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-grid.masonry {
+            columns: 3;
+            column-gap: 2rem;
+        }
+
+        .gallery-grid.masonry .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 2rem;
+        }
+
+        .gallery-item {
+            background: rgba(20, 20, 40, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 255, 255, 0.4);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+        }
+
+        .gallery-image-container {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+            filter: brightness(0.9) contrast(1.1);
+        }
+
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+            filter: brightness(1.1) contrast(1.2);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 255, 255, 0.3) 100%
+            );
+            opacity: 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .overlay-content {
+            text-align: center;
+            color: white;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .overlay-content {
+            transform: translateY(0);
+        }
+
+        .image-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .image-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .image-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 255, 255, 0.8);
+            border-color: #00ffff;
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            padding: 1.5rem;
+        }
+
+        .caption-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .caption-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .caption-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .meta-category {
+            background: linear-gradient(135deg, #00ffff, #0080ff);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .meta-date {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+
+        .gallery-load-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* Lightbox Styles */
+        .gallery-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .lightbox-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            z-index: 10001;
+        }
+
+        .lightbox-title {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .lightbox-close {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        .lightbox-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .lightbox-image-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            z-index: 10001;
+        }
+
+        .lightbox-prev {
+            left: -80px;
+        }
+
+        .lightbox-next {
+            right: -80px;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(0, 255, 255, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lightbox-info {
+            flex: 1;
+        }
+
+        .lightbox-description {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        .lightbox-meta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .lightbox-category {
+            background: linear-gradient(135deg, #00ffff, #0080ff);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .lightbox-date {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .lightbox-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lightbox-action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-action-btn:hover {
+            background: rgba(0, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+
+        .lightbox-thumbnails {
+            margin-top: 1rem;
+            max-height: 100px;
+            overflow-x: auto;
+        }
+
+        .thumbnails-container {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+        }
+
+        .thumbnail-item {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail-item.active {
+            border-color: #00ffff;
+        }
+
+        .thumbnail-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lightbox-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+       /* Enhanced Loading Animation */
+    .loading-screen {
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(0, 212, 255, 0.3);
+      border-top: 3px solid #00d4ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+        /* Enhanced Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 4;
+            padding: 0 2rem;
+            pointer-events: none;
+        }
+        .hero-title {
+    font-family: 'Orbitron', sans-serif;
+        }
+
+        .carousel-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: all;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 4;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .cta-title{
+            font-family: 'Orbitron', sans-serif;
+
+        }
+
+        .indicator.active,
+        .indicator:hover {
+            background-color: #00d4ff;
+            border-color: white;
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+        }
+
+        .upload-guidelines {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(20, 20, 40, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .upload-guidelines h3 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .guidelines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .guideline-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        .guideline-item i {
+            color: #00ffff;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .gallery-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+
+            .gallery-view-controls {
+                justify-content: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .gallery-grid.masonry {
+                columns: 1;
+            }
+
+            .lightbox-container {
+                padding: 1rem;
+            }
+
+            .lightbox-nav {
+                display: none;
+            }
+
+            .lightbox-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .guidelines-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-controls {
+                padding: 0 1rem;
+            }
+            
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                padding: 0.75rem;
+            }
+            
+            .carousel-indicators {
+                bottom: 1.5rem;
+            }
+            
+            .scroll-indicator {
+                bottom: 3rem;
+            }
+            
+            .hero-buttons {
+                
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .gallery-item {
+                margin: 0 0.5rem;
+            }
+
+            .image-actions {
+                gap: 0.25rem;
+            }
+
+            .action-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 0.8rem;
+            }
+
+            .carousel-progress {
+                width: 90%;
+            }
+            
+            .hero-content {
+                padding: 1rem;
+            }
+        }
+
+        /* Hidden class for filtering */
+        .gallery-item.hidden {
+            display: none;
+        }
+
+        /* Animation delays for staggered entrance */
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.7s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.8s; }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-particles">
+            <div class="particle-extra"></div>
+        </div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+            </div>
+            <div class="loading-spinner"></div>
+            <p><strong>Loading Gallery...</strong></p>
+        </div>
+    </div>
+
+    <!-- Enhanced Header -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-background-blur"></div>
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-logo-container">
+                    <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="nav-logo">
+                    <div class="logo-glow"></div>
+                </div>
+                <div class="nav-brand-text">
+                    <h2 class="nav-title">UTSA NSBE</h2>
+                    <p class="nav-subtitle">National Society of Black Engineers</p>
+                </div>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-menu" id="nav-menu">
+                <div class="nav-links-group">
+                    <a href="index.html" class="nav-link">
+                        <i class="fas fa-home"></i> 
+                        <span class="nav-text">Home</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                    <a href="about.html" class="nav-link">
+                        <i class="fas fa-info-circle"></i> 
+                        <span class="nav-text">About</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                    <a href="leadership.html" class="nav-link">
+                        <i class="fas fa-users"></i> 
+                        <span class="nav-text">Leadership</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                    <a href="conferences.html" class="nav-link">
+                        <i class="fas fa-briefcase"></i> 
+                        <span class="nav-text">Conferences</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>                
+                    <a href="gallery.html" class="nav-link active">
+                        <i class="fas fa-image"></i> 
+                        <span class="nav-text">Gallery</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                    <a href="contact.html" class="nav-link">
+                        <i class="fas fa-envelope"></i> 
+                        <span class="nav-text">Contact</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                </div>
+                <div class="nav-social">
+                    <a href="https://instagram.com/utsansbe" class="social-link instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span class="social-tooltip">Instagram</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link linkedin" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                        <span class="social-tooltip">LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Carousel -->
+    <section class="hero">
+        <div class="hero-carousel">
+            <div class="hero-slide active">
+                <div class="slide-background" style="background-image: url('images/galleryslidepage1.jpg');"></div>
+            </div>
+            <div class="hero-slide">
+                <div class="slide-background" style="background-image: url('images/galleryslidepage2.jpg');"></div>
+            </div>
+            <div class="hero-slide">
+                <div class="slide-background" style="background-image: url('images/galleryslidepage3.jpg');"></div>
+            </div>
+        </div>
+        
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-text">GALLERY OF MEMORIES</span>
+                <div class="badge-glow"></div>
+            </div>
+            
+            <h1 class="hero-title">
+                <span class="title-line accent">Gallery</span>
+            </h1>
+            
+            <p class="hero-description">
+                Explore memorable moments from our events, meetings, conferences, and community activities that showcase the spirit and achievements of UTSA NSBE throughout the academic year.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="#gallery-main" class="btn btn-primary btn-lg futuristic-btn">
+                    <i class="fas fa-images"></i>
+                    <span class="btn-text">Browse Gallery</span>
+                    <div class="btn-glow"></div>
+                    <span class="btn-shine"></span>
+                </a>
+                <a href="#upload-photos" class="btn btn-secondary btn-lg futuristic-btn">
+                    <i class="fas fa-upload"></i>
+                    <span class="btn-text">Submit Photos</span>
+                    <div class="btn-glow"></div>
+                    <span class="btn-shine"></span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Enhanced Carousel Controls -->
+        <div class="carousel-controls">
+            <button class="carousel-btn prev" id="prev-slide" aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" id="next-slide" aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
+            <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
+            <button class="indicator" data-slide="2" aria-label="Slide 3"></button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="carousel-progress">
+            <div class="progress-bar"></div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Filter Section -->
+    <section class="gallery-filter-section" id="gallery-filters">
+        <div class="container">
+            <div class="gallery-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-th"></i>
+                        <span>All Photos</span>
+                    </button>
+                    <button class="filter-btn" data-filter="meetings">
+                        <i class="fas fa-users"></i>
+                        <span>Meetings</span>
+                    </button>
+                    <button class="filter-btn" data-filter="events">
+                        <i class="fas fa-calendar-star"></i>
+                        <span>Events</span>
+                    </button>
+                    <button class="filter-btn" data-filter="conferences">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Conferences</span>
+                    </button>
+                    <button class="filter-btn" data-filter="community">
+                        <i class="fas fa-hands-helping"></i>
+                        <span>Community Service</span>
+                    </button>
+                    <button class="filter-btn" data-filter="social">
+                        <i class="fas fa-party-horn"></i>
+                        <span>Social</span>
+                    </button>
+                </div>
+                
+                <div class="gallery-view-controls">
+                    <button class="view-btn active" data-view="grid" aria-label="Grid view">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="masonry" aria-label="Masonry view">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Gallery Section -->
+    <section class="gallery-main-section" id="gallery-main">
+        <div class="container">
+            <div class="gallery-container">
+                <div class="gallery-grid" id="gallery-grid">
+                    <!-- Sample Gallery Items - These would be dynamically generated -->
+                    
+                    <div class="gallery-item" data-category="conferences" data-date="2024-11-08">
+                        <div class="gallery-image-container">
+                            <img src="images/gallery2.jpg" 
+                                 alt="Fall Regional Conference - November 2024" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">Fall Regional Conference</h3>
+                                    <p class="image-date">November 8, 2024</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">Fall Regional Conference</h4>
+                            <p class="caption-description">UTSA NSBE members at the Fall Regional Conference.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Conferences</span>
+                                <span class="meta-date">Nov 8, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Photos -->
+                    <div class="gallery-item" data-category="meetings" data-date="2024-9-05">
+                        <div class="gallery-image-container">
+                            <img src="images/gallerysep5.jpg" 
+                                 alt="First General Body Meeting - September 2024" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">First General Body Meeting</h3>
+                                    <p class="image-date"> September 5, 2024</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">First General Body Meeting</h4>
+                            <p class="caption-description">First General Body Meeting of the 2024-2025 academic year.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Meetings</span>
+                                <span class="meta-date">Sep 5, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="social" data-date="2023-9">
+                        <div class="gallery-image-container">
+                            <img src="images/galleryairport.png" 
+                                 alt="Social Event - November 2023" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">Social Event</h3>
+                                    <p class="image-date">November 2023</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">Social Event</h4>
+                            <p class="caption-description">UTSA NSBE members getting together.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Social</span>
+                                <span class="meta-date">Nov 2023</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item" data-category="events" data-date="2025-2-11">
+                        <div class="gallery-image-container">
+                            <img src="images/gallery1.jpg" 
+                                 alt="Love & Money Workshop - February 2025" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">Love & Money Workshop</h3>
+                                    <p class="image-date">February 11, 2025</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">Love & Money Workshop</h4>
+                            <p class="caption-description">Love & Money Workshop for members.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Events</span>
+                                <span class="meta-date">Feb 11, 2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conference Photos -->
+                    <div class="gallery-item" data-category="conferences" data-date="2025-03-06">
+                        <div class="gallery-image-container">
+                            <img src="images/gallery3.jpg" 
+                                 alt="NSBE 51 Annual Conference - March 2025" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">NSBE 51 Annual Conference</h3>
+                                    <p class="image-date">March 6th, 2025</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">NSBE 51 Annual Conference</h4>
+                            <p class="caption-description">UTSA NSBE members at the NSBE 51 Annual Conference.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Conferences</span>
+                                <span class="meta-date">Mar 6, 2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Community Service Photos -->
+                    <div class="gallery-item" data-category="events" data-date="2024-12-05">
+                        <div class="gallery-image-container">
+                            <img src="images/gallery4.png" 
+                                 alt="Community Service - December 2024" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">BestFest</h3>
+                                    <p class="image-date">October 18, 2024</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">BestFest</h4>
+                            <p class="caption-description">NSBE Members Tabling at UTSA BestFest.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Events</span>
+                                <span class="meta-date">Oct 18, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Event Photos -->
+                    <div class="gallery-item" data-category="community" data-date="2024-11-16">
+                        <div class="gallery-image-container">
+                            <img src="images/gallery5nov16.jpg" 
+                                 alt="Community Service at Salvation Army with Accenture - November 2024" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">Community Service at Salvation Army with Accenture</h3>
+                                    <p class="image-date">November 16, 2024</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">Community Service at Salvation Army with Accenture</h4>
+                            <p class="caption-description">Holiday gathering building community bonds.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Community Service</span>
+                                <span class="meta-date">Nov 16, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Meeting Photos -->
+                    <div class="gallery-item" data-category="meetings" data-date="2025-02-04">
+                        <div class="gallery-image-container">
+                            <img src="images/galleryyahoo.JPG" 
+                                 alt="NSBE X YAHOO! X SHPE Meeting - February 2025" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">NSBE X YAHOO! X SHPE Meeting</h3>
+                                    <p class="image-date">February 04, 2025</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">NSBE X YAHOO! X SHPE Meeting</h4>
+                            <p class="caption-description">Meeting with YAHOO! and SHPE members.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Meetings</span>
+                                <span class="meta-date">Feb 04, 2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More Event Photos -->
+                    <div class="gallery-item" data-category="meetings" data-date="2024-10-23">
+                        <div class="gallery-image-container">
+                            <img src="images/gallerycore4ceoct23.jpg" 
+                                 alt="Career Fair Prep - September 2024" 
+                                 class="gallery-image lazy"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h3 class="image-title">NSBE X Core4ce Meeting</h3>
+                                    <p class="image-date">October 23, 2024</p>
+                                    <div class="image-actions">
+                                        <button class="action-btn view-btn-action" data-action="view">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn share-btn" data-action="share">
+                                            <i class="fas fa-share"></i>
+                                        </button>
+                                        <button class="action-btn download-btn" data-action="download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gallery-caption">
+                            <h4 class="caption-title">NSBE X Core4ce Meeting</h4>
+                            <p class="caption-description">Professional development with Core4ce for career opportunities.</p>
+                            <div class="caption-meta">
+                                <span class="meta-category">Meetings</span>
+                                <span class="meta-date">Oct 23, 2024</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Social Photos -->
+    </section>
+
+    <!-- Gallery Lightbox Modal -->
+    <div class="gallery-lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+        <div class="lightbox-overlay" aria-hidden="true"></div>
+        <div class="lightbox-container">
+            <div class="lightbox-header">
+                <h2 class="lightbox-title" id="lightbox-title">Image Title</h2>
+                <button class="lightbox-close" aria-label="Close lightbox">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="lightbox-content">
+                <button class="lightbox-nav lightbox-prev" aria-label="Previous image">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="lightbox-image-container">
+                    <img class="lightbox-image" src="/placeholder.svg" alt="" loading="lazy">
+                    <div class="lightbox-loading">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+                
+                <button class="lightbox-nav lightbox-next" aria-label="Next image">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="lightbox-footer">
+                <div class="lightbox-info">
+                    <p class="lightbox-description">Image description</p>
+                    <div class="lightbox-meta">
+                        <span class="lightbox-category">Category</span>
+                        <span class="lightbox-date">Date</span>
+                    </div>
+                </div>
+                
+                <div class="lightbox-actions">
+                    <button class="lightbox-action-btn" data-action="share" aria-label="Share image">
+                        <i class="fas fa-share"></i>
+                    </button>
+                    <button class="lightbox-action-btn" data-action="download" aria-label="Download image">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="lightbox-action-btn" data-action="fullscreen" aria-label="Toggle fullscreen">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="lightbox-thumbnails">
+                <div class="thumbnails-container" id="lightbox-thumbnails">
+                    <!-- Thumbnails will be dynamically generated -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Photos CTA Section -->
+    <section class="cta" id="upload-photos">
+        <div class="container">
+            <div class="cta-content">
+                <div class="cta-badge">
+                    <span class="badge-text">CONTRIBUTE TO OUR GALLERY</span>
+                    <div class="badge-glow"></div>
+                </div>
+                
+                <h2 class="cta-title">Share Your <span class="gradient-text">Memories</span></h2>
+                <p class="cta-description">
+                    Help us build our gallery by sharing your photos from UTSA NSBE events. Your contributions help document our journey and create lasting memories for our community.
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn btn-primary btn-lg futuristic-btn">
+                        <i class="fas fa-camera"></i>
+                        <span class="btn-text">Submit Photos</span>
+                        <div class="btn-glow"></div>
+                        <span class="btn-shine"></span>
+                    </a>
+                    <a href="https://instagram.com/utsansbe" class="btn btn-secondary btn-lg futuristic-btn" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-hashtag"></i>
+                        <span class="btn-text">Tag Us on Social</span>
+                        <div class="btn-glow"></div>
+                        <span class="btn-shine"></span>
+                    </a>
+                </div>
+                
+                <div class="upload-guidelines">
+                    <h3>Photo Submission Guidelines</h3>
+                    <div class="guidelines-grid">
+                        <div class="guideline-item">
+                            <i class="fas fa-image"></i>
+                            <span>High-quality images (min 1080p)</span>
+                        </div>
+                        <div class="guideline-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Include event date and description</span>
+                        </div>
+                        <div class="guideline-item">
+                            <i class="fas fa-users"></i>
+                            <span>Get permission from people in photos</span>
+                        </div>
+                        <div class="guideline-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>NSBE-related events only</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-brand">
+                    <div class="footer-brand-container">
+                        <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="footer-logo">
+                        <div class="footer-brand-text">
+                            <h3>UTSA NSBE</h3>
+                            <p>National Society of Black Engineers</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Empowering the next generation of Black engineers through academic excellence, 
+                        professional development, and community impact at the University of Texas at San Antonio.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://instagram.com/utsansbe" class="footer-social-link instagram" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link linkedin" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:utsa.nsbe.historian@gmail.com" class="footer-social-link email" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="leadership.html">Leadership</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="conferences.html">Conferences</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+                </div>      
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>San Antonio, TX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 UTSA NSBE. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                    </div>
+                </div>
+                <p class="footer-powered">Powered by the National Society of Black Engineers</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    
+    <script>
+        // About Page Slideshow Functionality (adapted for Gallery)
+        class GalleryPageSlideshow {
+            constructor() {
+                this.currentSlide = 0;
+                this.slides = document.querySelectorAll('.hero-slide');
+                this.indicators = document.querySelectorAll('.indicator');
+                this.prevBtn = document.getElementById('prev-slide');
+                this.nextBtn = document.getElementById('next-slide');
+                this.progressBar = document.querySelector('.progress-bar');
+                this.autoPlayInterval = null;
+                this.slideInterval = 6000; // 6 seconds
+                
+                this.init();
+            }
+            
+            init() {
+                if (this.slides.length === 0) return;
+                
+                this.setupEventListeners();
+                this.startAutoPlay();
+                this.startProgressBar();
+            }
+            
+            setupEventListeners() {
+                // Navigation buttons
+                this.prevBtn?.addEventListener('click', () => {
+                    this.prevSlide();
+                    this.resetAutoPlay();
+                });
+                
+                this.nextBtn?.addEventListener('click', () => {
+                    this.nextSlide();
+                    this.resetAutoPlay();
+                });
+                
+                // Indicator buttons
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        this.goToSlide(index);
+                        this.resetAutoPlay();
+                    });
+                });
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        this.prevSlide();
+                        this.resetAutoPlay();
+                    } else if (e.key === 'ArrowRight') {
+                        this.nextSlide();
+                        this.resetAutoPlay();
+                    }
+                });
+                
+                // Pause on hover
+                const heroSection = document.querySelector('.hero');
+                heroSection?.addEventListener('mouseenter', () => this.pauseAutoPlay());
+                heroSection?.addEventListener('mouseleave', () => this.startAutoPlay());
+                
+                // Touch/swipe support
+                this.addTouchSupport();
+            }
+            
+            goToSlide(index) {
+                // Remove active class from current slide and indicator
+                this.slides[this.currentSlide]?.classList.remove('active');
+                this.indicators[this.currentSlide]?.classList.remove('active');
+                
+                // Update current slide
+                this.currentSlide = index;
+                
+                // Add active class to new slide and indicator
+                this.slides[this.currentSlide]?.classList.add('active');
+                this.indicators[this.currentSlide]?.classList.add('active');
+                
+                // Restart progress bar
+                this.startProgressBar();
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentSlide + 1) % this.slides.length;
+                this.goToSlide(nextIndex);
+            }
+            
+            prevSlide() {
+                const prevIndex = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+                this.goToSlide(prevIndex);
+            }
+            
+            startAutoPlay() {
+                this.pauseAutoPlay(); // Clear any existing interval
+                this.autoPlayInterval = setInterval(() => {
+                    this.nextSlide();
+                }, this.slideInterval);
+            }
+            
+            pauseAutoPlay() {
+                if (this.autoPlayInterval) {
+                    clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                }
+            }
+            
+            resetAutoPlay() {
+                this.pauseAutoPlay();
+                setTimeout(() => this.startAutoPlay(), 3000); // Resume after 3 seconds
+            }
+            
+            startProgressBar() {
+                if (!this.progressBar) return;
+                
+                // Reset progress bar
+                this.progressBar.style.width = '0%';
+                this.progressBar.style.transition = 'none';
+                
+                // Force reflow
+                void this.progressBar.offsetWidth;
+                
+                // Start progress animation
+                this.progressBar.style.transition = `width ${this.slideInterval}ms linear`;
+                this.progressBar.style.width = '100%';
+            }
+            
+            addTouchSupport() {
+                const heroSection = document.querySelector('.hero');
+                if (!heroSection) return;
+                
+                let startX = 0;
+                let startY = 0;
+                let distX = 0;
+                let distY = 0;
+                const threshold = 100;
+                const restraint = 100;
+                
+                heroSection.addEventListener('touchstart', (e) => {
+                    const touchobj = e.changedTouches[0];
+                    startX = touchobj.pageX;
+                    startY = touchobj.pageY;
+                }, { passive: true });
+                
+                heroSection.addEventListener('touchend', (e) => {
+                    const touchobj = e.changedTouches[0];
+                    distX = touchobj.pageX - startX;
+                    distY = touchobj.pageY - startY;
+                    
+                    if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+                        if (distX > 0) {
+                            this.prevSlide();
+                        } else {
+                            this.nextSlide();
+                        }
+                        this.resetAutoPlay();
+                    }
+                }, { passive: true });
+            }
+        }
+
+        // Initialize the gallery slideshow
+        new GalleryPageSlideshow();
+        
+        // Gallery-specific JavaScript functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gallery elements
+            const galleryGrid = document.getElementById('gallery-grid');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const viewButtons = document.querySelectorAll('.view-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('gallery-lightbox');
+            const lightboxImage = document.querySelector('.lightbox-image');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxDescription = document.querySelector('.lightbox-description');
+            const lightboxCategory = document.querySelector('.lightbox-category');
+            const lightboxDate = document.querySelector('.lightbox-date');
+            const lightboxClose = document.querySelector('.lightbox-close');
+            const lightboxOverlay = document.querySelector('.lightbox-overlay');
+            const lightboxPrev = document.querySelector('.lightbox-prev');
+            const lightboxNext = document.querySelector('.lightbox-next');
+            const loadMoreBtn = document.getElementById('load-more-btn');
+
+            let currentImageIndex = 0;
+            let currentFilter = 'all';
+            let visibleItems = [];
+
+            // Initialize gallery
+            initializeGallery();
+
+            function initializeGallery() {
+                updateVisibleItems();
+                animateStats();
+                setupEventListeners();
+            }
+
+            function setupEventListeners() {
+                // Filter buttons
+                filterButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const filter = this.dataset.filter;
+                        setActiveFilter(this);
+                        filterGallery(filter);
+                    });
+                });
+
+                // View buttons
+                viewButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const view = this.dataset.view;
+                        setActiveView(this);
+                        changeView(view);
+                    });
+                });
+
+                // Gallery item clicks
+                galleryItems.forEach((item, index) => {
+                    const viewBtn = item.querySelector('.view-btn-action');
+                    const shareBtn = item.querySelector('.share-btn');
+                    const downloadBtn = item.querySelector('.download-btn');
+
+                    if (viewBtn) {
+                        viewBtn.addEventListener('click', () => openLightbox(index));
+                    }
+
+                    if (shareBtn) {
+                        shareBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            shareImage(item);
+                        });
+                    }
+
+                    if (downloadBtn) {
+                        downloadBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            downloadImage(item);
+                        });
+                    }
+
+                    // Click on image to open lightbox
+                    const imageContainer = item.querySelector('.gallery-image-container');
+                    if (imageContainer) {
+                        imageContainer.addEventListener('click', () => openLightbox(index));
+                    }
+                });
+
+                // Lightbox controls
+                if (lightboxClose) {
+                    lightboxClose.addEventListener('click', closeLightbox);
+                }
+
+                if (lightboxOverlay) {
+                    lightboxOverlay.addEventListener('click', closeLightbox);
+                }
+
+                if (lightboxPrev) {
+                    lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+                }
+
+                if (lightboxNext) {
+                    lightboxNext.addEventListener('click', () => navigateLightbox(1));
+                }
+
+                // Keyboard navigation
+                document.addEventListener('keydown', handleKeyboardNavigation);
+
+                // Load more button
+                if (loadMoreBtn) {
+                    loadMoreBtn.addEventListener('click', loadMoreImages);
+                }
+
+                // Lightbox action buttons
+                const lightboxActions = document.querySelectorAll('.lightbox-action-btn');
+                lightboxActions.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const action = this.dataset.action;
+                        handleLightboxAction(action);
+                    });
+                });
+            }
+
+            function setActiveFilter(activeButton) {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                activeButton.classList.add('active');
+            }
+
+            function setActiveView(activeButton) {
+                viewButtons.forEach(btn => btn.classList.remove('active'));
+                activeButton.classList.add('active');
+            }
+
+            function filterGallery(filter) {
+                currentFilter = filter;
+                
+                galleryItems.forEach(item => {
+                    const category = item.dataset.category;
+                    
+                    if (filter === 'all' || category === filter) {
+                        item.classList.remove('hidden');
+                        item.style.animation = 'fadeInUp 0.6s ease forwards';
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                updateVisibleItems();
+            }
+
+            function changeView(view) {
+                if (view === 'masonry') {
+                    galleryGrid.classList.add('masonry');
+                } else {
+                    galleryGrid.classList.remove('masonry');
+                }
+            }
+
+            function updateVisibleItems() {
+                visibleItems = Array.from(galleryItems).filter(item => 
+                    !item.classList.contains('hidden')
+                );
+            }
+
+            function openLightbox(index) {
+                const item = visibleItems[index];
+                if (!item) return;
+
+                currentImageIndex = index;
+                
+                const img = item.querySelector('.gallery-image');
+                const title = item.querySelector('.caption-title').textContent;
+                const description = item.querySelector('.caption-description').textContent;
+                const category = item.querySelector('.meta-category').textContent;
+                const date = item.querySelector('.meta-date').textContent;
+
+                lightboxImage.src = img.src;
+                lightboxImage.alt = img.alt;
+                lightboxTitle.textContent = title;
+                lightboxDescription.textContent = description;
+                lightboxCategory.textContent = category;
+                lightboxDate.textContent = date;
+
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Generate thumbnails
+                generateThumbnails();
+            }
+
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            function navigateLightbox(direction) {
+                currentImageIndex += direction;
+                
+                if (currentImageIndex < 0) {
+                    currentImageIndex = visibleItems.length - 1;
+                } else if (currentImageIndex >= visibleItems.length) {
+                    currentImageIndex = 0;
+                }
+
+                openLightbox(currentImageIndex);
+            }
+
+            function generateThumbnails() {
+                const thumbnailsContainer = document.getElementById('lightbox-thumbnails');
+                thumbnailsContainer.innerHTML = '';
+
+                visibleItems.forEach((item, index) => {
+                    const img = item.querySelector('.gallery-image');
+                    const thumbnailItem = document.createElement('div');
+                    thumbnailItem.className = 'thumbnail-item';
+                    if (index === currentImageIndex) {
+                        thumbnailItem.classList.add('active');
+                    }
+
+                    const thumbnailImg = document.createElement('img');
+                    thumbnailImg.src = img.src;
+                    thumbnailImg.alt = img.alt;
+
+                    thumbnailItem.appendChild(thumbnailImg);
+                    thumbnailItem.addEventListener('click', () => openLightbox(index));
+                    
+                    thumbnailsContainer.appendChild(thumbnailItem);
+                });
+            }
+
+            function handleKeyboardNavigation(e) {
+                if (!lightbox.classList.contains('active')) return;
+
+                switch(e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        navigateLightbox(-1);
+                        break;
+                    case 'ArrowRight':
+                        navigateLightbox(1);
+                        break;
+                }
+            }
+
+            function handleLightboxAction(action) {
+                const currentItem = visibleItems[currentImageIndex];
+                if (!currentItem) return;
+
+                switch(action) {
+                    case 'share':
+                        shareImage(currentItem);
+                        break;
+                    case 'download':
+                        downloadImage(currentItem);
+                        break;
+                    case 'fullscreen':
+                        toggleFullscreen();
+                        break;
+                }
+            }
+
+            function shareImage(item) {
+                const img = item.querySelector('.gallery-image');
+                const title = item.querySelector('.caption-title').textContent;
+                
+                if (navigator.share) {
+                    navigator.share({
+                        title: `UTSA NSBE - ${title}`,
+                        text: `Check out this photo from UTSA NSBE: ${title}`,
+                        url: window.location.href
+                    }).catch(console.error);
+                } else {
+                    // Fallback: copy URL to clipboard
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        showNotification('Link copied to clipboard!');
+                    }).catch(() => {
+                        showNotification('Unable to share image');
+                    });
+                }
+            }
+
+            function downloadImage(item) {
+                const img = item.querySelector('.gallery-image');
+                const title = item.querySelector('.caption-title').textContent;
+                
+                const link = document.createElement('a');
+                link.href = img.src;
+                link.download = `UTSA_NSBE_${title.replace(/\s+/g, '_')}.jpg`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showNotification('Image download started!');
+            }
+
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    lightbox.requestFullscreen().catch(err => {
+                        console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+
+            function loadMoreImages() {
+                // Simulate loading more images
+                showNotification('Loading more photos...');
+                
+                // In a real implementation, this would fetch more images from a server
+                setTimeout(() => {
+                    showNotification('All photos loaded!');
+                    loadMoreBtn.style.display = 'none';
+                }, 2000);
+            }
+
+            function showNotification(message) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #00ffff, #0080ff);
+                    color: #000;
+                    padding: 1rem 1.5rem;
+                    border-radius: 10px;
+                    font-weight: 600;
+                    z-index: 10002;
+                    transform: translateX(100%);
+                    transition: transform 0.3s ease;
+                    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+                `;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                // Animate in
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+
+            function animateStats() {
+                const statNumbers = document.querySelectorAll('.stat-number');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const target = entry.target;
+                            const finalValue = parseInt(target.dataset.count);
+                            animateNumber(target, 0, finalValue, 2000);
+                            observer.unobserve(target);
+                        }
+                    });
+                });
+
+                statNumbers.forEach(stat => {
+                    observer.observe(stat);
+                });
+            }
+
+            function animateNumber(element, start, end, duration) {
+                const startTime = performance.now();
+                
+                function updateNumber(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    const current = Math.floor(start + (end - start) * easeOutQuart(progress));
+                    element.textContent = current;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateNumber);
+                    }
+                }
+                
+                requestAnimationFrame(updateNumber);
+            }
+
+            function easeOutQuart(t) {
+                return 1 - Math.pow(1 - t, 4);
+            }
+
+            // Lazy loading for images
+            const lazyImages = document.querySelectorAll('.gallery-image.lazy');
+            
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(img => {
+                imageObserver.observe(img);
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Footer gallery category links
+            const footerGalleryLinks = document.querySelectorAll('.footer-links a[data-filter]');
+            footerGalleryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const filter = this.dataset.filter;
+                    
+                    // Scroll to gallery section
+                    document.getElementById('gallery-main').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Apply filter after scroll
+                    setTimeout(() => {
+                        const filterBtn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+                        if (filterBtn) {
+                            filterBtn.click();
+                        }
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

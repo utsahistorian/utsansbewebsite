@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - UTSA NSBE</title>
+    <meta name="description" content="Learn about UTSA NSBE's mission, vision, history, and values. Discover how we're empowering the next generation of Black engineers.">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="images/logopic.jpg">
+
+    <!-- Creative Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        /* Enhanced About Page Specific Styles */
+        .about-hero { 
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--navy-blue) 50%, var(--bg-primary) 100%);
+        }
+
+        /* Enhanced Scroll Animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scroll-reveal-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-reveal-scale.revealed {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Hero Carousel Styles */
+        .hero-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .slide-background {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.4);
+            transform: scale(1.1);
+            transition: transform 8s ease-in-out;
+        }
+
+        .hero-slide.active .slide-background {
+            transform: scale(1);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.4) 0%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.6) 100%
+            );
+            z-index: 1;
+        }
+
+        /* Enhanced Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 4;
+            padding: 0 2rem;
+            pointer-events: none;
+        }
+
+        .carousel-btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: all;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.75rem;
+            z-index: 4;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .indicator.active,
+        .indicator:hover {
+            background-color: #00d4ff;
+            border-color: white;
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+        }
+
+        /* Progress Bar */
+        .carousel-progress {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 400px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            z-index: 4;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            animation: bounce-fade 2s infinite;
+            z-index: 4;
+        }
+
+        .scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid #00d4ff;
+            border-bottom: 2px solid #00d4ff;
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce-fade {
+            0%, 100% {
+                transform: translateY(0) translateX(-50%);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(10px) translateX(-50%);
+                opacity: 0.6;
+            }
+        }
+
+        .hero-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 107, 53, 0.6);
+            border-radius: 50%;
+            animation: float-particle 15s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; top: 60%; left: 20%; animation-delay: 2s; background: rgba(255, 159, 67, 0.6); }
+        .particle:nth-child(3) { width: 3px; height: 3px; top: 40%; left: 70%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; top: 80%; left: 80%; animation-delay: 6s; background: rgba(255, 159, 67, 0.6); }
+        .particle:nth-child(5) { width: 4px; height: 4px; top: 30%; left: 90%; animation-delay: 8s; }
+
+        @keyframes float-particle {
+            0%, 100% { transform: translateY(0px) translateX(0px) scale(1); opacity: 0.7; }
+            25% { transform: translateY(-20px) translateX(10px) scale(1.1); opacity: 1; }
+            50% { transform: translateY(-40px) translateX(-5px) scale(0.9); opacity: 0.8; }
+            75% { transform: translateY(-20px) translateX(-10px) scale(1.05); opacity: 0.9; }
+        }
+
+        .hero-content-enhanced {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 1000px;
+            padding: 2rem;
+        }
+
+        .hero-badge-enhanced {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-orange);
+            position: relative;
+            overflow: hidden;
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(255, 107, 53, 0.3); }
+            100% { box-shadow: 0 0 40px rgba(255, 107, 53, 0.6); }
+        }
+
+        /* Match index.html hero title styling exactly */
+        .hero-title-enhanced {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            color: white;
+        }
+
+        .hero-title-enhanced .accent {
+            background: linear-gradient(45deg, #ff6b35, #ff9f43);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Match index.html hero description styling exactly */
+        .hero-description-enhanced {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* Enhanced Hero Animations */
+        .hero-title .title-line {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100px);
+            animation: heroTitleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .hero-title .title-line:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .hero-title .title-line:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes heroTitleReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-description {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 0.8s forwards;
+        }
+
+        .hero-buttons {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced Mission Section */
+        .mission-enhanced {
+            padding: 120px 0;
+            position: relative;
+            background: var(--bg-primary);
+            overflow: hidden;
+        }
+
+        .mission-enhanced::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 159, 67, 0.08) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .mission-content-enhanced {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .mission-text-enhanced {
+            padding: 2rem;
+        }
+
+        .mission-icon-enhanced {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .mission-icon-enhanced::before {
+            content: "";
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border: 2px dashed rgba(255, 107, 53, 0.4);
+            border-radius: 50%;
+            animation: rotate-orbit 20s linear infinite;
+        }
+
+        @keyframes rotate-orbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .mission-title-enhanced {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mission-description-enhanced {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .mission-quote {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--primary-orange);
+            padding: 1.5rem;
+            border-radius: 0 15px 15px 0;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .mission-quote::before {
+            font-size: 4rem;
+            color: var(--primary-orange);
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            font-family: serif;
+        }
+
+        .mission-visual {
+            position: relative;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mission-visual-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
+        }
+
+        .mission-visual::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/placeholder.svg?height=500&width=600&text=Mission+Visual') center/cover;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        /* Enhanced Values Section */
+        .values-enhanced {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .values-grid-enhanced {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .value-card-enhanced {
+            background: var(--bg-glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+        }
+
+        .value-card-enhanced::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 159, 67, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .value-card-enhanced:hover::before {
+            opacity: 1;
+        }
+
+        .value-card-enhanced:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-orange);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .value-icon-enhanced {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .value-title-enhanced {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-description-enhanced {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Completely Revamped History Section */
+        .history-enhanced {
+            padding: 120px 0;
+            background: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-enhanced::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 153, 204, 0.08) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        /* New Interactive Timeline Cards Layout */
+        .history-timeline-revamped {
+            position: relative;
+            max-width: 1400px;
+            margin: 4rem auto 0;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .timeline-card-revamped {
+            background: var(--bg-glass);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 25px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideInUp 0.8s ease-out forwards;
+        }
+
+        .timeline-card-revamped:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-card-revamped:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-card-revamped:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-card-revamped:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-card-revamped:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-card-revamped::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.05) 100%);
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .timeline-card-revamped:hover::before {
+            opacity: 1;
+        }
+
+        .timeline-card-revamped:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: #00d4ff;
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Floating Year Badge */
+        .timeline-year-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 800;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card-revamped:hover .timeline-year-badge {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.6);
+        }
+
+        /* Icon Container */
+        .timeline-icon-container {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 204, 0.2));
+            border: 2px solid #00d4ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card-revamped:hover .timeline-icon-container {
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            color: white;
+            transform: rotate(360deg);
+        }
+
+        /* Content Styling */
+        .timeline-content-revamped {
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-title-revamped {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timeline-description-revamped {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Interactive Elements */
+        .timeline-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+            margin-top: 1rem;
+        }
+
+        .timeline-impact {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        .timeline-expand-btn {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: #00d4ff;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-expand-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Connecting Lines Animation */
+        .timeline-connector {
+            position: absolute;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(135deg, #00d4ff, #0099cc);
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.6;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleY(1); }
+            50% { opacity: 1; transform: translateX(-50%) scaleY(1.2); }
+        }
+
+        /* Enhanced History Statistics */
+        .history-stats-revamped {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 6rem;
+            padding: 4rem 2rem;
+            background: rgba(0, 212, 255, 0.05);
+            border-radius: 30px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .history-stats-revamped::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.history-stat-revamped {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.history-stat-number-revamped {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.history-stat-number-revamped::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    border-radius: 2px;
+}
+
+.history-stat-label-revamped {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.history-stat-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Interactive Timeline Navigation */
+.timeline-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+.h2{
+    font-family: 'Orbitron', sans-serif;
+}
+
+.timeline-nav-btn {
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    color: #00d4ff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-nav-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.timeline-nav-btn:hover::before {
+    left: 100%;
+}
+
+.timeline-nav-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: #00d4ff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+}
+
+.timeline-nav-btn.active {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: white;
+    border-color: #00d4ff;
+}
+
+/* Responsive Design for New Timeline */
+@media (max-width: 768px) {
+    .history-timeline-revamped {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .timeline-card-revamped {
+        padding: 2rem;
+    }
+    
+    .timeline-year-badge {
+        top: -10px;
+        right: 15px;
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .timeline-icon-container {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+    
+    .timeline-title-revamped {
+        font-size: 1.5rem;
+    }
+    
+    .history-stats-revamped {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 2rem 1rem;
+    }
+    
+    .history-stat-number-revamped {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-card-revamped {
+        padding: 1.5rem;
+    }
+    
+    .history-stats-revamped {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline-navigation {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .timeline-nav-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+\`\`\`
+
+\`\`\`css
+/* Completely Revamped History Section */
+.history-enhanced {
+    padding: 120px 0;
+    background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.history-enhanced::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(0, 153, 204, 0.08) 0%, transparent 50%);
+    z-index: 0;
+}
+
+/* New Interactive Timeline Cards Layout */
+.history-timeline-revamped {
+    position: relative;
+    max-width: 1400px;
+    margin: 4rem auto 0;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    padding: 0 2rem;
+}
+
+.timeline-card-revamped {
+    background: var(--bg-glass);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 25px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transform: translateY(50px);
+    opacity: 0;
+    animation: slideInUp 0.8s ease-out forwards;
+}
+
+.timeline-card-revamped:nth-child(1) { animation-delay: 0.1s; }
+.timeline-card-revamped:nth-child(2) { animation-delay: 0.2s; }
+.timeline-card-revamped:nth-child(3) { animation-delay: 0.3s; }
+.timeline-card-revamped:nth-child(4) { animation-delay: 0.4s; }
+.timeline-card-revamped:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes slideInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-card-revamped::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 153, 204, 0.05) 100%);
+    border-radius: 25px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.timeline-card-revamped:hover::before {
+    opacity: 1;
+}
+
+.timeline-card-revamped:hover {
+    transform: translateY(-15px) scale(1.03);
+    border-color: #00d4ff;
+    box-shadow: 0 25px 50px rgba(0, 212, 255, 0.3);
+}
+
+/* Floating Year Badge */
+.timeline-year-badge {
+    position: absolute;
+    top: -15px;
+    right: 20px;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 800;
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.timeline-card-revamped:hover .timeline-year-badge {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(0, 212, 255, 0.6);
+}
+
+/* Icon Container */
+.timeline-icon-container {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 204, 0.2));
+    border: 2px solid #00d4ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #00d4ff;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.timeline-card-revamped:hover .timeline-icon-container {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: white;
+    transform: rotate(360deg);
+}
+
+/* Content Styling */
+.timeline-content-revamped {
+    position: relative;
+    z-index: 1;
+}
+
+.timeline-title-revamped {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.timeline-description-revamped {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Interactive Elements */
+.timeline-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 212, 255, 0.2);
+    margin-top: 1rem;
+}
+
+.timeline-impact {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #00d4ff;
+    font-weight: 600;
+}
+
+.timeline-expand-btn {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    color: #00d4ff;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timeline-expand-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Connecting Lines Animation */
+.timeline-connector {
+    position: absolute;
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.6;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleY(1); }
+    50% { opacity: 1; transform: translateX(-50%) scaleY(1.2); }
+}
+
+/* Enhanced History Statistics */
+.history-stats-revamped {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 6rem;
+    padding: 4rem 2rem;
+    background: rgba(0, 212, 255, 0.05);
+    border-radius: 30px;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.history-stats-revamped::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 50%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.history-stat-revamped {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.history-stat-number-revamped {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.history-stat-number-revamped::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    border-radius: 2px;
+}
+
+.history-stat-label-revamped {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.history-stat-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Interactive Timeline Navigation */
+.timeline-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.timeline-nav-btn {
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px solid rgba(0, 212, 255, 0.3);
+    color: #00d4ff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-nav-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.timeline-nav-btn:hover::before {
+    left: 100%;
+}
+
+.timeline-nav-btn:hover {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: #00d4ff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+}
+
+.timeline-nav-btn.active {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: white;
+    border-color: #00d4ff;
+}
+
+/* Responsive Design for New Timeline */
+@media (max-width: 768px) {
+    .history-timeline-revamped {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .timeline-card-revamped {
+        padding: 2rem;
+    }
+    
+    .timeline-year-badge {
+        top: -10px;
+        right: 15px;
+        padding: 0.6rem 1.2rem;
+        font-size: 1rem;
+    }
+    
+    .timeline-icon-container {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+    
+    .timeline-title-revamped {
+        font-size: 1.5rem;
+    }
+    
+    .history-stats-revamped {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        padding: 2rem 1rem;
+    }
+    
+    .history-stat-number-revamped {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline-card-revamped {
+        padding: 1.5rem;
+    }
+    
+    .history-stats-revamped {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline-navigation {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .timeline-nav-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+\`\`\`
+
+    /* Interactive Section */
+        .interactive-section {
+            padding: 120px 0;
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .interactive-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .interactive-card {
+            background: var(--bg-glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--primary-orange);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .interactive-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .interactive-card:hover::before {
+            left: 100%;
+        }
+
+        /* Footer Hover Fix */
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-orange);
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            color: var(--primary-orange);
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover i {
+            transform: scale(1.1);
+        }
+
+        .footer-contact .contact-item a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-contact .contact-item a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--primary-orange);
+        }
+
+        .footer-social-link {
+            position: relative;
+            z-index: 2;
+            pointer-events: auto;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social-link:hover {
+            color: var(--primary-orange) !important;
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Loading Animation */
+        .loading-screen {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 107, 53, 0.3);
+            border-top: 3px solid var(--primary-orange);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-spinner p{
+      font: bold;
+    }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .carousel-controls {
+                padding: 0 1rem;
+            }
+            
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+                padding: 0.75rem;
+            }
+            
+            .carousel-indicators {
+                bottom: 1.5rem;
+            }
+            
+            .scroll-indicator {
+                bottom: 3rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .mission-content-enhanced {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .timeline-item-enhanced,
+            .timeline-item-enhanced:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .timeline-content-enhanced {
+                margin: 1rem 0;
+            }
+            
+            .timeline-content-enhanced::after {
+                display: none;
+            }
+            
+            .history-timeline-enhanced::before {
+                left: 30px;
+            }
+            
+            .timeline-year-enhanced {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                margin-bottom: 1rem;
+            }
+            
+            .history-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-progress {
+                width: 90%;
+            }
+            
+            .hero-content-enhanced {
+                padding: 1rem;
+            }
+            
+            .history-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-particles"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+            </div>
+            <div class="loading-spinner"></div>
+            <p><strong>Loading About...</strong></p>
+        </div>
+    </div>
+
+    <!-- Enhanced Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-background-blur"></div>
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">
+                <div class="nav-logo-container">
+                    <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="nav-logo">
+                    <div class="logo-glow"></div>
+                </div>
+                <div class="nav-brand-text">
+                    <h2 class="nav-title">UTSA NSBE</h2>
+                    <p class="nav-subtitle">National Society of Black Engineers</p>
+                </div>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div class="nav-menu" id="nav-menu">
+                <div class="nav-links-group">
+                    <a href="index.html" class="nav-link active">
+                        <i class="fas fa-home"></i> 
+                        <span class="nav-text">Home</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                    <a href="about.html" class="nav-link">
+                        <i class="fas fa-info-circle"></i> 
+                        <span class="nav-text">About</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                    <a href="leadership.html" class="nav-link">
+                        <i class="fas fa-users"></i> 
+                        <span class="nav-text">Leadership</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                    <a href="conferences.html" class="nav-link">
+                        <i class="fas fa-briefcase"></i> 
+                        <span class="nav-text">Conferences</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>                
+                    <a href="gallery.html" class="nav-link">
+                        <i class="fas fa-image"></i> 
+                        <span class="nav-text">Gallery</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                    <a href="contact.html" class="nav-link">
+                        <i class="fas fa-envelope"></i> 
+                        <span class="nav-text">Contact</span>
+                        <span class="nav-link-indicator"></span>
+                    </a>
+                </div>
+                <div class="nav-social">
+                    <a href="https://instagram.com/utsansbe" class="social-link instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span class="social-tooltip">Instagram</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link linkedin" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                        <span class="social-tooltip">LinkedIn</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Enhanced Hero Section with Slideshow -->
+    <section class="about-hero" id="about-hero-carousel">
+        <div class="hero-carousel">
+            <div class="hero-slide active" data-slide="0">
+                <div class="slide-background" style="background-image: url('images/about1.jpg');"></div>
+            </div>
+            <div class="hero-slide" data-slide="1">
+                <div class="slide-background" style="background-image: url('images/about2.jpg');"></div>
+            </div>
+            <div class="hero-slide" data-slide="2">
+                <div class="slide-background" style="background-image: url('images/about3.jpg');"></div>
+            </div>
+        </div>
+        
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        <div class="hero-content-enhanced">
+            <div class="hero-badge-enhanced">
+                <i class="fas fa-rocket"></i>
+                <span>Our Story</span>
+            </div>
+            
+            <h1 class="hero-title-enhanced">
+                <span class="title-line accent">About Us</span>
+            </h1>
+            
+            <p class="hero-description-enhanced">
+                Empowering the next generation of Black engineers through academic excellence, 
+                professional development, and community impact at the University of Texas at San Antonio.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="#mission" class="btn btn-primary btn-lg futuristic-btn">
+                    <span class="btn-text">Our Mission</span>
+                    <span class="btn-shine"></span>
+                    <div class="btn-glow"></div>
+                </a>
+                <a href="#history" class="btn btn-secondary btn-lg futuristic-btn">
+                    <span class="btn-text">Our History</span>
+                    <span class="btn-shine"></span>
+                    <div class="btn-glow"></div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Carousel Controls -->
+        <div class="carousel-controls">
+            <button class="carousel-btn prev" id="prev-slide" aria-label="Previous slide">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn next" id="next-slide" aria-label="Next slide">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
+            <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
+            <button class="indicator" data-slide="2" aria-label="Slide 3"></button>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="carousel-progress">
+            <div class="progress-bar"></div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Enhanced Mission Section -->
+    <section class="mission-enhanced" id="mission">
+        <div class="container">
+            <div class="mission-content-enhanced">
+                <div class="mission-text-enhanced scroll-reveal-left">
+                    <div class="mission-icon-enhanced">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h2 class="mission-title-enhanced">Our Mission</h2>
+                    <div class="mission-quote">
+                        "To increase the number of culturally responsible Black Engineers who excel academically, 
+                        succeed professionally, and positively impact the community."
+                    </div>
+                </div>
+                <div class="mission-visual scroll-reveal-right">
+                    <div class="mission-visual-content">
+                        <i class="fas fa-graduation-cap" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                        <h3 style="font-size: 2rem; margin-bottom: 1rem;">Building tomorrow's leaders today</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Completely Revamped History Section -->
+    <section class="history-enhanced" id="history">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title gradient-text">Our Rich History</h2>
+                <p class="section-subtitle">
+                    From humble beginnings to national impact - the journey of NSBE and our chapter through the decades.
+                </p>
+            </div>
+        
+        <!-- Interactive Timeline Cards -->
+        <div class="history-timeline-revamped">
+            <div class="timeline-card-revamped">
+                <div class="timeline-year-badge">1975</div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-icon-container">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div class="timeline-content-revamped">
+                    <h3 class="timeline-title-revamped">The Foundation</h3>
+                    <p class="timeline-description-revamped">
+                        In April 1975, NSBE was founded at Purdue University by Edward Barnette and Fred Cooper as the Black Society of Engineers (BSE) 
+                        to address the high dropout rate of Black engineering students. This marked the beginning of a movement that would 
+                        transform engineering education across America.
+                    </p>
+                    <div class="timeline-stats">
+                        <div class="timeline-impact">
+                            <i class="fas fa-users"></i>
+                            <span>First Chapter Founded</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-card-revamped">
+                <div class="timeline-year-badge">1976</div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-icon-container">
+                    <i class="fas fa-flag"></i>
+                </div>
+                <div class="timeline-content-revamped">
+                    <h3 class="timeline-title-revamped">National Formation</h3>
+                    <p class="timeline-description-revamped">
+                        The first national meeting was held at the University of Illinois, officially establishing the National Society of Black Engineers. 
+                        The iconic NSBE symbol with lightning bolts was chosen to represent members' burning desire for success and excellence in engineering.
+                    </p>
+                    <div class="timeline-stats">
+                        <div class="timeline-impact">
+                            <i class="fas fa-bolt"></i>
+                            <span>National Organization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-card-revamped">
+                <div class="timeline-year-badge">1981</div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-icon-container">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <div class="timeline-content-revamped">
+                    <h3 class="timeline-title-revamped">Incorporation & Growth</h3>
+                    <p class="timeline-description-revamped">
+                        NSBE was incorporated as a non-profit organization in Texas, with John Cason as the first elected president 
+                        and Virginia Booth becoming the first female National Chairperson. This formalization enabled rapid expansion 
+                        across universities nationwide.
+                    </p>
+                    <div class="timeline-stats">
+                        <div class="timeline-impact">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Rapid Expansion</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-card-revamped">
+                <div class="timeline-year-badge">2002</div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-icon-container">
+                    <i class="fas fa-university"></i>
+                </div>
+                <div class="timeline-content-revamped">
+                    <h3 class="timeline-title-revamped">UTSA Chapter Founded</h3>
+                    <p class="timeline-description-revamped">
+                        The UTSA NSBE chapter was established, bringing the mission of academic excellence and professional 
+                        development to the University of Texas at San Antonio engineering community. Our chapter began with 
+                        a small group of dedicated students committed to making a difference.
+                    </p>
+                    <div class="timeline-stats">
+                        <div class="timeline-impact">
+                            <i class="fas fa-star"></i>
+                            <span>UTSA Chapter Born</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="timeline-card-revamped">
+                <div class="timeline-year-badge">2025</div>
+                <div class="timeline-connector"></div>
+                <div class="timeline-icon-container">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="timeline-content-revamped">
+                    <h3 class="timeline-title-revamped">Modern Era & Innovation</h3>
+                    <p class="timeline-description-revamped">
+                        Today, NSBE boasts over 31,000 members across 99 pre-college, 250 student, and 68 alumni chapters worldwide. 
+                        Our UTSA chapter continues to grow and innovate, leading initiatives in technology, sustainability, and 
+                        community engagement while maintaining our core mission of excellence.
+                    </p>
+                    <div class="timeline-stats">
+                        <div class="timeline-impact">
+                            <i class="fas fa-globe"></i>
+                            <span>Global Impact</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhanced History Statistics -->
+        <div class="history-stats-revamped">
+            <div class="history-stat-revamped scroll-reveal-scale">
+                <span class="history-stat-number-revamped">51</span>
+                <span class="history-stat-label-revamped">Years of Excellence</span>
+                <p class="history-stat-description">Decades of engineering leadership</p>
+            </div>
+            <div class="history-stat-revamped scroll-reveal-scale">
+                <span class="history-stat-number-revamped">31K+</span>
+                <span class="history-stat-label-revamped">Global Members</span>
+                <p class="history-stat-description">Worldwide engineering community</p>
+            </div>
+            <div class="history-stat-revamped scroll-reveal-scale">
+                <span class="history-stat-number-revamped">250+</span>
+                <span class="history-stat-label-revamped">Student Chapters</span>
+                <p class="history-stat-description">Universities across the nation</p>
+            </div>
+            <div class="history-stat-revamped scroll-reveal-scale">
+                <span class="history-stat-number-revamped">19</span>
+                <span class="history-stat-label-revamped">Years at UTSA</span>
+                <p class="history-stat-description">Growing stronger every year</p>
+            </div>
+        </div>
+        
+        <!-- Interactive Timeline Navigation -->
+       
+    </div>
+</section>
+
+    <!-- Interactive Section -->
+    <section class="interactive-section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <h2 class="section-title gradient-text">Why Choose UTSA NSBE?</h2>
+                <p class="section-subtitle">
+                    Discover what makes our chapter unique and how we can help you achieve your goals.
+                </p>
+                <div class="title-underline"></div>
+            </div>
+            
+            <div class="interactive-cards">
+                <div class="interactive-card scroll-reveal-scale">
+                    <i class="fas fa-graduation-cap" style="font-size: 3rem; color: var(--primary-orange); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Academic Excellence</h3>
+                    <p style="color: var(--text-secondary);">Comprehensive support system including tutoring, study groups, and mentorship programs.</p>
+                </div>
+                
+                <div class="interactive-card scroll-reveal-scale">
+                    <i class="fas fa-briefcase" style="font-size: 3rem; color: var(--primary-orange); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Career Development</h3>
+                    <p style="color: var(--text-secondary);">Access to internships, job opportunities, and professional networking events.</p>
+                </div>
+                
+                <div class="interactive-card scroll-reveal-scale">
+                    <i class="fas fa-heart" style="font-size: 3rem; color: var(--primary-orange); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Community Impact</h3>
+                    <p style="color: var(--text-secondary);">Opportunities to give back through community service and outreach programs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+     
+    <!-- Enhanced CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content scroll-reveal">
+                <div class="cta-badge">
+                    <span class="badge-text">JOIN OUR COMMUNITY</span>
+                    <div class="badge-glow"></div>
+                </div>
+                
+                <h2 class="cta-title">Ready to Shape the Future?</h2>
+                <p class="cta-description">
+                    Become a part of UTSA NSBE and unlock unparalleled opportunities for growth, networking, and impact. 
+                    Join a community that's committed to your success and the advancement of engineering excellence.
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="index.html#join" class="btn btn-primary futuristic-btn">
+                        <i class="fas fa-user-plus"></i>
+                        <span class="btn-text">Become a Member</span>
+                        <div class="btn-glow"></div>
+                        <span class="btn-shine"></span>
+                    </a>
+                    <a href="contact.html" class="btn btn-secondary futuristic-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span class="btn-text">Contact Us</span>
+                        <div class="btn-glow"></div>
+                        <span class="btn-shine"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Footer -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section footer-brand">
+                    <div class="footer-brand-container">
+                        <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="footer-logo">
+                        <div class="footer-brand-text">
+                            <h3>UTSA NSBE</h3>
+                            <p>National Society of Black Engineers</p>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Empowering the next generation of Black engineers through academic excellence, 
+                        professional development, and community impact at the University of Texas at San Antonio.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://instagram.com/utsansbe" class="footer-social-link instagram" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link linkedin" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:utsa.nsbe.historian@gmail.com" class="footer-social-link email" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="leadership.html">Leadership</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="conferences.html">Conferences</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                    </ul>
+                </div>      
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>San Antonio, TX</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 UTSA NSBE. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                    </div>
+                </div>
+                <p class="footer-powered">Powered by the National Society of Black Engineers</p>
+            </div>
+        </div>
+    </footer>
+    
+
+
+    <!-- About Page Specific JavaScript -->
+    <script>
+    // About Page Slideshow Functionality
+    class AboutPageSlideshow {
+        constructor() {
+            this.currentSlide = 0;
+            this.slides = document.querySelectorAll('.hero-slide');
+            this.indicators = document.querySelectorAll('.indicator');
+            this.prevBtn = document.getElementById('prev-slide');
+            this.nextBtn = document.getElementById('next-slide');
+            this.progressBar = document.querySelector('.progress-bar');
+            this.autoPlayInterval = null;
+            this.slideInterval = 6000; // 6 seconds
+            
+            this.init();
+        }
+        
+        init() {
+            if (this.slides.length === 0) return;
+            
+            this.setupEventListeners();
+            this.startAutoPlay();
+            this.startProgressBar();
+        }
+        
+        setupEventListeners() {
+            // Navigation buttons
+            this.prevBtn?.addEventListener('click', () => {
+                this.prevSlide();
+                this.resetAutoPlay();
+            });
+            
+            this.nextBtn?.addEventListener('click', () => {
+                this.nextSlide();
+                this.resetAutoPlay();
+            });
+            
+            // Indicator buttons
+            this.indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    this.goToSlide(index);
+                    this.resetAutoPlay();
+                });
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    this.prevSlide();
+                    this.resetAutoPlay();
+                } else if (e.key === 'ArrowRight') {
+                    this.nextSlide();
+                    this.resetAutoPlay();
+                }
+            });
+            
+            // Pause on hover
+            const heroSection = document.getElementById('about-hero-carousel');
+            heroSection?.addEventListener('mouseenter', () => this.pauseAutoPlay());
+            heroSection?.addEventListener('mouseleave', () => this.startAutoPlay());
+            
+            // Touch/swipe support
+            this.addTouchSupport();
+        }
+        
+        goToSlide(index) {
+            // Remove active class from current slide and indicator
+            this.slides[this.currentSlide]?.classList.remove('active');
+            this.indicators[this.currentSlide]?.classList.remove('active');
+            
+            // Update current slide
+            this.currentSlide = index;
+            
+            // Add active class to new slide and indicator
+            this.slides[this.currentSlide]?.classList.add('active');
+            this.indicators[this.currentSlide]?.classList.add('active');
+            
+            // Restart progress bar
+            this.startProgressBar();
+        }
+        
+        nextSlide() {
+            const nextIndex = (this.currentSlide + 1) % this.slides.length;
+            this.goToSlide(nextIndex);
+        }
+        
+        prevSlide() {
+            const prevIndex = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+            this.goToSlide(prevIndex);
+        }
+        
+        startAutoPlay() {
+            this.pauseAutoPlay(); // Clear any existing interval
+            this.autoPlayInterval = setInterval(() => {
+                this.nextSlide();
+            }, this.slideInterval);
+        }
+        
+        pauseAutoPlay() {
+            if (this.autoPlayInterval) {
+                clearInterval(this.autoPlayInterval);
+                this.autoPlayInterval = null;
+            }
+        }
+        
+        resetAutoPlay() {
+            this.pauseAutoPlay();
+            setTimeout(() => this.startAutoPlay(), 3000); // Resume after 3 seconds
+        }
+        
+        startProgressBar() {
+            if (!this.progressBar) return;
+            
+            // Reset progress bar
+            this.progressBar.style.width = '0%';
+            this.progressBar.style.transition = 'none';
+            
+            // Force reflow
+            void this.progressBar.offsetWidth;
+            
+            // Start progress animation
+            this.progressBar.style.transition = `width ${this.slideInterval}ms linear`;
+            this.progressBar.style.width = '100%';
+        }
+        
+        addTouchSupport() {
+            const heroSection = document.getElementById('about-hero-carousel');
+            if (!heroSection) return;
+            
+            let startX = 0;
+            let startY = 0;
+            let distX = 0;
+            let distY = 0;
+            const threshold = 100;
+            const restraint = 100;
+            
+            heroSection.addEventListener('touchstart', (e) => {
+                const touchobj = e.changedTouches[0];
+                startX = touchobj.pageX;
+                startY = touchobj.pageY;
+            }, { passive: true });
+            
+            heroSection.addEventListener('touchend', (e) => {
+                const touchobj = e.changedTouches[0];
+                distX = touchobj.pageX - startX;
+                distY = touchobj.pageY - startY;
+                
+                if (Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+                    if (distX > 0) {
+                        this.prevSlide();
+                    } else {
+                        this.nextSlide();
+                    }
+                    this.resetAutoPlay();
+                }
+            }, { passive: true });
+        }
+    }
+
+    // Timeline Animation on Scroll
+    class TimelineAnimation {
+        constructor() {
+            this.timelineItems = document.querySelectorAll('.timeline-item-enhanced');
+            this.historyStats = document.querySelectorAll('.history-stat-number');
+            this.init();
+        }
+        
+        init() {
+            this.setupIntersectionObserver();
+        }
+        
+        setupIntersectionObserver() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '-10% 0px -10% 0px',
+                threshold: 0.3
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('timeline-item-enhanced')) {
+                            entry.target.style.animationPlayState = 'running';
+                        }
+                        
+                        if (entry.target.classList.contains('history-stat')) {
+                            this.animateCounter(entry.target.querySelector('.history-stat-number'));
+                        }
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe timeline items
+            this.timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+            
+            // Observe history stats
+            document.querySelectorAll('.history-stat').forEach(stat => {
+                observer.observe(stat);
+            });
+        }
+        
+        animateCounter(element) {
+            if (!element || element.dataset.animated) return;
+            
+            const target = element.textContent.replace(/[^\d]/g, '');
+            const targetNumber = parseInt(target);
+            const duration = 2000;
+            const increment = targetNumber / (duration / 16);
+            let current = 0;
+            
+            const updateCounter = () => {
+                if (current < targetNumber) {
+                    current += increment;
+                    const displayValue = Math.floor(current);
+                    
+                    // Preserve the original format (K+, etc.)
+                    if (element.textContent.includes('K+')) {
+                        element.textContent = displayValue + 'K+';
+                    } else if (element.textContent.includes('+')) {
+                        element.textContent = displayValue + '+';
+                    } else {
+                        element.textContent = displayValue;
+                    }
+                    
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = element.textContent; // Restore original
+                    element.dataset.animated = 'true';
+                }
+            };
+            
+            updateCounter();
+        }
+    }
+
+    // Enhanced scroll reveal functionality
+    function revealOnScroll() {
+        const reveals = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
+        
+        reveals.forEach(element => {
+            const windowHeight = window.innerHeight;
+            const elementTop = element.getBoundingClientRect().top;
+            const elementVisible = 150;
+            
+            if (elementTop < windowHeight - elementVisible) {
+                element.classList.add('revealed');
+            }
+        });
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        new AboutPageSlideshow();
+        new TimelineAnimation();
+        
+        // Initialize scroll reveal
+        setTimeout(() => {
+            revealOnScroll();
+        }, 500);
+    });
+
+    // Listen for scroll events
+    window.addEventListener('scroll', revealOnScroll);
+
+    // Also include the main script functionality
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - UTSA NSBE</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  
+  <style>
+      /* Enhanced Contact Page Styles */
+      .scroll-reveal {
+          opacity: 0;
+          transform: translateY(50px);
+          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .scroll-reveal.revealed {
+          opacity: 1;
+          transform: translateY(0);
+      }
+      
+      .scroll-reveal-left {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .scroll-reveal-left.revealed {
+          opacity: 1;
+          transform: translateX(0);
+      }
+      
+      .scroll-reveal-right {
+          opacity: 0;
+          transform: translateX(50px);
+          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .scroll-reveal-right.revealed {
+          opacity: 1;
+          transform: translateX(0);
+      }
+      
+      .scroll-reveal-scale {
+          opacity: 0;
+          transform: scale(0.8);
+          transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      
+      .scroll-reveal-scale.revealed {
+          opacity: 1;
+          transform: scale(1);
+      }
+      
+      /* Enhanced Hero Animations */
+      .hero-title .title-line {
+        font-family: 'Orbitron', sans-serif;
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(100px);
+          animation: heroTitleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      }
+      
+      .hero-title .title-line:nth-child(1) {
+          animation-delay: 0.3s;
+      }
+      
+      .hero-title .title-line:nth-child(2) {
+          animation-delay: 0.5s;
+      }
+      
+      @keyframes heroTitleReveal {
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      
+      .hero-description {
+          opacity: 0;
+          transform: translateY(30px);
+          animation: fadeInUp 1s ease-out 0.8s forwards;
+      }
+      
+      .hero-buttons {
+          opacity: 0;
+          transform: translateY(30px);
+          animation: fadeInUp 1s ease-out 1s forwards;
+      }
+      
+      @keyframes fadeInUp {
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      
+      /* Optimized Contact Form Section */
+      .contact-form-section {
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.03), rgba(0, 153, 204, 0.03));
+          position: relative;
+          padding: 4rem 0;
+          will-change: transform;
+      }
+      
+      .contact-form-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+          opacity: 0.2;
+          pointer-events: none;
+      }
+      
+      /* Optimized Contact Form Container */
+      .contact-form-container {
+          position: relative;
+          z-index: 2;
+          border: 1px solid rgba(0, 212, 255, 0.2);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          max-width: 700px;
+          margin: 0 auto;
+          padding: 3rem;
+          border-radius: 20px;
+          background: rgba(0, 0, 0, 0.85);
+          backdrop-filter: blur(15px);
+          box-shadow: 
+              0 10px 40px rgba(0, 212, 255, 0.1),
+              0 0 0 1px rgba(255, 255, 255, 0.05);
+          will-change: transform, box-shadow;
+      }
+      
+      /* Optimized hover effects */
+      .contact-form-container::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.05), transparent);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: -1;
+          pointer-events: none;
+          border-radius: inherit;
+      }
+      
+      .contact-form-container:hover::before {
+          opacity: 1;
+      }
+      
+      
+      .contact-form-container h2 {
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-align: center;
+          margin-bottom: 2rem;
+          font-size: 2.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+      }
+      
+      .contact-form-container h2 img {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          border: 2px solid #00d4ff;
+          box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+      }
+      
+      .contact-form {
+          position: relative;
+          z-index: 10;
+      }
+      
+      .form-group {
+          margin-bottom: 1.5rem;
+          position: relative;
+          z-index: 10;
+      }
+      
+      .form-group label {
+          display: block;
+          margin-bottom: 0.5rem;
+          color: var(--text-primary);
+          font-weight: 500;
+          font-size: 1rem;
+      }
+      
+      /* Optimized form inputs */
+      .form-group input,
+      .form-group textarea {
+          width: 100%;
+          padding: 1rem;
+          border: 2px solid rgba(255, 255, 255, 0.15);
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.08);
+          color: var(--text-primary);
+          font-size: 1rem;
+          font-family: inherit;
+          transition: all 0.2s ease;
+          box-sizing: border-box;
+          position: relative;
+          z-index: 10;
+          will-change: border-color, box-shadow, background;
+      }
+      
+      .form-group input::placeholder,
+      .form-group textarea::placeholder {
+          color: rgba(255, 255, 255, 0.4);
+      }
+      
+      .form-group input:focus,
+      .form-group textarea:focus {
+          outline: none;
+          border-color: #00d4ff;
+          box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+          background: rgba(255, 255, 255, 0.12);
+      }
+      
+      .form-group textarea {
+          min-height: 120px;
+          resize: vertical;
+          font-family: inherit;
+      }
+      
+      /* Optimized submit button */
+      .form-submit-btn {
+          width: 100%;
+          padding: 1rem 2rem;
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          border: none;
+          border-radius: 10px;
+          color: white;
+          font-size: 1.1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          position: relative;
+          overflow: hidden;
+          z-index: 10;
+          will-change: transform, box-shadow;
+      }
+      
+      .form-submit-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
+      }
+      
+      .form-submit-btn:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+      }
+      
+      /* Enhanced Contact Info Cards */
+      .contact-info-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+          margin-top: 3rem;
+      }
+      
+      .contact-card {
+          position: relative;
+          overflow: hidden;
+          transition: all 0.3s ease;
+          text-align: center;
+          padding: 2rem;
+          will-change: transform;
+      }
+      
+      .contact-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.05), transparent);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: 1;
+          pointer-events: none;
+      }
+      
+      .contact-card:hover::before {
+          opacity: 1;
+      }
+      
+      .contact-card:hover {
+          transform: translateY(-8px) scale(1.01);
+          border-color: #00d4ff;
+          box-shadow: 0 15px 35px rgba(0, 212, 255, 0.15);
+      }
+      
+      .contact-card .icon-container {
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1.5rem;
+          font-size: 2rem;
+          color: white;
+          position: relative;
+          overflow: hidden;
+      }
+      
+      .contact-card .icon-container img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+      }
+      
+      .contact-card h3 {
+          color: #00d4ff;
+          margin-bottom: 1rem;
+          font-size: 1.5rem;
+      }
+      
+      .contact-card p {
+          color: var(--text-secondary);
+          margin-bottom: 1rem;
+      }
+      
+      .contact-card a {
+          color: #00d4ff;
+          text-decoration: none;
+          font-weight: 600;
+          transition: all 0.3s ease;
+      }
+      
+      .contact-card a:hover {
+          color: #ffffff;
+          text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+      }
+      
+      /* Enhanced Map Section */
+      .map-section {
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.03), rgba(0, 153, 204, 0.03));
+          position: relative;
+          padding: 4rem 0;
+      }
+      
+      .map-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+          opacity: 0.2;
+          pointer-events: none;
+      }
+      
+      .map-container {
+          position: relative;
+          z-index: 2;
+          border: 1px solid rgba(0, 212, 255, 0.2);
+          transition: all 0.3s ease;
+          border-radius: 20px;
+          overflow: hidden;
+          height: 400px;
+          cursor: pointer;
+          will-change: transform;
+      }
+      
+      .map-container:hover {
+          transform: translateY(-3px);
+          border-color: #00d4ff;
+          box-shadow: 0 15px 35px rgba(0, 212, 255, 0.15);
+      }
+      
+      .map-container iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+          filter: grayscale(15%) contrast(1.1);
+          transition: filter 0.3s ease;
+          pointer-events: auto;
+      }
+      
+      .map-container:hover iframe {
+          filter: grayscale(0%) contrast(1);
+      }
+      
+      /* Success Message Styles */
+      .success-message {
+          background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.1));
+          border: 1px solid rgba(34, 197, 94, 0.3);
+          border-radius: 10px;
+          padding: 1rem;
+          margin-top: 1rem;
+          text-align: center;
+          color: #22c55e;
+          display: none;
+      }
+      
+      .success-message.show {
+          display: block;
+          animation: slideDown 0.3s ease-out;
+      }
+      
+      @keyframes slideDown {
+          from {
+              opacity: 0;
+              transform: translateY(-10px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+      
+      /* Error Message Styles */
+      .error-message {
+          background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          border-radius: 10px;
+          padding: 1rem;
+          margin-top: 1rem;
+          text-align: center;
+          color: #ef4444;
+          display: none;
+      }
+      
+      .error-message.show {
+          display: block;
+          animation: slideDown 0.3s ease-out;
+      }
+      
+      /* Field Error Styles */
+      .field-error {
+          color: #ef4444;
+          font-size: 0.875rem;
+          margin-top: 0.25rem;
+          display: block;
+      }
+      
+      .form-group input.error,
+      .form-group textarea.error {
+          border-color: #ef4444;
+          box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+      }
+      
+      /* Enhanced Loading Animation */
+      .loading-screen {
+          background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      }
+      
+      .loading-spinner {
+          width: 50px;
+          height: 50px;
+          border: 3px solid rgba(0, 212, 255, 0.3);
+          border-top: 3px solid #00d4ff;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+      }
+      
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }
+      
+      /* Staggered Animation Delays */
+      .contact-info-grid .contact-card:nth-child(1) { animation-delay: 0.1s; }
+      .contact-info-grid .contact-card:nth-child(2) { animation-delay: 0.2s; }
+      .contact-info-grid .contact-card:nth-child(3) { animation-delay: 0.3s; }
+      
+      /* Responsive Design */
+      @media (max-width: 768px) {
+          .contact-info-grid {
+              grid-template-columns: 1fr;
+              gap: 1.5rem;
+          }
+          
+          .contact-form-container {
+              padding: 2rem 1.5rem;
+              margin: 0 1rem;
+          }
+          
+          .contact-form-container h2 {
+              font-size: 2rem;
+              flex-direction: column;
+              gap: 0.5rem;
+          }
+          
+          .contact-form-container h2 img {
+              width: 40px;
+              height: 40px;
+          }
+          
+          .map-container {
+              height: 300px;
+              margin: 0 1rem;
+          }
+      }
+      
+      /* Performance optimizations */
+      @media (prefers-reduced-motion: reduce) {
+          .contact-form-container,
+          .contact-card,
+          .map-container {
+              transition: none;
+          }
+          
+      }
+  </style>
+</head>
+
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen">
+      <div class="loading-content">
+          <div class="loading-logo">
+            <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+          </div>
+          <div class="loading-spinner"></div>
+          <p>Loading Contact...</p>
+      </div>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-background-blur"></div>
+    <div class="nav-container">
+        <a href="index.html" class="nav-brand">
+            <div class="nav-logo-container">
+                <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="nav-logo">
+                <div class="logo-glow"></div>
+            </div>
+            <div class="nav-brand-text">
+                <h2 class="nav-title">UTSA NSBE</h2>
+                <p class="nav-subtitle">National Society of Black Engineers</p>
+            </div>
+        </a>
+        <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <div class="nav-menu" id="nav-menu">
+            <div class="nav-links-group">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> 
+                    <span class="nav-text">Home</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <i class="fas fa-info-circle"></i> 
+                    <span class="nav-text">About</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+                <a href="leadership.html" class="nav-link">
+                    <i class="fas fa-users"></i> 
+                    <span class="nav-text">Leadership</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+                <a href="conferences.html" class="nav-link">
+                    <i class="fas fa-briefcase"></i> 
+                    <span class="nav-text">Conferences</span>
+                    <span class="nav-link-indicator"></span>
+                </a>                
+                <a href="gallery.html" class="nav-link">
+                    <i class="fas fa-image"></i> 
+                    <span class="nav-text">Gallery</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+                <a href="contact.html" class="nav-link active">
+                    <i class="fas fa-envelope"></i> 
+                    <span class="nav-text">Contact</span>
+                    <span class="nav-link-indicator"></span>
+                </a>
+            </div>
+            <div class="nav-social">
+                <a href="https://instagram.com/utsansbe" class="social-link instagram" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                    <span class="social-tooltip">Instagram</span>
+                </a>
+                <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link linkedin" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                    <span class="social-tooltip">LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+  <section id="contact-hero" class="hero">
+      <div class="hero-background-container" style="background-image: url('images/contact-hero.jpg');"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-geometric-shapes">
+          <div class="shape shape-1"></div>
+          <div class="shape shape-2"></div>
+          <div class="shape shape-3"></div>
+      </div>
+      <div class="hero-content">
+          <span class="hero-badge futuristic-btn">
+              <span class="badge-text">Get In Touch</span>
+              <span class="badge-glow"></span>
+          </span>
+          <h1 class="hero-title">
+              <span class="title-line accent" data-text="Contact">Contact</span>
+              <span class="title-line" data-text="Us">Us</span>
+          </h1>
+          <p class="hero-description">
+              We'd love to hear from you! Reach out to us for inquiries, partnerships, or support.
+          </p>
+          <div class="hero-buttons">
+              <a href="#contact-info" class="btn btn-primary btn-lg futuristic-btn">
+                  <span class="btn-text">Our Info</span>
+                  <span class="btn-shine"></span>
+                  <span class="btn-glow"></span>
+              </a>
+              <a href="#contact-form" class="btn btn-secondary btn-lg futuristic-btn">
+                  <span class="btn-text">Send a Message</span>
+                  <span class="btn-shine"></span>
+                  <span class="btn-glow"></span>
+              </a>
+          </div>
+      </div>
+  </section>
+  
+  <section id="contact-form" class="contact-form-section">
+    <div class="container">
+        <div class="contact-form-container futuristic-card scroll-reveal">
+            <h2>
+                <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+                Send Us a Message
+            </h2>
+            <form class="contact-form" id="contactForm" novalidate>
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email *</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        placeholder="Enter your email address"
+                        autocomplete="email"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        placeholder="Enter your phone number (optional)"
+                        autocomplete="tel"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <input 
+                        type="text" 
+                        id="subject" 
+                        name="subject" 
+                        required 
+                        placeholder="What is this regarding?"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea 
+                        id="message" 
+                        name="message" 
+                        required 
+                        placeholder="Tell us more about your inquiry..."
+                        rows="5"
+                    ></textarea>
+                </div>
+                <button type="submit" class="form-submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span class="btn-text">Send Message</span>
+                </button>
+            </form>
+            <div class="success-message" id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                Your message has been sent successfully! We'll get back to you soon.
+            </div>
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-triangle"></i>
+                Please fill in all required fields correctly.
+            </div>
+            <div class="card-glow"></div>
+            <div class="card-border"></div>
+        </div>
+    </div>
+</section>
+
+  <section id="contact-info" class="mission-section">
+      <div class="container">
+          <div class="section-header scroll-reveal">
+              <h2 class="section-title gradient-text">Reach Out to Us</h2>
+              <p class="section-subtitle">
+                  Find the best way to connect with the UTSA NSBE chapter.
+              </p>
+          </div>
+          <div class="contact-info-grid">
+              <div class="contact-card futuristic-card scroll-reveal-scale">
+                  <div class="icon-container"><i class="fas fa-envelope"></i></div>
+                  <h3>Email Us</h3>
+                  <p>For general inquiries and information.</p>
+                  <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
+                  <div class="card-glow"></div>
+                  <div class="card-border"></div>
+              </div>
+              <div class="contact-card futuristic-card scroll-reveal-scale">
+                  <div class="icon-container"><i class="fab fa-instagram"></i></div>
+                  <h3>Follow Us</h3>
+                  <p>Stay updated with our latest activities.</p>
+                  <a href="https://instagram.com/utsansbe" target="_blank">@utsansbe</a>
+                  <div class="card-glow"></div>
+                  <div class="card-border"></div>
+              </div>
+              <div class="contact-card futuristic-card scroll-reveal-scale">
+                  <div class="icon-container"><i class="fas fa-map-marker-alt"></i></div>
+                  <h3>Our Location</h3>
+                  <p>Find us on campus.</p>
+                  <span>University of Texas at San Antonio</span>
+                  <div class="card-glow"></div>
+                  <div class="card-border"></div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section footer-brand">
+                <div class="footer-brand-container">
+                    <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3>UTSA NSBE</h3>
+                        <p>National Society of Black Engineers</p>
+                    </div>
+                </div>
+                <p class="footer-description">
+                    Empowering the next generation of Black engineers through academic excellence, 
+                    professional development, and community impact at the University of Texas at San Antonio.
+                </p>
+                <div class="footer-social">
+                    <a href="https://instagram.com/utsansbe" class="footer-social-link instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link linkedin" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="mailto:utsa.nsbe.historian@gmail.com" class="footer-social-link email" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="leadership.html">Leadership</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="conferences.html">Conferences</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </div>      
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>San Antonio, TX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 UTSA NSBE. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                </div>
+            </div>
+            <p class="footer-powered">Powered by the National Society of Black Engineers</p>
+        </div>
+    </div>
+</footer>
+
+
+  <script src="script.js"></script>
+  <script>
+      // Initialize EmailJS
+      (function() {
+          emailjs.init("4UdRY6q5pYPeOaL3x"); // Replace with your EmailJS public key
+      })();
+
+      // Enhanced Contact Form Functionality with EmailJS
+      document.addEventListener('DOMContentLoaded', function() {
+          const contactForm = document.getElementById('contactForm');
+          const submitBtn = document.getElementById('submitBtn');
+          const successMessage = document.getElementById('successMessage');
+          const errorMessage = document.getElementById('errorMessage');
+          
+          // Ensure form inputs are properly enabled
+          const formInputs = contactForm.querySelectorAll('input, textarea');
+          formInputs.forEach(input => {
+              input.disabled = false;
+              input.readOnly = false;
+              input.style.pointerEvents = 'auto';
+              input.style.userSelect = 'text';
+          });
+          
+          // Form validation
+          function validateForm(formData) {
+              const errors = [];
+              
+              const name = formData.get('name');
+              if (!name || name.trim().length < 2) {
+                  errors.push('Name must be at least 2 characters long');
+              }
+              
+              const email = formData.get('email');
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!email || !emailRegex.test(email)) {
+                  errors.push('Please enter a valid email address');
+              }
+              
+              const subject = formData.get('subject');
+              if (!subject || subject.trim().length < 5) {
+                  errors.push('Subject must be at least 5 characters long');
+              }
+              
+              const message = formData.get('message');
+              if (!message || message.trim().length < 10) {
+                  errors.push('Message must be at least 10 characters long');
+              }
+              
+              return errors;
+          }
+          
+          // Send email using EmailJS
+          function sendEmail(formData) {
+              const templateParams = {
+                  from_name: formData.get('name'),
+                  from_email: formData.get('email'),
+                  phone: formData.get('phone') || 'Not provided',
+                  subject: formData.get('subject'),
+                  message: formData.get('message'),
+                  to_email: 'utsa.nsbe.historian@gmail.com'
+              };
+              
+              return emailjs.send('service_Blackengineers1', 'template_pmo85d7', templateParams);
+          }
+          
+          // Handle form submission
+          contactForm.addEventListener('submit', function(e) {
+              e.preventDefault();
+              
+              // Hide previous messages
+              successMessage.classList.remove('show');
+              errorMessage.classList.remove('show');
+              
+              const formData = new FormData(contactForm);
+              const errors = validateForm(formData);
+              
+              if (errors.length > 0) {
+                  errorMessage.innerHTML = `
+                      <i class="fas fa-exclamation-triangle"></i>
+                      ${errors.join('<br>')}
+                  `;
+                  errorMessage.classList.add('show');
+                  errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  return;
+              }
+              
+              // Show loading state
+              const originalText = submitBtn.innerHTML;
+              submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span class="btn-text">Sending...</span>';
+              submitBtn.disabled = true;
+              
+              // Send email using EmailJS
+              sendEmail(formData)
+                  .then(function(response) {
+                      console.log('SUCCESS!', response.status, response.text);
+                      
+                      // Show success message
+                      successMessage.classList.add('show');
+                      
+                      // Reset form
+                      contactForm.reset();
+                      
+                      // Clear any field errors
+                      const errorElements = contactForm.querySelectorAll('.field-error');
+                      errorElements.forEach(el => el.remove());
+                      const errorFields = contactForm.querySelectorAll('.error');
+                      errorFields.forEach(field => field.classList.remove('error'));
+                      
+                      // Scroll to success message
+                      successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  })
+                  .catch(function(error) {
+                      console.log('FAILED...', error);
+                      
+                      // Show error message
+                      errorMessage.innerHTML = `
+                          <i class="fas fa-exclamation-triangle"></i>
+                          Failed to send message. Please try again or contact us directly at utsa.nsbe.historian@gmail.com
+                      `;
+                      errorMessage.classList.add('show');
+                      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  })
+                  .finally(function() {
+                      // Reset button
+                      submitBtn.innerHTML = originalText;
+                      submitBtn.disabled = false;
+                  });
+          });
+          
+          // Real-time validation feedback
+          const inputs = contactForm.querySelectorAll('input, textarea');
+          inputs.forEach(input => {
+              input.addEventListener('blur', function() {
+                  validateField(this);
+              });
+              
+              input.addEventListener('input', function() {
+                  clearFieldError(this);
+              });
+              
+              // Ensure inputs are focusable and typeable
+              input.addEventListener('focus', function() {
+                  this.style.pointerEvents = 'auto';
+              });
+          });
+          
+          function validateField(field) {
+              const value = field.value.trim();
+              const name = field.name;
+              let error = '';
+              
+              switch (name) {
+                  case 'name':
+                      if (field.hasAttribute('required') && value.length < 2) {
+                          error = 'Name must be at least 2 characters long';
+                      }
+                      break;
+                  case 'email':
+                      if (field.hasAttribute('required')) {
+                          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                          if (!emailRegex.test(value)) {
+                              error = 'Please enter a valid email address';
+                          }
+                      }
+                      break;
+                  case 'subject':
+                      if (field.hasAttribute('required') && value.length < 5) {
+                          error = 'Subject must be at least 5 characters long';
+                      }
+                      break;
+                  case 'message':
+                      if (field.hasAttribute('required') && value.length < 10) {
+                          error = 'Message must be at least 10 characters long';
+                      }
+                      break;
+              }
+              
+              if (error) {
+                  showFieldError(field, error);
+              } else {
+                  clearFieldError(field);
+              }
+          }
+          
+          function showFieldError(field, message) {
+              field.classList.add('error');
+              
+              let errorElement = field.parentNode.querySelector('.field-error');
+              if (!errorElement) {
+                  errorElement = document.createElement('div');
+                  errorElement.className = 'field-error';
+                  field.parentNode.appendChild(errorElement);
+              }
+              
+              errorElement.textContent = message;
+          }
+          
+          function clearFieldError(field) {
+              field.classList.remove('error');
+              const errorElement = field.parentNode.querySelector('.field-error');
+              if (errorElement) {
+                  errorElement.remove();
+              }
+          }
+      });
+      
+      // Enhanced scroll reveal functionality
+      function revealOnScroll() {
+          const reveals = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
+          
+          reveals.forEach(element => {
+              const windowHeight = window.innerHeight;
+              const elementTop = element.getBoundingClientRect().top;
+              const elementVisible = 150;
+              
+              if (elementTop < windowHeight - elementVisible) {
+                  element.classList.add('revealed');
+              }
+          });
+      }
+      
+      // Enhanced card animations with performance optimization
+      function enhanceCardAnimations() {
+          const cards = document.querySelectorAll('.contact-card, .contact-form-container, .map-container');
+          
+          cards.forEach(card => {
+              // Use passive event listeners for better performance
+              card.addEventListener('mouseenter', function() {
+                  if (this.classList.contains('contact-form-container')) {
+                      this.style.transform = 'translateY(-5px)';
+                  } else if (this.classList.contains('map-container')) {
+                      this.style.transform = 'translateY(-3px)';
+                  } else {
+                      this.style.transform = 'translateY(-8px) scale(1.01)';
+                  }
+              }, { passive: true });
+              
+              card.addEventListener('mouseleave', function() {
+                  this.style.transform = 'translateY(0) scale(1)';
+              }, { passive: true });
+          });
+      }
+      
+      // Open Google Maps function
+      function openGoogleMaps() {
+          window.open('https://www.google.com/maps/place/University+of+Texas+at+San+Antonio/@29.582,-98.62,15z', '_blank');
+      }
+      
+      // Initialize animations when page loads with performance optimization
+      window.addEventListener('load', () => {
+          // Use requestAnimationFrame for smooth initialization
+          requestAnimationFrame(() => {
+              revealOnScroll();
+              enhanceCardAnimations();
+          });
+      });
+      
+      // Throttled scroll event for better performance
+      let scrollTimeout;
+      window.addEventListener('scroll', () => {
+          if (scrollTimeout) {
+              clearTimeout(scrollTimeout);
+          }
+          scrollTimeout = setTimeout(revealOnScroll, 10);
+      }, { passive: true });
+  </script>
+</body>
+</html>
