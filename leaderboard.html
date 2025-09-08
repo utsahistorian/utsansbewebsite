@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leadership Board</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-background: #0a0a0a;
+            --color-card: #1a1a1a;
+            --color-primary: #ffffff;
+            --color-primary-foreground: #0a0a0a;
+            --color-secondary: #ff6b35;
+            --color-secondary-foreground: #ffffff;
+            --color-accent: #ffd23f;
+            --color-muted: #2a2a2a;
+            --color-muted-foreground: #a0a0a0;
+            --color-border: #333333;
+            --color-foreground: #e0e0e0;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --color-background: #ffffff;
+            --color-card: #f8f9fa;
+            --color-primary: #0a0a0a;
+            --color-primary-foreground: #ffffff;
+            --color-secondary: #ff6b35;
+            --color-secondary-foreground: #ffffff;
+            --color-accent: #ffd23f;
+            --color-muted: #f1f3f4;
+            --color-muted-foreground: #666666;
+            --color-border: #e0e0e0;
+            --color-foreground: #333333;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .leaderboard-container {
+            min-height: 100vh;
+            background: var(--color-background);
+            color: var(--color-foreground);
+            position: relative;
+        }
+
+        /* Subtle background pattern */
+        .leaderboard-container::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 210, 63, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .leaderboard-header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, rgba(255, 107, 53, 0.1) 100%);
+            color: var(--color-primary-foreground);
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .header-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 40rem;
+            margin: 0 auto 2.5rem;
+            font-weight: 400;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            background: var(--color-secondary);
+            color: var(--color-secondary-foreground);
+            box-shadow: var(--shadow-md);
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--color-secondary);
+            color: var(--color-primary-foreground);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--color-primary-foreground);
+            padding: 0.75rem;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            justify-content: center;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .search-section {
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-input {
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--color-border);
+            border-radius: 50px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
+            background: var(--color-card);
+            color: var(--color-foreground);
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1), var(--shadow-md);
+        }
+
+        .search-input::placeholder {
+            color: var(--color-muted-foreground);
+        }
+
+        .error-banner {
+            margin-bottom: 2rem;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 12px;
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--color-foreground);
+            animation: slideDown 0.4s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .error-banner.show {
+            display: flex;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+            border-radius: 2px;
+        }
+
+        .podium-section {
+            margin-bottom: 4rem;
+        }
+
+        .podium-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .podium-card {
+            background: var(--color-card);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .podium-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+        }
+
+        .podium-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .podium-card.rank-1::before {
+            background: linear-gradient(90deg, #ff6b35, #ff8e53);
+        }
+
+        .podium-card.rank-2::before {
+            background: linear-gradient(90deg, #a0a0a0, #c0c0c0);
+        }
+
+        .podium-card.rank-3::before {
+            background: linear-gradient(90deg, #ffd23f, #ffed6f);
+        }
+
+        .rank-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: var(--color-secondary);
+            color: var(--color-secondary-foreground);
+            margin: 0 auto 1.5rem;
+            font-weight: 800;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .podium-card:hover .rank-number {
+            transform: scale(1.1) rotate(360deg);
+        }
+
+        .podium-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--color-primary);
+        }
+
+        .podium-points {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .podium-label {
+            font-size: 0.875rem;
+            color: var(--color-muted-foreground);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+        }
+
+        .rankings-section {
+            margin-bottom: 4rem;
+        }
+
+        .rankings-table {
+            background: var(--color-card);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-border);
+        }
+
+        .rankings-header {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, var(--color-primary), rgba(255, 107, 53, 0.1));
+            color: var(--color-primary-foreground);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .ranking-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--color-border);
+            align-items: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .ranking-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: transparent;
+            transition: var(--transition);
+        }
+
+        .ranking-row:hover {
+            background: var(--color-muted);
+            transform: translateX(8px);
+        }
+
+        .ranking-row:hover::before {
+            background: var(--color-secondary);
+        }
+
+        .ranking-rank {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-align: center;
+        }
+
+        .ranking-name {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+
+        .ranking-points {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-secondary);
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--color-muted);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+            border-radius: 2px;
+            transition: width 1s ease-out;
+            width: 0;
+            box-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--color-muted), rgba(255, 107, 53, 0.05));
+            border-radius: 20px;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-sm);
+            margin-top: 3rem;
+        }
+
+        .cta-icon {
+            font-size: 3rem;
+            color: var(--color-secondary);
+            margin-bottom: 1.5rem;
+            display: block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .cta-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+        }
+
+        .cta-text {
+            color: var(--color-muted-foreground);
+            max-width: 36rem;
+            margin: 0 auto;
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        .loading-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-background);
+        }
+
+        .loading-content {
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .loading-spinner {
+            width: 4rem;
+            height: 4rem;
+            margin: 0 auto 2rem;
+            color: var(--color-secondary);
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            font-size: 1.25rem;
+            color: var(--color-muted-foreground);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-title { font-size: 2.5rem; }
+            .header-subtitle { font-size: 1.125rem; }
+            .podium-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .rankings-header, .ranking-row { grid-template-columns: 60px 1fr 100px; padding-left: 1.5rem; padding-right: 1.5rem; }
+            .header-controls { gap: 0.75rem; flex-direction: column; }
+            .btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
+            .main-content { padding: 2rem 1rem; }
+            .search-input { max-width: 100%; }
+            .section-title { font-size: 2rem; margin-bottom: 2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .podium-card, .rankings-header, .ranking-row { padding-left: 1rem; padding-right: 1rem; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+    <div id="loading" class="loading-container">
+        <div class="loading-content">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner"></i>
+            </div>
+            <p class="loading-text">Loading leaderboard...</p>
+        </div>
+    </div>
+
+    <div id="main-content" class="leaderboard-container hidden">
+        <div class="leaderboard-header">
+            <div class="header-title">Leadership Board</div>
+            <p class="header-subtitle">Celebrating excellence and inspiring achievement across our school community</p>
+            <div class="header-controls">
+                <button id="refresh-btn" class="btn">
+                    <i class="fas fa-sync-alt"></i>
+                    Refresh
+                </button>
+                <button id="theme-toggle" class="btn theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="index.html" class="btn btn-outline">
+                    <i class="fas fa-home"></i>
+                    Home
+                </a>
+                <button id="export-btn" class="btn btn-outline">
+                    <i class="fas fa-download"></i>
+                    Export
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="search-section">
+                <input type="text" id="search-input" class="search-input" placeholder="Search by name...">
+            </div>
+
+            <div id="error-banner" class="error-banner">
+                <i class="fas fa-exclamation-circle icon"></i>
+                <p id="error-message"></p>
+            </div>
+
+            <div class="podium-section">
+                <h2 class="section-title">Top Performers</h2>
+                <div id="podium-grid" class="podium-grid">
+                    <!-- Top 3 will be populated here -->
+                </div>
+            </div>
+
+            <div class="rankings-section">
+                <h2 class="section-title">Full Rankings</h2>
+                <div id="rankings-table" class="rankings-table">
+                    <div class="rankings-header">
+                        <div>Rank</div>
+                        <div>Name</div>
+                        <div>Points</div>
+                    </div>
+                    <div id="rankings-grid" class="rankings-grid">
+                        <!-- Rankings 4-20 will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="leaderboard.js"></script>
+</body>
+</html>
