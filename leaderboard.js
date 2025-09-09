@@ -16,12 +16,9 @@ const sampleData = [
     { rank: 15, name: "Kevin Martinez", points: 1990 },
     { rank: 16, name: "Amanda Clark", points: 1950 },
     { rank: 17, name: "Daniel Lewis", points: 1910 },
-    { rank: 18, name: "Nicole Walker", points: 1870 },
-    { rank: 19, name: "Brandon Hall", points: 1830 },
-    { rank: 20, name: "Stephanie Young", points: 1790 },
 ];
 
-let leaderboardData = [];
+let fullLeaderboard = [];
 let filteredData = [];
 let loading = true;
 let currentTheme = localStorage.getItem('theme') || 'dark';
@@ -85,11 +82,11 @@ function toggleTheme() {
 async function fetchLeaderboardData() {
     setLoading(true);
     hideError();
+    console.log("Fetching:", "leaderboard.csv"); // Debug log
 
     try {
-        const response = await fetch(
-            "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/leaderboard-PYHs8bdLgt9gK4reHRGS4qSvq9CR9H.csv",
-        );
+        const response = await fetch("leaderboard.csv");
+        console.log("Response:", response); // Debug log
 
         if (!response.ok) {
             throw new Error("Failed to fetch leaderboard data");
@@ -98,18 +95,17 @@ async function fetchLeaderboardData() {
         const csvText = await response.text();
         const parsedData = parseCSV(csvText);
 
-        // Sort by points (descending) and take top 20
+        // Sort by points (descending), then by name (ascending) for ties
         const sortedData = parsedData
-            .sort((a, b) => b.points - a.points)
-            .slice(0, 20)
+            .sort((a, b) => b.points - a.points || a.name.localeCompare(b.name))
             .map((entry, index) => ({ ...entry, rank: index + 1 }));
 
-        leaderboardData = sortedData;
-        filteredData = [...sortedData];
+        fullLeaderboard = sortedData;
+        filteredData = fullLeaderboard.slice(0, 17);
     } catch (err) {
         console.error("Error fetching leaderboard:", err);
         showError("Failed to load leaderboard data. Using sample data.");
-        leaderboardData = sampleData;
+        fullLeaderboard = sampleData;
         filteredData = [...sampleData];
     } finally {
         setLoading(false);
@@ -156,13 +152,13 @@ function hideError() {
 function filterLeaderboard() {
     const query = searchInput.value.toLowerCase().trim();
     if (query === '') {
-        filteredData = [...leaderboardData];
+        filteredData = fullLeaderboard.slice(0, 17);
     } else {
-        filteredData = leaderboardData.filter(entry => 
+        filteredData = fullLeaderboard.filter(entry => 
             entry.name.toLowerCase().includes(query)
         );
-        // Re-rank filtered data
-        filteredData = filteredData.map((entry, index) => ({ ...entry, rank: index + 1 }));
+        // Sort filtered by rank ascending
+        filteredData.sort((a, b) => a.rank - b.rank);
     }
     renderLeaderboard();
 }
@@ -186,28 +182,38 @@ function exportToCSV() {
 
 // Render helpers
 function getRankNumber(rank) {
-    let bgColor = '#ff6b35'; // default for rank 1
     let rankClass = 'rank-1';
     if (rank === 2) {
-        bgColor = '#a0a0a0';
         rankClass = 'rank-2';
     } else if (rank === 3) {
-        bgColor = '#ffd23f';
         rankClass = 'rank-3';
     }
-    return `<div class="rank-number ${rankClass}" style="background: ${bgColor};">${rank}</div>`;
+    return `<div class="rank-number ${rankClass}">${rank}</div>`;
 }
 
 function renderLeaderboard() {
-    renderPodium();
-    renderRankings();
+    podiumGrid.innerHTML = '';
+    rankingsGrid.innerHTML = '';
+
+    if (filteredData.length === 0) {
+        rankingsGrid.innerHTML = '<div class="no-results">No results found.</div>';
+        return;
+    }
+
+    const isSearching = searchInput.value.trim() !== '';
+
+    if (!isSearching) {
+        renderPodium();
+    }
+
+    renderRankings(isSearching);
 }
 
 function renderPodium() {
     const top3 = filteredData.slice(0, 3);
     podiumGrid.innerHTML = top3
         .map((entry, index) => {
-            const rank = index + 1;
+            const rank = entry.rank; // Use overall rank
             const rankClass = `rank-${rank}`;
             return `
                 <div class="podium-card ${rankClass}">
@@ -221,11 +227,12 @@ function renderPodium() {
         .join("");
 }
 
-function renderRankings() {
-    const remaining = filteredData.slice(3);
+function renderRankings(isSearching) {
+    const maxPoints = Math.max(...fullLeaderboard.map(d => d.points));
+    const startIndex = isSearching ? 0 : 3;
+    const remaining = filteredData.slice(startIndex);
     rankingsGrid.innerHTML = remaining
         .map((entry) => {
-            const maxPoints = Math.max(...leaderboardData.map(d => d.points));
             const progress = ((entry.points / maxPoints) * 100).toFixed(1);
             return `
                 <div class="ranking-row">
