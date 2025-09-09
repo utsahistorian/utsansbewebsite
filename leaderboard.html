@@ -258,15 +258,20 @@
         }
 
         .podium-card {
-            background: var(--color-card);
+            background: #000000;
             border-radius: 20px;
-            padding: 2.5rem 2rem;
+            padding: 2rem; /* Reduced padding for better centering */
             text-align: center;
             transition: var(--transition);
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-md);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally */
+            justify-content: center; /* Center vertically */
+            min-height: 300px; /* Ensure consistent height for centering */
         }
 
         .podium-card::before {
@@ -285,15 +290,15 @@
         }
 
         .podium-card.rank-1::before {
-            background: linear-gradient(90deg, #ff6b35, #ff8e53);
+            background: #ffd700;
         }
 
         .podium-card.rank-2::before {
-            background: linear-gradient(90deg, #a0a0a0, #c0c0c0);
+            background: #c0c0c0;
         }
 
         .podium-card.rank-3::before {
-            background: linear-gradient(90deg, #ffd23f, #ffed6f);
+            background: #cd7f32;
         }
 
         .rank-number {
@@ -312,6 +317,21 @@
             transition: var(--transition);
         }
 
+        .rank-number.rank-1 {
+            background: #ffd700;
+            color: #000000;
+        }
+
+        .rank-number.rank-2 {
+            background: #c0c0c0;
+            color: #000000;
+        }
+
+        .rank-number.rank-3 {
+            background: #cd7f32;
+            color: #ffffff;
+        }
+
         .podium-card:hover .rank-number {
             transform: scale(1.1) rotate(360deg);
         }
@@ -321,6 +341,7 @@
             font-weight: 600;
             margin-bottom: 1rem;
             color: var(--color-primary);
+            text-align: center; /* Ensure text is centered */
         }
 
         .podium-points {
@@ -332,6 +353,7 @@
             background-clip: text;
             margin-bottom: 0.5rem;
             animation: fadeInUp 0.6s ease-out;
+            text-align: center; /* Ensure text is centered */
         }
 
         @keyframes fadeInUp {
@@ -369,6 +391,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            text-align: center; /* Center header text */
         }
 
         .ranking-row {
@@ -379,6 +402,7 @@
             align-items: center;
             transition: var(--transition);
             position: relative;
+            text-align: center; /* Center all text in row */
         }
 
         .ranking-row::before {
@@ -405,7 +429,6 @@
             font-size: 1.125rem;
             font-weight: 700;
             color: var(--color-primary);
-            text-align: center;
         }
 
         .ranking-name {
@@ -418,10 +441,9 @@
             font-size: 1.125rem;
             font-weight: 600;
             color: var(--color-secondary);
-            text-align: right;
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+            justify-content: center; /* Center points horizontally */
+            align-items: center; /* Center points vertically */
         }
 
         .progress-bar {
@@ -444,11 +466,24 @@
         .cta-section {
             text-align: center;
             padding: 3rem 2rem;
-            background: linear-gradient(135deg, var(--color-muted), rgba(255, 107, 53, 0.05));
+            background: linear-gradient(135deg, var(--color-muted), rgba(255, 107, 53, 0.15));
             border-radius: 20px;
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-sm);
-            margin-top: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+            z-index: 1;
         }
 
         .cta-icon {
@@ -469,14 +504,35 @@
             font-weight: 600;
             color: var(--color-primary);
             margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
-        .cta-text {
+        .cta-action {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            background: rgba(255, 107, 53, 0.1);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            display: inline-block;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .cta-action:hover {
+            background: rgba(255, 107, 53, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .cta-warning {
+            font-size: 1.125rem;
             color: var(--color-muted-foreground);
             max-width: 36rem;
             margin: 0 auto;
-            font-size: 1.125rem;
             line-height: 1.7;
+            font-style: italic;
+            opacity: 0.9;
         }
 
         .loading-container {
@@ -537,10 +593,14 @@
             .main-content { padding: 2rem 1rem; }
             .search-input { max-width: 100%; }
             .section-title { font-size: 2rem; margin-bottom: 2rem; }
+            .cta-title { font-size: 1.5rem; }
+            .cta-action { font-size: 1.1rem; }
+            .cta-warning { font-size: 1rem; }
         }
 
         @media (max-width: 480px) {
             .podium-card, .rankings-header, .ranking-row { padding-left: 1rem; padding-right: 1rem; }
+            .cta-section { padding: 2rem 1rem; }
         }
     </style>
 </head>
@@ -578,6 +638,13 @@
         </div>
 
         <div class="main-content">
+            <div class="cta-section">
+                <i class="fas fa-trophy cta-icon"></i>
+                <h2 class="cta-title">Step Up Your Game!</h2>
+                <div class="cta-action">Get Right Now</div>
+                <p class="cta-warning">Don't Get Left Watching Others Win!</p>
+            </div>
+
             <div class="search-section">
                 <input type="text" id="search-input" class="search-input" placeholder="Search by name...">
             </div>
@@ -607,7 +674,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
