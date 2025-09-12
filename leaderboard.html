@@ -438,6 +438,7 @@
             font-weight: 500;
             color: var(--color-primary);
         }
+        
 
         .ranking-points {
             font-size: 1.125rem;
@@ -536,6 +537,22 @@
             font-style: italic;
             opacity: 0.9;
         }
+        .loading-screen {
+background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);    
+}
+.loading-spinner {
+width: 50px;
+height: 50px;
+border: 3px solid rgba(0, 212, 255, 0.3);
+border-top: 3px solid #00d4ff;
+border-radius: 50%;
+animation: spin 1s linear infinite;    
+}
+@keyframes spin {      
+0% { transform: rotate(0deg); }      
+100% { transform: rotate(360deg); }    
+}
+
 
         .loading-container {
             min-height: 100vh;
@@ -637,6 +654,17 @@
                 </button>
             </div>
         </div>
+
+        <!-- Loading Screen -->
+<div class="loading-screen">
+<div class="loading-content">
+<div class="loading-logo">
+<img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+</div>
+<div class="loading-spinner"></div>
+<p><strong>Loading UTSA NSBE...</strong></p>
+</div>
+</div>
 
         <div class="main-content">
             <div class="cta-section">
