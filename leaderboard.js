@@ -24,7 +24,7 @@ let loading = true;
 let currentTheme = localStorage.getItem('theme') || 'dark';
 
 // DOM elements
-const loadingContainer = document.getElementById("loading");
+const loadingContainer = document.getElementById("loading-container");
 const mainContent = document.getElementById("main-content");
 const errorBanner = document.getElementById("error-banner");
 const errorMessage = document.getElementById("error-message");
@@ -42,10 +42,11 @@ exportBtn.addEventListener("click", exportToCSV);
 searchInput.addEventListener("input", debounce(filterLeaderboard, 300));
 
 // Initialize
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     document.body.setAttribute('data-theme', currentTheme);
     applyTheme();
-    fetchLeaderboardData();
+    await simulateLoading();   // run loading animation
+    fetchLeaderboardData();    // then load CSV
 });
 
 // Debounce utility
@@ -82,11 +83,9 @@ function toggleTheme() {
 async function fetchLeaderboardData() {
     setLoading(true);
     hideError();
-    console.log("Fetching:", "leaderboard.csv"); // Debug log
 
     try {
         const response = await fetch("leaderboard.csv");
-        console.log("Response:", response); // Debug log
 
         if (!response.ok) {
             throw new Error("Failed to fetch leaderboard data");
@@ -101,7 +100,7 @@ async function fetchLeaderboardData() {
             .map((entry, index) => ({ ...entry, rank: index + 1 }));
 
         fullLeaderboard = sortedData;
-        filteredData = fullLeaderboard.slice(0, 17);
+        filteredData = [...fullLeaderboard];
     } catch (err) {
         console.error("Error fetching leaderboard:", err);
         showError("Failed to load leaderboard data. Using sample data.");
@@ -115,8 +114,6 @@ async function fetchLeaderboardData() {
 
 function parseCSV(csvText) {
     const lines = csvText.trim().split("\n");
-    const headers = lines[0].split(",");
-
     return lines.slice(1).map((line) => {
         const values = line.split(",");
         return {
@@ -131,12 +128,41 @@ function parseCSV(csvText) {
 function setLoading(isLoading) {
     loading = isLoading;
     if (isLoading) {
-        loadingContainer.classList.remove("hidden");
+        loadingContainer.classList.remove("fade-out");
         mainContent.classList.add("hidden");
     } else {
-        loadingContainer.classList.add("hidden");
-        mainContent.classList.remove("hidden");
+        hideLoadingScreen();
     }
+}
+
+function hideLoadingScreen() {
+    loadingContainer.classList.add("fade-out");
+    setTimeout(() => {
+        loadingContainer.style.display = "none";
+        mainContent.classList.remove("hidden");
+    }, 800);
+}
+
+function simulateLoading() {
+    return new Promise((resolve) => {
+        let progress = 0;
+        const progressFill = document.getElementById("progress-fill");
+        const progressPercentage = document.getElementById("progress-percentage");
+
+        const interval = setInterval(() => {
+            progress += Math.random() * 15 + 5;
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(interval);
+                setTimeout(() => {
+                    hideLoadingScreen();
+                    resolve();
+                }, 500);
+            }
+            progressFill.style.width = `${progress}%`;
+            progressPercentage.textContent = `${Math.round(progress)}%`;
+        }, 200 + Math.random() * 300);
+    });
 }
 
 function showError(message) {
@@ -152,12 +178,11 @@ function hideError() {
 function filterLeaderboard() {
     const query = searchInput.value.toLowerCase().trim();
     if (query === '') {
-        filteredData = fullLeaderboard.slice(0, 17);
+        filteredData = [...fullLeaderboard];
     } else {
-        filteredData = fullLeaderboard.filter(entry => 
+        filteredData = fullLeaderboard.filter(entry =>
             entry.name.toLowerCase().includes(query)
         );
-        // Sort filtered by rank ascending
         filteredData.sort((a, b) => a.rank - b.rank);
     }
     renderLeaderboard();
@@ -165,14 +190,14 @@ function filterLeaderboard() {
 
 // Export function
 function exportToCSV() {
-    const csvContent = "Rank,Name,Points\n" + 
+    const csvContent = "Rank,Name,Points\n" +
         filteredData.map(entry => `${entry.rank},"${entry.name}",${entry.points}`).join("\n");
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     if (link.download !== undefined) {
         const url = URL.createObjectURL(blob);
         link.setAttribute('href', url);
-        link.setAttribute('download', 'leadership-board.csv');
+        link.setAttribute('download', 'leaderboard.csv');
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
@@ -213,7 +238,7 @@ function renderPodium() {
     const top3 = filteredData.slice(0, 3);
     podiumGrid.innerHTML = top3
         .map((entry, index) => {
-            const rank = entry.rank; // Use overall rank
+            const rank = entry.rank;
             const rankClass = `rank-${rank}`;
             return `
                 <div class="podium-card ${rankClass}">
@@ -240,8 +265,8 @@ function renderRankings(isSearching) {
                     <div class="ranking-name">${entry.name}</div>
                     <div class="ranking-points">
                         <span>${entry.points.toLocaleString()}</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        <div class="progress-bar-mini">
+                            <div class="progress-fill-mini" style="width: ${progress}%"></div>
                         </div>
                     </div>
                 </div>
