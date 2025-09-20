@@ -1074,6 +1074,35 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-secondary);
 }
+
+/* =================== GLOWING TRIANGLES CSS =================== */
+
+.rank-change {
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.up-triangle {
+    color: var(--color-success); /* Green for up, using your success color */
+}
+
+.down-triangle {
+    color: var(--color-error); /* Red for down, using your error color */
+}
+
+.glow {
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    to {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+}
 </style>
 <body data-theme="dark">
     <!-- Loading Screen -->

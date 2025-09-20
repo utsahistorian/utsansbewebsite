@@ -20,6 +20,7 @@ const sampleData = [
 
 let fullLeaderboard = [];
 let filteredData = [];
+let previousLeaderboard = [];
 let loading = true;
 let currentTheme = localStorage.getItem('theme') || 'dark';
 
@@ -46,7 +47,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.setAttribute('data-theme', currentTheme);
     applyTheme();
     await simulateLoading();   // run loading animation
-    fetchLeaderboardData();    // then load CSV
+    await fetchPreviousLeaderboard(); // Load initial previous leaderboard
+    fetchLeaderboardData();    // then load current CSV
 });
 
 // Debounce utility
@@ -79,19 +81,43 @@ function toggleTheme() {
     applyTheme();
 }
 
-// Fetch and parse data
+// Fetch and parse previous leaderboard
+async function fetchPreviousLeaderboard() {
+    try {
+        const response = await fetch("prev_leaderboard.csv");
+        if (!response.ok) {
+            throw new Error(`Failed to fetch prev_leaderboard.csv: ${response.status}`);
+        }
+        const csvText = await response.text();
+        console.log('Previous CSV text preview:', csvText.substring(0, 100) + '...');
+        previousLeaderboard = parseCSV(csvText)
+            .sort((a, b) => b.points - a.points || a.name.localeCompare(b.name))
+            .map((entry, index) => ({ ...entry, rank: index + 1 }));
+        console.log('Loaded previousLeaderboard:', previousLeaderboard.length, 'entries');
+    } catch (err) {
+        console.error("Error fetching previous leaderboard:", err);
+        showError("Failed to load previous leaderboard. Using sample data.");
+        previousLeaderboard = sampleData;
+    }
+}
+
+// Fetch and parse current data
 async function fetchLeaderboardData() {
     setLoading(true);
     hideError();
+    console.log('Starting fetchLeaderboardData...');
 
     try {
         const response = await fetch("leaderboard.csv");
+        console.log('Fetch response status:', response.status);
 
         if (!response.ok) {
-            throw new Error("Failed to fetch leaderboard data");
+            throw new Error(`Failed to fetch leaderboard data: ${response.status}`);
         }
 
         const csvText = await response.text();
+        console.log('CSV text preview:', csvText.substring(0, 100) + '...');
+
         const parsedData = parseCSV(csvText);
 
         // Sort by points (descending), then by name (ascending) for ties
@@ -101,6 +127,7 @@ async function fetchLeaderboardData() {
 
         fullLeaderboard = sortedData;
         filteredData = [...fullLeaderboard];
+        console.log('Loaded new fullLeaderboard:', fullLeaderboard.length, 'entries');
     } catch (err) {
         console.error("Error fetching leaderboard:", err);
         showError("Failed to load leaderboard data. Using sample data.");
@@ -216,6 +243,34 @@ function getRankNumber(rank) {
     return `<div class="rank-number ${rankClass}">${rank}</div>`;
 }
 
+function getRankChangeIndicator(currentRank, name, points) {
+    try {
+        if (points === 0) {
+            console.log('Skipping indicator for', name, 'due to 0 points');
+            return ''; // No indicator for 0 points
+        }
+        const previousEntry = previousLeaderboard.find(entry => entry.name === name);
+        if (!previousEntry) {
+            console.log('No previous entry for name:', name);
+            return ''; // No previous data, no indicator
+        }
+        const previousRank = previousEntry.rank;
+        console.log(`Rank change for ${name}: current ${currentRank} vs previous ${previousRank}`);
+        if (currentRank < previousRank) {
+            console.log(`${name} moved up!`);
+            return '<span class="rank-change up-triangle glow">▲</span>';
+        } else if (currentRank > previousRank) {
+            console.log(`${name} moved down!`);
+            return '<span class="rank-change down-triangle glow">▼</span>';
+        }
+        console.log(`${name} rank unchanged`);
+        return ''; // No change in rank
+    } catch (e) {
+        console.error('Error in getRankChangeIndicator:', e);
+        return '';
+    }
+}
+
 function renderLeaderboard() {
     podiumGrid.innerHTML = '';
     rankingsGrid.innerHTML = '';
@@ -232,6 +287,7 @@ function renderLeaderboard() {
     }
 
     renderRankings(isSearching);
+    console.log('Rendered leaderboard with triangles');
 }
 
 function renderPodium() {
@@ -240,10 +296,11 @@ function renderPodium() {
         .map((entry, index) => {
             const rank = entry.rank;
             const rankClass = `rank-${rank}`;
+            const rankChangeIndicator = getRankChangeIndicator(entry.rank, entry.name, entry.points);
             return `
                 <div class="podium-card ${rankClass}">
                     ${getRankNumber(rank)}
-                    <h3 class="podium-name">${entry.name}</h3>
+                    <h3 class="podium-name">${entry.name}${rankChangeIndicator}</h3>
                     <div class="podium-points">${entry.points.toLocaleString()}</div>
                     <div class="podium-label">points</div>
                 </div>
@@ -259,10 +316,11 @@ function renderRankings(isSearching) {
     rankingsGrid.innerHTML = remaining
         .map((entry) => {
             const progress = ((entry.points / maxPoints) * 100).toFixed(1);
+            const rankChangeIndicator = getRankChangeIndicator(entry.rank, entry.name, entry.points);
             return `
                 <div class="ranking-row">
                     <div class="ranking-rank">${entry.rank}</div>
-                    <div class="ranking-name">${entry.name}</div>
+                    <div class="ranking-name">${entry.name}${rankChangeIndicator}</div>
                     <div class="ranking-points">
                         <span>${entry.points.toLocaleString()}</span>
                         <div class="progress-bar-mini">
