@@ -772,16 +772,8 @@
           }
       }
 
-      body.menu-open {
-          overflow: hidden;
-      }
-
-      @media (max-width: 768px) {
-          body.menu-open {
-              position: fixed;
-              width: 100%;
-          }
-      }
+      /* Menu scrolling is handled by overflow-y: auto on .nav-menu */
+      
       /* End of navbar section replacement */
 
       /* ========================================
@@ -2169,14 +2161,12 @@
       const navToggle = document.getElementById('navToggle');
       const navMenu = document.getElementById('nav-menu');
       const navLinks = document.querySelectorAll('.nav-link');
-      const body = document.body;
 
       function toggleMenu() {
           const isActive = navMenu.classList.contains('active');
           
           navMenu.classList.toggle('active');
           navToggle.classList.toggle('active');
-          body.classList.toggle('menu-open');
           
           // Update ARIA attribute
           navToggle.setAttribute('aria-expanded', !isActive);
@@ -2185,7 +2175,6 @@
       function closeMenu() {
           navMenu.classList.remove('active');
           navToggle.classList.remove('active');
-          body.classList.remove('menu-open');
           navToggle.setAttribute('aria-expanded', 'false');
       }
 
