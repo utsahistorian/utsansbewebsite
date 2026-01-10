@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - UTSA NSBE</title>
+    <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
+    <link rel="apple-touch-icon" href="images/logopic.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    /* Dark Theme Colors */
+    --color-background: #0a0a0a;
+    --color-card: #1a1a1a;
+    --color-primary: #ffffff;
+    --color-primary-foreground: #0a0a0a;
+    --color-secondary: #ff6b35;
+    --color-secondary-foreground: #ffffff;
+    --color-accent: #ffd23f;
+    --color-muted: #2a2a2a;
+    --color-muted-foreground: #a0a0a0;
+    --color-border: #333333;
+    --color-foreground: #e0e0e0;
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.5);
+    
+    /* Transitions */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+    --color-background: #ffffff;
+    --color-card: #f8f9fa;
+    --color-primary: #0a0a0a;
+    --color-primary-foreground: #ffffff;
+    --color-secondary: #ff6b35;
+    --color-secondary-foreground: #ffffff;
+    --color-accent: #ffd23f;
+    --color-muted: #f1f3f4;
+    --color-muted-foreground: #666666;
+    --color-border: #e0e0e0;
+    --color-foreground: #333333;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: var(--transition);
+}
+
+/* =================== MAIN CONTENT =================== */
+
+.leaderboard-container {
+    min-height: 100vh;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    position: relative;
+}
+
+.leaderboard-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 210, 63, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.leaderboard-header {
+    background: linear-gradient(135deg, 
+        rgba(255, 107, 53, 0.1) 0%, 
+        rgba(255, 210, 63, 0.05) 50%,
+        transparent 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+    overflow: hidden;
+}
+
+.leaderboard-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(255, 107, 53, 0.1) 0%, 
+        transparent 30%,
+        rgba(255, 210, 63, 0.1) 70%,
+        transparent 100%);
+    opacity: 0.5;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.header-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.header-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-muted-foreground);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.filter-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    border: 2px solid var(--color-border);
+    background: var(--color-card);
+    color: var(--color-foreground);
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.filter-btn:hover::before {
+    left: 100%;
+}
+
+.filter-btn:hover {
+    border-color: var(--color-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+}
+
+.filter-btn.active {
+    background: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.filter-btn i {
+    font-size: 0.95rem;
+}
+
+.btn {
+    padding: 0.875rem 1.75rem;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    border: none;
+    transition: var(--transition);
+    font-size: 0.95rem;
+    position: relative;
+    overflow: hidden;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--color-secondary);
+    color: var(--color-secondary);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-primary:hover {
+    background: #ff5722;
+}
+
+.btn-outline:hover {
+    background: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+}
+
+.theme-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: var(--color-foreground);
+    padding: 0.875rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px) rotate(15deg);
+}
+
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.stats-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.stat-card {
+    background: var(--color-card);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.stat-card:hover::before {
+    transform: scaleX(1);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover .stat-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.stat-value {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--color-foreground);
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    color: var(--color-muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+
+.cta-section {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, 
+        var(--color-card) 0%, 
+        rgba(255, 107, 53, 0.05) 50%,
+        var(--color-card) 100%);
+    border-radius: 24px;
+    border: 1px solid var(--color-border);
+    margin-bottom: 4rem;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-icon {
+    font-size: 3.5rem;
+    color: var(--color-secondary);
+    margin-bottom: 1.5rem;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
+}
+
+.trophy-float {
+    animation: trophyFloat 3s ease-in-out infinite;
+}
+
+.cta-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-foreground);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cta-action {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    background: rgba(255, 107, 53, 0.1);
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 1rem;
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.cta-action:hover {
+    background: rgba(255, 107, 53, 0.2);
+    transform: translateY(-2px);
+    border-color: var(--color-secondary);
+}
+
+.cta-warning {
+    font-size: 1.125rem;
+    color: var(--color-muted-foreground);
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.cta-decoration {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.decoration-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 107, 53, 0.03);
+    animation: float 8s ease-in-out infinite;
+}
+
+.decoration-circle:nth-child(1) {
+    width: 80px;
+    height: 80px;
+    top: 20%;
+    right: 10%;
+    animation-delay: 0s;
+}
+
+.decoration-circle:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    bottom: 20%;
+    left: 10%;
+    animation-delay: 2s;
+}
+
+.decoration-circle:nth-child(3) {
+    width: 40px;
+    height: 40px;
+    top: 60%;
+    right: 30%;
+    animation-delay: 4s;
+}
+
+.search-section {
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.search-container {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-muted-foreground);
+    font-size: 1.1rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1.25rem 1.5rem 1.25rem 3.5rem;
+    border: 2px solid var(--color-border);
+    border-radius: 50px;
+    font-size: 1rem;
+    background: var(--color-card);
+    color: var(--color-foreground);
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1), var(--shadow-md);
+    transform: scale(1.02);
+}
+
+.search-input::placeholder {
+    color: var(--color-muted-foreground);
+}
+
+.error-banner {
+    margin-bottom: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 16px;
+    display: none;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-error);
+    animation: slideDown 0.4s ease-out;
+    position: relative;
+}
+
+.error-banner.show {
+    display: flex;
+}
+
+.error-close {
+    background: none;
+    border: none;
+    color: var(--color-error);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: var(--transition);
+    margin-left: auto;
+}
+
+.error-close:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--color-foreground);
+    position: relative;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.title-decoration {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+    border-radius: 2px;
+}
+
+.podium-section {
+    margin-bottom: 4rem;
+}
+
+.podium-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.podium-card {
+    background: var(--color-card);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.podium-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.podium-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+}
+
+.podium-card.rank-1::before {
+    background: linear-gradient(90deg, #ffd700, #ffed4a);
+}
+
+.podium-card.rank-2::before {
+    background: linear-gradient(90deg, #c0c0c0, #e2e8f0);
+}
+
+.podium-card.rank-3::before {
+    background: linear-gradient(90deg, #cd7f32, #f6ad55);
+}
+
+.podium-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3), 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.podium-card:hover::after {
+    opacity: 1;
+}
+
+.podium-card.rank-1:hover {
+    box-shadow: 0 20px 60px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(255, 215, 0, 0.3);
+}
+
+.podium-card.rank-2:hover {
+    box-shadow: 0 20px 60px rgba(192, 192, 192, 0.5), 0 8px 25px rgba(192, 192, 192, 0.3);
+}
+
+.podium-card.rank-3:hover {
+    box-shadow: 0 20px 60px rgba(205, 127, 50, 0.5), 0 8px 25px rgba(205, 127, 50, 0.3);
+}
+
+.rank-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+    margin: 0 auto 1.5rem;
+    font-weight: 900;
+    font-size: 1.75rem;
+    box-shadow: var(--shadow-md);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+}
+
+.rank-number::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(from 180deg, transparent, var(--color-secondary), transparent);
+    animation: rotate 3s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.podium-card:hover .rank-number::before {
+    opacity: 1;
+}
+
+.rank-number::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: var(--color-card);
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.rank-number.rank-1 {
+    background: linear-gradient(135deg, #ffd700, #ffed4a);
+    color: #000000;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2);
+    animation: goldGlow 2s ease-in-out infinite;
+}
+
+.rank-number.rank-2 {
+    background: linear-gradient(135deg, #c0c0c0, #e2e8f0);
+    color: #000000;
+    box-shadow: 0 8px 25px rgba(192, 192, 192, 0.4), 0 0 40px rgba(192, 192, 192, 0.2);
+    animation: silverGlow 2s ease-in-out infinite;
+}
+
+.rank-number.rank-3 {
+    background: linear-gradient(135deg, #cd7f32, #f6ad55);
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(205, 127, 50, 0.4), 0 0 40px rgba(205, 127, 50, 0.2);
+    animation: bronzeGlow 2s ease-in-out infinite;
+}
+
+.podium-card:hover .rank-number {
+    transform: scale(1.2) rotate(360deg);
+}
+
+.podium-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-foreground);
+}
+
+.podium-points {
+    font-size: 2.75rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.podium-label {
+    font-size: 0.9rem;
+    color: var(--color-muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+}
+
+.rankings-section {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.rankings-table {
+    background: var(--color-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+}
+
+.rankings-header {
+    display: grid;
+    grid-template-columns: 100px 1fr 150px;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, var(--color-muted), rgba(255, 107, 53, 0.05));
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-align: center;
+    color: var(--color-muted-foreground);
+}
+
+.ranking-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 150px;
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--color-border);
+    align-items: center;
+    transition: var(--transition);
+    position: relative;
+    text-align: center;
+}
+
+.ranking-row::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: var(--color-secondary);
+    transition: var(--transition);
+}
+
+.ranking-row:hover {
+    background: linear-gradient(90deg, var(--color-muted) 0%, rgba(255, 107, 53, 0.05) 100%);
+    transform: translateX(12px) scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-row:hover::before {
+    width: 5px;
+    box-shadow: 0 0 10px var(--color-secondary);
+}
+
+.ranking-rank {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-secondary);
+    background: rgba(255, 107, 53, 0.1);
+    padding: 0.5rem;
+    border-radius: 12px;
+    margin: 0 auto;
+    width: fit-content;
+    min-width: 2.5rem;
+    transition: all 0.3s ease;
+}
+
+.ranking-row:hover .ranking-rank {
+    background: var(--color-secondary);
+    color: var(--color-secondary-foreground);
+    transform: scale(1.1);
+}
+
+.ranking-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-foreground);
+}
+
+.ranking-points {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-secondary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.progress-bar-mini {
+    width: 100%;
+    max-width: 120px;
+    height: 4px;
+    background: var(--color-muted);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill-mini {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+    border-radius: 2px;
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--color-muted-foreground);
+    font-size: 1.125rem;
+}
+
+/* =================== ANIMATIONS =================== */
+
+@keyframes trophyBounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-15px); }
+    60% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(5deg); }
+    66% { transform: translateY(-10px) rotate(-5deg); }
+}
+
+@keyframes trophyFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes goldGlow {
+    0%, 100% { box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2); }
+    50% { box-shadow: 0 8px 35px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.4); }
+}
+
+@keyframes silverGlow {
+    0%, 100% { box-shadow: 0 8px 25px rgba(192, 192, 192, 0.4), 0 0 40px rgba(192, 192, 192, 0.2); }
+    50% { box-shadow: 0 8px 35px rgba(192, 192, 192, 0.6), 0 0 60px rgba(192, 192, 192, 0.4); }
+}
+
+@keyframes bronzeGlow {
+    0%, 100% { box-shadow: 0 8px 25px rgba(205, 127, 50, 0.4), 0 0 40px rgba(205, 127, 50, 0.2); }
+    50% { box-shadow: 0 8px 35px rgba(205, 127, 50, 0.6), 0 0 60px rgba(205, 127, 50, 0.4); }
+}
+
+/* =================== RESPONSIVE DESIGN =================== */
+
+@media (max-width: 768px) {
+    .header-title { font-size: 2.5rem; }
+    .header-subtitle { font-size: 1rem; margin-bottom: 2rem; }
+    .header-controls { gap: 0.75rem; flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
+    .filter-controls { gap: 0.5rem; }
+    .filter-btn { padding: 0.625rem 1.25rem; font-size: 0.85rem; }
+    .btn { width: 100%; justify-content: center; }
+    
+    .stats-summary { grid-template-columns: 1fr; gap: 1rem; }
+    .stat-card { padding: 1.5rem; }
+    .stat-value { font-size: 2rem; }
+    
+    .podium-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .rankings-header, .ranking-row { 
+        grid-template-columns: 80px 1fr 120px; 
+        padding: 1rem 1.5rem; 
+    }
+    
+    .main-content { padding: 2rem 1rem; }
+    .section-title { font-size: 2rem; margin-bottom: 2rem; }
+    .cta-title { font-size: 1.5rem; }
+    .cta-action { font-size: 1.1rem; padding: 0.5rem 1.5rem; }
+    .cta-warning { font-size: 1rem; }
+    
+    .search-input { padding: 1rem 1rem 1rem 3rem; }
+}
+
+@media (max-width: 480px) {
+    .header-content { padding: 3rem 1rem 2rem; }
+    .podium-card, .cta-section { padding: 2rem 1rem; }
+    .rankings-header, .ranking-row { 
+        grid-template-columns: 60px 1fr 100px; 
+        padding: 1rem; 
+        font-size: 0.8rem;
+    }
+    .ranking-rank { font-size: 1rem; padding: 0.25rem; }
+    .ranking-name { font-size: 1rem; }
+    .ranking-points { font-size: 1rem; }
+    
+    .loading-progress { width: 200px; }
+    .loading-icon { font-size: 2.5rem; }
+}
+
+/* =================== ACCESSIBILITY & FOCUS STATES =================== */
+
+.focus-enhanced:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2) !important;
+    border-color: var(--color-secondary) !important;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* =================== DARK/LIGHT THEME TRANSITIONS =================== */
+
+* {
+    transition: background-color 0.3s ease, 
+                border-color 0.3s ease, 
+                color 0.3s ease, 
+                box-shadow 0.3s ease,
+                transform 0.3s ease;
+}
+
+/* =================== CUSTOM SCROLLBAR =================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-secondary);
+}
+
+/* =================== GLOWING TRIANGLES CSS =================== */
+
+.rank-change {
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.up-triangle {
+    color: var(--color-success); /* Green for up, using your success color */
+}
+
+.down-triangle {
+    color: var(--color-error); /* Red for down, using your error color */
+}
+
+.glow {
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    to {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+}
+</style>
+<body data-theme="dark">
+    <!-- Main Content -->
+    <div id="main-content" class="leaderboard-container">
+        <div class="leaderboard-header">
+            <div class="header-content">
+                <div class="header-title">Paid Member Leaderboard</div>
+                <div class="header-controls">
+                    <button id="refresh-btn" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Refresh</span>
+                    </button>
+                    <button id="theme-toggle" class="btn theme-toggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="index.html" class="btn btn-outline">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <button id="export-btn" class="btn btn-outline">
+                        <i class="fas fa-download"></i>
+                        <span>Export</span>
+                    </button>
+                </div>
+                <div class="filter-controls" style="margin-top: 2rem;">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-users"></i>
+                        All Members
+                    </button>
+                    <button class="filter-btn" data-filter="top10">
+                        <i class="fas fa-star"></i>
+                        Top 10
+                    </button>
+                    <button class="filter-btn" data-filter="top25">
+                        <i class="fas fa-crown"></i>
+                        Top 25
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Stats Summary -->
+            <div class="stats-summary">
+                <div class="stat-card">
+                    <i class="fas fa-users stat-icon"></i>
+                    <div class="stat-value" id="total-members">0</div>
+                    <div class="stat-label">Total Members</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star stat-icon"></i>
+                    <div class="stat-value" id="total-points">0</div>
+                    <div class="stat-label">Total Points</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-chart-line stat-icon"></i>
+                    <div class="stat-value" id="avg-points">0</div>
+                    <div class="stat-label">Avg Points</div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <div class="cta-content">
+                    <i class="fas fa-trophy cta-icon trophy-float"></i>
+                    <h2 class="cta-title">Step Up Your Game!</h2>
+                    <div class="cta-action">Success isn't optional, it's personal!</div>
+                </div>
+                <div class="cta-decoration">
+                    <div class="decoration-circle"></div>
+                    <div class="decoration-circle"></div>
+                    <div class="decoration-circle"></div>
+                </div>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="search-input" class="search-input focus-enhanced" placeholder="Search by name...">
+                </div>
+            </div>
+
+            <!-- Error Banner -->
+            <div id="error-banner" class="error-banner">
+                <i class="fas fa-exclamation-circle"></i>
+                <p id="error-message"></p>
+                <button class="error-close" onclick="hideError()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Top 3 Podium -->
+            <div class="podium-section">
+                <h2 class="section-title">
+                    Top Performers
+                    <div class="title-decoration"></div>
+                </h2>
+                <div id="podium-grid" class="podium-grid">
+                    <!-- Top 3 will be populated here -->
+                </div>
+            </div>
+
+            <!-- Full Rankings -->
+            <div class="rankings-section">
+                <h2 class="section-title">
+                    Full Rankings
+                    <div class="title-decoration"></div>
+                </h2>
+                <div class="rankings-table">
+                    <div class="rankings-header">
+                        <div>Rank</div>
+                        <div>Name</div>
+                        <div>Points</div>
+                    </div>
+                    <div id="rankings-grid" class="rankings-grid">
+                        <!-- Rankings will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="leaderboard.js"></script>
+    <script>
+        // Filter functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const rankingRows = document.querySelectorAll('.ranking-row');
+            
+            // Calculate and display stats
+            function updateStats() {
+                const totalMembers = rankingRows.length;
+                let totalPoints = 0;
+                
+                rankingRows.forEach(row => {
+                    const pointsText = row.querySelector('.ranking-points').textContent.trim();
+                    const points = parseInt(pointsText.replace(/[^0-9]/g, ''));
+                    if (!isNaN(points)) {
+                        totalPoints += points;
+                    }
+                });
+                
+                const avgPoints = totalMembers > 0 ? Math.round(totalPoints / totalMembers) : 0;
+                
+                // Animate numbers
+                animateValue('total-members', 0, totalMembers, 1000);
+                animateValue('total-points', 0, totalPoints, 1500);
+                animateValue('avg-points', 0, avgPoints, 1200);
+            }
+            
+            function animateValue(id, start, end, duration) {
+                const element = document.getElementById(id);
+                if (!element) return;
+                
+                const range = end - start;
+                const increment = range / (duration / 16);
+                let current = start;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                        current = end;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.round(current).toLocaleString();
+                }, 16);
+            }
+            
+            // Initialize stats
+            updateStats();
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    const filter = button.getAttribute('data-filter');
+                    
+                    // Filter rows with animation
+                    rankingRows.forEach((row, index) => {
+                        const rank = parseInt(row.querySelector('.ranking-rank').textContent);
+                        let shouldShow = false;
+                        
+                        if (filter === 'all') {
+                            shouldShow = true;
+                        } else if (filter === 'top10') {
+                            shouldShow = rank <= 10;
+                        } else if (filter === 'top25') {
+                            shouldShow = rank <= 25;
+                        }
+                        
+                        if (shouldShow) {
+                            setTimeout(() => {
+                                row.style.display = 'grid';
+                                row.style.animation = 'fadeInUp 0.4s ease-out forwards';
+                            }, index * 30);
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Add stagger animation on load
+            rankingRows.forEach((row, index) => {
+                setTimeout(() => {
+                    row.style.animation = 'fadeInUp 0.6s ease-out forwards';
+                }, 100 + (index * 50));
+            });
+        });
+    </script>
+</body>
+</html>
