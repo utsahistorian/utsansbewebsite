@@ -273,7 +273,9 @@
       backdrop-filter: blur(12px);
       position: relative;
       z-index: 2;
-      transition: all 0.4s ease;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      overflow: hidden;
     }
     
     .membership-step::before {
@@ -285,12 +287,41 @@
       height: 100%;
       background: linear-gradient(135deg, #00d4ff, #0099cc);
       border-radius: 2px;
+      transition: all 0.6s ease;
+    }
+    
+    /* Animated gradient border effect */
+    .membership-step::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 15px;
+      padding: 2px;
+      background: linear-gradient(135deg, #00d4ff, #0099cc, #00d4ff);
+      background-size: 200% 200%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      animation: gradientShift 3s ease infinite;
     }
     
     .membership-step:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 212, 255, 0.2);
-      border-color: rgba(0, 212, 255, 0.4);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(0, 212, 255, 0.4), 0 8px 25px rgba(0, 212, 255, 0.3);
+      border-color: rgba(0, 212, 255, 0.6);
+    }
+    
+    .membership-step:hover::before {
+      width: 100%;
+      height: 4px;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+    }
+    
+    .membership-step:hover::after {
+      opacity: 1;
     }
     
     .step-header {
@@ -312,6 +343,39 @@
       color: white;
       box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
       flex-shrink: 0;
+      position: relative;
+      transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: iconGlow 2s ease-in-out infinite;
+    }
+    
+    /* Rotating gradient ring around icon */
+    .step-icon::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 14px;
+      background: conic-gradient(from 180deg, transparent, #00d4ff, transparent);
+      animation: rotate 3s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .step-icon::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      background: rgba(10, 10, 15, 0.95);
+      border-radius: 10px;
+      z-index: -1;
+    }
+    
+    .membership-step:hover .step-icon {
+      transform: scale(1.15) rotate(360deg);
+      box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+    }
+    
+    .membership-step:hover .step-icon::before {
+      opacity: 1;
     }
     
     .step-title {
@@ -347,17 +411,35 @@
       padding: 1.5rem;
       border-radius: 12px;
       border: 1px solid rgba(0, 212, 255, 0.3);
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       align-items: center;
       gap: 1rem;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .payment-method::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .payment-method:hover::before {
+      left: 100%;
     }
     
     .payment-method:hover {
       background: rgba(0, 212, 255, 0.2);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(0, 212, 255, 0.2);
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+      border-color: rgba(0, 212, 255, 0.5);
     }
     
     .payment-icon {
@@ -407,13 +489,31 @@
       background: rgba(255, 255, 255, 0.05);
       border-radius: 10px;
       border: 1px solid rgba(0, 212, 255, 0.1);
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .benefit-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, rgba(0, 212, 255, 0.2), transparent);
+      transition: width 0.4s ease;
+    }
+    
+    .benefit-item:hover::before {
+      width: 100%;
     }
     
     .benefit-item:hover {
-      background: rgba(0, 212, 255, 0.1);
-      border-color: rgba(0, 212, 255, 0.3);
-      transform: translateX(5px);
+      background: rgba(0, 212, 255, 0.15);
+      border-color: rgba(0, 212, 255, 0.4);
+      transform: translateX(8px);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.2);
     }
     
     .benefit-icon {
@@ -428,6 +528,14 @@
       color: white;
       flex-shrink: 0;
       margin-top: 2px;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .benefit-item:hover .benefit-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
     }
     
     .benefit-text {
@@ -436,6 +544,89 @@
       color: var(--text-secondary);
       line-height: 1.6;
       flex: 1;
+    }
+    
+    /* Stats Section */
+    .stats-section {
+      padding: 80px 0;
+      background: rgba(0, 212, 255, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .stat-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00d4ff, #0099cc);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+      border-color: rgba(0, 212, 255, 0.4);
+    }
+    
+    .stat-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .stat-icon {
+      font-size: 3rem;
+      color: #00d4ff;
+      margin-bottom: 1.5rem;
+      display: block;
+      transition: transform 0.4s ease;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .stat-card:hover .stat-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+    
+    .stat-value {
+      font-size: 3rem;
+      font-weight: 900;
+      font-family: 'Orbitron', sans-serif;
+      color: #00d4ff;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #00d4ff, #0099cc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
     }
     
     /* Enhanced Social Feed Section */
@@ -1021,6 +1212,88 @@
       100% { transform: rotate(360deg); }
     }
     
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    @keyframes iconGlow {
+      0%, 100% { box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3); }
+      50% { box-shadow: 0 10px 35px rgba(0, 212, 255, 0.5), 0 0 40px rgba(0, 212, 255, 0.3); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-15px) rotate(3deg); }
+      66% { transform: translateY(-8px) rotate(-3deg); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    
+    /* Floating Particles */
+    .particles-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #00d4ff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: floatParticle 15s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+    
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 14s; }
+    .particle:nth-child(3) { left: 30%; animation-delay: 4s; animation-duration: 16s; }
+    .particle:nth-child(4) { left: 40%; animation-delay: 1s; animation-duration: 13s; }
+    .particle:nth-child(5) { left: 50%; animation-delay: 3s; animation-duration: 15s; }
+    .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 17s; }
+    .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; animation-duration: 14.5s; }
+    .particle:nth-child(8) { left: 80%; animation-delay: 4.5s; animation-duration: 16.5s; }
+    .particle:nth-child(9) { left: 90%; animation-delay: 1.5s; animation-duration: 13.5s; }
+    .particle:nth-child(10) { left: 15%; animation-delay: 3.5s; animation-duration: 15.5s; }
+    
+    @keyframes floatParticle {
+      0% { 
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.6;
+        transform: translateY(90vh) translateX(-10px) scale(1);
+      }
+      50% {
+        transform: translateY(50vh) translateX(10px) scale(1.2);
+      }
+      90% {
+        opacity: 0.6;
+        transform: translateY(10vh) translateX(-5px) scale(1);
+      }
+      100% { 
+        transform: translateY(-10vh) translateX(0) scale(0);
+        opacity: 0;
+      }
+    }
+    
     /* Enhanced Footer */
     .footer-social-link {
       transition: all 0.3s ease;
@@ -1447,8 +1720,54 @@
     </div>
   </section>
 
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="section-header scroll-reveal">
+        <h2 class="section-title">Our Impact</h2>
+        <p class="section-subtitle">
+          Building a stronger engineering community together
+        </p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card scroll-reveal-scale">
+          <i class="fas fa-users stat-icon"></i>
+          <div class="stat-value" data-target="150">0</div>
+          <div class="stat-label">Active Members</div>
+        </div>
+        <div class="stat-card scroll-reveal-scale">
+          <i class="fas fa-trophy stat-icon"></i>
+          <div class="stat-value" data-target="25">0</div>
+          <div class="stat-label">Awards Won</div>
+        </div>
+        <div class="stat-card scroll-reveal-scale">
+          <i class="fas fa-briefcase stat-icon"></i>
+          <div class="stat-value" data-target="500">0</div>
+          <div class="stat-label">Career Connections</div>
+        </div>
+        <div class="stat-card scroll-reveal-scale">
+          <i class="fas fa-calendar-check stat-icon"></i>
+          <div class="stat-value" data-target="40">0</div>
+          <div class="stat-label">Events Per Year</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Membership Section -->
   <section id="join" class="membership-section">
+    <div class="particles-container">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
     <div class="container">
       <div class="section-header scroll-reveal">
         <h2 class="section-title">How To Become A Member</h2>
@@ -2028,8 +2347,71 @@
         revealOnScroll();
         enhanceCardAnimations();
         startSlideshow();
+        addStaggerAnimations();
       }, 500);
     });
+    
+    // Add stagger animations to elements
+    function addStaggerAnimations() {
+      // Stagger membership steps
+      const membershipSteps = document.querySelectorAll('.membership-step');
+      membershipSteps.forEach((step, index) => {
+        setTimeout(() => {
+          step.style.animation = `fadeInUp 0.8s ease-out ${index * 0.2}s both`;
+        }, 100 + (index * 200));
+      });
+      
+      // Stagger benefit items
+      const benefitItems = document.querySelectorAll('.benefit-item');
+      benefitItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s both`;
+        }, 100 + (index * 100));
+      });
+      
+      // Stagger payment methods
+      const paymentMethods = document.querySelectorAll('.payment-method');
+      paymentMethods.forEach((method, index) => {
+        setTimeout(() => {
+          method.style.animation = `fadeInUp 0.6s ease-out ${index * 0.15}s both`;
+        }, 100 + (index * 150));
+      });
+      
+      // Initialize stat counters
+      initStatCounters();
+    }
+    
+    // Animated stat counters
+    function initStatCounters() {
+      const statValues = document.querySelectorAll('.stat-value[data-target]');
+      const animateCounter = (element) => {
+        const target = parseInt(element.getAttribute('data-target'));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          element.textContent = Math.round(current).toLocaleString() + '+';
+        }, 16);
+      };
+      
+      // Use Intersection Observer to trigger animation when in view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+            entry.target.classList.add('counted');
+            animateCounter(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      statValues.forEach(stat => observer.observe(stat));
+    }
     
     window.addEventListener('scroll', revealOnScroll);
   </script>
