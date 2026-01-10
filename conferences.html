@@ -10,16 +10,1051 @@
   <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
   <link rel="apple-touch-icon" href="images/logopic.jpg">
   
-  <!-- Creative Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- CSS Files -->
   <link rel="stylesheet" href="styles.css">
   
   <style>
+    /* Use Montserrat for nav links only */
+    .nav-link { font-family: 'Montserrat', sans-serif; }
+    
+    /* ========================================
+       ENHANCED NAVBAR STYLES 
+       ======================================== */
+    
+    /* Navbar container with glassmorphism */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: rgba(10, 10, 15, 0.85);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Scrolled state - more solid background */
+    .navbar.scrolled {
+        background: rgba(10, 10, 15, 0.98);
+        border-bottom-color: rgba(255, 107, 53, 0.2);
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Navigation container */
+    .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    /* Brand/Logo section */
+    .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-brand:hover {
+        transform: scale(1.05);
+    }
+
+    .nav-logo {
+        width: 50px;
+        height: 50px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 12px;
+        background: var(--accent-orange);
+        border: 2px solid var(--accent-orange);
+        box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        transition: all 0.3s ease;
+        padding: 4px;
+    }
+
+    .nav-logo::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.3), transparent);
+        transition: left 0.5s ease;
+        z-index: 1;
+    }
+
+    .nav-brand:hover .nav-logo {
+        border-color: var(--accent-orange-light);
+        box-shadow: 0 6px 30px rgba(255, 107, 53, 0.5);
+        transform: rotate(5deg);
+    }
+
+    .nav-brand:hover .nav-logo::before {
+        left: 100%;
+    }
+
+    .nav-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Mobile toggle button */
+    .nav-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: rgba(255, 107, 53, 0.1);
+        border: 1px solid rgba(255, 107, 53, 0.3);
+        border-radius: 8px;
+        padding: 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .nav-toggle:hover {
+        background: rgba(255, 107, 53, 0.2);
+        border-color: var(--accent-orange);
+    }
+
+    .hamburger-line {
+        width: 25px;
+        height: 3px;
+        background: var(--accent-orange);
+        border-radius: 2px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Animated hamburger to X */
+    .nav-toggle.active .hamburger-line:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .nav-toggle.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    .nav-toggle.active .hamburger-line:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Navigation menu */
+    .nav-menu {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    .nav-links-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Enhanced nav links with modern hover effects */
+    .nav-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        border-radius: 10px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        background: transparent !important;
+    }
+
+    .nav-link:not(.active) {
+        background: transparent !important;
+    }
+
+    /* Hover shimmer effect */
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.2), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .nav-link:hover::before {
+        left: 100%;
+    }
+
+    /* Underline effect */
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #ff6b35, #ff9f43);
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .nav-link:hover {
+        color: var(--text-primary);
+        background: rgba(255, 107, 53, 0.08) !important;
+        transform: translateY(-2px);
+    }
+
+    .nav-link:not(.active):hover {
+        background: rgba(255, 107, 53, 0.08) !important;
+    }
+
+    .nav-link:hover::after {
+        width: 60%;
+    }
+
+    /* Active link styling */
+    .nav-link.active {
+        color: #ffffff !important;
+        background: linear-gradient(135deg, #ff6b35, #ff9f43) !important;
+        border: 2px solid var(--accent-orange-light);
+        font-weight: 600;
+        box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+        transform: scale(1.05);
+    }
+
+    .nav-link.active::after {
+        display: none;
+    }
+
+    .nav-link.active::before {
+        display: none;
+    }
+
+    .nav-link.active:hover {
+        transform: scale(1.05) !important;
+        background: linear-gradient(135deg, #ff6b35, #ff9f43) !important;
+    }
+
+    /* Icon animation in nav links */
+    .nav-link i {
+        font-size: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-link:hover i {
+        transform: scale(1.2) rotate(5deg);
+    }
+
+    /* Social links section */
+    .nav-social {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .social-link {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 107, 53, 0.08);
+        border: 1px solid rgba(255, 107, 53, 0.2);
+        border-radius: 10px;
+        color: var(--accent-orange);
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Ripple effect on social links */
+    .social-link::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.5s ease, height 0.5s ease;
+    }
+
+    .social-link:hover::before {
+        width: 100px;
+        height: 100px;
+    }
+
+    .social-link:hover {
+        background: linear-gradient(135deg, #ff6b35, #ff9f43);
+        color: white;
+        border-color: var(--accent-orange-light);
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+    }
+
+    .social-link i {
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease;
+    }
+
+    .social-link:hover i {
+        transform: rotate(360deg);
+    }
+
+    /* Navbar progress bar (scroll indicator) */
+    .nav-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(135deg, #ff6b35, #ff9f43);
+        transition: width 0.1s linear;
+        box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+    }
+
+    /* Responsive navbar */
+    @media (max-width: 768px) {
+        .nav-toggle {
+            display: flex !important;
+            z-index: 1001;
+        }
+
+        .nav-container {
+            padding: 0.75rem 1rem;
+        }
+
+        .nav-logo {
+            width: 45px;
+            height: 45px;
+        }
+
+        .nav-menu {
+            position: fixed !important;
+            top: 70px !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: calc(100vh - 70px) !important;
+            background: rgba(10, 10, 15, 0.98) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            flex-direction: column !important;
+            justify-content: flex-start !important;
+            padding: 2rem 1.5rem !important;
+            gap: 1.5rem !important;
+            transform: translateX(-100%) !important;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            overflow-y: auto !important;
+            border-right: 1px solid rgba(255, 107, 53, 0.2) !important;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0) !important;
+        }
+
+        .nav-links-group {
+            flex-direction: column !important;
+            width: 100% !important;
+            gap: 0.75rem !important;
+        }
+
+        .nav-link {
+            width: 100% !important;
+            justify-content: flex-start !important;
+            padding: 1rem 1.5rem !important;
+            font-size: 1.1rem !important;
+            border-radius: 12px !important;
+        }
+
+        .nav-link i {
+            font-size: 1.2rem !important;
+        }
+
+        .nav-social {
+            justify-content: center !important;
+            width: 100% !important;
+            gap: 1rem !important;
+            padding-top: 1rem !important;
+            border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            font-size: 1.3rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .nav-container {
+            padding: 0.5rem 0.75rem;
+        }
+
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .nav-toggle {
+            padding: 0.4rem;
+        }
+
+        .hamburger-line {
+            width: 22px;
+        }
+
+        .nav-menu {
+            top: 60px !important;
+            height: calc(100vh - 60px) !important;
+            padding: 1.5rem 1rem !important;
+            gap: 1rem !important;
+        }
+
+        .nav-link {
+            padding: 0.875rem 1.25rem !important;
+            font-size: 1rem !important;
+        }
+
+        .nav-link i {
+            font-size: 1.1rem !important;
+        }
+
+        .nav-social {
+            gap: 0.75rem !important;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            font-size: 1.2rem;
+        }
+
+        .nav-progress {
+            height: 2px;
+        }
+    }
+
+    /* Prevent body scroll when mobile menu is open */
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+        body.menu-open {
+            position: fixed;
+            width: 100%;
+        }
+    }
+  </style>
+  
+  <style>
+      /* Enhanced CSS Variables for better theming */
+      :root {
+          --bg-primary: #0a0a0f;
+          --bg-secondary: #13131a;
+          --bg-tertiary: #1a1a24;
+          --bg-card: rgba(255, 255, 255, 0.03);
+          --text-primary: #ffffff;
+          --text-secondary: #a0a0b0;
+          --text-muted: #8a8a98;
+          --accent-orange: #ff6b35;
+          --accent-orange-light: #ff9f43;
+          --font-heading: 'Orbitron', monospace;
+          --gradient-orange: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-light));
+          --accent-blue: #00d4ff;
+          --accent-blue-dark: #0099cc;
+          --border-subtle: rgba(255, 255, 255, 0.06);
+          --shadow-glow: 0 4px 40px rgba(255, 107, 53, 0.15);
+          --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+          --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      /* Reset and base styles */
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      html {
+          scroll-behavior: smooth;
+      }
+
+      body {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          background: var(--bg-primary);
+          color: var(--text-primary);
+          line-height: 1.6;
+          overflow-x: hidden;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Enhanced animated background with gradient mesh */
+      .animated-bg {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          background: radial-gradient(ellipse at top, rgba(0, 31, 77, 0.4), transparent),
+                      radial-gradient(ellipse at bottom right, rgba(255, 107, 53, 0.15), transparent);
+          overflow: hidden;
+      }
+
+      .floating-particles {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+      }
+
+      .floating-particles::before,
+      .floating-particles::after {
+          content: '';
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255, 107, 53, 0.1), transparent);
+          animation: float 20s infinite ease-in-out;
+      }
+
+      .floating-particles::before {
+          top: -100px;
+          left: -100px;
+          animation-delay: 0s;
+      }
+
+      .floating-particles::after {
+          bottom: -100px;
+          right: -100px;
+          animation-delay: 10s;
+      }
+
+      @keyframes float {
+          0%, 100% {
+              transform: translate(0, 0) scale(1);
+          }
+          33% {
+              transform: translate(100px, -100px) scale(1.1);
+          }
+          66% {
+              transform: translate(-100px, 100px) scale(0.9);
+          }
+      }
+
+      .grid-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: 
+              linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+          background-size: 50px 50px;
+          opacity: 0.5;
+      }
+
+      .container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 0 2rem;
+      }
+
+    
+        /* ========================================
+           ENHANCED NAVBAR STYLES FROM INDEX.HTML
+           ======================================== */
+        
+        /* Navbar container with glassmorphism */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scrolled state - more solid background */
+        .navbar.scrolled {
+            background: rgba(10, 10, 15, 0.98);
+            border-bottom-color: rgba(255, 107, 53, 0.2);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Navigation container */
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        /* Brand/Logo section */
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-logo {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            background: var(--accent-orange);
+            border: 2px solid var(--accent-orange);
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+            padding: 4px;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: 1;
+        }
+
+        .nav-brand:hover .nav-logo {
+            border-color: var(--accent-orange-light);
+            box-shadow: 0 6px 30px rgba(255, 107, 53, 0.5);
+            transform: rotate(5deg);
+        }
+
+        .nav-brand:hover .nav-logo::before {
+            left: 100%;
+        }
+
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Mobile toggle button */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            background: rgba(255, 107, 53, 0.2);
+            border-color: var(--accent-orange);
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 3px;
+            background: var(--accent-orange);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animated hamburger to X */
+        .nav-toggle.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .nav-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .nav-toggle.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Navigation menu */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .nav-links-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Enhanced nav links with modern hover effects */
+        .nav-link {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            background: transparent !important;
+        }
+
+        .nav-link:not(.active) {
+            background: transparent !important;
+        }
+
+        /* Hover shimmer effect */
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 100%;
+        }
+
+        /* Underline effect */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-orange);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: rgba(255, 107, 53, 0.08) !important;
+            transform: translateY(-2px);
+        }
+
+        .nav-link:not(.active):hover {
+            background: rgba(255, 107, 53, 0.08) !important;
+        }
+
+        .nav-link:hover::after {
+            width: 60%;
+        }
+
+        /* Active link styling */
+        .nav-link.active {
+            color: #ffffff !important;
+            background: var(--gradient-orange) !important;
+            border: 2px solid var(--accent-orange-light);
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+            transform: scale(1.05);
+        }
+
+        .nav-link.active::after {
+            display: none;
+        }
+
+        .nav-link.active::before {
+            display: none;
+        }
+
+        .nav-link.active:hover {
+            transform: scale(1.05) !important;
+            background: var(--gradient-orange) !important;
+        }
+
+        /* Icon animation in nav links */
+        .nav-link i {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        /* Social links section */
+        .nav-social {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 107, 53, 0.08);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 10px;
+            color: var(--accent-orange);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ripple effect on social links */
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        .social-link:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .social-link:hover {
+            background: var(--gradient-orange);
+            color: white;
+            border-color: var(--accent-orange-light);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .social-link i {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* Navbar progress bar (scroll indicator) */
+        .nav-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-orange);
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Responsive navbar */
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex !important;
+                z-index: 1001;
+            }
+
+            .nav-container {
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .nav-menu {
+                position: fixed !important;
+                top: 70px !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: calc(100vh - 70px) !important;
+                background: rgba(10, 10, 15, 0.98) !important;
+                backdrop-filter: blur(20px) !important;
+                -webkit-backdrop-filter: blur(20px) !important;
+                flex-direction: column !important;
+                justify-content: flex-start !important;
+                padding: 2rem 1.5rem !important;
+                gap: 1.5rem !important;
+                transform: translateX(-100%) !important;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+                overflow-y: auto !important;
+                border-right: 1px solid rgba(255, 107, 53, 0.2) !important;
+                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5) !important;
+            }
+
+            .nav-menu.active {
+                transform: translateX(0) !important;
+            }
+
+            .nav-links-group {
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 0.75rem !important;
+            }
+
+            .nav-link {
+                width: 100% !important;
+                justify-content: flex-start !important;
+                padding: 1rem 1.5rem !important;
+                font-size: 1.1rem !important;
+                border-radius: 12px !important;
+            }
+
+            .nav-link i {
+                font-size: 1.2rem !important;
+            }
+
+            .nav-social {
+                justify-content: center !important;
+                width: 100% !important;
+                gap: 1rem !important;
+                padding-top: 1rem !important;
+                border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0.5rem 0.75rem;
+            }
+
+            .nav-logo {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+            }
+
+            .nav-toggle {
+                padding: 0.4rem;
+            }
+
+            .hamburger-line {
+                width: 22px;
+            }
+
+            .nav-menu {
+                top: 60px;
+                height: calc(100vh - 60px);
+                padding: 1.5rem 1rem;
+                gap: 1rem;
+            }
+
+            .nav-link {
+                padding: 0.875rem 1.25rem;
+                font-size: 1rem;
+            }
+
+            .nav-link i {
+                font-size: 1.1rem;
+            }
+
+            .nav-social {
+                gap: 0.75rem;
+            }
+
+            .social-link {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+
+            .nav-progress {
+                height: 2px;
+            }
+        }
+
+        /* Prevent body scroll when mobile menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            body.menu-open {
+                position: fixed;
+                width: 100%;
+            }
+        }
+
+        /* ========================================
+           END OF NAVBAR STYLES
+           ======================================== */
+
       /* Enhanced Conference Page Styles */
       .scroll-reveal {
           opacity: 0;
@@ -65,6 +1100,7 @@
           transform: scale(1);
       }
       
+      /* FIXED BACKGROUND IMAGE IMPLEMENTATION */
       .conference-hero-background {
           position: absolute;
           top: 0;
@@ -76,15 +1112,23 @@
           background-position: center;
           background-repeat: no-repeat;
           background-attachment: fixed;
-          filter: brightness(0.5) contrast(0.1) saturate(0.1);
+          filter: brightness(0.4) contrast(1.2) saturate(0.9);
           z-index: 0;
           transition: all 0.3s ease;
       }
 
+      /* Mobile background fix */
+      @media (max-width: 768px) {
+          .conference-hero-background {
+              background-attachment: scroll; /* Fixed attachment doesn't work well on mobile */
+              background-size: cover;
+              background-position: center center;
+          }
+      }
+
       @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
           .conference-hero-background {
-              background-image: url('images/conferencehomephoto.jpg');
-              filter: brightness(0.7) contrast(1.15) saturate(1.15);
+              filter: brightness(0.5) contrast(1.15) saturate(1.1);
           }
       }
       
@@ -448,7 +1492,11 @@
       
       /* Enhanced CTA Section */
       .cta {
-          background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 204, 0.1));
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 107, 53, 0.1));
+          position: relative;
+          padding: 6rem 0;
+          margin-top: 4rem;
+          overflow: hidden;
       }
       
       .cta::before {
@@ -460,23 +1508,221 @@
           bottom: 0;
           background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
           opacity: 0.3;
+          pointer-events: none;
+      }
+
+      .cta::after {
+          content: '';
+          position: absolute;
+          top: -50%;
+          left: -50%;
+          width: 200%;
+          height: 200%;
+          background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+          animation: ctaPulse 8s ease-in-out infinite;
+          pointer-events: none;
+      }
+
+      @keyframes ctaPulse {
+          0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.5; }
+          50% { transform: scale(1.2) translate(10%, 10%); opacity: 0.8; }
       }
       
       .cta-content {
           position: relative;
           z-index: 2;
+          text-align: center;
       }
       
       .cta-badge {
-          border-color: rgba(0, 212, 255, 0.3);
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: rgba(0, 212, 255, 0.15);
+          backdrop-filter: blur(10px);
+          border: 2px solid rgba(0, 212, 255, 0.4);
+          border-radius: 50px;
+          padding: 0.75rem 1.5rem;
           color: #00d4ff;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+          animation: badgeBounce 2s ease-in-out infinite;
+      }
+
+      @keyframes badgeBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+      }
+
+      .cta-badge i {
+          animation: iconSpin 3s linear infinite;
+      }
+
+      @keyframes iconSpin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
       }
       
       .cta-title {
-          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          font-size: 3rem;
+          font-family: var(--font-heading);
+          font-weight: 800;
+          margin-bottom: 1.5rem;
+          background: linear-gradient(135deg, #00d4ff, #0099cc, #ff6b35);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          line-height: 1.2;
+          animation: titleGlow 3s ease-in-out infinite;
+      }
+
+      @keyframes titleGlow {
+          0%, 100% { filter: brightness(1); }
+          50% { filter: brightness(1.2); }
+      }
+
+      .cta-description {
+          font-size: 1.2rem;
+          color: var(--text-secondary);
+          max-width: 700px;
+          margin: 0 auto 2.5rem;
+          line-height: 1.8;
+      }
+
+      .cta-buttons {
+          display: flex;
+          gap: 1.5rem;
+          justify-content: center;
+          flex-wrap: wrap;
+          margin-top: 2rem;
+      }
+
+      .cta-btn {
+          position: relative;
+          padding: 1.25rem 2.5rem;
+          font-family: var(--font-heading);
+          font-weight: 600;
+          font-size: 1.1rem;
+          border-radius: 15px;
+          cursor: pointer;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          overflow: hidden;
+          border: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+      }
+
+      .cta-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          transition: left 0.6s ease;
+      }
+
+      .cta-btn:hover::before {
+          left: 100%;
+      }
+
+      .cta-btn-primary {
+          background: linear-gradient(135deg, #00d4ff, #0099cc);
+          color: white;
+          box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
+      }
+
+      .cta-btn-primary:hover {
+          transform: translateY(-5px) scale(1.05);
+          box-shadow: 0 15px 50px rgba(0, 212, 255, 0.6);
+      }
+
+      .cta-btn-secondary {
+          background: rgba(255, 255, 255, 0.08);
+          color: white;
+          border: 2px solid rgba(0, 212, 255, 0.5);
+          backdrop-filter: blur(10px);
+      }
+
+      .cta-btn-secondary:hover {
+          transform: translateY(-5px) scale(1.05);
+          background: rgba(0, 212, 255, 0.15);
+          border-color: #00d4ff;
+          box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+      }
+
+      .cta-stats {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 2rem;
+          max-width: 900px;
+          margin: 3rem auto 0;
+          padding-top: 3rem;
+          border-top: 1px solid rgba(0, 212, 255, 0.2);
+      }
+
+      .cta-stat {
+          text-align: center;
+          animation: statFloat 3s ease-in-out infinite;
+      }
+
+      .cta-stat:nth-child(1) { animation-delay: 0s; }
+      .cta-stat:nth-child(2) { animation-delay: 0.3s; }
+      .cta-stat:nth-child(3) { animation-delay: 0.6s; }
+
+      @keyframes statFloat {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+      }
+
+      .cta-stat-number {
+          font-size: 2.5rem;
+          font-family: var(--font-heading);
+          font-weight: 800;
+          background: linear-gradient(135deg, #00d4ff, #ff6b35);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          display: block;
+          margin-bottom: 0.5rem;
+      }
+
+      .cta-stat-label {
+          color: var(--text-secondary);
+          font-size: 1rem;
+          font-weight: 500;
+      }
+
+      @media (max-width: 768px) {
+          .cta {
+              padding: 4rem 0;
+          }
+
+          .cta-title {
+              font-size: 2rem;
+          }
+
+          .cta-description {
+              font-size: 1rem;
+          }
+
+          .cta-buttons {
+              flex-direction: column;
+              align-items: center;
+          }
+
+          .cta-btn {
+              width: 100%;
+              max-width: 300px;
+              justify-content: center;
+          }
+
+          .cta-stats {
+              grid-template-columns: 1fr;
+              gap: 1.5rem;
+          }
       }
       
       /* Footer Enhancements */
@@ -510,24 +1756,7 @@
           color: #00d4ff;
       }
       
-      /* Enhanced Loading Animation */
-      .loading-screen {
-          background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-      }
-      
-      .loading-spinner {
-          width: 50px;
-          height: 50px;
-          border: 3px solid rgba(0, 212, 255, 0.3);
-          border-top: 3px solid #00d4ff;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-      }
-      
-      @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-      }
+      /* Loading overlay removed; spinner class left available for inline loaders */
       
       /* Staggered Animation Delays */
       .conference-list .conference-item:nth-child(1) { animation-delay: 0.1s; }
@@ -556,13 +1785,144 @@
           }
       }
 
-      /* Adding background image to the body */
+      /* FIXED: Body background image implementation */
       body {
           background-image: url('images/conferencehomephoto.jpg');
           background-size: cover;
-          background-position: center;
+          background-position: center center;
           background-repeat: no-repeat;
           background-attachment: fixed;
+          min-height: 100vh;
+      }
+
+      /* Mobile body background fix */
+      @media (max-width: 768px) {
+          body {
+              background-attachment: scroll;
+              background-size: cover;
+              background-position: center center;
+          }
+      }
+
+      /* Footer Styles */
+      .footer {
+          background: var(--bg-secondary);
+          border-top: 1px solid rgba(0, 31, 77, 0.3);
+          padding: 4rem 0 2rem;
+      }
+
+      .footer-content {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr;
+          gap: 3rem;
+          margin-bottom: 3rem;
+      }
+
+      .footer-logo {
+          width: 100px; 
+          height: 100px;
+          background: var(--gradient-orange);
+          border-radius: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.8rem;
+          color: white;
+          margin-bottom: 1rem;
+          overflow: hidden;
+          padding: 10px;
+          box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+      }
+
+      .footer-logo img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          border-radius: 8px;
+      }
+
+      .footer-brand-text h3 {
+          font-family: var(--font-heading);
+          font-size: 1.5rem;
+          color: var(--text-primary);
+          margin-bottom: 0.5rem;
+      }
+
+      .footer-brand-text p {
+          color: var(--text-secondary);
+          font-size: 0.9rem;
+      }
+
+      .footer-description {
+          color: var(--text-secondary);
+          line-height: 1.7;
+          margin: 1.5rem 0 2rem;
+      }
+
+      .footer-social {
+          display: flex;
+          gap: 1rem;
+      }
+
+      .footer-social-link {
+          width: 45px; 
+          height: 45px;
+          background: var(--bg-glass, rgba(0, 31, 77, 0.1));
+          border: 1px solid rgba(255, 107, 53, 0.2);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--accent-orange);
+          text-decoration: none;
+          transition: var(--transition-medium, all 0.3s ease);
+      }
+
+      .footer-social-link:hover {
+          background: var(--gradient-orange);
+          color: white;
+          transform: translateY(-3px);
+          box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+      }
+
+      .footer-section h4 {
+          font-family: var(--font-heading);
+          font-size: 1.2rem;
+          color: var(--text-primary);
+          margin-bottom: 1.5rem;
+      }
+
+      .footer-links { 
+          list-style: none; 
+      }
+      
+      .footer-links li { 
+          margin-bottom: 0.75rem; 
+      }
+      
+      .footer-links a {
+          color: var(--text-secondary);
+          text-decoration: none;
+          transition: var(--transition-medium, all 0.3s ease);
+      }
+      
+      .footer-links a:hover { 
+          color: var(--accent-orange);
+          transform: translateX(3px);
+      }
+
+      .footer-bottom {
+          border-top: 1px solid rgba(0, 31, 77, 0.3);
+          padding-top: 2rem;
+          text-align: center;
+          color: var(--text-secondary);
+      }
+
+      @media (max-width: 768px) {
+          .footer-content { 
+              grid-template-columns: 1fr; 
+              text-align: center; 
+          }
       }
   </style>
 </head>
@@ -573,111 +1933,46 @@
       <div class="grid-overlay"></div>
   </div>
 
-  <!-- Loading Screen -->
-  <div class="loading-screen">
-      <div class="loading-content">
-          <div class="loading-logo">
-              <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
-          </div>
-          <div class="loading-spinner"></div>
-          <p><strong>Loading Conferences...</strong></p>      </div>
-  </div>
-
-  <!-- Enhanced Header -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-background-blur"></div>
+  <!-- Enhanced navbar -->
+  <nav id="navbar" class="navbar">
     <div class="nav-container">
-        <a href="index.html" class="nav-brand">
-            <div class="nav-logo-container">
-                <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="nav-logo">
-                <div class="logo-glow"></div>
+        <a href="./" class="nav-brand" aria-label="UTSA NSBE Home">
+            <div class="nav-logo">
+                <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
             </div>
-            <div class="nav-brand-text">
-                <h2 class="nav-title">UTSA NSBE</h2>
-                <p class="nav-subtitle">National Society of Black Engineers</p>
-            </div>
+        
+        
         </a>
-        <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
         </button>
-        <div class="nav-menu" id="nav-menu">
+        <div id="nav-menu" class="nav-menu">
             <div class="nav-links-group">
-                <a href="index.html" class="nav-link active">
-                    <i class="fas fa-home"></i> 
-                    <span class="nav-text">Home</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-                <a href="about.html" class="nav-link">
-                    <i class="fas fa-info-circle"></i> 
-                    <span class="nav-text">About</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-                <a href="leadership.html" class="nav-link">
-                    <i class="fas fa-users"></i> 
-                    <span class="nav-text">Leadership</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-                <a href="conferences.html" class="nav-link">
-                    <i class="fas fa-briefcase"></i> 
-                    <span class="nav-text">Conferences</span>
-                    <span class="nav-link-indicator"></span>
-                </a>                
-                <a href="gallery.html" class="nav-link">
-                    <i class="fas fa-image"></i> 
-                    <span class="nav-text">Gallery</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-                <a href="contact.html" class="nav-link">
-                    <i class="fas fa-envelope"></i> 
-                    <span class="nav-text">Contact</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
+                <a href="./" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="./about" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                <a href="./leadership" class="nav-link"><i class="fas fa-users"></i> Leadership</a>
+                <a href="./conferences" class="nav-link active"><i class="fas fa-briefcase"></i> Conferences</a>
+                <a href="./gallery" class="nav-link"><i class="fas fa-image"></i> Gallery</a>
+                <a href="./donate" class="nav-link"><i class="fas fa-heart"></i> Donate</a>
+                <a href="./contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
             </div>
             <div class="nav-social">
-                <a href="https://instagram.com/utsansbe" class="social-link instagram" aria-label="Instagram">
+                <a href="https://instagram.com/utsansbe" class="social-link" aria-label="Instagram">
                     <i class="fab fa-instagram"></i>
-                    <span class="social-tooltip">Instagram</span>
                 </a>
-                <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link linkedin" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
-                    <span class="social-tooltip">LinkedIn</span>
                 </a>
             </div>
         </div>
     </div>
-</nav>
+    <!-- Scroll progress indicator -->
+    <div class="nav-progress"></div>
+  </nav>
 
-
-  <!-- Hero Section -->
-  <section class="hero">
-      <div class="hero-background-container">
-          <div class="conference-hero-background"></div>
-          <div class="hero-overlay"></div>
-          <div class="hero-geometric-shapes">
-              <div class="shape shape-1"></div>
-              <div class="shape shape-2"></div>
-              <div class="shape shape-3"></div>
-          </div>
-      </div>
-      
-      <div class="hero-content">
-          <div class="hero-badge">
-              <span class="badge-text">PROFESSIONAL DEVELOPMENT</span>
-              <div class="badge-glow"></div>
-          </div>
-          
-          <h1 class="hero-title">
-              <span class="title-line" data-text="Conferences &">Conferences &</span>
-              <span class="title-line accent" data-text="Events">Events</span>
-          </h1>
-          
-          <p class="hero-description">
-              Professional development opportunities and networking events to advance your engineering career and connect with industry leaders.
-          </p>
-      </div>
-  </section>
+ 
 
   <!-- Enhanced Conference List Section -->
   <section class="conference-list-section" id="all-conferences">
@@ -689,46 +1984,45 @@
           
           <ul class="conference-list">
 
-              <li class="conference-item futuristic-card scroll-reveal-scale">
+            <li class="conference-item futuristic-card scroll-reveal-scale">
                 <div class="conference-status status-upcoming">
                     <i class="fas fa-calendar-check"></i>
-                    <span>Upcoming</span>
-                </div>
-                <div class="conference-item-header">
-                    <div class="conference-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="conference-name">Regional V Fall Regional Conference</h3>
-                </div>
-                <div class="conference-details">
-                    <div class="conference-detail">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>To Be Annouced</span>
-                    </div>
-                    <div class="conference-detail">
-                        <i class="fas fa-clock"></i>
-                        <span>To Be Annouced</span>
-                    </div>
-                    <div class="conference-detail">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>To Be Annouced</span>
-                    </div>
-                </div>
-                <p class="conference-description">Annual fall conference featuring academic competitions, professional development, and networking sessions.</p>
-                <div class="conference-tags">
-                    <span class="conference-tag">Academic</span>
-                    <span class="conference-tag">Professional</span>
-                    <span class="conference-tag">Networking</span>
-                </div>
-                <button class="conference-register-btn btn futuristic-btn">
-                    <i class="fas fa-ticket-alt"></i>
-                    Registration Coming Soon
-                    <span class="btn-shine"></span>
-                    <div class="btn-glow"></div>
-                </button>
-                <div class="card-glow"></div>
-                <div class="card-border"></div>
-            </li>
+                    <span>Passed</span>
+                  </div>
+                  <div class="conference-item-header">
+                      <div class="conference-icon">
+                          <i class="fas fa-globe"></i>
+                      </div>
+                      <h3 class="conference-name">Region V Fall Regional Conference</h3>
+                  </div>
+                  <div class="conference-details">
+                      <div class="conference-detail">
+                          <i class="fas fa-calendar-alt"></i>
+                          <span>November 20-23, 2025</span>
+                      </div>
+                      <div class="conference-detail">
+                          <i class="fas fa-map-marker-alt"></i>
+                          <span>Houston,TX</span>
+                      </div>
+                  </div>
+                  <p class="conference-description">Annual fall conference featuring academic competitions, professional development, and networking sessions.</p>
+                  <div class="conference-tags">
+                      <span class="conference-tag">Career Fair</span>
+                      <span class="conference-tag">Technical Sessions</span>
+                      <span class="conference-tag">Networking</span>
+                  </div>
+                  <button 
+                  class="conference-register-btn btn futuristic-btn"
+                  onclick="window.open('https://member-nsbe-frc-5-2025.streampoint.com/', '_blank')">
+                  <i class="fas fa-ticket-alt"></i>
+                  Event Passed
+                  <span class="btn-shine"></span>
+                  <div class="btn-glow"></div>
+              </button>
+                  <div class="card-glow"></div>
+                  <div class="card-border"></div>
+              </li>
+              
 
             <li class="conference-item futuristic-card scroll-reveal-scale">
                 <div class="conference-status status-upcoming">
@@ -757,216 +2051,166 @@
                       <span class="conference-tag">Technical Sessions</span>
                       <span class="conference-tag">Networking</span>
                   </div>
-                  <button class="conference-register-btn btn futuristic-btn">
+                  <button class="conference-register-btn btn futuristic-btn"
+                   onclick="window.open('https://convention.nsbe.org/register-for-nsbe2026/', '_blank')">
                       <i class="fas fa-ticket-alt"></i>
-                      Registration Coming Soon
+                      Register Now!
                       <span class="btn-shine"></span>
                       <div class="btn-glow"></div>
                   </button>
                   <div class="card-glow"></div>
                   <div class="card-border"></div>
               </li>
-              
-             
-              
-    
-          </ul>
+           </ul>
       </div>
-  </section>
 
-  <!-- Conference Benefits -->
-  <section class="mission" id="conference-benefits">
+      <!-- CTA Section -->
+    <section class="cta">
       <div class="container">
-          <div class="mission-content">
-              <div class="mission-icon-container scroll-reveal-scale">
-                  <div class="mission-icon">
-                      <i class="fas fa-trophy"></i>
-                      <div class="icon-orbit"></div>
-                  </div>
-              </div>
-              
-              <h2 class="mission-title scroll-reveal">Conference Benefits</h2>
-              <p class="mission-description scroll-reveal">
-                  Discover the value of attending NSBE conferences and professional events that will accelerate your engineering career.
-              </p>
-              
-              <div class="benefits-grid stats-grid">
-                  <div class="benefit-card futuristic-card scroll-reveal-scale">
-                      <div class="benefit-icon-container feature-icon-container">
-                          <div class="benefit-icon feature-icon">
-                              <i class="fas fa-users"></i>
-                          </div>
-                          <div class="icon-bg"></div>
-                      </div>
-                      <h3 class="benefit-title feature-title">Networking Opportunities</h3>
-                      <p class="benefit-description feature-description">Connect with industry professionals, fellow students, and potential mentors from across the country.</p>
-                      <div class="card-glow"></div>
-                      <div class="card-border"></div>
-                  </div>
+        <div class="cta-content scroll-reveal">
+          <span class="cta-badge">
 
-                  <div class="benefit-card futuristic-card scroll-reveal-scale">
-                      <div class="benefit-icon-container feature-icon-container">
-                          <div class="benefit-icon feature-icon">
-                              <i class="fas fa-briefcase"></i>
-                          </div>
-                          <div class="icon-bg"></div>
-                      </div>
-                      <h3 class="benefit-title feature-title">Career Fair Access</h3>
-                      <p class="benefit-description feature-description">Meet with top engineering companies and explore internship and full-time job opportunities.</p>
-                      <div class="card-glow"></div>
-                      <div class="card-border"></div>
-                  </div>
-
-                  <div class="benefit-card futuristic-card scroll-reveal-scale">
-                      <div class="benefit-icon-container feature-icon-container">
-                          <div class="benefit-icon feature-icon">
-                              <i class="fas fa-graduation-cap"></i>
-                          </div>
-                          <div class="icon-bg"></div>
-                      </div>
-                      <h3 class="benefit-title feature-title">Professional Development</h3>
-                      <p class="benefit-description feature-description">Attend workshops and sessions designed to enhance your technical and leadership skills.</p>
-                      <div class="card-glow"></div>
-                      <div class="card-border"></div>
-                  </div>
-
-                  <div class="benefit-card futuristic-card scroll-reveal-scale">
-                      <div class="benefit-icon-container feature-icon-container">
-                          <div class="benefit-icon feature-icon">
-                              <i class="fas fa-medal"></i>
-                          </div>
-                          <div class="icon-bg"></div>
-                      </div>
-                      <h3 class="benefit-title feature-title">Academic Competitions</h3>
-                      <p class="benefit-description feature-description">Participate in technical competitions and showcase your engineering knowledge and skills.</p>
-                      <div class="card-glow"></div>
-                      <div class="card-border"></div>
-                  </div>
-
-                  <div class="benefit-card futuristic-card scroll-reveal-scale">
-                      <div class="benefit-icon-container feature-icon-container">
-                          <div class="benefit-icon feature-icon">
-                              <i class="fas fa-lightbulb"></i>
-                          </div>
-                          <div class="icon-bg"></div>
-                      </div>
-                      <h3 class="benefit-title feature-title">Innovation Showcase</h3>
-                      <p class="benefit-description feature-description">Present your research and innovative projects to industry experts and peers.</p>
-                      <div class="card-glow"></div>
-                      <div class="card-border"></div>
-                  </div>
-
-                  <div class="benefit-card futuristic-card scroll-reveal-scale">
-                      <div class="benefit-icon-container feature-icon-container">
-                          <div class="benefit-icon feature-icon">
-                              <i class="fas fa-dollar-sign"></i>
-                          </div>
-                          <div class="icon-bg"></div>
-                      </div>
-                      <h3 class="benefit-title feature-title">Scholarship Opportunities</h3>
-                      <p class="benefit-description feature-description">Learn about and apply for scholarships and financial aid opportunities for engineering students.</p>
-                      <div class="card-glow"></div>
-                      <div class="card-border"></div>
-                  </div>
-              </div>
+            Join the Movement
+          </span>
+          <h2 class="cta-title">Ready to Transform Your Future?</h2>
+          <p class="cta-description">
+            Connect with industry leaders, expand your network, and unlock opportunities that will shape your engineering career. Join UTSA NSBE and be part of a community dedicated to excellence and empowerment.
+          </p>
+          <div class="cta-buttons">
+            <button onclick="window.location.href='contact.html'" class="cta-btn cta-btn-primary">
+              <i class="fas fa-envelope"></i>
+              Get in Touch
+            </button>
+            <button onclick="window.location.href='leadership.html'" class="cta-btn cta-btn-secondary">
+              <i class="fas fa-users"></i>
+              Meet Our Team
+            </button>
           </div>
-      </div>
-  </section>
 
-  <!-- CTA Section -->
-  <section class="cta" id="join-conferences">
-      <div class="container">
-          <div class="cta-content scroll-reveal">
-              <div class="cta-badge">
-                  <span class="badge-text">READY TO ATTEND</span>
-                  <div class="badge-glow"></div>
-              </div>
-              
-              <h2 class="cta-title">Ready to Attend Your First Conference?</h2>
-              <p class="cta-description">
-                  Join us at upcoming conferences and take your engineering career to the next level through networking and professional development.
-              </p>
-              
-              <div class="cta-buttons">
-                  <a href="contact.html" class="btn btn-primary futuristic-btn">
-                      <i class="fas fa-info-circle"></i>
-                      <span class="btn-text">Get More Info</span>
-                      <div class="btn-glow"></div>
-                      <span class="btn-shine"></span>
-                  </a>
-              </div>
-          </div>
-      </div>
-  </section>
-
-  <!-- Enhanced Footer -->
+    </section>
+    <!-- Footer -->
   <footer class="footer">
     <div class="container">
-        <div class="footer-content">
-            <div class="footer-section footer-brand">
-                <div class="footer-brand-container">
-                    <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="footer-logo">
-                    <div class="footer-brand-text">
-                        <h3>UTSA NSBE</h3>
-                        <p>National Society of Black Engineers</p>
-                    </div>
-                </div>
-                <p class="footer-description">
-                    Empowering the next generation of Black engineers through academic excellence, 
-                    professional development, and community impact at the University of Texas at San Antonio.
-                </p>
-                <div class="footer-social">
-                    <a href="https://instagram.com/utsansbe" class="footer-social-link instagram" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link linkedin" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="#journey" class="footer-social-link journey" aria-label="Our Journey">
-                        <i class="fas fa-rocket"></i>
-                    </a>
-                    <a href="mailto:utsa.nsbe.historian@gmail.com" class="footer-social-link email" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="leadership.html">Leadership</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="conferences.html">Conferences</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                </ul>
-            </div>      
-            <div class="footer-section">
-                <h4>Contact Info</h4>
-                <div class="footer-contact">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>San Antonio, TX</span>
-                    </div>
-                </div>
-            </div>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+          </div>
+          <div class="footer-brand-text">
+            <h3>UTSA NSBE</h3>
+            <p>National Society of Black Engineers</p>
+          </div>
+          <p class="footer-description">
+            Empowering Black engineers through academic excellence, professional development, and community impact.
+          </p>
+          <div class="footer-social">
+            <a href="https://instagram.com/utsansbe" class="footer-social-link" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link" aria-label="LinkedIn">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
         </div>
-        <div class="footer-bottom">
-            <div class="footer-bottom-content">
-                <p>&copy; 2025 UTSA NSBE. All rights reserved.</p>
-                <div class="footer-bottom-links">
-                </div>
-            </div>
-            <p class="footer-powered">Powered by the National Society of Black Engineers</p>
+
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="./">Home</a></li>
+            <li><a href="./about">About</a></li>
+            <li><a href="./leadership">Leadership</a></li>
+            <li><a href="./conferences">Conferences</a></li>
+            <li><a href="./gallery">Gallery</a></li>
+            <li><a href="./donate">Donate</a></li>
+          </ul>
         </div>
+
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><i class="fas fa-envelope"></i> utsa.nsbe.historian@gmail.com</li>
+            <li><i class="fas fa-map-marker-alt"></i> UTSA Main Campus</li>
+            <li><i class="fas fa-university"></i> San Antonio, TX</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 UTSA NSBE. All rights reserved. | Empowering Engineers Since 1975</p>
+      </div>
     </div>
-</footer>
+  </footer>
+  
 
   <script src="script.js"></script>
   <script>
+      // Enhanced Mobile Navigation Toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.getElementById('nav-menu');
+      const body = document.body;
+      
+      if (navToggle && navMenu) {
+          navToggle.addEventListener('click', () => {
+              navMenu.classList.toggle('active');
+              navToggle.classList.toggle('active');
+              body.classList.toggle('menu-open');
+              const isOpen = navMenu.classList.contains('active');
+              navToggle.setAttribute('aria-expanded', isOpen);
+          });
+
+          // Close mobile menu when clicking outside
+          document.addEventListener('click', (e) => {
+              if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                  navMenu.classList.remove('active');
+                  navToggle.classList.remove('active');
+                  body.classList.remove('menu-open');
+                  navToggle.setAttribute('aria-expanded', 'false');
+              }
+          });
+
+          // Close menu when clicking a link
+          const navLinks = navMenu.querySelectorAll('.nav-link');
+          navLinks.forEach(link => {
+              link.addEventListener('click', () => {
+                  navMenu.classList.remove('active');
+                  navToggle.classList.remove('active');
+                  body.classList.remove('menu-open');
+                  navToggle.setAttribute('aria-expanded', 'false');
+              });
+          });
+
+          // Handle keyboard navigation
+          navToggle.addEventListener('keydown', (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  navToggle.click();
+              }
+          });
+      }
+
+      // Navbar scroll effect with progress bar
+      const navbar = document.querySelector('.navbar');
+      const navProgress = document.querySelector('.nav-progress');
+      
+      if (navbar) {
+          window.addEventListener('scroll', () => {
+              // Add scrolled class
+              if (window.scrollY > 50) {
+                  navbar.classList.add('scrolled');
+              } else {
+                  navbar.classList.remove('scrolled');
+              }
+              
+              // Update progress bar
+              if (navProgress) {
+                  const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                  const scrolled = (winScroll / height) * 100;
+                  navProgress.style.width = scrolled + '%';
+              }
+          }, { passive: true });
+      }
+
       // Enhanced scroll reveal functionality
       function revealOnScroll() {
           const reveals = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
@@ -1011,5 +2255,5 @@
       
       window.addEventListener('scroll', revealOnScroll);
   </script>
-</body>
+</body> 
 </html>
