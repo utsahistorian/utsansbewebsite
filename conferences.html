@@ -438,6 +438,10 @@
           padding: 0.5rem;
           cursor: pointer;
           transition: all 0.3s ease;
+          position: relative;
+          z-index: 1002;
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
       }
 
       .nav-toggle:hover {
@@ -451,6 +455,7 @@
           background: var(--accent-orange);
           border-radius: 2px;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          pointer-events: none;
       }
 
       .nav-toggle.active .hamburger-line:nth-child(1) {
@@ -644,11 +649,14 @@
       @media (max-width: 768px) {
           .nav-toggle {
               display: flex !important;
-              z-index: 1001;
+              z-index: 1002 !important;
+              position: relative;
           }
 
           .nav-container {
               padding: 0.75rem 1rem;
+              position: relative;
+              z-index: 1001;
           }
 
           .nav-logo {
@@ -674,6 +682,7 @@
               overflow-y: auto !important;
               border-right: 1px solid rgba(255, 107, 53, 0.2) !important;
               box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5) !important;
+              z-index: 1000 !important;
           }
 
           .nav-menu.active {
@@ -1987,7 +1996,7 @@
                   Attend premier engineering conferences, connect with industry leaders, and unlock opportunities that will shape your career. Join UTSA NSBE members at prestigious events nationwide.
               </p>
               <div class="hero-buttons">
-                  <a href="#all-conferences" class="hero-btn hero-btn-primary">
+                  <a href="#fall-conferences" class="hero-btn hero-btn-primary">
                       <i class="fas fa-calendar-alt"></i>
                       View All Conferences
                   </a>
@@ -2156,53 +2165,54 @@
 
   <!-- Updated JavaScript to match gallery.html functionality -->
   <script>
-      // Enhanced Mobile Navigation with improved accessibility
+      // Enhanced Mobile Navigation with improved accessibility and touch support
       const navToggle = document.getElementById('navToggle');
-      const navMenu = document.getElementById('navMenu');
+      const navMenu = document.getElementById('nav-menu');
       const navLinks = document.querySelectorAll('.nav-link');
       const body = document.body;
 
+      function toggleMenu() {
+          const isActive = navMenu.classList.contains('active');
+          
+          navMenu.classList.toggle('active');
+          navToggle.classList.toggle('active');
+          body.classList.toggle('menu-open');
+          
+          // Update ARIA attribute
+          navToggle.setAttribute('aria-expanded', !isActive);
+      }
 
+      function closeMenu() {
+          navMenu.classList.remove('active');
+          navToggle.classList.remove('active');
+          body.classList.remove('menu-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+      }
 
       if (navToggle && navMenu) {
-          navToggle.addEventListener('click', () => {
-              const isActive = navMenu.classList.contains('active');
-              
-              navMenu.classList.toggle('active');
-              navToggle.classList.toggle('active');
-              body.classList.toggle('menu-open');
-              
-              // Update ARIA attribute
-              navToggle.setAttribute('aria-expanded', !isActive);
-          });
+          // Handle both click and touch events
+          navToggle.addEventListener('click', toggleMenu);
+          navToggle.addEventListener('touchstart', (e) => {
+              e.preventDefault();
+              toggleMenu();
+          }, { passive: false });
 
           // Close menu when clicking nav links
           navLinks.forEach(link => {
-              link.addEventListener('click', () => {
-                  navMenu.classList.remove('active');
-                  navToggle.classList.remove('active');
-                  body.classList.remove('menu-open');
-                  navToggle.setAttribute('aria-expanded', 'false');
-              });
+              link.addEventListener('click', closeMenu);
           });
 
           // Close menu when clicking outside
           document.addEventListener('click', (e) => {
               if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
-                  navMenu.classList.remove('active');
-                  navToggle.classList.remove('active');
-                  body.classList.remove('menu-open');
-                  navToggle.setAttribute('aria-expanded', 'false');
+                  closeMenu();
               }
           });
 
           // Escape key to close menu
           document.addEventListener('keydown', (e) => {
               if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                  navMenu.classList.remove('active');
-                  navToggle.classList.remove('active');
-                  body.classList.remove('menu-open');
-                  navToggle.setAttribute('aria-expanded', 'false');
+                  closeMenu();
               }
           });
       }
