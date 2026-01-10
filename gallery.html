@@ -508,16 +508,7 @@
             }
         }
 
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        @media (max-width: 768px) {
-            body.menu-open {
-                position: fixed;
-                width: 100%;
-            }
-        }
+        /* Menu scrolling is handled by overflow-y: auto on .nav-menu */
 
         /* ========================================
            HERO SECTION
@@ -1709,7 +1700,6 @@
                     navToggle.setAttribute('aria-expanded', !isExpanded);
                     navToggle.classList.toggle('active');
                     navMenu.classList.toggle('active');
-                    document.body.classList.toggle('menu-open');
                 });
 
                 // Close menu when clicking a link
@@ -1718,7 +1708,6 @@
                         navToggle.setAttribute('aria-expanded', 'false');
                         navToggle.classList.remove('active');
                         navMenu.classList.remove('active');
-                        document.body.classList.remove('menu-open');
                     });
                 });
             }
