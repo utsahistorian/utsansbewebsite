@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conferences - UTSA NSBE</title>
+  <title>Conferences - UTSA NSBE | Professional Development & Networking Events</title>
   <meta name="description" content="Join UTSA NSBE at prestigious conferences including NSBE Annual Convention and Region V Fall Regional Conference. Network with industry leaders and advance your engineering career.">
   
   <!-- Favicon -->
@@ -62,21 +62,151 @@
           scroll-padding-top: 80px;
           min-height: 100%;
       }
+      /* Improved background layer with fixed positioning for better responsiveness */
+   /* Improved background layer with fixed positioning for better responsiveness */
       body {
           font-family: var(--font-body);
-          background: var(--bg-primary);
+          background-color: var(--bg-primary);
           color: var(--text-primary);
           line-height: 1.6;
           overflow-x: hidden;
-          /* Single background image implementation */
+          position: relative;
+          min-height: 100vh;
+          width: 100%;
+      }
+      
+      /* Improved background layer with fixed positioning for better responsiveness */
+      body::before {
+          content: '';
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
           background-image: url('images/conferencehomephoto.jpg');
           background-size: cover;
           background-position: center center;
           background-repeat: no-repeat;
-          background-attachment: scroll;
-          min-height: 100vh;
-          width: 100%;
+          z-index: -2;
+          /* Prevent iOS background image issues */
+          -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+          /* Improve rendering performance */
+          will-change: transform;
       }
+      
+      /* Dark overlay for better text readability */
+      body::after {
+          content: '';
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(to bottom, rgba(10, 10, 15, 0.75), rgba(10, 10, 15, 0.85));
+          z-index: -1;
+          pointer-events: none;
+      }
+
+      /* Enhanced tablet optimization for background */
+      @media (max-width: 1024px) and (min-width: 769px) {
+          body::before {
+              background-size: cover;
+              background-position: center center;
+              /* Maintain aspect ratio on tablets */
+              background-attachment: scroll;
+          }
+      }
+
+      /* Mobile portrait optimization with better image fitting */
+      @media (max-width: 768px) and (orientation: portrait) {
+          body::before {
+              background-size: cover;
+              background-position: center center;
+              /* Improve mobile performance */
+              will-change: transform;
+              /* Ensure image covers full viewport */
+              min-height: 100vh;
+              min-height: 100dvh; /* Dynamic viewport height */
+          }
+          
+          html {
+              scroll-padding-top: 70px;
+          }
+      }
+
+      /* Mobile landscape optimization */
+      @media (max-width: 768px) and (orientation: landscape) {
+          body::before {
+              background-size: cover;
+              background-position: center top;
+              min-height: 100vh;
+              min-height: 100dvh;
+          }
+      }
+
+      /* Small mobile devices with optimized image rendering */
+      @media (max-width: 480px) {
+          body::before {
+              background-size: cover;
+              background-position: center center;
+              /* Optimize for small screens */
+              image-rendering: -webkit-optimize-contrast;
+              image-rendering: crisp-edges;
+              min-height: 100vh;
+              min-height: 100dvh;
+          }
+          
+          html {
+              scroll-padding-top: 60px;
+          }
+      }
+      
+      /* Very small devices with adjusted focal point */
+      @media (max-width: 375px) {
+          body::before {
+              background-size: cover;
+              background-position: center center;
+              min-height: 100vh;
+              min-height: 100dvh;
+          }
+      }
+      
+      /* Extra responsive breakpoint for iPhone SE and similar */
+      @media (max-width: 320px) {
+          body::before {
+              background-size: cover;
+              background-position: center center;
+          }
+      }
+
+      /* Reduce animations on mobile for better performance */
+      @media (max-width: 768px) {
+          .conference-item:hover {
+              transform: translateY(-5px) scale(1.01);
+          }
+
+          .floating-particles {
+              animation-duration: 30s;
+          }
+
+          @keyframes floatParticles {
+              0% { transform: translate(0, 0) scale(1); }
+              100% { transform: translate(-10px, 10px) scale(0.98); }
+          }
+      }
+
+      @media (max-width: 480px) {
+          /* Disable expensive animations on small screens */
+          .animated-bg .floating-particles {
+              animation: none;
+          }
+
+          .conference-item:hover {
+              transform: translateY(-3px);
+          }
+      }
+      
 
       /* Desktop - use fixed attachment for parallax effect */
       @media (min-width: 1025px) {
@@ -899,6 +1029,7 @@
               font-size: 0.9rem;
           }
       }
+      
 
       /* ========================================
          CONFERENCE LIST SECTION
@@ -1383,6 +1514,8 @@
               font-size: 0.9rem;
           }
       }
+
+      
 
       /* ========================================
          CTA SECTION
@@ -1883,9 +2016,7 @@
                       <span>Passed</span>
                   </div>
                   <div class="conference-item-header">
-                      <div class="conference-icon">
-                          <i class="fas fa-globe"></i>
-                      </div>
+                    
                       <h3 class="conference-name">Region V Fall Regional Conference</h3>
                   </div>
                   <div class="conference-details">
@@ -1919,15 +2050,13 @@
                       <span>Upcoming</span>
                   </div>
                   <div class="conference-item-header">
-                      <div class="conference-icon">
-                          <i class="fas fa-rocket"></i>
-                      </div>
+                     
                       <h3 class="conference-name">NSBE 2026 Annual Convention</h3>
                   </div>
                   <div class="conference-details">
                       <div class="conference-detail">
                           <i class="fas fa-calendar-alt"></i>
-                          <span>March 18-26, 2026</span>
+                          <span>March 18-21, 2026</span>
                       </div>
                       <div class="conference-detail">
                           <i class="fas fa-map-marker-alt"></i>
