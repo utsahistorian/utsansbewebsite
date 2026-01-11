@@ -10,338 +10,706 @@
   <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
   <link rel="apple-touch-icon" href="images/logopic.jpg">
   
-  <!-- Creative Fonts from about.html -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;600;700&family=Orbitron:wght@400;700&family=Exo+2:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <!-- CSS Files -->
   <link rel="stylesheet" href="styles.css">
   
-  <!-- Preload Images -->
-  <link rel="preload" href="images/leadership1.jpg" as="image">
-  <link rel="preload" href="images/leadership2.jpg" as="image">
-  <link rel="preload" href="images/logopic.jpg" as="image">
-  
+
   <style>
-    /* Enhanced Scroll Animations from about.html */
-    .scroll-reveal {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Use Montserrat for nav links only */
+    .nav-link { font-family: 'Montserrat', sans-serif; }
+
+    :root {
+      --navy-blue: #001f4d;
+      --navy-blue-dark: #001a42;
+      --navy-blue-light: #003366;
+      --orange: #ff4400;
+      --orange-light: #ff8c5a;
+      --accent-orange: #ff6b35;
+      --accent-orange-light: #ff9f43;
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-tertiary: #1a1a25;
+      --bg-glass: rgba(0, 31, 77, 0.1);
+      --bg-glass-strong: rgba(0, 31, 77, 0.2);
+      --text-primary: #ffffff;
+      --text-secondary: #b8c5d6;
+      --gradient-navy: linear-gradient(135deg, var(--navy-blue), var(--navy-blue-light));
+      --gradient-orange: linear-gradient(135deg, var(--orange), var(--orange-light));
+      --gradient-primary: linear-gradient(135deg, var(--navy-blue), var(--orange));
+      --shadow-orange: 0 10px 30px rgba(255, 107, 53, 0.3);
+      --shadow-glow-orange: 0 0 30px rgba(255, 107, 53, 0.5);
+      --shadow-glow-navy: 0 0 30px rgba(0, 31, 77, 0.5);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --font-heading: 'Orbitron', monospace;
+      --font-body: 'Exo 2', sans-serif;
+      --font-accent: 'Space Grotesk', sans-serif;
     }
-    
-    .scroll-reveal.revealed {
-      opacity: 1;
-      transform: translateY(0);
+ 
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
-    
-    .scroll-reveal-left {
-      opacity: 0;
-      transform: translateX(-50px);
-      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .scroll-reveal-left.revealed {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    
-    .scroll-reveal-right {
-      opacity: 0;
-      transform: translateX(50px);
-      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .scroll-reveal-right.revealed {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    
-    .scroll-reveal-scale {
-      opacity: 0;
-      transform: scale(0.8);
-      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .scroll-reveal-scale.revealed {
-      opacity: 1;
-      transform: scale(1);
-    }
-    
-    /* Enhanced Hero Section from about.html */
-    .hero-background-container {
-      position: absolute;
+
+    /* Enhanced animated background with gradient mesh */
+    .animated-bg {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
-    }
-    
-    .hero-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-    
-    .hero-slide.active {
-      opacity: 1;
-    }
-    
-    .slide-background {
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      filter: brightness(0.5) contrast(1.1) saturate(0.8);
-      transition: all 0.3s ease;
-    }
-    
-    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-      .slide-background {
-        filter: brightness(0.7) contrast(1.15) saturate(1.15);
-      }
-    }
-    
-    /* Enhanced Hero Animations from about.html */
-    .hero-title .title-line {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(100px);
-      animation: heroTitleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-    
-    .hero-title .title-line:nth-child(1) {
-      animation-delay: 0.3s;
-    }
-    
-    .hero-title .title-line:nth-child(2) {
-      animation-delay: 0.5s;
-    }
-    
-    @keyframes heroTitleReveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .hero-description {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s ease-out 0.8s forwards;
-    }
-    
-    .hero-buttons {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s ease-out 1s forwards;
-    }
-    
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    /* Enhanced Carousel Controls from about.html */
-    .carousel-controls {
-      position: absolute;
-      top: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      transform: translateY(-50%);
-      z-index: 3;
-      padding: 0 20px;
-      pointer-events: none;
-    }
-    
-    .carousel-btn {
-      background: rgba(0, 0, 0, 0.6);
-      border: 2px solid rgba(0, 212, 255, 0.3);
-      color: #00d4ff;
-      padding: 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 1.5rem;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      pointer-events: all;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .carousel-btn:hover {
-      background: rgba(0, 212, 255, 0.2);
-      border-color: #00d4ff;
-      transform: scale(1.1);
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-    }
-    
-    .carousel-indicators {
-      position: absolute;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 10px;
-      z-index: 3;
-    }
-    
-    .indicator {
-      width: 12px;
-      height: 12px;
-      background-color: rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-    
-    .indicator.active,
-    .indicator:hover {
-      background-color: #00d4ff;
-      border-color: white;
-      transform: scale(1.2);
-    }
-    
-    /* Leadership Section Styles adapted from about.html */
-    .leadership-section {
-      padding: 120px 0;
-      background: var(--bg-secondary);
-      position: relative;
-      z-index: 1;
-    }
-    
-    .leadership-section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(0, 153, 204, 0.1) 0%, transparent 50%);
       z-index: -1;
-    }
-    
-    .leadership-content {
-      margin-top: 3rem;
-      padding: 3rem;
-      background: var(--bg-glass);
-      border-radius: 20px;
-      border: 1px solid rgba(0, 212, 255, 0.2);
-      backdrop-filter: blur(12px);
-      position: relative;
+      background: radial-gradient(ellipse at top, rgba(0, 31, 77, 0.4), transparent),
+                  radial-gradient(ellipse at bottom right, rgba(255, 107, 53, 0.15), transparent);
       overflow: hidden;
     }
-    
-    .leadership-content::before {
+
+    .animated-bg::before,
+    .animated-bg::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-      opacity: 0.3;
-      z-index: 1;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 107, 53, 0.1), transparent);
+      animation: float 20s infinite ease-in-out;
     }
-    
+
+    .animated-bg::before {
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .animated-bg::after {
+      bottom: -100px;
+      right: -100px;
+      animation-delay: 10s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(100px, -100px) scale(1.1);
+      }
+      66% {
+        transform: translate(-100px, 100px) scale(0.9);
+      }
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+
+       /* Replaced entire navbar section with gallery.html navbar styles */
+      /* ========================================
+         ENHANCED NAVBAR STYLES
+         ======================================== */
+      
+      .navbar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 1000;
+          background: rgba(10, 10, 15, 0.85);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .navbar.scrolled {
+          background: rgba(10, 10, 15, 0.98);
+          border-bottom-color: rgba(255, 107, 53, 0.2);
+          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .nav-container {
+          max-width: 1400px;
+          margin: 0 auto;
+          padding: 1rem 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 2rem;
+      }
+
+      .nav-brand {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          text-decoration: none;
+          transition: transform 0.3s ease;
+      }
+
+      .nav-brand:hover {
+          transform: scale(1.05);
+      }
+
+      .nav-logo {
+          width: 50px;
+          height: 50px;
+          position: relative;
+          overflow: hidden;
+          border-radius: 12px;
+          background: var(--accent-orange);
+          border: 2px solid var(--accent-orange);
+          box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+          transition: all 0.3s ease;
+          padding: 4px;
+      }
+
+      .nav-logo::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.3), transparent);
+          transition: left 0.5s ease;
+          z-index: 1;
+      }
+
+      .nav-brand:hover .nav-logo {
+          border-color: var(--accent-orange-light);
+          box-shadow: 0 6px 30px rgba(255, 107, 53, 0.5);
+          transform: rotate(5deg);
+      }
+
+      .nav-brand:hover .nav-logo::before {
+          left: 100%;
+      }
+
+      .nav-logo img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          position: relative;
+          z-index: 2;
+      }
+
+      .nav-toggle {
+          display: none;
+          flex-direction: column;
+          gap: 5px;
+          background: rgba(255, 107, 53, 0.1);
+          border: 1px solid rgba(255, 107, 53, 0.3);
+          border-radius: 8px;
+          padding: 0.5rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          position: relative;
+          z-index: 1002;
+          -webkit-tap-highlight-color: transparent;
+          touch-action: manipulation;
+      }
+
+      .nav-toggle:hover {
+          background: rgba(255, 107, 53, 0.2);
+          border-color: var(--accent-orange);
+      }
+
+      .hamburger-line {
+          width: 25px;
+          height: 3px;
+          background: var(--accent-orange);
+          border-radius: 2px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          pointer-events: none;
+      }
+
+      .nav-toggle.active .hamburger-line:nth-child(1) {
+          transform: translateY(8px) rotate(45deg);
+      }
+
+      .nav-toggle.active .hamburger-line:nth-child(2) {
+          opacity: 0;
+          transform: scaleX(0);
+      }
+
+      .nav-toggle.active .hamburger-line:nth-child(3) {
+          transform: translateY(-8px) rotate(-45deg);
+      }
+
+      .nav-menu {
+          display: flex;
+          align-items: center;
+          gap: 3rem;
+      }
+
+      .nav-links-group {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+      }
+
+      .nav-link {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.75rem 1.25rem;
+          color: var(--text-secondary);
+          text-decoration: none;
+          font-size: 0.95rem;
+          font-weight: 500;
+          border-radius: 10px;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          overflow: hidden;
+          background: transparent !important;
+      }
+
+      .nav-link:not(.active) {
+          background: transparent !important;
+      }
+
+      .nav-link::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.2), transparent);
+          transition: left 0.5s ease;
+      }
+
+      .nav-link:hover::before {
+          left: 100%;
+      }
+
+      .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: 8px;
+          left: 50%;
+          width: 0;
+          height: 2px;
+          background: var(--gradient-orange);
+          transform: translateX(-50%);
+          transition: width 0.3s ease;
+          border-radius: 2px;
+      }
+
+      .nav-link:hover {
+          color: var(--text-primary);
+          background: rgba(255, 107, 53, 0.08) !important;
+          transform: translateY(-2px);
+      }
+
+      .nav-link:not(.active):hover {
+          background: rgba(255, 107, 53, 0.08) !important;
+      }
+
+      .nav-link:hover::after {
+          width: 60%;
+      }
+
+      .nav-link.active {
+          color: #ffffff !important;
+          background: var(--gradient-orange) !important;
+          border: 2px solid var(--accent-orange-light);
+          font-weight: 600;
+          box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+          transform: scale(1.05);
+      }
+
+      .nav-link.active::after {
+          display: none;
+      }
+
+      .nav-link.active::before {
+          display: none;
+      }
+
+      .nav-link.active:hover {
+          transform: scale(1.05) !important;
+          background: var(--gradient-orange) !important;
+      }
+
+      .nav-link i {
+          font-size: 1rem;
+          transition: transform 0.3s ease;
+      }
+
+      .nav-link:hover i {
+          transform: scale(1.2) rotate(5deg);
+      }
+
+      .nav-social {
+          display: flex;
+          gap: 0.75rem;
+      }
+
+      .social-link {
+          width: 42px;
+          height: 42px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 107, 53, 0.08);
+          border: 1px solid rgba(255, 107, 53, 0.2);
+          border-radius: 10px;
+          color: var(--accent-orange);
+          text-decoration: none;
+          font-size: 1.1rem;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+      }
+
+      .social-link::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          transition: width 0.5s ease, height 0.5s ease;
+      }
+
+      .social-link:hover::before {
+          width: 100px;
+          height: 100px;
+      }
+
+      .social-link:hover {
+          background: var(--gradient-orange);
+          color: white;
+          border-color: var(--accent-orange-light);
+          transform: translateY(-3px) scale(1.1);
+          box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
+      }
+
+      .social-link i {
+          position: relative;
+          z-index: 1;
+          transition: transform 0.3s ease;
+      }
+
+      .social-link:hover i {
+          transform: rotate(360deg);
+      }
+
+      .nav-progress {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0%;
+          height: 3px;
+          background: var(--gradient-orange);
+          transition: width 0.1s linear;
+          box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+      }
+
+      /* Responsive navbar */
+      @media (max-width: 768px) {
+          .nav-toggle {
+              display: flex !important;
+              z-index: 1002 !important;
+              position: relative;
+          }
+
+          .nav-container {
+              padding: 0.75rem 1rem;
+              position: relative;
+              z-index: 1001;
+          }
+
+          .nav-logo {
+              width: 45px;
+              height: 45px;
+          }
+
+          .nav-menu {
+              position: fixed !important;
+              top: 70px !important;
+              left: 0 !important;
+              width: 100% !important;
+              height: calc(100vh - 70px) !important;
+              background: rgba(10, 10, 15, 0.98) !important;
+              backdrop-filter: blur(20px) !important;
+              -webkit-backdrop-filter: blur(20px) !important;
+              flex-direction: column !important;
+              justify-content: flex-start !important;
+              padding: 2rem 1.5rem !important;
+              gap: 1.5rem !important;
+              transform: translateX(-100%) !important;
+              transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+              overflow-y: auto !important;
+              border-right: 1px solid rgba(255, 107, 53, 0.2) !important;
+              box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5) !important;
+              z-index: 1000 !important;
+          }
+
+          .nav-menu.active {
+              transform: translateX(0) !important;
+          }
+
+          .nav-links-group {
+              flex-direction: column !important;
+              width: 100% !important;
+              gap: 0.75rem !important;
+          }
+
+          .nav-link {
+              width: 100% !important;
+              justify-content: flex-start !important;
+              padding: 1rem 1.5rem !important;
+              font-size: 1.1rem !important;
+              border-radius: 12px !important;
+          }
+
+          .nav-link i {
+              font-size: 1.2rem !important;
+          }
+
+          .nav-social {
+              justify-content: center !important;
+              width: 100% !important;
+              gap: 1rem !important;
+              padding-top: 1rem !important;
+              border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
+          }
+
+          .social-link {
+              width: 50px;
+              height: 50px;
+              font-size: 1.3rem;
+          }
+      }
+
+      @media (max-width: 480px) {
+          .nav-container {
+              padding: 0.5rem 0.75rem;
+          }
+
+          .nav-logo {
+              width: 40px;
+              height: 40px;
+              border-radius: 10px;
+          }
+
+          .nav-toggle {
+              padding: 0.4rem;
+          }
+
+          .hamburger-line {
+              width: 22px;
+          }
+
+          .nav-menu {
+              top: 60px;
+              height: calc(100vh - 60px);
+              padding: 1.5rem 1rem;
+              gap: 1rem;
+          }
+
+          .nav-link {
+              padding: 0.875rem 1.25rem;
+              font-size: 1rem;
+          }
+
+          .nav-link i {
+              font-size: 1.1rem;
+          }
+
+          .nav-social {
+              gap: 0.75rem;
+          }
+
+          .social-link {
+              width: 45px;
+              height: 45px;
+              font-size: 1.2rem;
+          }
+
+          .nav-progress {
+              height: 2px;
+          }
+      }
+        /* Menu scrolling is handled by overflow-y: auto on .nav-menu */
+
+    /* Leadership Section Styles */
+    .leadership-section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    .leadership-section:first-of-type {
+      padding-top: 140px; /* Account for fixed navbar */
+    }
+
+    .leadership-section:nth-child(even) {
+      background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     .leadership-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
-      position: relative;
-      z-index: 2;
     }
-    
+
     .leader-card {
+      background: var(--bg-glass-strong);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 31, 77, 0.3);
+      border-radius: 20px;
       padding: 2.5rem;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      border: 1px solid rgba(0, 212, 255, 0.2);
-      backdrop-filter: blur(12px);
-      position: relative;
-      transition: all 0.4s ease;
       text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
-    
+
     .leader-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--gradient-orange);
+      transition: width 0.4s ease;
+    }
+
+    .leader-card::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(255, 107, 53, 0.1), transparent);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+      z-index: 0;
+    }
+
+    .leader-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: var(--orange);
+      box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3), 0 0 40px rgba(0, 31, 77, 0.2);
+    }
+
+    .leader-card:hover::before {
+      width: 100%;
+      opacity: 0.05;
+    }
+
+    .leader-card:hover::after {
+      width: 400px;
+      height: 400px;
+    }
+
+    .leader-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Special highlight for International Chair */
+    .leader-card.international-chair {
+      border: 2px solid var(--orange);
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), var(--bg-glass-strong));
+    }
+
+    .leader-card.international-chair::before {
+      width: 6px;
+      background: var(--gradient-orange);
+    }
+
+    .leader-image-container {
+      width: 150px; height: 150px;
+      margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      border: 4px solid var(--orange);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    .leader-image-container::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(135deg, #00d4ff, #0099cc);
-      border-radius: 2px;
-    }
-    
-    .leader-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 212, 255, 0.2);
-      border-color: rgba(0, 212, 255, 0.4);
-    }
-    
-    .leader-image-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 50%;
-      margin: 0 auto 1.5rem;
-      width: 200px;
-      height: 200px;
-      border: 4px solid #00d4ff;
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-    }
-    
-    .leader-image {
       width: 100%;
       height: 100%;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 1;
+    }
+
+    .leader-card:hover .leader-image-container {
+      border-color: #ff9f43;
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.5);
+      transform: scale(1.05);
+    }
+
+    .leader-card:hover .leader-image-container::before {
+      opacity: 1;
+    }
+
+    .leader-image {
+      width: 100%; height: 100%;
       object-fit: cover;
       transition: transform 0.4s ease;
-      border-radius: 50%;
     }
-    
+
     .leader-card:hover .leader-image {
       transform: scale(1.1);
     }
-    
-    .image-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 204, 0.1));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      border-radius: 50%;
-    }
-    
-    .leader-card:hover .image-overlay {
-      opacity: 1;
-    }
-    
+
     .leader-position {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: linear-gradient(135deg, #00d4ff, #0099cc);
+      background: var(--gradient-orange);
       color: white;
       padding: 0.5rem 1rem;
       border-radius: 25px;
@@ -350,454 +718,382 @@
       margin-bottom: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      font-family: 'Orbitron', sans-serif;
+      font-family: var(--font-heading);
     }
-    
+
     .leader-name {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.8rem;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
       font-weight: 700;
-      color: #00d4ff;
+      color: var(--orange);
       margin-bottom: 0.5rem;
     }
-    
+
     .leader-major {
       color: var(--text-secondary);
-      font-size: 1.1rem;
-      line-height: 1.6;
-      font-family: 'Space Grotesk', sans-serif;
-      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
-    
+
     .leader-description {
       color: var(--text-secondary);
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       line-height: 1.6;
-      font-family: 'Space Grotesk', sans-serif;
       margin-bottom: 1.5rem;
     }
-    
+
     .leader-contact {
       display: flex;
       gap: 1rem;
       justify-content: center;
-      z-index: 10;
-      position: relative;
     }
-    
+
     .contact-link {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      color: #00d4ff;
+      color: var(--orange);
       text-decoration: none;
       font-size: 0.9rem;
-      transition: all 0.3s ease;
       padding: 0.5rem 1rem;
-      border: 1px solid rgba(0, 212, 255, 0.3);
+      border: 1px solid rgba(255, 107, 53, 0.3);
       border-radius: 25px;
-      background: rgba(0, 212, 255, 0.1);
-      position: relative;
-      z-index: 20;
-      cursor: pointer;
-      font-family: 'Orbitron', sans-serif;
+      background: rgba(255, 107, 53, 0.1);
+      transition: var(--transition);
+      font-family: var(--font-heading);
     }
-    
+
     .contact-link:hover {
-      background: rgba(0, 212, 255, 0.2);
+      background: rgba(255, 107, 53, 0.2);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
-      color: #ffffff;
+      box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
     }
-    
-    .contact-link:active {
-      transform: translateY(0);
-    }
-    
-    /* Enhanced Button Styles from about.html */
-    .btn {
-      position: relative;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      padding: 0.75rem 2rem;
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      min-height: 50px;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #00d4ff, #0099cc);
-      color: white;
-      opacity: 0.9;
-      transform: translateY(5px);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 30px rgba(0, 212, 255, 0.4);
-      opacity: 1;
-    }
-    
-    /* CTA Section from about.html */
-    .cta {
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 204, 0.1));
-      padding: 5rem 0;
+
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(0, 31, 77, 0.25));
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-    
-    .cta::before {
+
+    .cta-section::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-      opacity: 0.3;
-    }
-    
-    .cta-content {
-      position: relative;
-      z-index: 2;
-    }
-    
-    .cta-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, #00d4ff, #0099cc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-    }
-    
-    .cta-description {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      max-width: 700px;
-      margin: 0 auto 2rem;
-    }
-    
-    /* Enhanced Section Header from about.html */
-    .section-header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-    
-    .section-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, #00d4ff, #0099cc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-    }
-    
-    .section-subtitle {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
-    /* Enhanced Loading Animation from about.html */
-    .loading-screen {
-      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-    }
-    
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 3px solid rgba(0, 212, 255, 0.3);
-      border-top: 3px solid #00d4ff;
+      top: -50%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 107, 53, 0.15), transparent);
       border-radius: 50%;
-      animation: spin 1s linear infinite;
+      animation: float 30s infinite ease-in-out;
     }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 31, 77, 0.2), transparent);
+      border-radius: 50%;
+      animation: float 25s infinite ease-in-out reverse;
     }
-    
-    /* Enhanced Footer from about.html */
-    .footer-social-link {
-      transition: all 0.3s ease;
+
+    .cta-section .container {
+      position: relative;
+      z-index: 1;
+            }
+
+    .cta-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 900;
+      background: var(--gradient-orange);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease-out;
     }
-    
-    .footer-social-link:hover {
-      color: #00d4ff !important;
-      transform: translateY(-2px);
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    
-    .footer-social-link:hover i {
-      transform: scale(1.1);
+
+    .cta-description {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
     }
-    
-    .footer-links a {
-      transition: all 0.3s ease;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem;
+      border-radius: 50px;
+      font-family: var(--font-accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
     }
-    
-    .footer-links a:hover {
-      color: #00d4ff;
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary {
+      background: var(--gradient-orange);
+      color: white;
+      box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
+    }
+
+    .btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .btn:hover i {
       transform: translateX(5px);
     }
-    
-    .footer-contact .contact-item a:hover {
-      color: #00d4ff;
+
+   /* ========================================
+           FOOTER
+           ======================================== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid rgba(0, 31, 77, 0.3);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-orange);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            padding: 10px;
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .footer-logo:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 60px rgba(255, 107, 53, 0.4);
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .footer-brand-text h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand-text p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social-link {
+            width: 45px;
+            height: 45px;
+            background: var(--bg-glass);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--orange);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-social-link:hover {
+            background: var(--gradient-orange);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .footer-section h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--orange);
+            transform: translateX(4px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 31, 77, 0.3);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+    /* Scroll Animations */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    
-    .footer-bottom-links a:hover {
-      color: #00d4ff;
+
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
-    
-    /* Responsive Design from about.html */
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .leadership-content {
-        padding: 2rem;
-        margin-top: 2rem;
-      }
-      
-      .leadership-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      
-      .leader-image-container {
-        width: 150px;
-        height: 150px;
-      }
-      
-      .leader-name {
-        font-size: 1.5rem;
-      }
-      
-      .leader-position {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-      }
-      
-      .hero-buttons {
+      .nav-toggle { display: flex; }
+      .nav-menu {
+        position: fixed;
+        top: 0; right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: rgba(0, 31, 77, 0.95);
+        backdrop-filter: blur(20px);
         flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        align-items: center;
-      }
-      
-      .btn {
-        width: 100%;
-        max-width: 320px;
-        text-align: center;
         justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: right 0.3s ease;
       }
+      .nav-menu.active { right: 0; }
+      .nav-links-group { flex-direction: column; text-align: center; }
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+      .leadership-grid { grid-template-columns: 1fr; }
     }
-    
-    @media (max-width: 480px) {
-      .leader-image-container {
-        width: 120px;
-        height: 120px;
-      }
-      
-      .leader-name {
-        font-size: 1.3rem;
-      }
-      
-      .leader-position {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-      }
-      
-      .btn {
-        font-size: 0.85rem;
-        padding: 0.75rem 1.2rem;
-        max-width: 280px;
-      }
-    }
-    
-    @media (max-width: 360px) {
-      .btn {
-        font-size: 0.8rem;
-        padding: 0.7rem 1rem;
-        max-width: 260px;
-      }
-    }
-    
-    /* Body Background */
-    body {
-      background-image: url('images/leadership1.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
-  </style>
+    </style>
 </head>
 <body>
-  <!-- Animated Background from about.html -->
-  <div class="animated-bg">
-    <div class="floating-particles"></div>
-    <div class="grid-overlay"></div>
-  </div>
+  <div class="animated-bg"></div>
 
-  <!-- Loading Screen from about.html -->
-  <div class="loading-screen">
-    <div class="loading-content">
-      <div class="loading-logo">
-        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
-      </div>
-      <div class="loading-spinner"></div>
-      <p><strong>Loading Leadership...</strong></p>
-    </div>
-  </div>
+  <!-- Enhanced navbar -->
+  <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="./" class="nav-brand" aria-label="UTSA NSBE Home">
+                <div class="nav-logo">
+                    <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+                </div>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <div id="nav-menu" class="nav-menu">
+                <div class="nav-links-group">
+                    <a href="./" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="./about" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                    <a href="./leadership" class="nav-link active"><i class="fas fa-users"></i> Leadership</a>
+                    <a href="./conferences" class="nav-link"><i class="fas fa-briefcase"></i> Conferences</a>
+                    <a href="./gallery" class="nav-link"><i class="fas fa-image"></i> Gallery</a>
+                    <a href="./donate" class="nav-link"><i class="fas fa-heart"></i> Donate</a>
+                    <a href="./contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+                <div class="nav-social">
+                    <a href="https://instagram.com/utsansbe" class="social-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                       <a href="https://linktr.ee/utsansbe" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Linktree">
+                      <i class="fas fa-link" aria-hidden="true"></i>
+                  </a>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll progress indicator -->
+        <div class="nav-progress" id="navProgress"></div>
+    </nav>
 
-  <!-- Enhanced Header from about.html -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-background-blur"></div>
-    <div class="nav-container">
-      <a href="index.html" class="nav-brand">
-        <div class="nav-logo-container">
-          <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="nav-logo">
-          <div class="logo-glow"></div>
-        </div>
-        <div class="nav-brand-text">
-          <h2 class="nav-title">UTSA NSBE</h2>
-          <p class="nav-subtitle">National Society of Black Engineers</p>
-        </div>
-      </a>
-      <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-      </button>
-      <div class="nav-menu" id="nav-menu">
-        <div class="nav-links-group">
-          <a href="index.html" class="nav-link">
-            <i class="fas fa-home"></i> 
-            <span class="nav-text">Home</span>
-            <span class="nav-link-indicator"></span>
-          </a>
-          <a href="about.html" class="nav-link">
-            <i class="fas fa-info-circle"></i> 
-            <span class="nav-text">About</span>
-            <span class="nav-link-indicator"></span>
-          </a>
-          <a href="leadership.html" class="nav-link active">
-            <i class="fas fa-users"></i> 
-            <span class="nav-text">Leadership</span>
-            <span class="nav-link-indicator"></span>
-          </a>
-          <a href="conferences.html" class="nav-link">
-            <i class="fas fa-briefcase"></i> 
-            <span class="nav-text">Conferences</span>
-            <span class="nav-link-indicator"></span>
-          </a>                
-          <a href="gallery.html" class="nav-link">
-            <i class="fas fa-image"></i> 
-            <span class="nav-text">Gallery</span>
-            <span class="nav-link-indicator"></span>
-          </a>
-          <a href="contact.html" class="nav-link">
-            <i class="fas fa-envelope"></i> 
-            <span class="nav-text">Contact</span>
-            <span class="nav-link-indicator"></span>
-          </a>
-        </div>
-        <div class="nav-social">
-          <a href="https://instagram.com/utsansbe" class="social-link instagram" aria-label="Instagram">
-            <i class="fab fa-instagram"></i>
-            <span class="social-tooltip">Instagram</span>
-          </a>
-          <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link linkedin" aria-label="LinkedIn">
-            <i class="fab fa-linkedin"></i>
-            <span class="social-tooltip">LinkedIn</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
 
-  <!-- Hero Section with Carousel from about.html -->
-  <section id="home" class="hero">
-    <div class="hero-background-container">
-      <div class="hero-slide active" data-slide="0">
-        <div class="slide-background" style="background-image: url('images/leadership1.jpg');"></div>
-      </div>
-      <div class="hero-slide" data-slide="1">
-        <div class="slide-background" style="background-image: url('images/leadership2.jpg');"></div>
-      </div>
-      <div class="hero-overlay"></div>
-      <div class="hero-geometric-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-      </div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-text">Meet Our Leaders</span>
-        <div class="badge-glow"></div>
-      </div>
-      <h1 class="hero-title">
-        <span class="title-line">Our</span>
-        <span class="title-line accent">Leadership</span>
-      </h1>
-      <p class="hero-description">
-        Meet the dedicated individuals leading UTSA NSBE toward excellence and innovation in engineering education and professional development.
-      </p>
-      <div class="hero-buttons">
-        <a href="#top-6" class="btn btn-primary btn-lg futuristic-btn">
-          <i class="fas fa-users"></i>
-          <span class="btn-text">Meet the Team</span>
-          <div class="btn-glow"></div>
-          <span class="btn-shine"></span>
-        </a>
-        <a href="#cta" class="btn btn-primary btn-lg futuristic-btn">
-          <i class="fas fa-user-plus"></i>
-          <span class="btn-text">Join Leadership</span>
-          <div class="btn-glow"></div>
-          <span class="btn-shine"></span>
-        </a>
-      </div>
-    </div>
-    <div class="carousel-controls">
-      <button class="carousel-btn prev" id="prev-slide" aria-label="Previous slide">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-      <button class="carousel-btn next" id="next-slide" aria-label="Next slide">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-    </div>
-    <div class="carousel-indicators">
-      <button class="indicator active" data-slide="0" aria-label="Slide 1"></button>
-      <button class="indicator" data-slide="1" aria-label="Slide 2"></button>
-    </div>
-    <div class="carousel-progress">
-      <div class="progress-bar"></div>
-    </div>
-    <div class="scroll-indicator">
-      <span>Scroll to Explore</span>
-      <div class="scroll-arrow"></div>
-    </div>
-  </section>
-
+ 
   <!-- Top 6 Section -->
-  <section id="top-6" class="leadership-section">
+  <section class="leadership-section">
     <div class="container">
       <div class="section-header scroll-reveal">
         <h2 class="section-title">2025-2026 Top 6</h2>
@@ -805,96 +1101,88 @@
           Our executive board is committed to serving our members and advancing our mission of excellence.
         </p>
       </div>
-      <div class="leadership-content scroll-reveal">
-        <div class="leadership-grid">
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/zeke.png" alt="Ezekiel Oyebode" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-crown"></i>President</span>
-              <h3 class="leader-name">Ezekiel Oyebode</h3>
-              <p class="leader-major">Computer Engineering</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/ezekieloyebode30/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+      <div class="leadership-grid">
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/zeke.png" alt="Ezekiel Oyebode" class="leader-image">
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/tj.png" alt="Terrance Tolden" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-shield-alt"></i>Vice President</span>
-              <h3 class="leader-name">Terrance Tolden</h3>
-              <p class="leader-major">Chemical Engineering</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/terrence-tolden-ii/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+          <span class="leader-position"><i class="fas fa-crown"></i> President</span>
+          <h3 class="leader-name">Ezekiel Oyebode</h3>
+          <p class="leader-major">Computer Engineering</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/ezekieloyebode30/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/zach.png" alt="Zachary Machani" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-book"></i>Secretary</span>
-              <h3 class="leader-name">Zachary Machani</h3>
-              <p class="leader-major">Computer Science</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/zacharymachani/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/tj.png" alt="Terrance Tolden" class="leader-image">
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/kendall.png" alt="Kendall Holbert" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-wallet"></i>Treasurer</span>
-              <h3 class="leader-name">Kendall Holbert</h3>
-              <p class="leader-major">Architecture</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/kendallholbert/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+          <span class="leader-position"><i class="fas fa-shield-alt"></i> Vice President</span>
+          <h3 class="leader-name">Terrance Tolden</h3>
+          <p class="leader-major">Chemical Engineering</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/terrence-tolden-ii/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/anu.png" alt="Anu George" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-calendar-check"></i>Programs Chair</span>
-              <h3 class="leader-name">Anu George</h3>
-              <p class="leader-major">Computer Engineering</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/anu-george-9a0985326/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/zach.png" alt="Zachary Machani" class="leader-image">
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/francis.png" alt="Francis Nwonye" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-gavel"></i>Parliamentarian</span>
-              <h3 class="leader-name">Francis Nwonye</h3>
-              <p class="leader-major">Architecture</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/franciswonye/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+          <span class="leader-position"><i class="fas fa-book"></i> Secretary</span>
+          <h3 class="leader-name">Zachary Machani</h3>
+          <p class="leader-major">Computer Science</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/zacharymachani/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/kendall.png" alt="Kendall Holbert" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-wallet"></i> Treasurer</span>
+          <h3 class="leader-name">Kendall Holbert</h3>
+          <p class="leader-major">Architecture</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/kendallholbert/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/anu.png" alt="Anu George" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-calendar-check"></i> Programs Chair</span>
+          <h3 class="leader-name">Anu George</h3>
+          <p class="leader-major">Computer Engineering</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/anu-george-9a0985326/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/francis.png" alt="Francis Nwonye" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-gavel"></i> Parliamentarian</span>
+          <h3 class="leader-name">Francis Nwonye</h3>
+          <p class="leader-major">Architecture</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/franciswonye/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
         </div>
       </div>
@@ -902,7 +1190,7 @@
   </section>
 
   <!-- Executive Board Section -->
-  <section id="executive-board" class="leadership-section">
+  <section class="leadership-section">
     <div class="container">
       <div class="section-header scroll-reveal">
         <h2 class="section-title">2025-2026 Executive Board</h2>
@@ -910,156 +1198,159 @@
           Our extended leadership team drives innovation and supports our community.
         </p>
       </div>
-      <div class="leadership-content scroll-reveal">
-        <div class="leadership-grid">
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/modupe.png" alt="Modupe Awojuyigbe" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-user-tie"></i>Senator</span>
-              <h3 class="leader-name">Modupe Awojuyigbe</h3>
-              <p class="leader-major">Computer Engineering</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/modupe-awojuyigbe/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+      <div class="leadership-grid">
+        <!-- ADDED: Joyce as International Chair -->
+        <div class="leader-card international-chair scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/joyce.png" alt="Joyce" class="leader-image">
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/uyiose.png" alt="Uyiose Osayande" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-user-tie"></i>Senator</span>
-              <h3 class="leader-name">Uyiose Osayande</h3>
-              <p class="leader-major">Cybersecurity</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/uyiosa-victoria-osayande/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+          <span class="leader-position"><i class="fas fa-globe"></i> International Chair</span>
+          <h3 class="leader-name">Joyce</h3>
+          <p class="leader-major">Engineering</p>
+          <div class="leader-contact">
+            <a href="#" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/victoria.png" alt="Victoria Bodunrinde" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-network-wired"></i>PCI Chair</span>
-              <h3 class="leader-name">Victoria Bodunrinde</h3>
-              <p class="leader-major">Information Systems</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/victoriabodunrinde/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/modupe.png" alt="Modupe Awojuyigbe" class="leader-image">
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/chinedum.png" alt="Chinedum Akunne" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-users"></i>Membership Chair</span>
-              <h3 class="leader-name">Chinedum Akunne</h3>
-              <p class="leader-major">Computer Science</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/chinedumakunne/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+          <span class="leader-position"><i class="fas fa-user-tie"></i> Senator</span>
+          <h3 class="leader-name">Modupe Awojuyigbe</h3>
+          <p class="leader-major">Computer Engineering</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/modupe-awojuyigbe/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/collin.jpg" alt="Collin Arnsworth" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-satellite-dish"></i>Telecommunications Chair</span>
-              <h3 class="leader-name">Collin Arnsworth</h3>
-              <p class="leader-major">Computer Science</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/collinarnsworth/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/uyiose.png" alt="Uyiose Osayande" class="leader-image">
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/sallay.png" alt="Sallay Conteh" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-bullhorn"></i>CO-PR Chair</span>
-              <h3 class="leader-name">Sallay Conteh</h3>
-              <p class="leader-major">Cybersecurity</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/sallayconteh/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+          <span class="leader-position"><i class="fas fa-user-tie"></i> Senator</span>
+          <h3 class="leader-name">Uyiose Osayande</h3>
+          <p class="leader-major">Cybersecurity</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/uyiosa-victoria-osayande/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/lyne.png" alt="Lyne Lagat" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-bullhorn"></i>CO-PR Chair</span>
-              <h3 class="leader-name">Lyne Lagat</h3>
-              <p class="leader-major">Architecture</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/lyne-lagat-b70559291/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/victoria.png" alt="Victoria Bodunrinde" class="leader-image">
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/temple.png" alt="Temple Joseph" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-dollar-sign"></i>Finance Chair</span>
-              <h3 class="leader-name">Temple Joseph</h3>
-              <p class="leader-major">Cybersecurity</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/temple23/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+          <span class="leader-position"><i class="fas fa-network-wired"></i> PCI Chair</span>
+          <h3 class="leader-name">Victoria Bodunrinde</h3>
+          <p class="leader-major">Information Systems</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/victoriabodunrinde/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/fatima.png" alt="Fatima Atif" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-lightbulb"></i>TORCH Chair</span>
-              <h3 class="leader-name">Fatima Atif</h3>
-              <p class="leader-major">Cybersecurity</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/fatimaatif/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/chinedum.png" alt="Chinedum Akunne" class="leader-image">
           </div>
-          
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images2/tamyra.png" alt="Tamyra Allen" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-star"></i>Vice Chair Emeritus</span>
-              <h3 class="leader-name">Tamyra Allen</h3>
-              <p class="leader-major">Chemical Engineering</p>
-              <div class="leader-contact">
-                <a href="https://www.linkedin.com/in/tamyraallen/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+          <span class="leader-position"><i class="fas fa-users"></i> Membership Chair</span>
+          <h3 class="leader-name">Chinedum Akunne</h3>
+          <p class="leader-major">Computer Science</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/chinedumakunne/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/collin.jpg" alt="Collin Arnsworth" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-satellite-dish"></i> Telecom Chair</span>
+          <h3 class="leader-name">Collin Arnsworth</h3>
+          <p class="leader-major">Computer Science</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/collinarnsworth/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/sallay.png" alt="Sallay Conteh" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-bullhorn"></i> CO-PR Chair</span>
+          <h3 class="leader-name">Sallay Conteh</h3>
+          <p class="leader-major">Cybersecurity</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/sallayconteh/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/lyne.png" alt="Lyne Lagat" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-bullhorn"></i> CO-PR Chair</span>
+          <h3 class="leader-name">Lyne Lagat</h3>
+          <p class="leader-major">Architecture</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/lyne-lagat-b70559291/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/temple.png" alt="Temple Joseph" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-dollar-sign"></i> Finance Chair</span>
+          <h3 class="leader-name">Temple Joseph</h3>
+          <p class="leader-major">Cybersecurity</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/temple23/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/fatima.png" alt="Fatima Atif" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-lightbulb"></i> TORCH Chair</span>
+          <h3 class="leader-name">Fatima Atif</h3>
+          <p class="leader-major">Cybersecurity</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/fatimaatif/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/tamyra.png" alt="Tamyra Allen" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-star"></i> Vice Chair Emeritus</span>
+          <h3 class="leader-name">Tamyra Allen</h3>
+          <p class="leader-major">Chemical Engineering</p>
+          <div class="leader-contact">
+            <a href="https://www.linkedin.com/in/tamyraallen/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
         </div>
       </div>
@@ -1067,7 +1358,7 @@
   </section>
 
   <!-- Faculty Advisor Section -->
-  <section id="faculty-advisor" class="leadership-section">
+  <section class="leadership-section">
     <div class="container">
       <div class="section-header scroll-reveal">
         <h2 class="section-title">Our Faculty Advisor</h2>
@@ -1075,266 +1366,164 @@
           Our dedicated faculty advisor provides invaluable guidance and support to the NSBE chapter.
         </p>
       </div>
-      <div class="leadership-content scroll-reveal">
-        <div class="leadership-grid">
-          <div class="leader-card futuristic-card scroll-reveal-scale">
-            <div class="leader-image-container">
-              <img src="images/ericbrey.jpg" alt="Eric Brey" class="leader-image">
-              <div class="image-overlay"></div>
-            </div>
-            <div class="leader-info">
-              <span class="leader-position"><i class="fas fa-chalkboard-teacher"></i>Faculty Advisor</span>
-              <h3 class="leader-name">Eric Brey</h3>
-              <p class="leader-major">Professor of Engineering</p>
-              <p class="leader-description">Guiding our chapter with expertise and mentorship to achieve our goals and foster excellence in engineering education.</p>
-              <div class="leader-contact">
-                <a href="mailto:eric.brey@utsa.edu" class="contact-link"><i class="fas fa-envelope"></i>Email</a>
-                <a href="https://www.linkedin.com/in/eric-brey-8657489b/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i>LinkedIn</a>
-              </div>
-            </div>
+      <div class="leadership-grid" style="max-width: 400px; margin: 0 auto;">
+        <div class="leader-card scroll-reveal">
+          <div class="leader-image-container">
+            <img src="images2/ericbrey.jpg" alt="Eric Brey" class="leader-image">
+          </div>
+          <span class="leader-position"><i class="fas fa-chalkboard-teacher"></i> Faculty Advisor</span>
+          <h3 class="leader-name">Eric Brey</h3>
+          <p class="leader-major">Professor of Engineering</p>
+          <p class="leader-description">Guiding our chapter with expertise and mentorship to achieve our goals and foster excellence in engineering education.</p>
+          <div class="leader-contact">
+            <a href="mailto:eric.brey@utsa.edu" class="contact-link">
+              <i class="fas fa-envelope"></i> Email
+            </a>
+            <a href="https://www.linkedin.com/in/eric-brey-8657489b/" target="_blank" class="contact-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section id="cta" class="cta">
-    <div class="container cta-content scroll-reveal">
-      <span class="cta-badge">Ready to Lead</span>
-      <h2 class="cta-title">Ready to Join Our Leadership Team?</h2>
-      <p class="cta-description">
-        Take the next step in your leadership journey and help shape the future of engineering at UTSA.
-      </p>
-      <div class="cta-buttons">
-        <a href="contact.html" class="btn btn-primary btn-lg futuristic-btn">
-          <i class="fas fa-user-plus"></i>
-          <span class="btn-text">Get Involved</span>
-          <div class="btn-glow"></div>
-          <span class="btn-shine"></span>
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Footer from about.html -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-section footer-brand">
-          <div class="footer-brand-container">
-            <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="footer-logo">
-            <div class="footer-brand-text">
-              <h3>UTSA NSBE</h3>
-              <p>National Society of Black Engineers</p>
-            </div>
-          </div>
-          <p class="footer-description">
-            Empowering the next generation of Black engineers through academic excellence, 
-            professional development, and community impact at the University of Texas at San Antonio.
-          </p>
-          <div class="footer-social">
-            <a href="https://instagram.com/utsansbe" class="footer-social-link instagram" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link linkedin" aria-label="LinkedIn">
-              <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="mailto:utsa.nsbe.historian@gmail.com" class="footer-social-link email" aria-label="Email">
-              <i class="fas fa-envelope"></i>
-            </a>
-          </div>
-        </div>
-        <div class="footer-section">
-          <h4>Quick Links</h4>
-          <ul class="footer-links">
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="leadership.html">Leadership</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="conferences.html">Conferences</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-          </ul>
-        </div>      
-        <div class="footer-section">
-          <h4>Contact Info</h4>
-          <div class="footer-contact">
-            <div class="contact-item">
-              <i class="fas fa-envelope"></i>
-              <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
-            </div>
-            <div class="contact-item">
-              <i class="fas fa-map-marker-alt"></i>
-              <span>San Antonio, TX</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="footer-bottom-content">
-          <p>&copy; 2025 UTSA NSBE. All rights reserved.</p>
-          <div class="footer-bottom-links">
-          </div>
-        </div>
-        <p class="footer-powered">Powered by the National Society of Black Engineers</p>
-      </div>
-    </div>
-  </footer>
 
-  <script src="script.js"></script>
+  <!-- Footer -->
+  <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+                    </div>
+                    <div class="footer-brand-text">
+                        <h3>UTSA NSBE</h3>
+                        <p>National Society of Black Engineers</p>
+                    </div>
+                    <p class="footer-description">
+                        Empowering and supporting Black engineering students at UTSA through professional development, community service, and academic excellence.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://instagram.com/utsansbe" class="footer-social-link" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                          <a href="https://linktr.ee/utsansbe" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Linktree">
+                      <i class="fas fa-link" aria-hidden="true"></i>
+                  </a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="./">Home</a></li>
+                        <li><a href="./about">About</a></li>
+                        <li><a href="./leadership">Leadership</a></li>
+                        <li><a href="./conferences">Conferences</a></li>
+                        <li><a href="./gallery">Gallery</a></li>
+                        <li><a href="./donate">Donate</a></li>
+                        <li><a href="./contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 UTSA NSBE. All rights reserved. Building Excellence in Engineering.</p>
+            </div>
+        </div>
+    </footer>
+
   <script>
-    // Enhanced scroll reveal functionality from about.html
-    function revealOnScroll() {
-      const reveals = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
-      
-      reveals.forEach(element => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < windowHeight - elementVisible) {
-          element.classList.add('revealed');
-        }
-      });
-    }
-    
-    // Enhanced card animations from about.html
-    function enhanceCardAnimations() {
-      const cards = document.querySelectorAll('.futuristic-card');
-      
-      cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-8px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-          this.style.transform = 'translateY(0) scale(1)';
-        });
-      });
-    }
-    
-    // Enhanced Carousel Functionality from about.html
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.hero-slide');
-    const indicators = document.querySelectorAll('.indicator');
-    const totalSlides = slides.length;
-    let slideInterval;
-    let progressBarInterval;
+      const navToggle = document.getElementById('navToggle');
+      const navMenu = document.getElementById('nav-menu');
+      const navbar = document.getElementById('navbar');
+      const navProgress = document.getElementById('navProgress');
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
-      });
+      if (navToggle && navMenu) {
+          navToggle.addEventListener('click', () => {
+              const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+              navToggle.setAttribute('aria-expanded', !isExpanded);
+              navToggle.classList.toggle('active');
+              navMenu.classList.toggle('active');
+          });
 
-      indicators.forEach((indicator, i) => {
-        indicator.classList.toggle('active', i === index);
-      });
-
-      currentSlide = index;
-      resetProgressBar();
-    }
-
-    function nextSlide() {
-      const next = (currentSlide + 1) % totalSlides;
-      showSlide(next);
-    }
-
-    function prevSlide() {
-      const prev = (currentSlide - 1 + totalSlides) % totalSlides;
-      showSlide(prev);
-    }
-
-    function startSlideshow() {
-      slideInterval = setInterval(nextSlide, 5000);
-    }
-
-    function stopSlideshow() {
-      clearInterval(slideInterval);
-    }
-
-    function resetProgressBar() {
-      const progressBar = document.querySelector('.progress-bar');
-      if (progressBar) {
-        progressBar.style.width = '0%';
-        clearInterval(progressBarInterval);
-        startProgressBar();
+          // Close menu when clicking a link
+          document.querySelectorAll('.nav-link').forEach(link => {
+              link.addEventListener('click', () => {
+                  navToggle.setAttribute('aria-expanded', 'false');
+                  navToggle.classList.remove('active');
+                  navMenu.classList.remove('active');
+              });
+          });
       }
-    }
 
-    function startProgressBar() {
-      const progressBar = document.querySelector('.progress-bar');
-      if (progressBar) {
-        let width = 0;
-        progressBarInterval = setInterval(() => {
-          width += 0.1;
-          progressBar.style.width = width + '%';
-          if (width >= 100) {
-            clearInterval(progressBarInterval);
-            nextSlide();
+      let ticking = false;
+      
+      function updateScrollEffects() {
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const scrollPercent = (scrollTop / docHeight) * 100;
+
+          if (navProgress) {
+              navProgress.style.width = scrollPercent + '%';
           }
-        }, 50);
+
+          if (navbar) {
+              if (scrollTop > 50) {
+                  navbar.classList.add('scrolled');
+              } else {
+                  navbar.classList.remove('scrolled');
+              }
+          }
+
+          ticking = false;
       }
-    }
 
-    // Event listeners for carousel controls
-    document.getElementById('next-slide').addEventListener('click', () => {
-      stopSlideshow();
-      nextSlide();
-      startSlideshow();
-    });
+      window.addEventListener('scroll', () => {
+          if (!ticking) {
+              window.requestAnimationFrame(updateScrollEffects);
+              ticking = true;
+          }
+      }, { passive: true });
 
-    document.getElementById('prev-slide').addEventListener('click', () => {
-      stopSlideshow();
-      prevSlide();
-      startSlideshow();
-    });
-
-    // Event listeners for indicators
-    indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => {
-        stopSlideshow();
-        showSlide(index);
-        startSlideshow();
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+              const href = this.getAttribute('href');
+              if (href !== '#') {
+                  e.preventDefault();
+                  const target = document.querySelector(href);
+                  if (target) {
+                      target.scrollIntoView({ behavior: 'smooth' });
+                  }
+              }
+          });
       });
-    });
 
-    // Pause slideshow on hover
-    const heroSection = document.querySelector('.hero');
-    heroSection.addEventListener('mouseenter', stopSlideshow);
-    heroSection.addEventListener('mouseleave', startSlideshow);
-    
-    // Prevent card hover from interfering with link clicks
-    function handleLinkClicks() {
-      const contactLinks = document.querySelectorAll('.contact-link');
-      
-      contactLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.stopPropagation();
-        });
+      // Scroll reveal animation
+      const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('revealed');
+              }
+          });
+      }, observerOptions);
+
+      // Observe all scroll-reveal elements
+      document.querySelectorAll('.scroll-reveal').forEach(el => {
+          observer.observe(el);
       });
-    }
-    
-    // Preload background images
-    const preloadImages = [
-      'images/leadership1.jpg',
-      'images/leadership2.jpg'
-    ];
-    
-    preloadImages.forEach(src => {
-      const img = new Image();
-      img.src = src;
-    });
-    
-    // Initialize animations when page loads
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        revealOnScroll();
-        enhanceCardAnimations();
-        handleLinkClicks();
-        startSlideshow();
-      }, 500);
-    });
-    
-    window.addEventListener('scroll', revealOnScroll);
   </script>
 </body>
 </html>
