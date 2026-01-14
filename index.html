@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UTSA NSBE</title>
+  <title>UTSA NSBE - Empowering Black Engineers | National Society of Black Engineers</title>
   <meta name="description" content="Join UTSA NSBE to empower the next generation of Black engineers through academic excellence, professional development, and community impact.">
   
   <!-- Favicon -->
@@ -87,9 +87,10 @@
     }
     
     .navbar.scrolled {
-      background: rgba(10, 10, 10, 0.95);
+      background: rgba(12, 35, 64, 0.98);
       backdrop-filter: blur(20px);
       padding: 1rem 3rem;
+      box-shadow: 0 4px 30px rgba(241, 90, 34, 0.2);
     }
     
     .nav-brand {
@@ -154,19 +155,21 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      background: var(--color-white);
-      color: var(--color-black);
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 100%);
+      color: var(--color-white);
       text-decoration: none;
       border-radius: 50px;
       font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.3s ease;
       white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(241, 90, 34, 0.3);
     }
     
     .btn-join:hover {
       transform: scale(1.05);
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 25px rgba(241, 90, 34, 0.5);
+      background: linear-gradient(135deg, #FF7B47 0%, #F15A22 100%);
     }
     
     .nav-toggle {
@@ -188,17 +191,60 @@
     
     /* ========================================
        HERO SECTION - Bold editorial design
-       with UTSA Light Blue/Navy
+       with ENHANCED UTSA colors
        ======================================== */
     .hero {
       position: relative;
       min-height: 100vh;
-      /* Updated hero background to subtle UTSA navy with softer gradient */
-      background: linear-gradient(135deg, #B8C5D6 0%, #A4B5C9 50%, #8E9FB5 100%);
+      /* Enhanced vibrant gradient with UTSA Navy & Orange */
+      background: linear-gradient(135deg, #0C2340 0%, #1A3A5C 40%, #F15A22 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       overflow: hidden;
+    }
+    
+    /* Animated gradient overlay */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(241, 90, 34, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(12, 35, 64, 0.6) 0%, transparent 50%),
+        linear-gradient(45deg, rgba(241, 90, 34, 0.2) 0%, transparent 50%, rgba(12, 35, 64, 0.2) 100%);
+      animation: gradientShift 10s ease infinite;
+      z-index: 0;
+    }
+    
+    /* Additional animated mesh pattern */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(241, 90, 34, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(241, 90, 34, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.3;
+      animation: meshMove 20s linear infinite;
+      z-index: 0;
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { opacity: 0.8; transform: scale(1) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.1) rotate(5deg); }
+    }
+    
+    @keyframes meshMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
     }
     
     .hero-image-container {
@@ -209,14 +255,21 @@
       width: 50%;
       max-width: 500px;
       z-index: 1;
+      filter: drop-shadow(0 20px 60px rgba(241, 90, 34, 0.6)) drop-shadow(0 0 80px rgba(255, 123, 71, 0.4));
     }
     
     .hero-image {
       width: 100%;
       height: auto;
-      filter: grayscale(100%) contrast(1.1);
-      mix-blend-mode: multiply;
-      opacity: 0.9;
+      filter: grayscale(70%) contrast(1.3) brightness(1.15) saturate(0.3);
+      mix-blend-mode: overlay;
+      opacity: 0.75;
+      animation: imagePulse 6s ease-in-out infinite;
+    }
+    
+    @keyframes imagePulse {
+      0%, 100% { transform: scale(1); filter: grayscale(70%) contrast(1.3) brightness(1.15) saturate(0.3); }
+      50% { transform: scale(1.08); filter: grayscale(70%) contrast(1.4) brightness(1.2) saturate(0.3); }
     }
     
     .hero-title-container {
@@ -231,14 +284,65 @@
       font-weight: 900;
       line-height: 0.85;
       letter-spacing: -0.04em;
-      /* Title color stays black for contrast */
-      color: var(--color-text-black);
+      /* Reduced glow title */
+      color: #FFFFFF;
       margin-bottom: -0.05em;
       text-transform: uppercase;
+      text-shadow: 
+        0 0 10px rgba(241, 90, 34, 0.3),
+        0 4px 20px rgba(241, 90, 34, 0.2),
+        0 8px 40px rgba(12, 35, 64, 0.15);
+      animation: titleGlow 4s ease-in-out infinite;
+      position: relative;
+    }
+    
+    @keyframes titleGlow {
+      0%, 100% { 
+        text-shadow: 
+          0 0 10px rgba(241, 90, 34, 0.3),
+          0 4px 20px rgba(241, 90, 34, 0.2),
+          0 8px 40px rgba(12, 35, 64, 0.15);
+      }
+      50% { 
+        text-shadow: 
+          0 0 15px rgba(241, 90, 34, 0.4),
+          0 4px 30px rgba(241, 90, 34, 0.3),
+          0 8px 60px rgba(12, 35, 64, 0.2);
+      }
     }
     
     .hero-title span {
       display: block;
+      position: relative;
+    }
+    
+    .hero-title span:first-child {
+      color: #FFFFFF;
+      animation: slideInLeft 1s ease-out;
+    }
+    
+    .hero-title span:last-child {
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 50%, #FFB347 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: slideInRight 1s ease-out, gradientShimmer 3s ease-in-out infinite;
+      background-size: 200% 100%;
+    }
+    
+    @keyframes slideInLeft {
+      0% { opacity: 0; transform: translateX(-100px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slideInRight {
+      0% { opacity: 0; transform: translateX(100px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes gradientShimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
     
     .hero-meta {
@@ -256,9 +360,22 @@
       font-family: var(--font-display);
       font-size: clamp(1rem, 3vw, 3rem);
       font-weight: 300;
-      /* Meta text stays black */
-      color: var(--color-text-black);
-      opacity: 0.8;
+      /* Reduced glow text */
+      color: #FFFFFF;
+      opacity: 0.95;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+    
+    .hero-meta-item:hover {
+      transform: translateY(-3px);
+      background: rgba(241, 90, 34, 0.15);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
     
     .hero-scroll {
@@ -270,26 +387,42 @@
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
-      /* Scroll text stays black */
-      color: var(--color-text-black);
+      /* Enhanced white scroll text */
+      color: #FFFFFF;
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      opacity: 0.6;
+      opacity: 0.9;
       z-index: 3;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+    
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-10px); }
     }
     
     .hero-scroll-arrow {
-      width: 1px;
+      width: 2px;
       height: 40px;
-      /* Scroll arrow stays black */
-      background: var(--color-text-black);
+      /* Enhanced orange arrow with glow */
+      background: linear-gradient(180deg, #F15A22 0%, #FF7B47 50%, transparent 100%);
       animation: scrollArrow 2s ease-in-out infinite;
+      box-shadow: 
+        0 0 20px rgba(241, 90, 34, 0.8),
+        0 0 40px rgba(241, 90, 34, 0.4);
+      border-radius: 2px;
     }
     
     @keyframes scrollArrow {
       0%, 100% { transform: scaleY(1); opacity: 0.6; }
       50% { transform: scaleY(1.2); opacity: 1; }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(10deg); }
     }
     
     /* ========================================
@@ -371,33 +504,94 @@
     }
     
     /* ========================================
-       VIDEO BUTTON IN HERO
+       VIDEO BUTTON IN HERO - Enhanced
        ======================================== */
     .btn-video-hero {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: var(--color-accent);
+      gap: 0.75rem;
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 50%, #FFB347 100%);
       color: var(--color-white);
-      padding: 0.75rem 1.5rem;
-      border: none;
+      padding: 1rem 2rem;
+      border: 2px solid rgba(255, 255, 255, 0.4);
       border-radius: 50px;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 700;
       font-family: var(--font-display);
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 8px 20px rgba(241, 90, 34, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 
+        0 10px 30px rgba(241, 90, 34, 0.5),
+        0 0 40px rgba(241, 90, 34, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-video-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .btn-video-hero:hover::before {
+      left: 100%;
+    }
+    
+    .btn-video-hero::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+    
+    .btn-video-hero:hover::after {
+      width: 300px;
+      height: 300px;
     }
     
     .btn-video-hero:hover {
-      background: var(--color-accent-light);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 30px rgba(241, 90, 34, 0.4);
+      background: linear-gradient(135deg, #FFB347 0%, #FF7B47 50%, #F15A22 100%);
+      transform: translateY(-5px) scale(1.08);
+      box-shadow: 
+        0 15px 40px rgba(241, 90, 34, 0.7),
+        0 0 60px rgba(241, 90, 34, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .btn-video-hero:active {
+      transform: translateY(-3px) scale(1.05);
     }
     
     .btn-video-hero i {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
+      animation: playPulse 2s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+    }
+    
+    .btn-video-hero span {
+      position: relative;
+      z-index: 1;
+    }
+    
+    @keyframes playPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
     }
     
     /* Video Modal */
