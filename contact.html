@@ -1,1092 +1,2202 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - UTSA NSBE</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Contact Us | UTSA NSBE</title>
+  <meta name="description" content="Get in touch with UTSA NSBE - National Society of Black Engineers. We'd love to hear from you!">
+  
+  <!-- Favicon -->
   <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="images/logopic.jpg">
+  
+  <!-- Editorial fonts - matching index.html -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
   <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   
   <style>
-      /* Enhanced Contact Page Styles */
-      .scroll-reveal {
-          opacity: 0;
-          transform: translateY(50px);
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* ========================================
+       CREATIVE EDITORIAL DESIGN SYSTEM
+       Matching index.html - Bold typography, 
+       UTSA colors, editorial layout
+       ======================================== */
+    
+    :root {
+      /* UTSA official school colors */
+      --color-primary: #0C2340;       /* UTSA Navy Blue */
+      --color-primary-dark: #081929;
+      --color-primary-light: #1A3A5C;
+      --color-accent: #F15A22;        /* UTSA Orange */
+      --color-accent-light: #FF7B47;
+      --color-accent-dark: #D94A15;
+      --color-black: #0A0A0A;
+      --color-dark: #141414;
+      --color-gray: #1A1A1A;
+      --color-white: #FFFFFF;
+      --color-off-white: #F5F5F5;
+      --color-gold: #C9A227;
+      --color-text-black: #000000;
+      
+      /* Typography */
+      --font-display: 'Inter', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 8rem;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background: var(--color-black);
+      color: var(--color-white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* ========================================
+       NAVIGATION - Minimal editorial style
+       ======================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease;
+    }
+    
+    .navbar.scrolled {
+      background: rgba(12, 35, 64, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 1rem 3rem;
+      box-shadow: 0 4px 30px rgba(241, 90, 34, 0.2);
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--color-white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .nav-logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      margin-right: 2rem;
+    }
+    
+    .nav-link {
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      opacity: 1;
+    }
+    
+    .btn-join {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 100%);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(241, 90, 34, 0.3);
+    }
+    
+    .btn-join:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(241, 90, 34, 0.5);
+      background: linear-gradient(135deg, #FF7B47 0%, #F15A22 100%);
+    }
+    
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    .hamburger-line {
+      width: 24px;
+      height: 2px;
+      background: var(--color-white);
+      transition: all 0.3s ease;
+    }
+    
+    /* ========================================
+       HERO SECTION - Interactive Contact Cards
+       ======================================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      background: #0A0A0A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 8rem 2rem 4rem;
+    }
+    
+    /* Enhanced animated gradient background with more vibrant colors */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(241, 90, 34, 0.35) 0%, transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(12, 35, 64, 0.4) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255, 123, 71, 0.2) 0%, transparent 55%),
+        radial-gradient(circle at 70% 20%, rgba(241, 90, 34, 0.15) 0%, transparent 40%);
+      animation: rotateGradient 25s ease infinite;
+      z-index: 0;
+    }
+    
+    @keyframes rotateGradient {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(90deg) scale(1.05); }
+      50% { transform: rotate(180deg) scale(1.1); }
+      75% { transform: rotate(270deg) scale(1.05); }
+    }
+    
+    /* Added mesh grid overlay for editorial feel */
+    .hero-mesh {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(241, 90, 34, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(241, 90, 34, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 1;
+      animation: meshPulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes meshPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    
+    /* Enhanced floating orbs with more dynamic movement */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 15% 85%, rgba(241, 90, 34, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(12, 35, 64, 0.2) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255, 183, 71, 0.08) 0%, transparent 60%);
+      animation: floatOrbs 12s ease-in-out infinite;
+      z-index: 0;
+    }
+    
+    @keyframes floatOrbs {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+      25% { transform: translate(20px, -15px) scale(1.02); opacity: 0.8; }
+      50% { transform: translate(40px, -30px) scale(1.05); opacity: 1; }
+      75% { transform: translate(20px, -15px) scale(1.02); opacity: 0.8; }
+    }
+    
+    /* Added floating particles container */
+    .hero-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--color-accent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleFloat 8s ease-in-out infinite;
+    }
+    
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
+    .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
+    .particle:nth-child(4) { left: 40%; animation-delay: 3s; }
+    .particle:nth-child(5) { left: 50%; animation-delay: 4s; }
+    .particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+    .particle:nth-child(7) { left: 70%; animation-delay: 6s; }
+    .particle:nth-child(8) { left: 80%; animation-delay: 7s; }
+    .particle:nth-child(9) { left: 90%; animation-delay: 0.5s; }
+    .particle:nth-child(10) { left: 15%; animation-delay: 2.5s; }
+    .particle:nth-child(11) { left: 35%; animation-delay: 4.5s; }
+    .particle:nth-child(12) { left: 55%; animation-delay: 6.5s; }
+    .particle:nth-child(13) { left: 75%; animation-delay: 1.5s; }
+    .particle:nth-child(14) { left: 85%; animation-delay: 3.5s; }
+    .particle:nth-child(15) { left: 95%; animation-delay: 5.5s; }
+    
+    @keyframes particleFloat {
+      0% { 
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% { 
+        transform: translateY(-20vh) scale(1);
+        opacity: 0;
+      }
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 450px), 1fr));
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    /* Enhanced text content with better animations */
+    .hero-text {
+      animation: fadeSlideUp 1s ease-out;
+    }
+    
+    @keyframes fadeSlideUp {
+      0% { opacity: 0; transform: translateY(60px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Enhanced hero badge with glow effect */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      background: rgba(241, 90, 34, 0.15);
+      border: 1px solid rgba(241, 90, 34, 0.4);
+      border-radius: 50px;
+      color: var(--color-accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(241, 90, 34, 0.2);
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes badgePulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(241, 90, 34, 0.2); }
+      50% { box-shadow: 0 0 30px rgba(241, 90, 34, 0.4); }
+    }
+    
+    .hero-badge i {
+      font-size: 1rem;
+      animation: iconBounce 2s ease-in-out infinite;
+    }
+    
+    @keyframes iconBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+    
+    /* Enhanced hero title with text glow and better gradient */
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 6rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #FFFFFF;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+    }
+    
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 30%, #FFB347 60%, #F15A22 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      animation: gradientFlow 4s ease-in-out infinite;
+      background-size: 300% 100%;
+      filter: drop-shadow(0 0 30px rgba(241, 90, 34, 0.5));
+    }
+    
+    @keyframes gradientFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Enhanced description with fade-in animation */
+    .hero-description {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+      animation: fadeIn 1s ease-out 0.3s both;
+    }
+    
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    /* Enhanced stats with counter animation effect */
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      animation: fadeSlideUp 1s ease-out 0.5s both;
+    }
+    
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      position: relative;
+    }
+    
+    .stat-item::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-accent), transparent);
+      transition: width 0.4s ease;
+    }
+    
+    .stat-item:hover::after {
+      width: 100%;
+    }
+    
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      font-weight: 900;
+      color: var(--color-accent);
+      line-height: 1;
+      text-shadow: 0 0 20px rgba(241, 90, 34, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-item:hover .stat-number {
+      transform: scale(1.1);
+      text-shadow: 0 0 30px rgba(241, 90, 34, 0.6);
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    /* Enhanced cards container with staggered animations */
+    .hero-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+      gap: 1.5rem;
+      animation: fadeSlideLeft 1s ease-out 0.3s both;
+    }
+    
+    @keyframes fadeSlideLeft {
+      0% { opacity: 0; transform: translateX(80px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    
+    /* Enhanced contact cards with better glass morphism and hover effects */
+    .contact-card-hero {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: clamp(1.25rem, 3vw, 2rem);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Staggered card animations */
+    .contact-card-hero:nth-child(1) { animation: cardSlideIn 0.8s ease-out 0.4s both; }
+    .contact-card-hero:nth-child(2) { animation: cardSlideIn 0.8s ease-out 0.6s both; }
+    .contact-card-hero:nth-child(3) { animation: cardSlideIn 0.8s ease-out 0.8s both; }
+    
+    @keyframes cardSlideIn {
+      0% { 
+        opacity: 0; 
+        transform: translateY(40px) scale(0.95);
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    /* Enhanced card gradient overlay with shine effect */
+    .contact-card-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(241, 90, 34, 0.1),
+        transparent
+      );
+      transition: left 0.7s ease;
+      z-index: 0;
+    }
+    
+    .contact-card-hero:hover::before {
+      left: 100%;
+    }
+    
+    /* Added glowing border effect on hover */
+    .contact-card-hero::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(135deg, var(--color-accent), var(--color-primary), var(--color-accent));
+      border-radius: 26px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      background-size: 200% 200%;
+      animation: borderGlow 3s ease infinite;
+    }
+    
+    @keyframes borderGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .contact-card-hero:hover::after {
+      opacity: 1;
+    }
+    
+    .contact-card-hero:hover {
+      transform: translateY(-12px) scale(1.03);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 25px 70px rgba(241, 90, 34, 0.25),
+        0 0 0 1px rgba(241, 90, 34, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    
+    .contact-card-hero:nth-child(1) {
+      grid-column: 1 / -1;
+    }
+    
+    /* Card badge at the top */
+    .card-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.35rem 0.85rem;
+      background: rgba(241, 90, 34, 0.15);
+      border: 1px solid rgba(241, 90, 34, 0.3);
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-accent-light);
+      z-index: 2;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .contact-card-hero:hover .card-badge {
+      background: rgba(241, 90, 34, 0.25);
+      border-color: rgba(241, 90, 34, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(241, 90, 34, 0.3);
+    }
+    
+    /* Card description text */
+    .card-description {
+      font-size: clamp(0.75rem, 1.3vw, 0.85rem);
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.4;
+      margin-top: 0.5rem;
+      position: relative;
+      z-index: 1;
+      font-style: italic;
+      transition: color 0.3s ease;
+    }
+    
+    .contact-card-hero:hover .card-description {
+      color: rgba(255, 255, 255, 0.65);
+    }
+    
+    /* Enhanced card icon with better animations */
+    .card-icon {
+      width: clamp(48px, 8vw, 60px);
+      height: clamp(48px, 8vw, 60px);
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 50%, #FFB347 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(1.25rem, 3vw, 1.75rem);
+      color: white;
+      margin-bottom: 1.5rem;
+      box-shadow: 
+        0 8px 25px rgba(241, 90, 34, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .card-icon::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      background: linear-gradient(135deg, var(--color-accent), transparent, var(--color-accent));
+      border-radius: 20px;
+      z-index: -1;
+      opacity: 0;
+      animation: iconGlow 2s ease-in-out infinite;
+      transition: opacity 0.3s ease;
+    }
+    
+    @keyframes iconGlow {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    
+    .contact-card-hero:hover .card-icon {
+      transform: rotate(8deg) scale(1.15);
+      box-shadow: 
+        0 15px 40px rgba(241, 90, 34, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    
+    .contact-card-hero:hover .card-icon::before {
+      opacity: 1;
+    }
+    
+    .card-title {
+      font-family: var(--font-display);
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-card-hero:hover .card-title {
+      color: var(--color-accent-light);
+    }
+    
+    .card-info {
+      font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+      word-break: break-word;
+      transition: color 0.3s ease;
+    }
+    
+    .contact-card-hero:hover .card-info {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    /* Enhanced card link with arrow animation */
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      color: var(--color-accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .card-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transition: width 0.3s ease;
+    }
+    
+    .card-link:hover {
+      gap: 1rem;
+      text-shadow: 0 0 15px rgba(241, 90, 34, 0.6);
+    }
+    
+    .card-link:hover::after {
+      width: calc(100% - 1.5rem);
+    }
+    
+    .card-link i {
+      transition: transform 0.3s ease;
+    }
+    
+    .card-link:hover i {
+      transform: translateX(6px);
+    }
+    
+    /* Enhanced decorative elements with more dynamic animations */
+    .hero-decoration {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    
+    .hero-decoration:nth-child(1) {
+      width: 400px;
+      height: 400px;
+      top: 5%;
+      left: -15%;
+      background: radial-gradient(circle, rgba(241, 90, 34, 0.5) 0%, transparent 70%);
+      animation: floatDecoration1 10s ease-in-out infinite;
+    }
+    
+    .hero-decoration:nth-child(2) {
+      width: 350px;
+      height: 350px;
+      bottom: 5%;
+      right: -10%;
+      background: radial-gradient(circle, rgba(12, 35, 64, 0.5) 0%, transparent 70%);
+      animation: floatDecoration2 12s ease-in-out infinite;
+    }
+    
+    .hero-decoration:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      top: 40%;
+      right: 20%;
+      background: radial-gradient(circle, rgba(255, 183, 71, 0.3) 0%, transparent 70%);
+      animation: floatDecoration3 8s ease-in-out infinite;
+    }
+    
+    @keyframes floatDecoration1 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.1); }
+      66% { transform: translate(-20px, 30px) scale(0.95); }
+    }
+    
+    @keyframes floatDecoration2 {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(-25px, 35px) scale(1.05); }
+      66% { transform: translate(35px, -25px) scale(1.1); }
+    }
+    
+    @keyframes floatDecoration3 {
+      0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(20px, -20px) scale(1.15) rotate(10deg); }
+    }
+    
+    /* ========================================
+       CONTACT INFO SECTION - Photo fan layout
+       ======================================== */
+    .contact-info-section {
+      background: var(--color-black);
+      padding: var(--space-xl) 3rem;
+      text-align: center;
+    }
+    
+    .contact-info-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 5rem);
+      font-weight: 300;
+      margin-bottom: var(--space-lg);
+      color: var(--color-white);
+    }
+    
+    .contact-info-title .accent {
+      color: var(--color-accent);
+    }
+    
+    .photo-fan {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: -20px;
+      margin: var(--space-lg) 0;
+      perspective: 1000px;
+    }
+    
+    .photo-card {
+      width: 140px;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s ease;
+      position: relative;
+      flex-shrink: 0;
+    }
+    
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.4s ease;
+    }
+    
+    .photo-card:nth-child(1) { transform: rotate(-15deg) translateY(20px); z-index: 1; }
+    .photo-card:nth-child(2) { transform: rotate(-8deg) translateY(10px); z-index: 2; margin-left: -30px; }
+    .photo-card:nth-child(3) { transform: rotate(0deg); z-index: 3; margin-left: -30px; }
+    .photo-card:nth-child(4) { transform: rotate(8deg) translateY(10px); z-index: 2; margin-left: -30px; }
+    .photo-card:nth-child(5) { transform: rotate(15deg) translateY(20px); z-index: 1; margin-left: -30px; }
+    
+    .photo-card:hover {
+      transform: rotate(0deg) translateY(-20px) scale(1.1) !important;
+      z-index: 10 !important;
+    }
+    
+    .photo-card:hover img {
+      filter: grayscale(0%);
+    }
+    
+    .contact-info-subtitle {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--color-off-white);
+      opacity: 0.7;
+      margin-top: var(--space-md);
+    }
+    
+    .contact-info-subtitle .accent {
+      color: var(--color-accent);
+    }
+    
+    /* Contact Cards Grid */
+    .contact-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      max-width: 1200px;
+      margin: var(--space-lg) auto 0;
+    }
+    
+    .contact-card {
+      background: var(--color-gray);
+      padding: var(--space-lg);
+      border-radius: 24px;
+      transition: all 0.4s ease;
+      text-align: center;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(241, 90, 34, 0.2);
+      background: var(--color-primary);
+    }
+    
+    .contact-card-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+      font-size: 2rem;
+      color: var(--color-white);
+      box-shadow: 0 8px 20px rgba(241, 90, 34, 0.3);
+    }
+    
+    .contact-card h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+      color: var(--color-accent);
+    }
+    
+    .contact-card:hover h3 {
+      color: var(--color-white);
+    }
+    
+    .contact-card p {
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      opacity: 0.7;
+      margin-bottom: var(--space-sm);
+    }
+    
+    .contact-card a {
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-card:hover a {
+      color: var(--color-white);
+    }
+    
+    .contact-card a:hover {
+      text-shadow: 0 0 8px rgba(241, 90, 34, 0.4);
+    }
+    
+    /* ========================================
+       CONTACT FORM SECTION
+       ======================================== */
+    .contact-form-section {
+      background: linear-gradient(135deg, #D4D8DD 0%, #C2C9D1 50%, #B0BAC5 100%);
+      padding: var(--space-xl) 3rem;
+      position: relative;
+    }
+    
+    .contact-form-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(12, 35, 64, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(12, 35, 64, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    
+    .form-container {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .section-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--color-text-black);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .section-description {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      opacity: 0.7;
+      max-width: 600px;
+      margin: 0 auto;
+      color: var(--color-text-black);
+    }
+    
+    .contact-form-card {
+      background: rgba(0, 0, 0, 0.9);
+      border-radius: 24px;
+      padding: var(--space-lg);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .form-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: var(--space-md);
+    }
+    
+    .form-header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid var(--color-accent);
+      box-shadow: 0 0 15px rgba(241, 90, 34, 0.3);
+    }
+    
+    .form-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .form-group label {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--color-white);
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--color-white);
+      font-size: 1rem;
+      font-family: var(--font-body);
+      transition: all 0.3s ease;
+    }
+    
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(241, 90, 34, 0.15);
+      background: rgba(255, 255, 255, 0.12);
+    }
+    
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .form-submit-btn {
+      width: 100%;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+      border: none;
+      border-radius: 50px;
+      color: var(--color-white);
+      font-size: 1.1rem;
+      font-weight: 600;
+      font-family: var(--font-display);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: var(--space-sm);
+      box-shadow: 0 4px 15px rgba(241, 90, 34, 0.3);
+    }
+    
+    .form-submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(241, 90, 34, 0.5);
+    }
+    
+    .form-submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .success-message,
+    .error-message {
+      border-radius: 12px;
+      padding: 1rem;
+      margin-top: var(--space-sm);
+      text-align: center;
+      display: none;
+    }
+    
+    .success-message {
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.1));
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+    }
+    
+    .error-message {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+    
+    .success-message.show,
+    .error-message.show {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .field-error {
+      color: #ef4444;
+      font-size: 0.875rem;
+    }
+    
+    .form-group input.error,
+    .form-group textarea.error {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+    }
+    
+    /* ========================================
+       MAP SECTION
+       ======================================== */
+    .map-section {
+      background: var(--color-dark);
+      padding: var(--space-xl) 3rem;
+    }
+    
+    .map-header {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+    
+    .map-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 4rem);
+      font-weight: 300;
+      color: var(--color-white);
+      margin-bottom: var(--space-sm);
+    }
+    
+    .map-title .accent {
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+    
+    .map-subtitle {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--color-off-white);
+      opacity: 0.6;
+    }
+    
+    .map-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      height: 400px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .map-container:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(241, 90, 34, 0.2);
+    }
+    
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: grayscale(15%) contrast(1.1);
+      transition: filter 0.3s ease;
+    }
+    
+    .map-container:hover iframe {
+      filter: grayscale(0%) contrast(1);
+    }
+    
+    /* ========================================
+       FOOTER - Minimal editorial
+       ======================================== */
+    .footer {
+      background: var(--color-black);
+      padding: var(--space-lg) 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+    
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .footer-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    
+    .footer-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .footer-text h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    
+    .footer-text p {
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .footer-link {
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      opacity: 1;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: var(--color-white);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-social a:hover {
+      background: var(--color-accent);
+      transform: translateY(-4px);
+    }
+    
+    .footer-bottom {
+      max-width: 1200px;
+      margin: var(--space-md) auto 0;
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    
+    /* ========================================
+       SCROLL TO TOP
+       ======================================== */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--color-accent);
+      border: none;
+      border-radius: 50%;
+      color: var(--color-white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-to-top:hover {
+      background: var(--color-primary);
+      transform: translateY(-4px);
+    }
+    
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ========================================
+       MOBILE NAVIGATION MENU
+       ======================================== */
+    .nav-menu-mobile {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: rgba(12, 35, 64, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      transition: right 0.4s ease;
+    }
+    
+    .nav-menu-mobile.active {
+      right: 0;
+    }
+    
+    .nav-menu-mobile .nav-link {
+      font-size: 1.5rem;
+      opacity: 0.8;
+    }
+    
+    .nav-menu-mobile .nav-link:hover {
+      opacity: 1;
+      color: var(--color-accent);
+    }
+    
+    .mobile-menu-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      background: transparent;
+      border: none;
+      color: var(--color-white);
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    
+     /* ========================================
+       RESPONSIVE DESIGN - Improved for mobile
+       ======================================== */
+    @media (max-width: 1024px) {
+      .leaderboard-content {
+        grid-template-columns: 1fr;
+        text-align: center;
       }
       
-      .scroll-reveal.revealed {
-          opacity: 1;
-          transform: translateY(0);
+      .leaderboard-description {
+        margin-left: auto;
+        margin-right: auto;
       }
       
-      .scroll-reveal-left {
-          opacity: 0;
-          transform: translateX(-50px);
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      .earn-methods {
+        justify-content: center;
       }
       
-      .scroll-reveal-left.revealed {
-          opacity: 1;
-          transform: translateX(0);
+      .membership-grid {
+        grid-template-columns: 1fr;
       }
       
-      .scroll-reveal-right {
-          opacity: 0;
-          transform: translateX(50px);
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      .nav-links {
+        gap: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      /* Improved navbar responsiveness */
+      .navbar {
+        padding: 1rem 1.5rem;
       }
       
-      .scroll-reveal-right.revealed {
-          opacity: 1;
-          transform: translateX(0);
+      .navbar.scrolled {
+        padding: 0.75rem 1.5rem;
       }
       
-      .scroll-reveal-scale {
-          opacity: 0;
-          transform: scale(0.8);
-          transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      .nav-links {
+        display: none;
       }
       
-      .scroll-reveal-scale.revealed {
-          opacity: 1;
-          transform: scale(1);
+      .nav-toggle {
+        display: flex;
       }
       
-      /* Enhanced Hero Animations */
-      .hero-title .title-line {
-        font-family: 'Orbitron', sans-serif;
-          display: inline-block;
-          opacity: 0;
-          transform: translateY(100px);
-          animation: heroTitleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      .nav-brand span {
+        display: none;
       }
       
-      .hero-title .title-line:nth-child(1) {
-          animation-delay: 0.3s;
+      .hero {
+        min-height: 80vh;
       }
       
-      .hero-title .title-line:nth-child(2) {
-          animation-delay: 0.5s;
+      .hero-title {
+        font-size: clamp(4rem, 15vw, 10rem);
       }
       
-      @keyframes heroTitleReveal {
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
+      .hero-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+        padding: 1.5rem;
       }
       
-      .hero-description {
-          opacity: 0;
-          transform: translateY(30px);
-          animation: fadeInUp 1s ease-out 0.8s forwards;
+      .hero-title-container {
+        padding: 0 1.5rem;
       }
       
-      .hero-buttons {
-          opacity: 0;
-          transform: translateY(30px);
-          animation: fadeInUp 1s ease-out 1s forwards;
+      /* Improved section padding for mobile */
+      .makers-section,
+      .membership-section,
+      .leaderboard-section,
+      .journey-section,
+      .footer {
+        padding: var(--space-lg) 1.5rem;
       }
       
-      @keyframes fadeInUp {
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
+      /* Video button mobile */
+      .btn-video-hero {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
       }
       
-      /* Optimized Contact Form Section */
-      .contact-form-section {
-          background: linear-gradient(135deg, rgba(0, 212, 255, 0.03), rgba(0, 153, 204, 0.03));
-          position: relative;
-          padding: 4rem 0;
-          will-change: transform;
+      .btn-video-hero i {
+        font-size: 1rem;
       }
       
-      .contact-form-section::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-          opacity: 0.2;
-          pointer-events: none;
+      .hero-meta {
+        flex-wrap: wrap;
+        justify-content: center;
       }
       
-      /* Optimized Contact Form Container */
-      .contact-form-container {
-          position: relative;
-          z-index: 2;
-          border: 1px solid rgba(0, 212, 255, 0.2);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          max-width: 700px;
-          margin: 0 auto;
-          padding: 3rem;
-          border-radius: 20px;
-          background: rgba(0, 0, 0, 0.85);
-          backdrop-filter: blur(15px);
-          box-shadow: 
-              0 10px 40px rgba(0, 212, 255, 0.1),
-              0 0 0 1px rgba(255, 255, 255, 0.05);
-          will-change: transform, box-shadow;
+      /* Video modal mobile */
+      .video-modal-content {
+        width: 95%;
       }
       
-      /* Optimized hover effects */
-      .contact-form-container::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.05), transparent);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          z-index: -1;
-          pointer-events: none;
-          border-radius: inherit;
+      .video-modal-close {
+        top: -45px;
+        width: 36px;
+        height: 36px;
       }
       
-      .contact-form-container:hover::before {
-          opacity: 1;
+      /* Improved photo fan for mobile */
+      .photo-fan {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
       }
       
-      
-      .contact-form-container h2 {
-          background: linear-gradient(135deg, #00d4ff, #0099cc);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          text-align: center;
-          margin-bottom: 2rem;
-          font-size: 2.5rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 1rem;
+      .photo-card {
+        width: 80px;
+        height: 110px;
+        margin-left: 0 !important;
       }
       
-      .contact-form-container h2 img {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          border: 2px solid #00d4ff;
-          box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+      .photo-card:nth-child(1),
+      .photo-card:nth-child(2),
+      .photo-card:nth-child(3),
+      .photo-card:nth-child(4),
+      .photo-card:nth-child(5) {
+        transform: rotate(0deg) translateY(0);
       }
       
-      .contact-form {
-          position: relative;
-          z-index: 10;
+      /* Improved posts grid for mobile */
+      .posts-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-sm);
       }
       
-      .form-group {
-          margin-bottom: 1.5rem;
-          position: relative;
-          z-index: 10;
+      .social-links {
+        flex-direction: column;
+        align-items: center;
       }
       
-      .form-group label {
-          display: block;
-          margin-bottom: 0.5rem;
-          color: var(--text-primary);
-          font-weight: 500;
-          font-size: 1rem;
+      .social-link-card {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+        padding: var(--space-sm) var(--space-md);
       }
       
-      /* Optimized form inputs */
-      .form-group input,
-      .form-group textarea {
-          width: 100%;
-          padding: 1rem;
-          border: 2px solid rgba(255, 255, 255, 0.15);
-          border-radius: 10px;
-          background: rgba(255, 255, 255, 0.08);
-          color: var(--text-primary);
-          font-size: 1rem;
-          font-family: inherit;
-          transition: all 0.2s ease;
-          box-sizing: border-box;
-          position: relative;
-          z-index: 10;
-          will-change: border-color, box-shadow, background;
+      .footer-content {
+        flex-direction: column;
+        gap: var(--space-md);
+        text-align: center;
       }
       
-      .form-group input::placeholder,
-      .form-group textarea::placeholder {
-          color: rgba(255, 255, 255, 0.4);
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-sm);
       }
       
-      .form-group input:focus,
-      .form-group textarea:focus {
-          outline: none;
-          border-color: #00d4ff;
-          box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
-          background: rgba(255, 255, 255, 0.12);
+      /* Improved podium display for mobile */
+      .podium-display {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-sm);
       }
       
-      .form-group textarea {
-          min-height: 120px;
-          resize: vertical;
-          font-family: inherit;
+      .podium-item {
+        padding: var(--space-sm);
+        width: 100%;
+        max-width: 200px;
       }
       
-      /* Optimized submit button */
-      .form-submit-btn {
-          width: 100%;
-          padding: 1rem 2rem;
-          background: linear-gradient(135deg, #00d4ff, #0099cc);
-          border: none;
-          border-radius: 10px;
-          color: white;
-          font-size: 1.1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          position: relative;
-          overflow: hidden;
-          z-index: 10;
-          will-change: transform, box-shadow;
+      .podium-item.first {
+        transform: none;
+        order: -1;
       }
       
-      .form-submit-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
+      .podium-item.first:hover {
+        transform: translateY(-10px);
       }
       
-      .form-submit-btn:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-          transform: none;
+      .podium-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
       }
       
-      /* Enhanced Contact Info Cards */
-      .contact-info-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 2rem;
-          margin-top: 3rem;
+      .podium-item.first .podium-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
       }
       
-      .contact-card {
-          position: relative;
-          overflow: hidden;
-          transition: all 0.3s ease;
-          text-align: center;
-          padding: 2rem;
-          will-change: transform;
+      /* Improved membership card for mobile */
+      .membership-card {
+        padding: var(--space-md);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: clamp(3rem, 12vw, 6rem);
       }
       
-      .contact-card::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.05), transparent);
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          z-index: 1;
-          pointer-events: none;
+      .hero-image-container {
+        width: 70%;
       }
       
-      .contact-card:hover::before {
-          opacity: 1;
+      .btn-join {
+        padding: 0.6rem 1rem;
       }
       
-      .contact-card:hover {
-          transform: translateY(-8px) scale(1.01);
-          border-color: #00d4ff;
-          box-shadow: 0 15px 35px rgba(0, 212, 255, 0.15);
+      .btn-join span {
+        display: none;
       }
       
-      .contact-card .icon-container {
-          background: linear-gradient(135deg, #00d4ff, #0099cc);
-          box-shadow: 0 8px 20px rgba(0, 212, 255, 0.25);
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 0 auto 1.5rem;
-          font-size: 2rem;
-          color: white;
-          position: relative;
-          overflow: hidden;
+      /* Further improved photo cards for small screens */
+      .photo-card {
+        width: 60px;
+        height: 85px;
       }
       
-      .contact-card .icon-container img {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          object-fit: cover;
+      /* Improved spacing for very small screens */
+      .makers-section,
+      .membership-section,
+      .leaderboard-section,
+      .journey-section,
+      .footer {
+        padding: var(--space-md) 1rem;
       }
       
-      .contact-card h3 {
-          color: #00d4ff;
-          margin-bottom: 1rem;
-          font-size: 1.5rem;
+      .section-header {
+        margin-bottom: var(--space-md);
       }
       
-      .contact-card p {
-          color: var(--text-secondary);
-          margin-bottom: 1rem;
+      /* Improved scroll to top button position */
+      .scroll-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
       }
       
-      .contact-card a {
-          color: #00d4ff;
-          text-decoration: none;
-          font-weight: 600;
-          transition: all 0.3s ease;
+      .earn-methods {
+        gap: 0.5rem;
       }
       
-      .contact-card a:hover {
-          color: #ffffff;
-          text-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+      .earn-tag {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.7rem;
       }
       
-      /* Enhanced Map Section */
-      .map-section {
-          background: linear-gradient(135deg, rgba(0, 212, 255, 0.03), rgba(0, 153, 204, 0.03));
-          position: relative;
-          padding: 4rem 0;
+      .btn-leaderboard {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.85rem;
       }
-      
-      .map-section::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-          opacity: 0.2;
-          pointer-events: none;
-      }
-      
-      .map-container {
-          position: relative;
-          z-index: 2;
-          border: 1px solid rgba(0, 212, 255, 0.2);
-          transition: all 0.3s ease;
-          border-radius: 20px;
-          overflow: hidden;
-          height: 400px;
-          cursor: pointer;
-          will-change: transform;
-      }
-      
-      .map-container:hover {
-          transform: translateY(-3px);
-          border-color: #00d4ff;
-          box-shadow: 0 15px 35px rgba(0, 212, 255, 0.15);
-      }
-      
-      .map-container iframe {
-          width: 100%;
-          height: 100%;
-          border: none;
-          filter: grayscale(15%) contrast(1.1);
-          transition: filter 0.3s ease;
-          pointer-events: auto;
-      }
-      
-      .map-container:hover iframe {
-          filter: grayscale(0%) contrast(1);
-      }
-      
-      /* Success Message Styles */
-      .success-message {
-          background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(22, 163, 74, 0.1));
-          border: 1px solid rgba(34, 197, 94, 0.3);
-          border-radius: 10px;
-          padding: 1rem;
-          margin-top: 1rem;
-          text-align: center;
-          color: #22c55e;
-          display: none;
-      }
-      
-      .success-message.show {
-          display: block;
-          animation: slideDown 0.3s ease-out;
-      }
-      
-      @keyframes slideDown {
-          from {
-              opacity: 0;
-              transform: translateY(-10px);
-          }
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
-      }
-      
-      /* Error Message Styles */
-      .error-message {
-          background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
-          border: 1px solid rgba(239, 68, 68, 0.3);
-          border-radius: 10px;
-          padding: 1rem;
-          margin-top: 1rem;
-          text-align: center;
-          color: #ef4444;
-          display: none;
-      }
-      
-      .error-message.show {
-          display: block;
-          animation: slideDown 0.3s ease-out;
-      }
-      
-      /* Field Error Styles */
-      .field-error {
-          color: #ef4444;
-          font-size: 0.875rem;
-          margin-top: 0.25rem;
-          display: block;
-      }
-      
-      .form-group input.error,
-      .form-group textarea.error {
-          border-color: #ef4444;
-          box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
-      }
-      
-      /* Enhanced Loading Animation */
-      .loading-screen {
-          background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-      }
-      
-      .loading-spinner {
-          width: 50px;
-          height: 50px;
-          border: 3px solid rgba(0, 212, 255, 0.3);
-          border-top: 3px solid #00d4ff;
-          border-radius: 50%;
-          animation: spin 1s linear infinite;
-      }
-      
-      @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-      }
-      
-      /* Staggered Animation Delays */
-      .contact-info-grid .contact-card:nth-child(1) { animation-delay: 0.1s; }
-      .contact-info-grid .contact-card:nth-child(2) { animation-delay: 0.2s; }
-      .contact-info-grid .contact-card:nth-child(3) { animation-delay: 0.3s; }
-      
-      /* Responsive Design */
-      @media (max-width: 768px) {
-          .contact-info-grid {
-              grid-template-columns: 1fr;
-              gap: 1.5rem;
-          }
-          
-          .contact-form-container {
-              padding: 2rem 1.5rem;
-              margin: 0 1rem;
-          }
-          
-          .contact-form-container h2 {
-              font-size: 2rem;
-              flex-direction: column;
-              gap: 0.5rem;
-          }
-          
-          .contact-form-container h2 img {
-              width: 40px;
-              height: 40px;
-          }
-          
-          .map-container {
-              height: 300px;
-              margin: 0 1rem;
-          }
-      }
-      
-      /* Performance optimizations */
-      @media (prefers-reduced-motion: reduce) {
-          .contact-form-container,
-          .contact-card,
-          .map-container {
-              transition: none;
-          }
-          
-      }
+    }
+    
+    /* Mobile Navigation Menu */
+    .nav-menu-mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--color-black);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-md);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 998;
+    }
+    
+    .nav-menu-mobile.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .nav-menu-mobile .nav-link {
+      font-size: 1.5rem;
+      font-weight: 600;
+      opacity: 1;
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
   </style>
 </head>
 
 <body>
-  <!-- Loading Screen -->
-  <div class="loading-screen">
-      <div class="loading-content">
-          <div class="loading-logo">
-            <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
-          </div>
-          <div class="loading-spinner"></div>
-          <p>Loading Contact...</p>
-      </div>
-  </div>
-
+  <!-- Navigation -->
   <nav class="navbar" id="navbar">
-    <div class="nav-background-blur"></div>
-    <div class="nav-container">
-        <a href="index.html" class="nav-brand">
-            <div class="nav-logo-container">
-                <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="nav-logo">
-                <div class="logo-glow"></div>
-            </div>
-            <div class="nav-brand-text">
-                <h2 class="nav-title">UTSA NSBE</h2>
-                <p class="nav-subtitle">National Society of Black Engineers</p>
-            </div>
-        </a>
-        <button class="nav-toggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-        </button>
-        <div class="nav-menu" id="nav-menu">
-            <div class="nav-links-group">
-                <a href="index.html" class="nav-link">
-                    <i class="fas fa-home"></i> 
-                    <span class="nav-text">Home</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-                <a href="about.html" class="nav-link">
-                    <i class="fas fa-info-circle"></i> 
-                    <span class="nav-text">About</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-                <a href="leadership.html" class="nav-link">
-                    <i class="fas fa-users"></i> 
-                    <span class="nav-text">Leadership</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-                <a href="conferences.html" class="nav-link">
-                    <i class="fas fa-briefcase"></i> 
-                    <span class="nav-text">Conferences</span>
-                    <span class="nav-link-indicator"></span>
-                </a>                
-                <a href="gallery.html" class="nav-link">
-                    <i class="fas fa-image"></i> 
-                    <span class="nav-text">Gallery</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-                <a href="contact.html" class="nav-link active">
-                    <i class="fas fa-envelope"></i> 
-                    <span class="nav-text">Contact</span>
-                    <span class="nav-link-indicator"></span>
-                </a>
-            </div>
-            <div class="nav-social">
-                <a href="https://instagram.com/utsansbe" class="social-link instagram" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                    <span class="social-tooltip">Instagram</span>
-                </a>
-                <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link linkedin" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                    <span class="social-tooltip">LinkedIn</span>
-                </a>
-            </div>
-        </div>
+    <a href="./" class="nav-brand">
+      <div class="nav-logo">
+        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+      </div>
+      <span>UTSA NSBE</span>
+    </a>
+    
+    <div class="nav-cta">
+      <div class="nav-links">
+        <a href="./" class="nav-link">Home</a>
+        <a href="./about" class="nav-link">About</a>
+        <a href="./leadership" class="nav-link">Leadership</a>
+        <a href="./conferences" class="nav-link">Conferences</a>
+        <a href="./gallery" class="nav-link">Gallery</a>
+        <a href="./donate" class="nav-link">Donate</a>
+        <a href="./contact" class="nav-link active">Contact</a>
+      </div>
+    <a href="https://linktr.ee/utsansbe" class="btn-join" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-link"></i>
+                <span>Linktree</span>
+            </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
     </div>
-</nav>
-
-  <section id="contact-hero" class="hero">
-      <div class="hero-background-container" style="background-image: url('images/contact-hero.jpg');"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-geometric-shapes">
-          <div class="shape shape-1"></div>
-          <div class="shape shape-2"></div>
-          <div class="shape shape-3"></div>
-      </div>
-      <div class="hero-content">
-          <span class="hero-badge futuristic-btn">
-              <span class="badge-text">Get In Touch</span>
-              <span class="badge-glow"></span>
-          </span>
-          <h1 class="hero-title">
-              <span class="title-line accent" data-text="Contact">Contact</span>
-              <span class="title-line" data-text="Us">Us</span>
-          </h1>
-          <p class="hero-description">
-              We'd love to hear from you! Reach out to us for inquiries, partnerships, or support.
-          </p>
-          <div class="hero-buttons">
-              <a href="#contact-info" class="btn btn-primary btn-lg futuristic-btn">
-                  <span class="btn-text">Our Info</span>
-                  <span class="btn-shine"></span>
-                  <span class="btn-glow"></span>
-              </a>
-              <a href="#contact-form" class="btn btn-secondary btn-lg futuristic-btn">
-                  <span class="btn-text">Send a Message</span>
-                  <span class="btn-shine"></span>
-                  <span class="btn-glow"></span>
-              </a>
-          </div>
-      </div>
+  </nav>
+  
+  <!-- Mobile Menu -->
+  <div class="nav-menu-mobile" id="mobileMenu">
+    <a href="./" class="nav-link">Home</a>
+    <a href="./about" class="nav-link">About</a>
+    <a href="./leadership" class="nav-link">Leadership</a>
+    <a href="./conferences" class="nav-link">Conferences</a>
+    <a href="./gallery" class="nav-link">Gallery</a>
+    <a href="./donate" class="nav-link">Donate</a>
+    <a href="./contact" class="nav-link">Contact</a>
+  </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <!-- Added mesh grid overlay -->
+    <div class="hero-mesh"></div>
+    
+    <!-- Added floating particles -->
+    <div class="hero-particles">
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+      <div class="particle"></div>
+    </div>
+    
+    <!-- Decorative elements -->
+    <div class="hero-decoration"></div>
+    <div class="hero-decoration"></div>
+    <!-- Added third decoration element -->
+    <div class="hero-decoration"></div>
+    
+    <div class="hero-content">
+      <!-- Left Side - Text Content -->
+      <div class="hero-text">
+        <div class="hero-badge">
+          <i class="fas fa-paper-plane"></i>
+          <span>Get Connected</span>
+        </div>
+        
+        <h1 class="hero-title">
+          Contact 
+          <span class="highlight">Us</span>
+        </h1>
+        
+        <p class="hero-description">
+          Have questions about UTSA NSBE? Want to join our mission? We're here to help. 
+          Reach out to us through any of the channels below.
+        </p>
+        
+      
+      <!-- Right Side - Contact Cards -->
+     
+        
+    
+    </div>
   </section>
   
-  <section id="contact-form" class="contact-form-section">
-    <div class="container">
-        <div class="contact-form-container futuristic-card scroll-reveal">
-            <h2>
-                <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
-                Send Us a Message
-            </h2>
-            <form class="contact-form" id="contactForm" novalidate>
-                <div class="form-group">
-                    <label for="name">Your Name *</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        required 
-                        placeholder="Enter your full name"
-                        autocomplete="name"
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="email">Your Email *</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required 
-                        placeholder="Enter your email address"
-                        autocomplete="email"
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input 
-                        type="tel" 
-                        id="phone" 
-                        name="phone" 
-                        placeholder="Enter your phone number (optional)"
-                        autocomplete="tel"
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="subject">Subject *</label>
-                    <input 
-                        type="text" 
-                        id="subject" 
-                        name="subject" 
-                        required 
-                        placeholder="What is this regarding?"
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="message">Message *</label>
-                    <textarea 
-                        id="message" 
-                        name="message" 
-                        required 
-                        placeholder="Tell us more about your inquiry..."
-                        rows="5"
-                    ></textarea>
-                </div>
-                <button type="submit" class="form-submit-btn" id="submitBtn">
-                    <i class="fas fa-paper-plane"></i>
-                    <span class="btn-text">Send Message</span>
-                </button>
-            </form>
-            <div class="success-message" id="successMessage">
-                <i class="fas fa-check-circle"></i>
-                Your message has been sent successfully! We'll get back to you soon.
-            </div>
-            <div class="error-message" id="errorMessage">
-                <i class="fas fa-exclamation-triangle"></i>
-                Please fill in all required fields correctly.
-            </div>
-            <div class="card-glow"></div>
-            <div class="card-border"></div>
-        </div>
-    </div>
-</section>
-
-  <section id="contact-info" class="mission-section">
-      <div class="container">
-          <div class="section-header scroll-reveal">
-              <h2 class="section-title gradient-text">Reach Out to Us</h2>
-              <p class="section-subtitle">
-                  Find the best way to connect with the UTSA NSBE chapter.
-              </p>
-          </div>
-          <div class="contact-info-grid">
-              <div class="contact-card futuristic-card scroll-reveal-scale">
-                  <div class="icon-container"><i class="fas fa-envelope"></i></div>
-                  <h3>Email Us</h3>
-                  <p>For general inquiries and information.</p>
-                  <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
-                  <div class="card-glow"></div>
-                  <div class="card-border"></div>
-              </div>
-              <div class="contact-card futuristic-card scroll-reveal-scale">
-                  <div class="icon-container"><i class="fab fa-instagram"></i></div>
-                  <h3>Follow Us</h3>
-                  <p>Stay updated with our latest activities.</p>
-                  <a href="https://instagram.com/utsansbe" target="_blank">@utsansbe</a>
-                  <div class="card-glow"></div>
-                  <div class="card-border"></div>
-              </div>
-              <div class="contact-card futuristic-card scroll-reveal-scale">
-                  <div class="icon-container"><i class="fas fa-map-marker-alt"></i></div>
-                  <h3>Our Location</h3>
-                  <p>Find us on campus.</p>
-                  <span>University of Texas at San Antonio</span>
-                  <div class="card-glow"></div>
-                  <div class="card-border"></div>
-              </div>
-          </div>
+  
+  <!-- Contact Form Section -->
+  <section class="contact-form-section" id="contact-form">
+    <div class="form-container">
+      <div class="section-header scroll-reveal">
+        <p class="section-label">Get In Touch</p>
+        <h2 class="section-title">Send Us a Message</h2>
+        <p class="section-description">
+          Have a question or want to learn more about UTSA NSBE? Fill out the form below and we'll get back to you.
+        </p>
       </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-section footer-brand">
-                <div class="footer-brand-container">
-                    <img src="images/logopic.jpg" alt="UTSA NSBE Logo" class="footer-logo">
-                    <div class="footer-brand-text">
-                        <h3>UTSA NSBE</h3>
-                        <p>National Society of Black Engineers</p>
-                    </div>
-                </div>
-                <p class="footer-description">
-                    Empowering the next generation of Black engineers through academic excellence, 
-                    professional development, and community impact at the University of Texas at San Antonio.
-                </p>
-                <div class="footer-social">
-                    <a href="https://instagram.com/utsansbe" class="footer-social-link instagram" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link linkedin" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="mailto:utsa.nsbe.historian@gmail.com" class="footer-social-link email" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="leadership.html">Leadership</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="conferences.html">Conferences</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                </ul>
-            </div>      
-            <div class="footer-section">
-                <h4>Contact Info</h4>
-                <div class="footer-contact">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:utsa.nsbe.historian@gmail.com">utsa.nsbe.historian@gmail.com</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>San Antonio, TX</span>
-                    </div>
-                </div>
-            </div>
+      
+      <div class="contact-form-card scroll-reveal">
+        <div class="form-header">
+          <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+          <h2>UTSA NSBE</h2>
         </div>
-        <div class="footer-bottom">
-            <div class="footer-bottom-content">
-                <p>&copy; 2025 UTSA NSBE. All rights reserved.</p>
-                <div class="footer-bottom-links">
-                </div>
-            </div>
-            <p class="footer-powered">Powered by the National Society of Black Engineers</p>
+        
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="name">Your Name *</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              required 
+              placeholder="Enter your full name"
+              autocomplete="name"
+            >
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email *</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required 
+              placeholder="Enter your email address"
+              autocomplete="email"
+            >
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input 
+              type="tel" 
+              id="phone" 
+              name="phone" 
+              placeholder="Enter your phone number (optional)"
+              autocomplete="tel"
+            >
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject *</label>
+            <input 
+              type="text" 
+              id="subject" 
+              name="subject" 
+              required 
+              placeholder="What is this regarding?"
+            >
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              required 
+              placeholder="Tell us more about your inquiry..."
+              rows="5"
+            ></textarea>
+          </div>
+          <button type="submit" class="form-submit-btn" id="submitBtn">
+            <i class="fas fa-paper-plane"></i>
+            <span>Send Message</span>
+          </button>
+        </form>
+        
+        <div class="success-message" id="successMessage">
+          <i class="fas fa-check-circle"></i>
+          Your message has been sent successfully! We'll get back to you soon.
         </div>
+        <div class="error-message" id="errorMessage">
+          <i class="fas fa-exclamation-triangle"></i>
+          Please fill in all required fields correctly.
+        </div>
+      </div>
     </div>
-</footer>
-
-
-  <script src="script.js"></script>
+  </section>
+  
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="map-header scroll-reveal">
+      <h2 class="map-title">Find Us <span class="accent">On Campus</span></h2>
+      <p class="map-subtitle">University of Texas at San Antonio</p>
+    </div>
+    
+    <div class="map-container scroll-reveal" onclick="openGoogleMaps()">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3474.8693044890846!2d-98.62000648491453!3d29.58200008204437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x865c658af1b3f517%3A0xa9e56a0e63c26b6!2sUniversity%20of%20Texas%20at%20San%20Antonio!5e0!3m2!1sen!2sus!4v1635000000000!5m2!1sen!2sus" 
+        allowfullscreen="" 
+        loading="lazy"
+        title="UTSA Campus Map"
+      ></iframe>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+        </div>
+        <div class="footer-text">
+          <h3>UTSA NSBE</h3>
+          <p>National Society of Black Engineers</p>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">Homepage</a>
+        <a href="about.html" class="footer-link">About</a>
+        <a href="leadership.html" class="footer-link">Leadership</a>
+        <a href="conferences.html" class="footer-link">Conferences</a>
+        <a href="gallery.html" class="footer-link">Gallery</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+      
+      <div class="footer-social">
+        <a href="https://instagram.com/utsansbe" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="mailto:utsa.nsbe.historian@gmail.com" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 UTSA NSBE. All rights reserved. Powered by the National Society of Black Engineers.</p>
+    </div>
+  </footer>
+  
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+  
   <script>
-      // Initialize EmailJS
-      (function() {
-          emailjs.init("4UdRY6q5pYPeOaL3x"); // Replace with your EmailJS public key
-      })();
-
-      // Enhanced Contact Form Functionality with EmailJS
-      document.addEventListener('DOMContentLoaded', function() {
-          const contactForm = document.getElementById('contactForm');
-          const submitBtn = document.getElementById('submitBtn');
-          const successMessage = document.getElementById('successMessage');
-          const errorMessage = document.getElementById('errorMessage');
-          
-          // Ensure form inputs are properly enabled
-          const formInputs = contactForm.querySelectorAll('input, textarea');
-          formInputs.forEach(input => {
-              input.disabled = false;
-              input.readOnly = false;
-              input.style.pointerEvents = 'auto';
-              input.style.userSelect = 'text';
+    // Initialize EmailJS
+    (function() {
+      emailjs.init("4UdRY6q5pYPeOaL3x");
+    })();
+    
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+    
+    //Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      const scrollToTopBtn = document.getElementById('scrollToTop');
+      
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        navbar.classList.remove('scrolled');
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    // Scroll to Top
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Open Google Maps
+    function openGoogleMaps() {
+      window.open('https://www.google.com/maps/place/University+of+Texas+at+San+Antonio/@29.582,-98.62,15z', '_blank');
+    }
+    
+    // Scroll Reveal Animation
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.scroll-reveal');
+      
+      reveals.forEach((element, index) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          setTimeout(() => {
+            element.classList.add('revealed');
+          }, index * 100);
+        }
+      });
+    }
+    
+    // Contact Form Handling with EmailJS
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactForm = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const successMessage = document.getElementById('successMessage');
+      const errorMessage = document.getElementById('errorMessage');
+      
+      // Form validation
+      function validateForm(formData) {
+        const errors = [];
+        
+        const name = formData.get('name');
+        if (!name || name.trim().length < 2) {
+          errors.push('Name must be at least 2 characters long');
+        }
+        
+        const email = formData.get('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+          errors.push('Please enter a valid email address');
+        }
+        
+        const subject = formData.get('subject');
+        if (!subject || subject.trim().length < 5) {
+          errors.push('Subject must be at least 5 characters long');
+        }
+        
+        const message = formData.get('message');
+        if (!message || message.trim().length < 10) {
+          errors.push('Message must be at least 10 characters long');
+        }
+        
+        return errors;
+      }
+      
+      // Send email using EmailJS
+      function sendEmail(formData) {
+        const templateParams = {
+          from_name: formData.get('name'),
+          from_email: formData.get('email'),
+          phone: formData.get('phone') || 'Not provided',
+          subject: formData.get('subject'),
+          message: formData.get('message'),
+          to_email: 'utsa.nsbe.historian@gmail.com'
+        };
+        
+        return emailjs.send('service_Blackengineers1', 'template_pmo85d7', templateParams);
+      }
+      
+      // Handle form submission
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        successMessage.classList.remove('show');
+        errorMessage.classList.remove('show');
+        
+        const formData = new FormData(contactForm);
+        const errors = validateForm(formData);
+        
+        if (errors.length > 0) {
+          errorMessage.innerHTML = `
+            <i class="fas fa-exclamation-triangle"></i>
+            ${errors.join('<br>')}
+          `;
+          errorMessage.classList.add('show');
+          errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        
+        // Show loading state
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
+        submitBtn.disabled = true;
+        
+        // Send email using EmailJS
+        sendEmail(formData)
+          .then(function(response) {
+            successMessage.classList.add('show');
+            contactForm.reset();
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          })
+          .catch(function(error) {
+            errorMessage.innerHTML = `
+              <i class="fas fa-exclamation-triangle"></i>
+              Failed to send message. Please try again or contact us directly at utsa.nsbe.historian@gmail.com
+            `;
+            errorMessage.classList.add('show');
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          })
+          .finally(function() {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
           });
-          
-          // Form validation
-          function validateForm(formData) {
-              const errors = [];
-              
-              const name = formData.get('name');
-              if (!name || name.trim().length < 2) {
-                  errors.push('Name must be at least 2 characters long');
-              }
-              
-              const email = formData.get('email');
+      });
+      
+      // Real-time validation feedback
+      const inputs = contactForm.querySelectorAll('input, textarea');
+      inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+          validateField(this);
+        });
+        
+        input.addEventListener('input', function() {
+          clearFieldError(this);
+        });
+      });
+      
+      function validateField(field) {
+        const value = field.value.trim();
+        const name = field.name;
+        let error = '';
+        
+        switch (name) {
+          case 'name':
+            if (field.hasAttribute('required') && value.length < 2) {
+              error = 'Name must be at least 2 characters long';
+            }
+            break;
+          case 'email':
+            if (field.hasAttribute('required')) {
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-              if (!email || !emailRegex.test(email)) {
-                  errors.push('Please enter a valid email address');
+              if (!emailRegex.test(value)) {
+                error = 'Please enter a valid email address';
               }
-              
-              const subject = formData.get('subject');
-              if (!subject || subject.trim().length < 5) {
-                  errors.push('Subject must be at least 5 characters long');
-              }
-              
-              const message = formData.get('message');
-              if (!message || message.trim().length < 10) {
-                  errors.push('Message must be at least 10 characters long');
-              }
-              
-              return errors;
-          }
-          
-          // Send email using EmailJS
-          function sendEmail(formData) {
-              const templateParams = {
-                  from_name: formData.get('name'),
-                  from_email: formData.get('email'),
-                  phone: formData.get('phone') || 'Not provided',
-                  subject: formData.get('subject'),
-                  message: formData.get('message'),
-                  to_email: 'utsa.nsbe.historian@gmail.com'
-              };
-              
-              return emailjs.send('service_Blackengineers1', 'template_pmo85d7', templateParams);
-          }
-          
-          // Handle form submission
-          contactForm.addEventListener('submit', function(e) {
-              e.preventDefault();
-              
-              // Hide previous messages
-              successMessage.classList.remove('show');
-              errorMessage.classList.remove('show');
-              
-              const formData = new FormData(contactForm);
-              const errors = validateForm(formData);
-              
-              if (errors.length > 0) {
-                  errorMessage.innerHTML = `
-                      <i class="fas fa-exclamation-triangle"></i>
-                      ${errors.join('<br>')}
-                  `;
-                  errorMessage.classList.add('show');
-                  errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  return;
-              }
-              
-              // Show loading state
-              const originalText = submitBtn.innerHTML;
-              submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span class="btn-text">Sending...</span>';
-              submitBtn.disabled = true;
-              
-              // Send email using EmailJS
-              sendEmail(formData)
-                  .then(function(response) {
-                      console.log('SUCCESS!', response.status, response.text);
-                      
-                      // Show success message
-                      successMessage.classList.add('show');
-                      
-                      // Reset form
-                      contactForm.reset();
-                      
-                      // Clear any field errors
-                      const errorElements = contactForm.querySelectorAll('.field-error');
-                      errorElements.forEach(el => el.remove());
-                      const errorFields = contactForm.querySelectorAll('.error');
-                      errorFields.forEach(field => field.classList.remove('error'));
-                      
-                      // Scroll to success message
-                      successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  })
-                  .catch(function(error) {
-                      console.log('FAILED...', error);
-                      
-                      // Show error message
-                      errorMessage.innerHTML = `
-                          <i class="fas fa-exclamation-triangle"></i>
-                          Failed to send message. Please try again or contact us directly at utsa.nsbe.historian@gmail.com
-                      `;
-                      errorMessage.classList.add('show');
-                      errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  })
-                  .finally(function() {
-                      // Reset button
-                      submitBtn.innerHTML = originalText;
-                      submitBtn.disabled = false;
-                  });
-          });
-          
-          // Real-time validation feedback
-          const inputs = contactForm.querySelectorAll('input, textarea');
-          inputs.forEach(input => {
-              input.addEventListener('blur', function() {
-                  validateField(this);
-              });
-              
-              input.addEventListener('input', function() {
-                  clearFieldError(this);
-              });
-              
-              // Ensure inputs are focusable and typeable
-              input.addEventListener('focus', function() {
-                  this.style.pointerEvents = 'auto';
-              });
-          });
-          
-          function validateField(field) {
-              const value = field.value.trim();
-              const name = field.name;
-              let error = '';
-              
-              switch (name) {
-                  case 'name':
-                      if (field.hasAttribute('required') && value.length < 2) {
-                          error = 'Name must be at least 2 characters long';
-                      }
-                      break;
-                  case 'email':
-                      if (field.hasAttribute('required')) {
-                          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                          if (!emailRegex.test(value)) {
-                              error = 'Please enter a valid email address';
-                          }
-                      }
-                      break;
-                  case 'subject':
-                      if (field.hasAttribute('required') && value.length < 5) {
-                          error = 'Subject must be at least 5 characters long';
-                      }
-                      break;
-                  case 'message':
-                      if (field.hasAttribute('required') && value.length < 10) {
-                          error = 'Message must be at least 10 characters long';
-                      }
-                      break;
-              }
-              
-              if (error) {
-                  showFieldError(field, error);
-              } else {
-                  clearFieldError(field);
-              }
-          }
-          
-          function showFieldError(field, message) {
-              field.classList.add('error');
-              
-              let errorElement = field.parentNode.querySelector('.field-error');
-              if (!errorElement) {
-                  errorElement = document.createElement('div');
-                  errorElement.className = 'field-error';
-                  field.parentNode.appendChild(errorElement);
-              }
-              
-              errorElement.textContent = message;
-          }
-          
-          function clearFieldError(field) {
-              field.classList.remove('error');
-              const errorElement = field.parentNode.querySelector('.field-error');
-              if (errorElement) {
-                  errorElement.remove();
-              }
-          }
-      });
-      
-      // Enhanced scroll reveal functionality
-      function revealOnScroll() {
-          const reveals = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
-          
-          reveals.forEach(element => {
-              const windowHeight = window.innerHeight;
-              const elementTop = element.getBoundingClientRect().top;
-              const elementVisible = 150;
-              
-              if (elementTop < windowHeight - elementVisible) {
-                  element.classList.add('revealed');
-              }
-          });
+            }
+            break;
+          case 'subject':
+            if (field.hasAttribute('required') && value.length < 5) {
+              error = 'Subject must be at least 5 characters long';
+            }
+            break;
+          case 'message':
+            if (field.hasAttribute('required') && value.length < 10) {
+              error = 'Message must be at least 10 characters long';
+            }
+            break;
+        }
+        
+        if (error) {
+          showFieldError(field, error);
+        } else {
+          clearFieldError(field);
+        }
       }
       
-      // Enhanced card animations with performance optimization
-      function enhanceCardAnimations() {
-          const cards = document.querySelectorAll('.contact-card, .contact-form-container, .map-container');
-          
-          cards.forEach(card => {
-              // Use passive event listeners for better performance
-              card.addEventListener('mouseenter', function() {
-                  if (this.classList.contains('contact-form-container')) {
-                      this.style.transform = 'translateY(-5px)';
-                  } else if (this.classList.contains('map-container')) {
-                      this.style.transform = 'translateY(-3px)';
-                  } else {
-                      this.style.transform = 'translateY(-8px) scale(1.01)';
-                  }
-              }, { passive: true });
-              
-              card.addEventListener('mouseleave', function() {
-                  this.style.transform = 'translateY(0) scale(1)';
-              }, { passive: true });
-          });
+      function showFieldError(field, message) {
+        field.classList.add('error');
+        
+        let errorElement = field.parentNode.querySelector('.field-error');
+        if (!errorElement) {
+          errorElement = document.createElement('div');
+          errorElement.className = 'field-error';
+          field.parentNode.appendChild(errorElement);
+        }
+        
+        errorElement.textContent = message;
       }
       
-      // Open Google Maps function
-      function openGoogleMaps() {
-          window.open('https://www.google.com/maps/place/University+of+Texas+at+San+Antonio/@29.582,-98.62,15z', '_blank');
+      function clearFieldError(field) {
+        field.classList.remove('error');
+        const errorElement = field.parentNode.querySelector('.field-error');
+        if (errorElement) {
+          errorElement.remove();
+        }
       }
       
-      // Initialize animations when page loads with performance optimization
-      window.addEventListener('load', () => {
-          // Use requestAnimationFrame for smooth initialization
-          requestAnimationFrame(() => {
-              revealOnScroll();
-              enhanceCardAnimations();
-          });
-      });
-      
-      // Throttled scroll event for better performance
-      let scrollTimeout;
-      window.addEventListener('scroll', () => {
-          if (scrollTimeout) {
-              clearTimeout(scrollTimeout);
-          }
-          scrollTimeout = setTimeout(revealOnScroll, 10);
-      }, { passive: true });
+      // Initialize scroll reveal
+      revealOnScroll();
+    });
+    
+    // Scroll event listener
+    window.addEventListener('scroll', revealOnScroll, { passive: true });
   </script>
 </body>
 </html>
