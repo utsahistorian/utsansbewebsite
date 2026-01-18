@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Leadership - UTSA NSBE | Meet Our Executive Board</title>
+  <title>Leadership | UTSA NSBE</title>
   <meta name="description" content="Meet the dedicated leadership team of UTSA NSBE, driving excellence and innovation in engineering education.">
   
   <!-- Favicon -->
@@ -200,9 +200,45 @@
       background: linear-gradient(135deg, #000000 0%, #0C2340 50%, #000000 100%);
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       overflow: hidden;
       padding: 0 2rem;
+      gap: 4rem;
+    }
+    
+    /* Background image layer */
+    .hero-image-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .hero-image-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('images/eboardpic.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      z-index: 0;
+    }
+    
+    .hero-image-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(12, 35, 64, 0.75) 50%, rgba(0, 0, 0, 0.9) 100%);
+      z-index: 1;
     }
     
     /* Animated gradient overlay with mesh */
@@ -218,7 +254,7 @@
         radial-gradient(circle at 80% 70%, rgba(12, 35, 64, 0.3) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, rgba(241, 90, 34, 0.15) 0%, transparent 60%);
       animation: gradientShift 15s ease-in-out infinite;
-      z-index: 0;
+      z-index: 1;
     }
     
     @keyframes gradientShift {
@@ -261,9 +297,83 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      max-width: 1400px;
+      max-width: 700px;
       width: 100%;
-      padding: 0 4rem;
+      padding: 0 2rem;
+    }
+    
+    /* Hero image container */
+    .hero-image-container {
+      position: relative;
+      z-index: 2;
+      width: 45%;
+      max-width: 600px;
+      min-width: 350px;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    .hero-image-frame {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/10;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 3px solid rgba(241, 90, 34, 0.5);
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.5),
+        0 0 50px rgba(241, 90, 34, 0.3),
+        inset 0 0 30px rgba(241, 90, 34, 0.1);
+      transition: all 0.4s ease;
+      animation: imageReveal 1.5s ease-out 0.8s backwards;
+      position: relative;
+    }
+    
+    .hero-image-frame::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(241, 90, 34, 0.2) 0%, transparent 50%, rgba(12, 35, 64, 0.2) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .hero-image-frame:hover {
+      transform: scale(1.02) translateY(-5px);
+      border-color: var(--color-accent);
+      box-shadow: 
+        0 40px 100px rgba(0, 0, 0, 0.6),
+        0 0 80px rgba(241, 90, 34, 0.5);
+    }
+    
+    .hero-image-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.4s ease;
+    }
+    
+    .hero-image-frame:hover img {
+      transform: scale(1.05);
+    }
+    
+    @keyframes imageReveal {
+      0% {
+        opacity: 0;
+        transform: translateX(50px) scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
     }
     
     .hero-subtitle-top {
@@ -1193,6 +1303,21 @@
       .nav-links {
         gap: 1.5rem;
       }
+      
+      .hero {
+        gap: 3rem;
+        padding: 0 1.5rem;
+      }
+      
+      .hero-title-container {
+        max-width: 600px;
+      }
+      
+      .hero-image-container {
+        width: 50%;
+        min-width: 300px;
+        max-width: 450px;
+      }
     }
     
     @media (max-width: 768px) {
@@ -1220,10 +1345,40 @@
       .hero {
         padding: 0 1.5rem;
         min-height: 90vh;
+        flex-direction: column;
+        gap: 2.5rem;
+        justify-content: center;
       }
       
       .hero-title-container {
-        padding: 8rem 2rem 4rem 2rem;
+        padding: 8rem 1rem 0 1rem;
+        max-width: 100%;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .hero-subtitle-top::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .hero-description {
+        border-left: none;
+        border-top: 3px solid rgba(241, 90, 34, 0.5);
+        padding-left: 0;
+        padding-top: 1.5rem;
+        text-align: center;
+      }
+      
+      .hero-image-container {
+        width: 90%;
+        max-width: 500px;
+        min-width: unset;
+        padding: 0 1rem 3rem 1rem;
+      }
+      
+      .hero-image-frame {
+        border-width: 2px;
       }
       
       .hero-subtitle-top {
@@ -1319,10 +1474,28 @@
     @media (max-width: 480px) {
       .hero {
         min-height: 85vh;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0 1rem;
       }
       
       .hero-title-container {
-        padding: 6rem 1.5rem 3rem 1.5rem;
+        padding: 6rem 1rem 0 1rem;
+        max-width: 100%;
+        align-items: center;
+      }
+      
+      .hero-image-container {
+        width: 95%;
+        max-width: 380px;
+        min-width: unset;
+        padding: 0 0.5rem 2rem 0.5rem;
+      }
+      
+      .hero-image-frame {
+        border-width: 2px;
+        border-radius: 15px;
+        aspect-ratio: 4/3;
       }
       
       .hero-subtitle-top {
@@ -1442,6 +1615,9 @@
 
   <!-- NEW: UNIQUE Split Layout Hero - Vertical Text | Image Grid -->
   <section class="hero" id="home">
+    <!-- Background image layer -->
+    <div class="hero-image-bg"></div>
+    
     <!-- Decorative shapes -->
     <div class="hero-shapes">
       <div class="hero-shape hero-shape-1"></div>
@@ -1462,12 +1638,15 @@
           <span class="hero-meta-number">17</span>
           <span class="hero-meta-label">Dedicated Leaders</span>
         </div>
-    
-  
       </div>
     </div>
     
-
+    <!-- RIGHT SIDE: Featured E-Board Image -->
+    <div class="hero-image-container">
+      <div class="hero-image-frame">
+        <img src="images2/eboardpic.jpg" alt="UTSA NSBE Executive Board 2025-2026">
+      </div>
+    </div>
   </section>
   
   <!-- NEW: Photo fan section (from index.html) -->
@@ -1586,10 +1765,10 @@
             <img src="images2/joyce.png" alt="Joyce" class="leader-image">
           </div>
           <span class="leader-position"><i class="fas fa-globe"></i> International Chair</span>
-          <h3 class="leader-name">Joyce Mukam</h3>
+          <h3 class="leader-name">Joyce</h3>
           <p class="leader-major">Engineering</p>
           <div class="leader-contact">
-            <a href="https://www.linkedin.com/in/njabimukam/" target="_blank" class="contact-link">
+            <a href="#" target="_blank" class="contact-link">
               <i class="fab fa-linkedin"></i> LinkedIn
             </a>
           </div>
