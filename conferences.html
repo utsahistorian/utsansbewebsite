@@ -10,2276 +10,1184 @@
   <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
   <link rel="apple-touch-icon" href="images/logopic.jpg">
   
-  <!-- Shared Fonts -->
-  <link rel="stylesheet" href="fonts.css">
+  <!-- New editorial fonts - bold display + clean sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <!-- Font Preconnect for Performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-  
   <style>
-      /* Updated navbar CSS variables to match gallery.html style */
-      /* Use Montserrat for nav links only */
-      .nav-link { font-family: 'Montserrat', sans-serif; }
+    /* ========================================
+       EDITORIAL DESIGN SYSTEM - UTSA COLORS
+       Matching index.html style
+       ======================================== */
+    
+    :root {
+      /* UTSA official school colors */
+      --color-primary: #0C2340;       /* UTSA Navy Blue */
+      --color-primary-dark: #081929;  /* Darker navy */
+      --color-primary-light: #1A3A5C; /* Lighter navy */
+      --color-accent: #F15A22;        /* UTSA Orange */
+      --color-accent-light: #FF7B47;  /* Light orange */
+      --color-accent-dark: #D94A15;   /* Dark orange */
+      --color-black: #0A0A0A;
+      --color-dark: #141414;
+      --color-gray: #1A1A1A;
+      --color-white: #FFFFFF;
+      --color-off-white: #F5F5F5;
+      --color-gold: #C9A227;
+      --color-text-black: #000000;
       
-      /* ========================================
-         CSS CUSTOM PROPERTIES & RESETS
-      ======================================== */
-      :root {
-          --navy-blue: #001f4d;
-          --navy-blue-dark: #001a42;
-          --navy-blue-light: #003366;
-          --orange: #ff4400;
-          --orange-light: #ff8c5a;
-          --accent-orange: #ff6b35;
-          --accent-orange-light: #ff9f43;
-          --bg-primary: #0a0a0f;
-          --bg-secondary: #12121a;
-          --bg-tertiary: #1a1a25;
-          --bg-glass: rgba(0, 31, 77, 0.1);
-          --bg-glass-strong: rgba(0, 31, 77, 0.2);
-          --text-primary: #ffffff;
-          --text-secondary: #b8c5d6;
-          --gradient-navy: linear-gradient(135deg, var(--navy-blue), var(--navy-blue-light));
-          --gradient-orange: linear-gradient(135deg, var(--orange), var(--orange-light));
-          --gradient-primary: linear-gradient(135deg, var(--navy-blue), var(--orange));
-          --shadow-orange: 0 10px 30px rgba(255, 107, 53, 0.3);
-          --shadow-glow-orange: 0 0 30px rgba(255, 107, 53, 0.5);
-          --shadow-glow-navy: 0 0 30px rgba(0, 31, 77, 0.5);
-          --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          --font-heading: 'Orbitron', monospace;
-          --font-body: 'Exo 2', sans-serif;
-          --font-accent: 'Space Grotesk', sans-serif;
-      }
-
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { 
-          scroll-behavior: smooth; 
-          scroll-padding-top: 80px;
-          min-height: 100%;
-      }
-      /* Improved background layer with fixed positioning for better responsiveness */
-   /* Improved background layer with fixed positioning for better responsiveness */
-      body {
-          font-family: var(--font-body);
-          background-color: var(--bg-primary);
-          color: var(--text-primary);
-          line-height: 1.6;
-          overflow-x: hidden;
-          position: relative;
-          min-height: 100vh;
-          width: 100%;
+      /* Typography */
+      --font-display: 'Inter', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 8rem;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background: var(--color-black);
+      color: var(--color-white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* ========================================
+       NAVIGATION - Minimal editorial style
+       ======================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease;
+    }
+    
+    .navbar.scrolled {
+      background: rgba(12, 35, 64, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 1rem 3rem;
+      box-shadow: 0 4px 30px rgba(241, 90, 34, 0.2);
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--color-white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .nav-logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      margin-right: 2rem;
+    }
+    
+    .nav-link {
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      opacity: 1;
+    }
+    
+    .btn-join {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 100%);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(241, 90, 34, 0.3);
+    }
+    
+    .btn-join:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(241, 90, 34, 0.5);
+      background: linear-gradient(135deg, #FF7B47 0%, #F15A22 100%);
+    }
+    
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    .hamburger-line {
+      width: 24px;
+      height: 2px;
+      background: var(--color-white);
+      transition: all 0.3s ease;
+    }
+    
+    /* ========================================
+       HERO SECTION - Simple & Clean
+       ======================================== */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      background: linear-gradient(135deg, #0C2340 0%, #1A3A5C 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 3rem 4rem;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(to left, rgba(241, 90, 34, 0.1) 0%, transparent 100%);
+    }
+    
+    .hero-content {
+      max-width: 1200px;
+      width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(4rem, 10vw, 8rem);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-description {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+    
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--color-accent);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-hero-primary:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(241, 90, 34, 0.3);
+    }
+    
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: transparent;
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-hero-secondary:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* ========================================
+       PHOTO FAN SECTION
+       ======================================== */
+    .makers-section {
+      background: var(--color-black);
+      padding: var(--space-xl) 3rem;
+      text-align: center;
+    }
+    
+    .makers-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 5rem);
+      font-weight: 300;
+      margin-bottom: var(--space-lg);
+      color: var(--color-white);
+    }
+    
+    .makers-title .accent {
+      color: var(--color-accent);
+    }
+    
+    .photo-fan {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: -20px;
+      margin: var(--space-lg) 0;
+      perspective: 1000px;
+    }
+    
+    .photo-card {
+      width: 140px;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s ease;
+      position: relative;
+      flex-shrink: 0;
+    }
+    
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.4s ease;
+    }
+    
+    .photo-card:nth-child(1) { transform: rotate(-15deg) translateY(20px); z-index: 1; }
+    .photo-card:nth-child(2) { transform: rotate(-8deg) translateY(10px); z-index: 2; margin-left: -30px; }
+    .photo-card:nth-child(3) { transform: rotate(0deg); z-index: 3; margin-left: -30px; }
+    .photo-card:nth-child(4) { transform: rotate(8deg) translateY(10px); z-index: 2; margin-left: -30px; }
+    .photo-card:nth-child(5) { transform: rotate(15deg) translateY(20px); z-index: 1; margin-left: -30px; }
+    
+    .photo-card:hover {
+      transform: rotate(0deg) translateY(-20px) scale(1.1) !important;
+      z-index: 10 !important;
+    }
+    
+    .photo-card:hover img {
+      filter: grayscale(0%);
+    }
+    
+    .makers-subtitle {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: var(--color-off-white);
+      opacity: 0.7;
+      margin-top: var(--space-md);
+    }
+    
+    .makers-subtitle .accent {
+      color: var(--color-accent);
+    }
+    
+    /* ========================================
+       CONFERENCE LIST SECTION - Clean & Simple
+       ======================================== */
+    .conferences-section {
+      background: #FFFFFF;
+      color: var(--color-black);
+      padding: var(--space-xl) 3rem;
+    }
+    
+    .section-header {
+      max-width: 1200px;
+      margin: 0 auto var(--space-xl);
+      text-align: center;
+    }
+    
+    .section-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+      font-weight: 600;
+    }
+    
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-md);
+      color: var(--color-text-black);
+    }
+    
+    .section-description {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      opacity: 0.7;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: var(--color-text-black);
+    }
+    
+    .conference-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: var(--space-lg);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .conference-card {
+      background: #FFFFFF;
+      padding: var(--space-lg);
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(12, 35, 64, 0.1);
+    }
+    
+    .conference-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border-color: var(--color-accent);
+    }
+    
+    .conference-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+    }
+    
+    .status-upcoming {
+      background: rgba(34, 197, 94, 0.1);
+      color: #16a34a;
+    }
+    
+    .status-past {
+      background: rgba(100, 116, 139, 0.1);
+      color: #64748b;
+    }
+    
+    .conference-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
+      margin-bottom: var(--space-md);
+      color: var(--color-text-black);
+      line-height: 1.2;
+    }
+    
+    .conference-details {
+      margin-bottom: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .conference-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1rem;
+      color: var(--color-text-black);
+      opacity: 0.7;
+    }
+    
+    .conference-detail i {
+      color: var(--color-accent);
+      width: 20px;
+    }
+    
+    .conference-description {
+      font-size: 1rem;
+      opacity: 0.7;
+      margin-bottom: var(--space-md);
+      line-height: 1.7;
+      color: var(--color-text-black);
+    }
+    
+    .conference-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: var(--space-md);
+    }
+    
+    .conference-tag {
+      background: rgba(241, 90, 34, 0.1);
+      color: var(--color-accent);
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .btn-register {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--color-accent);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-register:hover {
+      background: var(--color-accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(241, 90, 34, 0.3);
+    }
+    
+    .btn-register.disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+    
+    .btn-register.disabled:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    
+    /* ========================================
+       CTA SECTION
+       ======================================== */
+    .cta-section {
+      background: linear-gradient(135deg, #D4D8DD 0%, #C2C9D1 50%, #B0BAC5 100%);
+      padding: var(--space-xl) 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--color-text-black);
+      line-height: 1;
+      margin-bottom: var(--space-md);
+    }
+    
+    .cta-description {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      opacity: 0.8;
+      margin-bottom: var(--space-md);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--color-text-black);
+    }
+    
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 40px rgba(12, 35, 64, 0.4);
+    }
+    
+    /* ========================================
+       FOOTER - Minimal editorial
+       ======================================== */
+    .footer {
+      background: var(--color-black);
+      padding: var(--space-lg) 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+    
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .footer-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    
+    .footer-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .footer-text h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    
+    .footer-text p {
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .footer-link {
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      opacity: 1;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: var(--color-white);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    /* Updated footer social hover to UTSA orange */
+    .footer-social a:hover {
+      background: var(--color-accent);
+      transform: translateY(-4px);
+    }
+    
+    .footer-bottom {
+      max-width: 1200px;
+      margin: var(--space-md) auto 0;
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    
+    /* ========================================
+       SCROLL TO TOP
+       ======================================== */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      /* Updated to UTSA orange */
+      background: var(--color-accent);
+      border: none;
+      border-radius: 50%;
+      color: var(--color-white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-to-top:hover {
+      background: var(--color-primary);
+      transform: translateY(-4px);
+    }
+    
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ========================================
+       RESPONSIVE DESIGN
+       ======================================== */
+    @media (max-width: 1024px) {
+      .conference-grid {
+        grid-template-columns: 1fr;
       }
       
-      /* Improved background layer with fixed positioning for better responsiveness */
-      body::before {
-          content: '';
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: url('images/conferencehomephoto.jpg');
-          background-size: cover;
-          background-position: center center;
-          background-repeat: no-repeat;
-          z-index: -2;
-          /* Prevent iOS background image issues */
-          -webkit-transform: translateZ(0);
-          transform: translateZ(0);
-          /* Improve rendering performance */
-          will-change: transform;
+      .nav-links {
+        gap: 1.5rem;
       }
-      
-      /* Dark overlay for better text readability */
-      body::after {
-          content: '';
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(to bottom, rgba(10, 10, 15, 0.75), rgba(10, 10, 15, 0.85));
-          z-index: -1;
-          pointer-events: none;
-      }
-
-      /* Enhanced tablet optimization for background */
-      @media (max-width: 1024px) and (min-width: 769px) {
-          body::before {
-              background-size: cover;
-              background-position: center center;
-              /* Maintain aspect ratio on tablets */
-              background-attachment: scroll;
-          }
-      }
-
-      /* Mobile portrait optimization with better image fitting */
-      @media (max-width: 768px) and (orientation: portrait) {
-          body::before {
-              background-size: cover;
-              background-position: center center;
-              /* Improve mobile performance */
-              will-change: transform;
-              /* Ensure image covers full viewport */
-              min-height: 100vh;
-              min-height: 100dvh; /* Dynamic viewport height */
-          }
-          
-          html {
-              scroll-padding-top: 70px;
-          }
-      }
-
-      /* Mobile landscape optimization */
-      @media (max-width: 768px) and (orientation: landscape) {
-          body::before {
-              background-size: cover;
-              background-position: center top;
-              min-height: 100vh;
-              min-height: 100dvh;
-          }
-      }
-
-      /* Small mobile devices with optimized image rendering */
-      @media (max-width: 480px) {
-          body::before {
-              background-size: cover;
-              background-position: center center;
-              /* Optimize for small screens */
-              image-rendering: -webkit-optimize-contrast;
-              image-rendering: crisp-edges;
-              min-height: 100vh;
-              min-height: 100dvh;
-          }
-          
-          html {
-              scroll-padding-top: 60px;
-          }
-      }
-      
-      /* Very small devices with adjusted focal point */
-      @media (max-width: 375px) {
-          body::before {
-              background-size: cover;
-              background-position: center center;
-              min-height: 100vh;
-              min-height: 100dvh;
-          }
-      }
-      
-      /* Extra responsive breakpoint for iPhone SE and similar */
-      @media (max-width: 320px) {
-          body::before {
-              background-size: cover;
-              background-position: center center;
-          }
-      }
-
-      /* Reduce animations on mobile for better performance */
-      @media (max-width: 768px) {
-          .conference-item:hover {
-              transform: translateY(-5px) scale(1.01);
-          }
-
-          .floating-particles {
-              animation-duration: 30s;
-          }
-
-          @keyframes floatParticles {
-              0% { transform: translate(0, 0) scale(1); }
-              100% { transform: translate(-10px, 10px) scale(0.98); }
-          }
-      }
-
-      @media (max-width: 480px) {
-          /* Disable expensive animations on small screens */
-          .animated-bg .floating-particles {
-              animation: none;
-          }
-
-          .conference-item:hover {
-              transform: translateY(-3px);
-          }
-      }
-      
-
-      /* Desktop - use fixed attachment for parallax effect */
-      @media (min-width: 1025px) {
-          body {
-              background-attachment: fixed;
-          }
-      }
-
-      /* Tablet body background optimization */
-      @media (max-width: 1024px) {
-          body {
-              background-attachment: scroll;
-              background-size: cover;
-              background-position: center center;
-          }
-      }
-
-      /* Mobile body background fix */
-      @media (max-width: 768px) {
-          body {
-              background-attachment: scroll;
-              background-size: cover;
-              background-position: center center;
-          }
-      }
-
-      /* Small mobile devices */
-      @media (max-width: 480px) {
-          body {
-              background-attachment: scroll;
-              background-size: cover;
-              background-position: center center;
-          }
-
-          html {
-              scroll-padding-top: 70px;
-          }
-      }
-
-      /* Reduce animations on mobile for better performance */
-      @media (max-width: 768px) {
-          .conference-item:hover {
-              transform: translateY(-5px) scale(1.01);
-          }
-
-          .floating-particles {
-              animation-duration: 30s;
-          }
-
-          @keyframes floatParticles {
-              0% { transform: translate(0, 0) scale(1); }
-              100% { transform: translate(-10px, 10px) scale(0.98); }
-          }
-      }
-
-      @media (max-width: 480px) {
-          /* Disable expensive animations on small screens */
-          .animated-bg .floating-particles {
-              animation: none;
-          }
-
-          .conference-item:hover {
-              transform: translateY(-3px);
-          }
-      }
-
-      .container {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 0 2rem;
-      }
-
-      @media (max-width: 1024px) {
-          .container {
-              padding: 0 1.5rem;
-          }
-      }
-
-      @media (max-width: 768px) {
-          .container {
-              padding: 0 1rem;
-          }
-      }
-
-      @media (max-width: 480px) {
-          .container {
-              padding: 0 0.875rem;
-          }
-      }
-
-      /* ========================================
-         ANIMATED BACKGROUND
-      ======================================== */
-      .animated-bg {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-          pointer-events: none;
-          overflow: hidden;
-      }
-
-      .floating-particles {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background: radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 70%, rgba(0, 31, 77, 0.1) 0%, transparent 50%);
-          animation: floatParticles 20s ease-in-out infinite alternate;
-      }
-
-      @keyframes floatParticles {
-          0% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(20px, -20px) scale(1.05); }
-          100% { transform: translate(-20px, 20px) scale(0.95); }
-      }
-
-      .grid-overlay {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          background-image: 
-              linear-gradient(rgba(255, 107, 53, 0.03) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255, 107, 53, 0.03) 1px, transparent 1px);
-          background-size: 50px 50px;
-          opacity: 0.3;
-      }
-
-      /* Replaced entire navbar section with gallery.html navbar styles */
-      /* ========================================
-         ENHANCED NAVBAR STYLES
-         ======================================== */
-      
+    }
+    
+    @media (max-width: 768px) {
       .navbar {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          z-index: 1000;
-          background: rgba(10, 10, 15, 0.85);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(255, 107, 53, 0.1);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        padding: 1rem 1.5rem;
       }
-
+      
       .navbar.scrolled {
-          background: rgba(10, 10, 15, 0.98);
-          border-bottom-color: rgba(255, 107, 53, 0.2);
-          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+        padding: 0.75rem 1.5rem;
       }
-
-      .nav-container {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 1rem 2rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 2rem;
+      
+      .nav-links {
+        display: none;
       }
-
-      .nav-brand {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          text-decoration: none;
-          transition: transform 0.3s ease;
-      }
-
-      .nav-brand:hover {
-          transform: scale(1.05);
-      }
-
-      .nav-logo {
-          width: 50px;
-          height: 50px;
-          position: relative;
-          overflow: hidden;
-          border-radius: 12px;
-          background: var(--accent-orange);
-          border: 2px solid var(--accent-orange);
-          box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
-          transition: all 0.3s ease;
-          padding: 4px;
-      }
-
-      .nav-logo::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.3), transparent);
-          transition: left 0.5s ease;
-          z-index: 1;
-      }
-
-      .nav-brand:hover .nav-logo {
-          border-color: var(--accent-orange-light);
-          box-shadow: 0 6px 30px rgba(255, 107, 53, 0.5);
-          transform: rotate(5deg);
-      }
-
-      .nav-brand:hover .nav-logo::before {
-          left: 100%;
-      }
-
-      .nav-logo img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-          display: block;
-          position: relative;
-          z-index: 2;
-      }
-
+      
       .nav-toggle {
-          display: none;
-          flex-direction: column;
-          gap: 5px;
-          background: rgba(255, 107, 53, 0.1);
-          border: 1px solid rgba(255, 107, 53, 0.3);
-          border-radius: 8px;
-          padding: 0.5rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          position: relative;
-          z-index: 1002;
-          -webkit-tap-highlight-color: transparent;
-          touch-action: manipulation;
+        display: flex;
       }
-
-      .nav-toggle:hover {
-          background: rgba(255, 107, 53, 0.2);
-          border-color: var(--accent-orange);
-      }
-
-      .hamburger-line {
-          width: 25px;
-          height: 3px;
-          background: var(--accent-orange);
-          border-radius: 2px;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          pointer-events: none;
-      }
-
-      .nav-toggle.active .hamburger-line:nth-child(1) {
-          transform: translateY(8px) rotate(45deg);
-      }
-
-      .nav-toggle.active .hamburger-line:nth-child(2) {
-          opacity: 0;
-          transform: scaleX(0);
-      }
-
-      .nav-toggle.active .hamburger-line:nth-child(3) {
-          transform: translateY(-8px) rotate(-45deg);
-      }
-
-      .nav-menu {
-          display: flex;
-          align-items: center;
-          gap: 3rem;
-      }
-
-      .nav-links-group {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-      }
-
-      .nav-link {
-          position: relative;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          padding: 0.75rem 1.25rem;
-          color: var(--text-secondary);
-          text-decoration: none;
-          font-size: 0.95rem;
-          font-weight: 500;
-          border-radius: 10px;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          overflow: hidden;
-          background: transparent !important;
-      }
-
-      .nav-link:not(.active) {
-          background: transparent !important;
-      }
-
-      .nav-link::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.2), transparent);
-          transition: left 0.5s ease;
-      }
-
-      .nav-link:hover::before {
-          left: 100%;
-      }
-
-      .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: 8px;
-          left: 50%;
-          width: 0;
-          height: 2px;
-          background: var(--gradient-orange);
-          transform: translateX(-50%);
-          transition: width 0.3s ease;
-          border-radius: 2px;
-      }
-
-      .nav-link:hover {
-          color: var(--text-primary);
-          background: rgba(255, 107, 53, 0.08) !important;
-          transform: translateY(-2px);
-      }
-
-      .nav-link:not(.active):hover {
-          background: rgba(255, 107, 53, 0.08) !important;
-      }
-
-      .nav-link:hover::after {
-          width: 60%;
-      }
-
-      .nav-link.active {
-          color: #ffffff !important;
-          background: var(--gradient-orange) !important;
-          border: 2px solid var(--accent-orange-light);
-          font-weight: 600;
-          box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
-          transform: scale(1.05);
-      }
-
-      .nav-link.active::after {
-          display: none;
-      }
-
-      .nav-link.active::before {
-          display: none;
-      }
-
-      .nav-link.active:hover {
-          transform: scale(1.05) !important;
-          background: var(--gradient-orange) !important;
-      }
-
-      .nav-link i {
-          font-size: 1rem;
-          transition: transform 0.3s ease;
-      }
-
-      .nav-link:hover i {
-          transform: scale(1.2) rotate(5deg);
-      }
-
-      .nav-social {
-          display: flex;
-          gap: 0.75rem;
-      }
-
-      .social-link {
-          width: 42px;
-          height: 42px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(255, 107, 53, 0.08);
-          border: 1px solid rgba(255, 107, 53, 0.2);
-          border-radius: 10px;
-          color: var(--accent-orange);
-          text-decoration: none;
-          font-size: 1.1rem;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          position: relative;
-          overflow: hidden;
-      }
-
-      .social-link::before {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 0;
-          height: 0;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 50%;
-          transform: translate(-50%, -50%);
-          transition: width 0.5s ease, height 0.5s ease;
-      }
-
-      .social-link:hover::before {
-          width: 100px;
-          height: 100px;
-      }
-
-      .social-link:hover {
-          background: var(--gradient-orange);
-          color: white;
-          border-color: var(--accent-orange-light);
-          transform: translateY(-3px) scale(1.1);
-          box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
-      }
-
-      .social-link i {
-          position: relative;
-          z-index: 1;
-          transition: transform 0.3s ease;
-      }
-
-      .social-link:hover i {
-          transform: rotate(360deg);
-      }
-
-      .nav-progress {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0%;
-          height: 3px;
-          background: var(--gradient-orange);
-          transition: width 0.1s linear;
-          box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
-      }
-
-      /* Responsive navbar */
-      @media (max-width: 768px) {
-          .nav-toggle {
-              display: flex !important;
-              z-index: 1002 !important;
-              position: relative;
-          }
-
-          .nav-container {
-              padding: 0.75rem 1rem;
-              position: relative;
-              z-index: 1001;
-          }
-
-          .nav-logo {
-              width: 45px;
-              height: 45px;
-          }
-
-          .nav-menu {
-              position: fixed !important;
-              top: 70px !important;
-              left: 0 !important;
-              width: 100% !important;
-              height: calc(100vh - 70px) !important;
-              background: rgba(10, 10, 15, 0.98) !important;
-              backdrop-filter: blur(20px) !important;
-              -webkit-backdrop-filter: blur(20px) !important;
-              flex-direction: column !important;
-              justify-content: flex-start !important;
-              padding: 2rem 1.5rem !important;
-              gap: 1.5rem !important;
-              transform: translateX(-100%) !important;
-              transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-              overflow-y: auto !important;
-              border-right: 1px solid rgba(255, 107, 53, 0.2) !important;
-              box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5) !important;
-              z-index: 1000 !important;
-          }
-
-          .nav-menu.active {
-              transform: translateX(0) !important;
-          }
-
-          .nav-links-group {
-              flex-direction: column !important;
-              width: 100% !important;
-              gap: 0.75rem !important;
-          }
-
-          .nav-link {
-              width: 100% !important;
-              justify-content: flex-start !important;
-              padding: 1rem 1.5rem !important;
-              font-size: 1.1rem !important;
-              border-radius: 12px !important;
-          }
-
-          .nav-link i {
-              font-size: 1.2rem !important;
-          }
-
-          .nav-social {
-              justify-content: center !important;
-              width: 100% !important;
-              gap: 1rem !important;
-              padding-top: 1rem !important;
-              border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
-          }
-
-          .social-link {
-              width: 50px;
-              height: 50px;
-              font-size: 1.3rem;
-          }
-      }
-
-      @media (max-width: 480px) {
-          .nav-container {
-              padding: 0.5rem 0.75rem;
-          }
-
-          .nav-logo {
-              width: 40px;
-              height: 40px;
-              border-radius: 10px;
-          }
-
-          .nav-toggle {
-              padding: 0.4rem;
-          }
-
-          .hamburger-line {
-              width: 22px;
-          }
-
-          .nav-menu {
-              top: 60px;
-              height: calc(100vh - 60px);
-              padding: 1.5rem 1rem;
-              gap: 1rem;
-          }
-
-          .nav-link {
-              padding: 0.875rem 1.25rem;
-              font-size: 1rem;
-          }
-
-          .nav-link i {
-              font-size: 1.1rem;
-          }
-
-          .nav-social {
-              gap: 0.75rem;
-          }
-
-          .social-link {
-              width: 45px;
-              height: 45px;
-              font-size: 1.2rem;
-          }
-
-          .nav-progress {
-              height: 2px;
-          }
-      }
-
-      /* Menu scrolling is handled by overflow-y: auto on .nav-menu */
       
-      /* End of navbar section replacement */
-
-      /* ========================================
-         HERO SECTION - ENHANCED
-      ======================================== */
-      /* Added complete hero section */
-      .conference-hero {
-          position: relative;
-          min-height: 70vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 140px 0 80px;
-          overflow: hidden;
+      .nav-brand span {
+        display: none;
       }
-
-      .conference-hero::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(15, 21, 53, 0.75) 100%);
-          z-index: 1;
+      
+      .hero {
+        padding: 6rem 1.5rem 3rem;
+        min-height: 70vh;
       }
-
-      .hero-content {
-          position: relative;
-          z-index: 2;
-          text-align: center;
-          max-width: 900px;
-          margin: 0 auto;
-      }
-
-      .hero-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: rgba(0, 212, 255, 0.15);
-          backdrop-filter: blur(10px);
-          border: 2px solid rgba(0, 212, 255, 0.4);
-          border-radius: 50px;
-          padding: 0.75rem 1.5rem;
-          color: var(--primary-blue);
-          font-weight: 600;
-          margin-bottom: 2rem;
-          animation: fadeInDown 1s ease-out;
-      }
-
-      @keyframes fadeInDown {
-          from {
-              opacity: 0;
-              transform: translateY(-30px);
-          }
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
-      }
-
+      
       .hero-title {
-          font-family: var(--font-heading);
-          font-size: clamp(2.5rem, 6vw, 4.5rem);
-          font-weight: 900;
-          margin-bottom: 1.5rem;
-          line-height: 1.2;
+        font-size: clamp(3rem, 10vw, 5rem);
       }
-
-      .hero-title .title-line {
-          display: inline-block;
-          opacity: 0;
-          transform: translateY(100px);
-          animation: heroTitleReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-      }
-
-      .hero-title .title-line:nth-child(1) {
-          animation-delay: 0.3s;
-          background: linear-gradient(135deg, #00d4ff, #0099cc);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-      }
-
-      .hero-title .title-line:nth-child(2) {
-          animation-delay: 0.5s;
-      }
-
-      @keyframes heroTitleReveal {
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
-      }
-
+      
       .hero-description {
-          font-size: 1.3rem;
-          color: var(--text-secondary);
-          margin-bottom: 2rem;
-          line-height: 1.8;
-          opacity: 0;
-          transform: translateY(30px);
-          animation: fadeInUp 1s ease-out 0.8s forwards;
-      }
-
-      @keyframes fadeInUp {
-          to {
-              opacity: 1;
-              transform: translateY(0);
-          }
-      }
-
-      .hero-buttons {
-          display: flex;
-          gap: 1.5rem;
-          justify-content: center;
-          flex-wrap: wrap;
-          margin-top: 2.5rem;
-          opacity: 0;
-          animation: fadeInUp 1s ease-out 1s forwards;
-      }
-
-      .hero-btn {
-          padding: 1.2rem 2.5rem;
-          font-family: var(--font-heading);
-          font-weight: 600;
-          font-size: 1.1rem;
-          border-radius: 15px;
-          cursor: pointer;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          border: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.75rem;
-          text-decoration: none;
-      }
-
-      .hero-btn-primary {
-          background: var(--gradient-blue);
-          color: white;
-          box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
-      }
-
-      .hero-btn-primary:hover {
-          transform: translateY(-5px) scale(1.05);
-          box-shadow: 0 15px 50px rgba(0, 212, 255, 0.6);
-      }
-
-      .hero-btn-secondary {
-          background: rgba(255, 255, 255, 0.08);
-          color: white;
-          border: 2px solid rgba(0, 212, 255, 0.5);
-          backdrop-filter: blur(10px);
-      }
-
-      .hero-btn-secondary:hover {
-          transform: translateY(-5px);
-          background: rgba(0, 212, 255, 0.15);
-          border-color: var(--primary-blue);
-          box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
-      }
-
-      @media (max-width: 1024px) {
-          .conference-hero {
-              min-height: 65vh;
-              padding: 130px 0 70px;
-          }
-
-          .hero-title {
-              font-size: clamp(2rem, 5vw, 3.5rem);
-          }
-
-          .hero-description {
-              font-size: 1.15rem;
-          }
-
-          .hero-btn {
-              padding: 1.1rem 2rem;
-              font-size: 1rem;
-          }
-      }
-
-      @media (max-width: 768px) {
-          .conference-hero {
-              min-height: 60vh;
-              padding: 120px 0 60px;
-          }
-
-          .hero-badge {
-              padding: 0.6rem 1.25rem;
-              font-size: 0.9rem;
-          }
-
-          .hero-title {
-              font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-              margin-bottom: 1.25rem;
-          }
-
-          .hero-description {
-              font-size: 1.05rem;
-              margin-bottom: 1.75rem;
-          }
-
-          .hero-buttons {
-              flex-direction: column;
-              align-items: center;
-              gap: 1rem;
-          }
-
-          .hero-btn {
-              width: 100%;
-              max-width: 300px;
-              justify-content: center;
-              padding: 1rem 2rem;
-              font-size: 0.95rem;
-          }
-      }
-
-      @media (max-width: 480px) {
-          .conference-hero {
-              min-height: 55vh;
-              padding: 100px 0 50px;
-          }
-
-          .hero-badge {
-              padding: 0.5rem 1rem;
-              font-size: 0.85rem;
-              margin-bottom: 1.5rem;
-          }
-
-          .hero-title {
-              font-size: clamp(1.5rem, 4vw, 2.25rem);
-              margin-bottom: 1rem;
-          }
-
-          .hero-description {
-              font-size: 0.95rem;
-              line-height: 1.6;
-              margin-bottom: 1.5rem;
-          }
-
-          .hero-buttons {
-              gap: 0.875rem;
-              margin-top: 2rem;
-          }
-
-          .hero-btn {
-              padding: 0.875rem 1.75rem;
-              font-size: 0.9rem;
-              max-width: 280px;
-          }
-
-          .hero-btn i {
-              font-size: 0.9rem;
-          }
+        font-size: 1rem;
       }
       
-
-      /* ========================================
-         CONFERENCE LIST SECTION
-      ======================================== */
-      .conference-list-section {
-          padding: 80px 0 60px;
-          position: relative;
-          z-index: 1;
+      .hero-cta {
+        flex-direction: column;
       }
-
-      .conference-list-section::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-image: 
-              radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(0, 153, 204, 0.08) 0%, transparent 50%);
-          z-index: -1;
-          pointer-events: none;
-      }
-
-      .conference-list-header {
-          text-align: center;
-          margin-bottom: 4rem;
-      }
-
-      .conference-list-title {
-          font-family: var(--font-heading);
-          font-size: clamp(2rem, 5vw, 3.5rem);
-          font-weight: 800;
-          margin-bottom: 1rem;
-          background: var(--gradient-blue);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-      }
-
-      .conference-list-subtitle {
-          font-size: 1.2rem;
-          color: var(--text-secondary);
-          max-width: 700px;
-          margin: 0 auto;
-          line-height: 1.8;
-      }
-
-      .conference-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-          gap: 2.5rem;
-          padding: 0;
-          list-style: none;
-      }
-
-      @media (max-width: 1024px) {
-          .conference-list {
-              grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-              gap: 2rem;
-          }
-
-          .conference-list-section {
-              padding: 60px 0 50px;
-          }
-
-          .conference-list-header {
-              margin-bottom: 3rem;
-          }
-      }
-
-      @media (max-width: 768px) {
-          .conference-list {
-              grid-template-columns: 1fr;
-              gap: 1.75rem;
-          }
-
-          .conference-list-section {
-              padding: 50px 0 40px;
-          }
-
-          .conference-list-header {
-              margin-bottom: 2.5rem;
-          }
-
-          .conference-list-title {
-              font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-          }
-
-          .conference-list-subtitle {
-              font-size: 1.05rem;
-          }
-      }
-
-      @media (max-width: 480px) {
-          .conference-list {
-              gap: 1.5rem;
-          }
-
-          .conference-list-section {
-              padding: 40px 0 30px;
-          }
-
-          .conference-list-header {
-              margin-bottom: 2rem;
-          }
-
-          .conference-list-title {
-              font-size: clamp(1.5rem, 4vw, 2.25rem);
-              margin-bottom: 0.75rem;
-          }
-
-          .conference-list-subtitle {
-              font-size: 0.95rem;
-              line-height: 1.6;
-          }
-      }
-
-      /* Enhanced conference card design */
-      .conference-item {
-          background: rgba(15, 21, 53, 0.8);
-          border: 1px solid rgba(0, 212, 255, 0.2);
-          border-radius: var(--border-radius);
-          backdrop-filter: blur(20px);
-          padding: 2.5rem;
-          position: relative;
-          overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .conference-item::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 4px;
-          height: 100%;
-          background: var(--gradient-blue);
-          opacity: 0.8;
-      }
-
-      .conference-item::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-          transition: left 0.8s ease;
-          z-index: 1;
-      }
-
-      .conference-item:hover::after {
-          left: 100%;
-      }
-
-      .conference-item:hover {
-          transform: translateY(-10px) scale(1.02);
-          box-shadow: 0 25px 60px rgba(0, 212, 255, 0.25);
-          border-color: rgba(0, 212, 255, 0.4);
-      }
-
-      .conference-item:hover .conference-register-btn {
-          opacity: 1;
-          transform: translateY(0);
-      }
-
-      .conference-item-header {
-          display: flex;
-          align-items: center;
-          gap: 1.25rem;
-          margin-bottom: 1.5rem;
-          position: relative;
-          z-index: 2;
-      }
-
-      .conference-icon {
-          width: 60px;
-          height: 60px;
-          background: var(--gradient-blue);
-          border-radius: 14px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.8rem;
-          color: white;
-          box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
-          flex-shrink: 0;
-      }
-
-      .conference-name {
-          font-family: var(--font-heading);
-          font-size: 1.6rem;
-          font-weight: 700;
-          color: var(--text-primary);
-          margin: 0;
-          line-height: 1.3;
-      }
-
-      .conference-details {
-          margin-bottom: 1.5rem;
-          position: relative;
-          z-index: 2;
-      }
-
-      .conference-detail {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin-bottom: 0.75rem;
-      }
-
-      .conference-detail i {
-          color: var(--primary-blue);
-          width: 20px;
-          text-align: center;
-          font-size: 1rem;
-      }
-
-      .conference-detail span {
-          color: var(--text-secondary);
-          font-size: 1rem;
-      }
-
-      .conference-description {
-          color: var(--text-secondary);
-          margin-bottom: 1.5rem;
-          line-height: 1.7;
-          position: relative;
-          z-index: 2;
-          font-size: 1rem;
-      }
-
-      .conference-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.75rem;
-          margin-bottom: 1.5rem;
-          position: relative;
-          z-index: 2;
-      }
-
-      .conference-tag {
-          background: rgba(0, 212, 255, 0.15);
-          color: var(--primary-blue);
-          padding: 0.5rem 1rem;
-          border-radius: 50px;
-          font-size: 0.9rem;
-          font-weight: 600;
-          border: 1px solid rgba(0, 212, 255, 0.3);
-      }
-
-      .conference-register-btn {
-          width: 100%;
-          padding: 1rem;
-          background: var(--gradient-blue);
-          color: white;
-          border: none;
-          border-radius: 12px;
-          font-family: var(--font-heading);
-          font-weight: 700;
-          font-size: 1.05rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.75rem;
-          opacity: 0.95;
-          transform: translateY(3px);
-          position: relative;
-          z-index: 2;
-          box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
-      }
-
-      .conference-register-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 15px 35px rgba(0, 212, 255, 0.5);
-          opacity: 1;
-      }
-
-      .conference-register-btn:active {
-          transform: translateY(0);
-      }
-
-      .conference-status {
-          position: absolute;
-          top: 1.5rem;
-          right: 1.5rem;
-          padding: 0.5rem 1rem;
-          border-radius: 50px;
-          font-size: 0.9rem;
-          font-weight: 600;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          z-index: 2;
-          backdrop-filter: blur(10px);
-      }
-
-      .status-upcoming {
-          background: rgba(34, 197, 94, 0.2);
-          color: #22c55e;
-          border: 1px solid rgba(34, 197, 94, 0.4);
-      }
-
-      .status-past {
-          background: rgba(100, 116, 139, 0.2);
-          color: #94a3b8;
-          border: 1px solid rgba(100, 116, 139, 0.4);
-      }
-
-      .status-live {
-          background: rgba(239, 68, 68, 0.2);
-          color: #ef4444;
-          border: 1px solid rgba(239, 68, 68, 0.4);
-          animation: pulse 2s infinite;
-      }
-
-      @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
-      }
-
-      /* Responsive conference cards */
-      @media (max-width: 1024px) {
-          .conference-item {
-              padding: 2rem;
-          }
-
-          .conference-icon {
-              width: 55px;
-              height: 55px;
-              font-size: 1.6rem;
-          }
-
-          .conference-name {
-              font-size: 1.45rem;
-          }
-
-          .conference-description {
-              font-size: 0.95rem;
-          }
-      }
-
-      @media (max-width: 768px) {
-          .conference-item {
-              padding: 1.75rem;
-          }
-
-          .conference-item-header {
-              gap: 1rem;
-              margin-bottom: 1.25rem;
-          }
-
-          .conference-icon {
-              width: 50px;
-              height: 50px;
-              font-size: 1.5rem;
-              border-radius: 12px;
-          }
-
-          .conference-name {
-              font-size: 1.3rem;
-              line-height: 1.25;
-          }
-
-          .conference-status {
-              top: 1.25rem;
-              right: 1.25rem;
-              padding: 0.4rem 0.875rem;
-              font-size: 0.85rem;
-          }
-
-          .conference-detail {
-              gap: 0.6rem;
-              margin-bottom: 0.6rem;
-          }
-
-          .conference-detail span {
-              font-size: 0.95rem;
-          }
-
-          .conference-description {
-              font-size: 0.925rem;
-              line-height: 1.6;
-              margin-bottom: 1.25rem;
-          }
-
-          .conference-tags {
-              gap: 0.6rem;
-              margin-bottom: 1.25rem;
-          }
-
-          .conference-tag {
-              padding: 0.4rem 0.875rem;
-              font-size: 0.85rem;
-          }
-
-          .conference-register-btn {
-              padding: 0.925rem;
-              font-size: 1rem;
-          }
-      }
-
-      @media (max-width: 480px) {
-          .conference-item {
-              padding: 1.5rem;
-          }
-
-          .conference-item-header {
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 0.875rem;
-              margin-bottom: 1rem;
-          }
-
-          .conference-icon {
-              width: 45px;
-              height: 45px;
-              font-size: 1.35rem;
-              border-radius: 10px;
-          }
-
-          .conference-name {
-              font-size: 1.2rem;
-              line-height: 1.3;
-          }
-
-          .conference-status {
-              top: 1rem;
-              right: 1rem;
-              padding: 0.35rem 0.75rem;
-              font-size: 0.8rem;
-          }
-
-          .conference-status i {
-              font-size: 0.75rem;
-          }
-
-          .conference-details {
-              margin-bottom: 1rem;
-          }
-
-          .conference-detail {
-              gap: 0.5rem;
-              margin-bottom: 0.5rem;
-          }
-
-          .conference-detail i {
-              font-size: 0.9rem;
-          }
-
-          .conference-detail span {
-              font-size: 0.9rem;
-          }
-
-          .conference-description {
-              font-size: 0.9rem;
-              line-height: 1.55;
-              margin-bottom: 1rem;
-          }
-
-          .conference-tags {
-              gap: 0.5rem;
-              margin-bottom: 1rem;
-          }
-
-          .conference-tag {
-              padding: 0.375rem 0.75rem;
-              font-size: 0.8rem;
-          }
-
-          .conference-register-btn {
-              padding: 0.875rem;
-              font-size: 0.95rem;
-              gap: 0.6rem;
-          }
-
-          .conference-register-btn i {
-              font-size: 0.9rem;
-          }
-      }
-
       
-
-      /* ========================================
-         CTA SECTION
-      ======================================== */
-      /* Fixed CTA section structure and styling */
-      .cta {
-          background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 107, 53, 0.08));
-          position: relative;
-          padding: 6rem 0;
-          margin-top: 4rem;
-          overflow: hidden;
+      .btn-hero-primary,
+      .btn-hero-secondary {
+        width: 100%;
+        justify-content: center;
       }
-
-      .cta::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,212,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-          opacity: 0.3;
-          pointer-events: none;
+      
+      .makers-section,
+      .conferences-section,
+      .cta-section,
+      .footer {
+        padding: var(--space-lg) 1.5rem;
       }
-
-      .cta::after {
-          content: '';
-          position: absolute;
-          top: -50%;
-          left: -50%;
-          width: 200%;
-          height: 200%;
-          background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
-          animation: ctaPulse 8s ease-in-out infinite;
-          pointer-events: none;
+      
+      .photo-fan {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
       }
-
-      @keyframes ctaPulse {
-          0%, 100% { transform: scale(1) translate(0, 0); opacity: 0.5; }
-          50% { transform: scale(1.2) translate(10%, 10%); opacity: 0.8; }
+      
+      .photo-card {
+        width: 80px;
+        height: 110px;
+        margin-left: 0 !important;
       }
-
-      .cta-content {
-          position: relative;
-          z-index: 2;
-          text-align: center;
+      
+      .photo-card:nth-child(1),
+      .photo-card:nth-child(2),
+      .photo-card:nth-child(3),
+      .photo-card:nth-child(4),
+      .photo-card:nth-child(5) {
+        transform: rotate(0deg) translateY(0);
       }
-
-      .cta-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.5rem;
-          background: rgba(0, 212, 255, 0.15);
-          backdrop-filter: blur(10px);
-          border: 2px solid rgba(0, 212, 255, 0.4);
-          border-radius: 50px;
-          padding: 0.75rem 1.5rem;
-          color: var(--primary-blue);
-          font-weight: 700;
-          margin-bottom: 1.5rem;
-          animation: badgeBounce 2s ease-in-out infinite;
+      
+      .footer-content {
+        flex-direction: column;
+        gap: var(--space-md);
+        text-align: center;
       }
-
-      @keyframes badgeBounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
+      
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-sm);
       }
-
-      .cta-title {
-          font-size: clamp(2rem, 5vw, 3.5rem);
-          font-family: var(--font-heading);
-          font-weight: 900;
-          margin-bottom: 1.5rem;
-          background: linear-gradient(135deg, #00d4ff, #0099cc, #ff6b35);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          line-height: 1.2;
+      
+      .conference-card {
+        padding: var(--space-md);
       }
-
-      .cta-description {
-          font-size: 1.2rem;
-          color: var(--text-secondary);
-          max-width: 700px;
-          margin: 0 auto 2.5rem;
-          line-height: 1.8;
+    }
+    
+    @media (max-width: 480px) {
+      .hero {
+        padding: 5rem 1rem 2rem;
       }
-
-      .cta-buttons {
-          display: flex;
-          gap: 1.5rem;
-          justify-content: center;
-          flex-wrap: wrap;
-          margin-top: 2rem;
+      
+      .hero-title {
+        font-size: clamp(2.5rem, 10vw, 4rem);
       }
-
-      .cta-btn {
-          position: relative;
-          padding: 1.25rem 2.5rem;
-          font-family: var(--font-heading);
-          font-weight: 700;
-          font-size: 1.1rem;
-          border-radius: 15px;
-          cursor: pointer;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          overflow: hidden;
-          border: none;
-          display: inline-flex;
-          align-items: center;
-          gap: 0.75rem;
+      
+      .btn-join {
+        padding: 0.6rem 1rem;
       }
-
-      .cta-btn::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-          transition: left 0.6s ease;
+      
+      .btn-join span {
+        display: none;
       }
-
-      .cta-btn:hover::before {
-          left: 100%;
+      
+      .photo-card {
+        width: 60px;
+        height: 85px;
       }
-
-      .cta-btn-primary {
-          background: var(--gradient-blue);
-          color: white;
-          box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
+      
+      .makers-section,
+      .conferences-section,
+      .cta-section,
+      .footer {
+        padding: var(--space-md) 1rem;
       }
-
-      .cta-btn-primary:hover {
-          transform: translateY(-5px) scale(1.05);
-          box-shadow: 0 15px 50px rgba(0, 212, 255, 0.6);
+      
+      .section-header {
+        margin-bottom: var(--space-md);
       }
-
-      .cta-btn-secondary {
-          background: rgba(255, 255, 255, 0.08);
-          color: white;
-          border: 2px solid rgba(0, 212, 255, 0.5);
-          backdrop-filter: blur(10px);
+      
+      .conference-card {
+        padding: var(--space-sm);
       }
-
-      .cta-btn-secondary:hover {
-          transform: translateY(-5px) scale(1.05);
-          background: rgba(0, 212, 255, 0.15);
-          border-color: var(--primary-blue);
-          box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+      
+      .scroll-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
       }
-
-      @media (max-width: 1024px) {
-          .cta {
-              padding: 5rem 0;
-              margin-top: 3rem;
-          }
-
-          .cta-title {
-              font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-          }
-
-          .cta-description {
-              font-size: 1.1rem;
-          }
-
-          .cta-btn {
-              padding: 1.15rem 2.25rem;
-              font-size: 1.05rem;
-          }
-      }
-
-      @media (max-width: 768px) {
-          .cta {
-              padding: 4rem 0;
-              margin-top: 2.5rem;
-          }
-
-          .cta-badge {
-              padding: 0.6rem 1.25rem;
-              font-size: 0.9rem;
-              margin-bottom: 1.25rem;
-          }
-
-          .cta-title {
-              font-size: clamp(1.5rem, 4vw, 2.25rem);
-              margin-bottom: 1.25rem;
-          }
-
-          .cta-description {
-              font-size: 1.05rem;
-              margin-bottom: 2rem;
-          }
-
-          .cta-buttons {
-              flex-direction: column;
-              align-items: center;
-              gap: 1rem;
-              margin-top: 1.5rem;
-          }
-
-          .cta-btn {
-              width: 100%;
-              max-width: 300px;
-              justify-content: center;
-              padding: 1rem 2rem;
-              font-size: 0.95rem;
-          }
-      }
-
-      @media (max-width: 480px) {
-          .cta {
-              padding: 3rem 0;
-              margin-top: 2rem;
-          }
-
-          .cta-badge {
-              padding: 0.5rem 1rem;
-              font-size: 0.85rem;
-              margin-bottom: 1rem;
-          }
-
-          .cta-badge i {
-              font-size: 0.85rem;
-          }
-
-          .cta-title {
-              font-size: clamp(1.35rem, 3.75vw, 2rem);
-              margin-bottom: 1rem;
-          }
-
-          .cta-description {
-              font-size: 0.95rem;
-              line-height: 1.65;
-              margin-bottom: 1.75rem;
-          }
-
-          .cta-buttons {
-              gap: 0.875rem;
-              margin-top: 1.25rem;
-          }
-
-          .cta-btn {
-              padding: 0.875rem 1.75rem;
-              font-size: 0.9rem;
-              max-width: 280px;
-          }
-
-          .cta-btn i {
-              font-size: 0.9rem;
-          }
-      }
-
-         /* ========================================
-           FOOTER
-           ======================================== */
-        .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid rgba(0, 31, 77, 0.3);
-            padding: 4rem 0 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-logo {
-            width: 100px;
-            height: 100px;
-            background: var(--gradient-orange);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            padding: 10px;
-            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
-            transition: all 0.4s ease;
-        }
-
-        .footer-logo:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 60px rgba(255, 107, 53, 0.4);
-        }
-
-        .footer-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .footer-brand-text h3 {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-brand-text p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .footer-description {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin: 1.5rem 0 2rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-social-link {
-            width: 45px;
-            height: 45px;
-            background: var(--bg-glass);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--orange);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-social-link:hover {
-            background: var(--gradient-orange);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.3);
-        }
-
-        .footer-section h4 {
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: var(--orange);
-            transform: translateX(4px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(0, 31, 77, 0.3);
-            padding-top: 2rem;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-
-      /* ========================================
-         SCROLL REVEAL ANIMATIONS
-      ======================================== */
-      .scroll-reveal,
-      .scroll-reveal-scale {
-          opacity: 1; /* Changed from 0 to 1 so cards are visible immediately */
-          transform: translateY(0); /* Changed so cards appear in normal position */
-          transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      }
-
-      .scroll-reveal.revealed,
-      .scroll-reveal-scale.revealed {
-          opacity: 1;
-          transform: translateY(0);
-      }
-
-      .scroll-reveal-scale {
-          transform: translateY(0) scale(1); /* Changed so cards appear at normal scale */
-      }
-
-      .scroll-reveal-scale.revealed {
-          transform: translateY(0) scale(1);
-      }
+    }
+    
+    /* Mobile Navigation Menu */
+    .nav-menu-mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--color-black);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-md);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 998;
+    }
+    
+    .nav-menu-mobile.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .nav-menu-mobile .nav-link {
+      font-size: 1.5rem;
+      font-weight: 600;
+      opacity: 1;
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
   </style>
 </head>
 <body>
-  <!-- Animated Background -->
-  <div class="animated-bg">
-      <div class="floating-particles"></div>
-      <div class="grid-overlay"></div>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <a href="./" class="nav-brand">
+      <div class="nav-logo">
+        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+      </div>
+      <span>UTSA NSBE</span>
+    </a>
+    
+    <div class="nav-cta">
+      <div class="nav-links">
+        <a href="./" class="nav-link">Home</a>
+        <a href="./about" class="nav-link">About</a>
+        <a href="./leadership" class="nav-link">Leadership</a>
+        <a href="./conferences" class="nav-link active">Conferences</a>
+        <a href="./gallery" class="nav-link">Gallery</a>
+        <a href="./donate" class="nav-link">Donate</a>
+        <a href="./contact" class="nav-link">Contact</a>
+      </div>
+      <a href="https://linktr.ee/utsansbe" class="btn-join" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-link"></i>
+        <span>Linktree</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
+  
+  <!-- Mobile Menu -->
+  <div class="nav-menu-mobile" id="mobileMenu">
+    <a href="./" class="nav-link">Home</a>
+    <a href="./about" class="nav-link">About</a>
+    <a href="./leadership" class="nav-link">Leadership</a>
+    <a href="./conferences" class="nav-link">Conferences</a>
+    <a href="./gallery" class="nav-link">Gallery</a>
+    <a href="./donate" class="nav-link">Donate</a>
+    <a href="./contact" class="nav-link">Contact</a>
   </div>
 
-  <!-- Updated navbar HTML to match gallery.html structure -->
-  <!-- Enhanced Navbar -->
-  <nav class="navbar" id="navbar" aria-label="Main Navigation">
-      <div class="nav-container">
-          <!-- Brand Logo -->
-          <a href="index.html" class="nav-brand" aria-label="UTSA NSBE Home">
-              <div class="nav-logo">
-                  <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
-              </div>
-          </a>
-
-          <!-- Mobile Toggle Button -->
-          <button class="nav-toggle" id="navToggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
-              <span class="hamburger-line"></span>
-              <span class="hamburger-line"></span>
-              <span class="hamburger-line"></span>
-          </button>
-
-          <!-- Navigation Menu -->
-           <div id="nav-menu" class="nav-menu">
-                <div class="nav-links-group">
-                    <a href="./" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="./about" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
-                    <a href="./leadership" class="nav-link"><i class="fas fa-users"></i> Leadership</a>
-                    <a href="./conferences" class="nav-link active"><i class="fas fa-briefcase"></i> Conferences</a>
-                    <a href="./gallery" class="nav-link"><i class="fas fa-image"></i> Gallery</a>
-                    <a href="./donate" class="nav-link"><i class="fas fa-heart"></i> Donate</a>
-                    <a href="./contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-                </div>
-
-              <!-- Social Media Links -->
-             <div class="nav-social">
-                    <a href="https://instagram.com/utsansbe" class="social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                       <a href="https://linktr.ee/utsansbe" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Linktree">
-                      <i class="fas fa-link" aria-hidden="true"></i>
-                  </a>
-                </div>
-          
-          </div>
-
-          <!-- Progress Bar -->
-          <div class="nav-progress" id="navProgress" role="progressbar" aria-label="Page Scroll Progress"></div>
-      </div>
-  </nav>
-  <!-- End of navbar HTML replacement -->
-
   <!-- Hero Section -->
-  <section class="conference-hero">
-      <div class="container">
-          <div class="hero-content">
-              <span class="hero-badge">
-                  <i class="fas fa-calendar-check"></i>
-                  2025-2026 Conference Season
-              </span>
-              <h1 class="hero-title">
-                  <span class="title-line">Professional Development</span><br>
-                  <span class="title-line">Through Conferences</span>
-              </h1>
-              <p class="hero-description">
-                  Attend premier engineering conferences, connect with industry leaders, and unlock opportunities that will shape your career. Join UTSA NSBE members at prestigious events nationwide.
-              </p>
-              <div class="hero-buttons">
-                  <a href="#fall-conferences" class="hero-btn hero-btn-primary">
-                      <i class="fas fa-calendar-alt"></i>
-                      View All Conferences
-                  </a>
-                  <a href="./contact" class="hero-btn hero-btn-secondary">
-                      <i class="fas fa-envelope"></i>
-                      Contact Us
-                  </a>
-              </div>
-          </div>
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="hero-label">Professional Development</p>
+      <h1 class="hero-title">Conferences</h1>
+      <p class="hero-description">
+        Connect with industry leaders, attend technical workshops, and explore career opportunities at premier engineering conferences nationwide.
+      </p>
+      <div class="hero-cta">
+        <a href="#conferences" class="btn-hero-primary">
+          <i class="fas fa-calendar-check"></i>
+          View Events
+        </a>
+    
       </div>
+    </div>
   </section>
-
-  <!-- Enhanced Conference List Section -->
-  <section class="conference-list-section" id="all-conferences">
-      <div class="container">
-          <div class="conference-list-header scroll-reveal">
-              <h2 class="conference-list-title">All Conferences & Events</h2>
-              <p class="conference-list-subtitle">Browse our complete list of conferences, workshops, and networking events for the academic year.</p>
+  
+  <!-- Photo Fan Section -->
+  
+  
+  <!-- Conferences Section -->
+  <section class="conferences-section" id="conferences">
+    <div class="section-header scroll-reveal">
+      <p class="section-label">Upcoming Events</p>
+      <h2 class="section-title">2025-2026 Conferences</h2>
+      <p class="section-description">
+        Join us at premier engineering conferences featuring career fairs, technical sessions, and networking opportunities.
+      </p>
+    </div>
+    
+    <div class="conference-grid">
+      <div class="conference-card scroll-reveal">
+        <div class="conference-status status-past">
+          <i class="fas fa-check-circle"></i> Event Passed
+        </div>
+        <h3 class="conference-name">Region V Fall Regional Conference</h3>
+        <div class="conference-details">
+          <div class="conference-detail">
+            <i class="fas fa-calendar-alt"></i>
+            <span>November 20-23, 2025</span>
           </div>
-          
-          <ul class="conference-list">
-              <!-- Conference Item 1 -->
-              <li class="conference-item scroll-reveal-scale">
-                  <div class="conference-status status-past">
-                      <i class="fas fa-check-circle"></i>
-                      <span>Passed</span>
-                  </div>
-                  <div class="conference-item-header">
-                    
-                      <h3 class="conference-name">Region V Fall Regional Conference</h3>
-                  </div>
-                  <div class="conference-details">
-                      <div class="conference-detail">
-                          <i class="fas fa-calendar-alt"></i>
-                          <span>November 20-23, 2025</span>
-                      </div>
-                      <div class="conference-detail">
-                          <i class="fas fa-map-marker-alt"></i>
-                          <span>Houston, TX</span>
-                      </div>
-                  </div>
-                  <p class="conference-description">Annual fall conference featuring academic competitions, professional development, and networking sessions with top engineering companies.</p>
-                  <div class="conference-tags">
-                      <span class="conference-tag">Career Fair</span>
-                      <span class="conference-tag">Technical Sessions</span>
-                      <span class="conference-tag">Networking</span>
-                  </div>
-                  <button 
-                      class="conference-register-btn"
-                      onclick="window.open('https://member-nsbe-frc-5-2025.streampoint.com/', '_blank')">
-                      <i class="fas fa-clock"></i>
-                      Event Passed
-                  </button>
-              </li>
-              
-              <!-- Conference Item 2 -->
-              <li class="conference-item scroll-reveal-scale">
-                  <div class="conference-status status-upcoming">
-                      <i class="fas fa-calendar-check"></i>
-                      <span>Upcoming</span>
-                  </div>
-                  <div class="conference-item-header">
-                     
-                      <h3 class="conference-name">NSBE 2026 Annual Convention</h3>
-                  </div>
-                  <div class="conference-details">
-                      <div class="conference-detail">
-                          <i class="fas fa-calendar-alt"></i>
-                          <span>March 18-21, 2026</span>
-                      </div>
-                      <div class="conference-detail">
-                          <i class="fas fa-map-marker-alt"></i>
-                          <span>Baltimore, MD</span>
-                      </div>
-                  </div>
-                  <p class="conference-description">The largest gathering of Black engineers in the world, featuring career fairs, technical sessions, and networking opportunities with Fortune 500 companies.</p>
-                  <div class="conference-tags">
-                      <span class="conference-tag">Career Fair</span>
-                      <span class="conference-tag">Technical Sessions</span>
-                      <span class="conference-tag">Networking</span>
-                  </div>
-                  <button 
-                      class="conference-register-btn"
-                      onclick="window.open('https://convention.nsbe.org/register-for-nsbe2026/', '_blank')">
-                      <i class="fas fa-ticket-alt"></i>
-                      Register Now!
-                  </button>
-              </li>
-          </ul>
-      </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="cta">
-      <div class="container">
-          <div class="cta-content scroll-reveal">
-              <span class="cta-badge">
-                  <i class="fas fa-star"></i>
-                  Join the Movement
-              </span>
-              <h2 class="cta-title">Ready to Transform Your Future?</h2>
-              <p class="cta-description">
-                  Connect with industry leaders, expand your network, and unlock opportunities that will shape your engineering career. Join UTSA NSBE and be part of a community dedicated to excellence and empowerment.
-              </p>
-              <div class="cta-buttons">
-                  <button onclick="window.location.href='./contact'" class="cta-btn cta-btn-primary">
-                      <i class="fas fa-envelope"></i>
-                      Get in Touch
-                  </button>
-                  <button onclick="window.location.href='./leadership'" class="cta-btn cta-btn-secondary">
-                      <i class="fas fa-users"></i>
-                      Meet Our Team
-                  </button>
-              </div>
+          <div class="conference-detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Houston, Texas</span>
           </div>
+        </div>
+        <p class="conference-description">
+          Annual fall conference featuring academic competitions, professional development workshops, and networking sessions with top engineering companies.
+        </p>
+        <div class="conference-tags">
+          <span class="conference-tag">Career Fair</span>
+          <span class="conference-tag">Workshops</span>
+          <span class="conference-tag">Networking</span>
+        </div>
+        <button class="btn-register disabled" disabled>
+          <i class="fas fa-clock"></i>
+          Registration Closed
+        </button>
       </div>
+      
+      <div class="conference-card scroll-reveal">
+        <div class="conference-status status-upcoming">
+          <i class="fas fa-calendar-check"></i> Registration Open
+        </div>
+        <h3 class="conference-name">NSBE 2026 Annual Convention</h3>
+        <div class="conference-details">
+          <div class="conference-detail">
+            <i class="fas fa-calendar-alt"></i>
+            <span>March 18-21, 2026</span>
+          </div>
+          <div class="conference-detail">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Baltimore, Maryland</span>
+          </div>
+        </div>
+        <p class="conference-description">
+          The largest gathering of Black engineers in the world, featuring career fairs with 500+ companies, technical sessions, and networking opportunities.
+        </p>
+        <div class="conference-tags">
+          <span class="conference-tag">Career Fair</span>
+          <span class="conference-tag">Technical Sessions</span>
+          <span class="conference-tag">Networking</span>
+        </div>
+        <a href="https://convention.nsbe.org/register-for-nsbe2026/" target="_blank" rel="noopener noreferrer" class="btn-register">
+          <i class="fas fa-ticket-alt"></i>
+          Register Now
+        </a>
+      </div>
+    </div>
   </section>
-
+  
+ 
+  
   <!-- Footer -->
   <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
-                    </div>
-                    <div class="footer-brand-text">
-                        <h3>UTSA NSBE</h3>
-                        <p>National Society of Black Engineers</p>
-                    </div>
-                    <p class="footer-description">
-                        Empowering and supporting Black engineering students at UTSA through professional development, community service, and academic excellence.
-                    </p>
-                    <div class="footer-social">
-                        <a href="https://instagram.com/utsansbe" class="footer-social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                          <a href="https://linktr.ee/utsansbe" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Linktree">
-                      <i class="fas fa-link" aria-hidden="true"></i>
-                  </a>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="./">Home</a></li>
-                        <li><a href="./about">About</a></li>
-                        <li><a href="./leadership">Leadership</a></li>
-                        <li><a href="./conferences">Conferences</a></li>
-                        <li><a href="./gallery">Gallery</a></li>
-                        <li><a href="./donate">Donate</a></li>
-                        <li><a href="./contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2026 UTSA NSBE. All rights reserved. Building Excellence in Engineering.</p>
-            </div>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
         </div>
-    </footer>
+        <div class="footer-text">
+          <h3>UTSA NSBE</h3>
+          <p>National Society of Black Engineers</p>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <a href="./" class="footer-link">Home</a>
+        <a href="./about" class="footer-link">About</a>
+        <a href="./leadership" class="footer-link">Leadership</a>
+        <a href="./conferences" class="footer-link">Conferences</a>
+        <a href="./gallery" class="footer-link">Gallery</a>
+        <a href="./donate" class="footer-link">Donate</a>
+        <a href="./contact" class="footer-link">Contact</a>
+      </div>
+      
+      <div class="footer-social">
+        <a href="https://instagram.com/utsansbe" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://linktr.ee/utsansbe" aria-label="Linktree"><i class="fas fa-link"></i></a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 UTSA NSBE. All rights reserved. Building Excellence in Engineering.</p>
+    </div>
+  </footer>
+  
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-  <!-- Updated JavaScript to match gallery.html functionality -->
   <script>
-      // Enhanced Mobile Navigation with improved accessibility and touch support
-      const navToggle = document.getElementById('navToggle');
-      const navMenu = document.getElementById('nav-menu');
-      const navLinks = document.querySelectorAll('.nav-link');
-
-      function toggleMenu() {
-          const isActive = navMenu.classList.contains('active');
-          
-          navMenu.classList.toggle('active');
-          navToggle.classList.toggle('active');
-          
-          // Update ARIA attribute
-          navToggle.setAttribute('aria-expanded', !isActive);
-      }
-
-      function closeMenu() {
-          navMenu.classList.remove('active');
-          navToggle.classList.remove('active');
-          navToggle.setAttribute('aria-expanded', 'false');
-      }
-
-      if (navToggle && navMenu) {
-          // Handle both click and touch events
-          navToggle.addEventListener('click', toggleMenu);
-          navToggle.addEventListener('touchstart', (e) => {
-              e.preventDefault();
-              toggleMenu();
-          }, { passive: false });
-
-          // Close menu when clicking nav links
-          navLinks.forEach(link => {
-              link.addEventListener('click', closeMenu);
-          });
-
-          // Close menu when clicking outside
-          document.addEventListener('click', (e) => {
-              if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
-                  closeMenu();
-              }
-          });
-
-          // Escape key to close menu
-          document.addEventListener('keydown', (e) => {
-              if (e.key === 'Escape' && navMenu.classList.contains('active')) {
-                  closeMenu();
-              }
-          });
-      }
-
-      // Enhanced Scroll Effects with requestAnimationFrame for better performance
-      const navbar = document.getElementById('navbar');
-      const navProgress = document.getElementById('navProgress');
-      let ticking = false;
-
-      function updateScrollEffects() {
-          const scrolled = window.pageYOffset;
-          
-          // Navbar background on scroll
-          if (scrolled > 50) {
-              navbar.classList.add('scrolled');
-          } else {
-              navbar.classList.remove('scrolled');
-          }
-
-          // Progress bar
-          if (navProgress) {
-              const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-              const scrollPercent = (scrolled / docHeight) * 100;
-              navProgress.style.width = scrollPercent + '%';
-          }
-
-          ticking = false;
-      }
-
-      function requestScrollUpdate() {
-          if (!ticking) {
-              window.requestAnimationFrame(updateScrollEffects);
-              ticking = true;
-          }
-      }
-
-      window.addEventListener('scroll', requestScrollUpdate);
-
-      // Initialize on page load
-      updateScrollEffects();
-
-      // Smooth scroll with offset for fixed navbar
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function(e) {
-              const href = this.getAttribute('href');
-              if (href === '#') return;
-              
-              e.preventDefault();
-              const target = document.querySelector(href);
-              
-              if (target) {
-                  const offsetTop = target.offsetTop - 80;
-                  window.scrollTo({
-                      top: offsetTop,
-                      behavior: 'smooth'
-                  });
-              }
-          });
+    // Scroll reveal
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.scroll-reveal');
+      reveals.forEach((element, index) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 100;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          element.style.transitionDelay = `${index * 0.1}s`;
+          element.classList.add('revealed');
+        }
       });
-
-      // Intersection Observer for fade-in animations
-      const observerOptions = {
-          threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                  entry.target.classList.add('visible');
-              }
-          });
-      }, observerOptions);
-
-      document.querySelectorAll('.conference-item, .cta-section').forEach(el => {
-          observer.observe(el);
+    }
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      revealOnScroll();
+    });
+    
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
       });
+    });
+    
+    // Scroll to top
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+    
+    // Initialize
+    window.addEventListener('load', revealOnScroll);
+    
+    console.log('UTSA NSBE Conferences - Editorial Design Loaded');
   </script>
-  <!-- End of JavaScript replacement -->
 </body>
 </html>
