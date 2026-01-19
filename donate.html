@@ -1,2016 +1,1847 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donate & Sponsor | UTSA NSBE</title>
-    <meta name="description" content="Support UTSA NSBE through donations and sponsorships. Help empower the next generation of Black engineers.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate & Sponsor | UTSA NSBE</title>
+  <meta name="description" content="Support UTSA NSBE through donations and sponsorships. Help empower the next generation of Black engineers.">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="images/logopic.jpg">
+  
+  <!-- New editorial fonts - bold display + clean sans (matching index.html) -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    /* ========================================
+       NEW CREATIVE EDITORIAL DESIGN SYSTEM
+       Matching index.html - Bold typography, 
+       UTSA colors, editorial layout
+       ======================================== */
     
-    <!-- Favicon -->
-    <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
-    <link rel="apple-touch-icon" href="images/logopic.jpg">
+    :root {
+      /* Updated to UTSA official school colors */
+      --color-primary: #0C2340;       /* UTSA Navy Blue */
+      --color-primary-dark: #081929;  /* Darker navy */
+      --color-primary-light: #1A3A5C; /* Lighter navy */
+      --color-accent: #F15A22;        /* UTSA Orange */
+      --color-accent-light: #FF7B47;  /* Light orange */
+      --color-accent-dark: #D94A15;   /* Dark orange */
+      --color-black: #0A0A0A;
+      --color-dark: #141414;
+      --color-gray: #1A1A1A;
+      --color-white: #FFFFFF;
+      --color-off-white: #F5F5F5;
+      --color-gold: #C9A227;
+      /* Added text black color for light backgrounds */
+      --color-text-black: #000000;
+      
+      /* Typography */
+      --font-display: 'Inter', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      
+      /* Spacing */
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 2rem;
+      --space-lg: 4rem;
+      --space-xl: 8rem;
+    }
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-           
-    <style>
-        /* Use Montserrat for nav links only */
-        .nav-link { font-family: 'Montserrat', sans-serif; }
-
-        /* UTSA NSBE - Donation Page Styles */
-        :root {
-            --navy-blue: #001f4d;
-            --navy-blue-dark: #001a42;
-            --navy-blue-light: #003366;
-            --orange: #ff4400;
-            --orange-light: #ff8c5a;
-            --orange-dark: #e55a2b;
-            --accent-orange: #ff6b35;
-            --accent-orange-light: #ff9f43;
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-tertiary: #1a1a25;
-            --bg-glass: rgba(0, 31, 77, 0.1);
-            --bg-glass-strong: rgba(0, 31, 77, 0.2);
-            --text-primary: #ffffff;
-            --text-secondary: #b8c5d6;
-            --text-muted: #8a9bb0;
-            --gradient-navy: linear-gradient(135deg, var(--navy-blue), var(--navy-blue-light));
-            --gradient-orange: linear-gradient(135deg, var(--orange), var(--orange-light));
-            --gradient-primary: linear-gradient(135deg, var(--navy-blue), var(--orange));
-            --shadow-navy: 0 10px 30px rgba(0, 31, 77, 0.3);
-            --shadow-orange: 0 10px 30px rgba(255, 107, 53, 0.3);
-            --shadow-glow-navy: 0 0 30px rgba(0, 31, 77, 0.5);
-            --shadow-glow-orange: 0 0 30px rgba(255, 107, 53, 0.5);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --font-heading: 'Orbitron', monospace;
-            --font-body: 'Exo 2', sans-serif;
-            --font-accent: 'Space Grotesk', sans-serif;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 80px;
-        }
-
-        body {
-            font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* ========================================
-           ENHANCED NAVBAR STYLES FROM INDEX.HTML
-           ======================================== */
-        
-        /* Navbar container with glassmorphism */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(10, 10, 15, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 107, 53, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Scrolled state - more solid background */
-        .navbar.scrolled {
-            background: rgba(10, 10, 15, 0.98);
-            border-bottom-color: rgba(255, 107, 53, 0.2);
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Navigation container */
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-        }
-
-        /* Brand/Logo section */
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-brand:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-logo {
-            width: 50px;
-            height: 50px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            background: var(--accent-orange);
-            border: 2px solid var(--accent-orange);
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
-            transition: all 0.3s ease;
-            padding: 4px;
-        }
-
-        .nav-logo::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.3), transparent);
-            transition: left 0.5s ease;
-            z-index: 1;
-        }
-
-        .nav-brand:hover .nav-logo {
-            border-color: var(--accent-orange-light);
-            box-shadow: 0 6px 30px rgba(255, 107, 53, 0.5);
-            transform: rotate(5deg);
-        }
-
-        .nav-brand:hover .nav-logo::before {
-            left: 100%;
-        }
-
-        .nav-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Mobile toggle button */
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: rgba(255, 107, 53, 0.1);
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            border-radius: 8px;
-            padding: 0.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .nav-toggle:hover {
-            background: rgba(255, 107, 53, 0.2);
-            border-color: var(--accent-orange);
-        }
-
-        .hamburger-line {
-            width: 25px;
-            height: 3px;
-            background: var(--accent-orange);
-            border-radius: 2px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Animated hamburger to X */
-        .nav-toggle.active .hamburger-line:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-
-        .nav-toggle.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-
-        .nav-toggle.active .hamburger-line:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-
-        /* Navigation menu */
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .nav-links-group {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Enhanced nav links with modern hover effects */
-        .nav-link {
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 500;
-            border-radius: 10px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden;
-            background: transparent !important;
-        }
-
-        .nav-link:not(.active) {
-            background: transparent !important;
-        }
-
-        /* Hover shimmer effect */
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .nav-link:hover::before {
-            left: 100%;
-        }
-
-        /* Underline effect */
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-orange);
-            transform: translateX(-50%);
-            transition: width 0.3s ease;
-            border-radius: 2px;
-        }
-
-        .nav-link:hover {
-            color: var(--text-primary);
-            background: rgba(255, 107, 53, 0.08) !important;
-            transform: translateY(-2px);
-        }
-
-        .nav-link:not(.active):hover {
-            background: rgba(255, 107, 53, 0.08) !important;
-        }
-
-        .nav-link:hover::after {
-            width: 60%;
-        }
-
-        /* Active link styling */
-        .nav-link.active {
-            color: #ffffff !important;
-            background: var(--gradient-orange) !important;
-            border: 2px solid var(--accent-orange-light);
-            font-weight: 600;
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
-            transform: scale(1.05);
-        }
-
-        .nav-link.active::after {
-            display: none;
-        }
-
-        .nav-link.active::before {
-            display: none;
-        }
-
-        .nav-link.active:hover {
-            transform: scale(1.05) !important;
-            background: var(--gradient-orange) !important;
-        }
-
-        /* Icon animation in nav links */
-        .nav-link i {
-            font-size: 1rem;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-link:hover i {
-            transform: scale(1.2) rotate(5deg);
-        }
-
-        /* Social links section */
-        .nav-social {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .social-link {
-            width: 42px;
-            height: 42px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 107, 53, 0.08);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            border-radius: 10px;
-            color: var(--accent-orange);
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Ripple effect on social links */
-        .social-link::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.5s ease, height 0.5s ease;
-        }
-
-        .social-link:hover::before {
-            width: 100px;
-            height: 100px;
-        }
-
-        .social-link:hover {
-            background: var(--gradient-orange);
-            color: white;
-            border-color: var(--accent-orange-light);
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.4);
-        }
-
-        .social-link i {
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .social-link:hover i {
-            transform: rotate(360deg);
-        }
-
-        /* Navbar progress bar (scroll indicator) */
-        .nav-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: var(--gradient-orange);
-            transition: width 0.1s linear;
-            box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
-        }
-
-        /* Responsive navbar */
-        @media (max-width: 768px) {
-            .nav-toggle {
-                display: flex !important;
-                z-index: 1001;
-            }
-
-            .nav-container {
-                padding: 0.75rem 1rem;
-            }
-
-            .nav-logo {
-                width: 45px;
-                height: 45px;
-            }
-
-            .nav-menu {
-                position: fixed !important;
-                top: 70px !important;
-                left: 0 !important;
-                width: 100% !important;
-                height: calc(100vh - 70px) !important;
-                background: rgba(10, 10, 15, 0.98) !important;
-                backdrop-filter: blur(20px) !important;
-                -webkit-backdrop-filter: blur(20px) !important;
-                flex-direction: column !important;
-                justify-content: flex-start !important;
-                padding: 2rem 1.5rem !important;
-                gap: 1.5rem !important;
-                transform: translateX(-100%) !important;
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-                overflow-y: auto !important;
-                border-right: 1px solid rgba(255, 107, 53, 0.2) !important;
-                box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5) !important;
-            }
-
-            .nav-menu.active {
-                transform: translateX(0) !important;
-            }
-
-            .nav-links-group {
-                flex-direction: column !important;
-                width: 100% !important;
-                gap: 0.75rem !important;
-            }
-
-            .nav-link {
-                width: 100% !important;
-                justify-content: flex-start !important;
-                padding: 1rem 1.5rem !important;
-                font-size: 1.1rem !important;
-                border-radius: 12px !important;
-            }
-
-            .nav-link i {
-                font-size: 1.2rem !important;
-            }
-
-            .nav-social {
-                justify-content: center !important;
-                width: 100% !important;
-                gap: 1rem !important;
-                padding-top: 1rem !important;
-                border-top: 1px solid rgba(255, 107, 53, 0.2) !important;
-            }
-
-            .social-link {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-container {
-                padding: 0.5rem 0.75rem;
-            }
-
-            .nav-logo {
-                width: 40px;
-                height: 40px;
-                border-radius: 10px;
-            }
-
-            .nav-toggle {
-                padding: 0.4rem;
-            }
-
-            .hamburger-line {
-                width: 22px;
-            }
-
-            .nav-menu {
-                top: 60px;
-                height: calc(100vh - 60px);
-                padding: 1.5rem 1rem;
-                gap: 1rem;
-            }
-
-            .nav-link {
-                padding: 0.875rem 1.25rem;
-                font-size: 1rem;
-            }
-
-            .nav-link i {
-                font-size: 1.1rem;
-            }
-
-            .nav-social {
-                gap: 0.75rem;
-            }
-
-            .social-link {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
-
-            .nav-progress {
-                height: 2px;
-            }
-        }
-
-        /* Prevent body scroll when mobile menu is open */
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        @media (max-width: 768px) {
-            body.menu-open {
-                position: fixed;
-                width: 100%;
-            }
-        }
-
-        /* Animated Background */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(0, 31, 77, 0.1) 0%, transparent 50%);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Navigation styles have been centralized into styles.css */
-
-        /* Hero Section */
-        .hero-section {
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 120px 2rem 60px;
-            position: relative;
-            background: linear-gradient(135deg, rgba(0, 31, 77, 0.3), transparent);
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 107, 53, 0.1);
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            border-radius: 50px;
-            padding: 0.75rem 1.5rem;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--orange);
-        }
-
-        .hero-title {
-            font-family: var(--font-heading);
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-title .accent {
-            background: var(--gradient-orange);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-title {
-            font-family: var(--font-heading);
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Corporate Sponsors Section */
-        .sponsors-section {
-            padding: 5rem 0;
-            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
-        }
-
-        .sponsors-highlight {
-            background: var(--bg-glass-strong);
-            backdrop-filter: blur(20px);
-            border: 2px solid var(--orange);
-            border-radius: 25px;
-            padding: 3rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .sponsors-highlight::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), transparent);
-            z-index: 0;
-        }
-
-        .sponsors-highlight-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .sponsors-highlight h3 {
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            color: var(--orange);
-            margin-bottom: 1rem;
-        }
-
-        .sponsors-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .sponsor-card {
-            background: var(--bg-glass-strong);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .sponsor-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-orange);
-        }
-
-        .sponsor-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--orange);
-            box-shadow: var(--shadow-glow-orange);
-        }
-
-        .sponsor-logo {
-            width: 120px;
-            height: 80px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--orange);
-            overflow: hidden;
-            padding: 1rem;
-        }
-
-        .sponsor-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: brightness(1.2);
-            transition: all 0.3s ease;
-        }
-
-        .sponsor-card:hover .sponsor-logo img {
-            transform: scale(1.05);
-            filter: brightness(1.4);
-        }
-
-        .sponsor-name {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .sponsor-type {
-            display: inline-block;
-            background: var(--gradient-orange);
-            color: white;
-            padding: 0.25rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        /* Donation Methods Section */
-        .donation-section {
-            padding: 5rem 0;
-            background: var(--bg-primary);
-        }
-
-        .donation-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .donation-card {
-            background: var(--bg-glass-strong);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 31, 77, 0.3);
-            border-radius: 25px;
-            padding: 3rem;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .donation-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient-orange);
-        }
-
-        .donation-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--orange);
-            box-shadow: var(--shadow-glow-navy);
-        }
-
-        .donation-card.featured {
-            border-color: var(--orange);
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), var(--bg-glass-strong));
-        }
-
-        .donation-card.featured::before {
-            height: 6px;
-        }
-
-        .donation-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .donation-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: white;
-            box-shadow: var(--shadow-orange);
-        }
-
-        .donation-title {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .donation-subtitle {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .donation-content p {
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .donation-details {
-            background: rgba(0, 31, 77, 0.2);
-            border: 1px solid rgba(0, 31, 77, 0.3);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .donation-detail {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .donation-detail:last-child {
-            border-bottom: none;
-        }
-
-        .donation-detail i {
-            color: var(--orange);
-            font-size: 1.2rem;
-            width: 25px;
-        }
-
-        .donation-detail-label {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .donation-detail-value {
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 600;
-            margin-left: auto;
-        }
-
-        /* PDF Download Links */
-        .pdf-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .pdf-link {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: rgba(255, 107, 53, 0.1);
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: var(--transition);
-        }
-
-        .pdf-link:hover {
-            background: rgba(255, 107, 53, 0.2);
-            transform: translateX(10px);
-            box-shadow: var(--shadow-orange);
-        }
-
-        .pdf-link i {
-            font-size: 1.5rem;
-            color: var(--orange);
-        }
-
-        .pdf-link-text {
-            flex: 1;
-        }
-
-        .pdf-link-title {
-            font-weight: 600;
-            font-family: var(--font-heading);
-        }
-
-        .pdf-link-subtitle {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .pdf-link .fa-download {
-            color: var(--orange);
-        }
-
-        /* Benefits Section */
-        .benefits-section {
-            padding: 5rem 0;
-            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .benefit-card {
-            background: var(--bg-glass-strong);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 31, 77, 0.3);
-            border-radius: 20px;
-            padding: 2rem;
-            transition: var(--transition);
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--orange);
-            box-shadow: var(--shadow-glow-navy);
-        }
-
-        .benefit-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-navy);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--orange);
-            flex-shrink: 0;
-        }
-
-        .benefit-content h4 {
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .benefit-content p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        /* Other Donations Section */
-        .other-donations-section {
-            padding: 5rem 0;
-            background: var(--bg-primary);
-        }
-
-        .payment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .payment-card {
-            background: var(--bg-glass-strong);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .payment-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--orange);
-            box-shadow: var(--shadow-glow-orange);
-        }
-
-        .payment-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            margin: 0 auto 1.5rem;
-            box-shadow: var(--shadow-orange);
-        }
-
-        .payment-name {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .payment-handle {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            color: var(--orange);
-            background: rgba(255, 107, 53, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            display: inline-block;
-            margin-bottom: 1rem;
-        }
-
-        .payment-description {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 5rem 0;
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(0, 31, 77, 0.2));
-            text-align: center;
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-title {
-            font-family: var(--font-heading);
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 800;
-            background: var(--gradient-orange);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-        }
-
-        .cta-description {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-family: var(--font-accent);
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            transition: var(--transition);
-        }
-
-        .btn-primary {
-            background: var(--gradient-orange);
-            color: white;
-            box-shadow: var(--shadow-orange);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-glow-orange);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--orange);
-            border: 2px solid var(--orange);
-        }
-
-        .btn-secondary:hover {
-            background: var(--gradient-orange);
-            color: white;
-        }
-
-        /* Instagram Section */
-        .instagram-section {
-            padding: 5rem 0;
-            background: var(--bg-secondary);
-        }
-
-        .instagram-embed {
-            max-width: 600px;
-            margin: 2rem auto;
-            background: var(--bg-glass-strong);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .instagram-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .instagram-logo {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: white;
-        }
-
-        .instagram-info h4 {
-            font-family: var(--font-heading);
-            font-size: 1.3rem;
-            color: var(--text-primary);
-        }
-
-        .instagram-info p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
-        .instagram-follow-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            margin-top: 1rem;
-        }
-
-        .instagram-follow-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(225, 48, 108, 0.4);
-        }
-
-        /* ========================================
-           FOOTER
-           ======================================== */
-        .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid rgba(0, 31, 77, 0.3);
-            padding: 4rem 0 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-logo {
-            width: 100px;
-            height: 100px;
-            background: var(--gradient-orange);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            padding: 10px;
-            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
-            transition: all 0.4s ease;
-        }
-
-        .footer-logo:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 60px rgba(255, 107, 53, 0.4);
-        }
-
-        .footer-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .footer-brand-text h3 {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-brand-text p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .footer-description {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin: 1.5rem 0 2rem;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .footer-social-link {
-            width: 45px;
-            height: 45px;
-            background: var(--bg-glass);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--orange);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-social-link:hover {
-            background: var(--gradient-orange);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(255, 107, 53, 0.3);
-        }
-
-        .footer-section h4 {
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: var(--orange);
-            transform: translateX(4px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(0, 31, 77, 0.3);
-            padding-top: 2rem;
-            text-align: center;
-            color: var(--text-secondary);
-        }
-
-        /* ========================================
-           RESPONSIVE DESIGN
-           ======================================== */
-        @media (max-width: 768px) {
-            .nav-toggle { display: flex; }
-            
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                left: 0;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: rgba(10, 10, 15, 0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                justify-content: flex-start;
-                padding: 2rem;
-                gap: 2rem;
-                transform: translateX(-100%);
-                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                overflow-y: auto;
-            }
-
-            .nav-menu.active {
-                transform: translateX(0);
-            }
-
-            .nav-links-group {
-                flex-direction: column;
-                width: 100%;
-                gap: 0.5rem;
-            }
-
-            .nav-link {
-                width: 100%;
-                justify-content: flex-start;
-                padding: 1rem 1.5rem;
-            }
-
-            .photo-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .sponsorship-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .cta-box {
-                padding: 2.5rem 1.5rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .cta-btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-social {
-                justify-content: center;
-            }
-
-        /* Scroll Animations */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .scroll-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-toggle {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80%;
-                max-width: 300px;
-                height: 100vh;
-                background: rgba(0, 31, 77, 0.95);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-                transition: right 0.3s ease;
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .nav-links-group {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .donation-grid, .benefits-grid, .payment-options, .sponsors-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .payment-card {
-                padding: 1.75rem 1rem;
-            }
-
-            .btn {
-                padding: 0.875rem 1.5rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Landscape Orientation Tablets */
-        @media (max-width: 1024px) and (orientation: landscape) {
-            .hero-section {
-                min-height: 85vh;
-                padding: 120px 2rem 60px;
-            }
-
-            .sponsors-section,
-            .donation-section,
-            .benefits-section,
-            .other-donations-section,
-            .cta-section,
-            .instagram-section {
-                padding: 4.5rem 0;
-            }
-
-            .sponsors-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .benefits-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Landscape Orientation Mobile Devices */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .hero-section {
-                min-height: 100vh;
-                padding: 100px 1.5rem 50px;
-            }
-
-            .hero-badge {
-                margin-bottom: 1.5rem;
-            }
-
-            .hero-title {
-                margin-bottom: 1.25rem;
-            }
-
-            .hero-description {
-                margin-bottom: 2rem;
-            }
-
-            .section-header {
-                margin-bottom: 2.5rem;
-            }
-
-            .sponsors-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .benefits-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Touch Device Optimizations */
-        @media (hover: none) and (pointer: coarse) {
-            .btn {
-                min-height: 48px;
-                padding: 1.125rem 2.25rem;
-            }
-
-            .pdf-link {
-                min-height: 56px;
-                padding: 1.25rem 1.75rem;
-            }
-
-            .nav-link {
-                min-height: 44px;
-                padding: 1rem 1.5rem;
-            }
-
-            .social-link {
-                width: 48px;
-                height: 48px;
-            }
-
-            .footer-social-link {
-                width: 48px;
-                height: 48px;
-            }
-
-            /* Disable hover effects on touch devices */
-            .sponsor-card:hover,
-            .donation-card:hover,
-            .benefit-card:hover,
-            .payment-card:hover {
-                transform: none;
-            }
-        }
-
-        /* High Resolution Displays */
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-            .hero-title,
-            .section-title {
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-            }
-
-            .sponsor-logo img,
-            .nav-logo img,
-            .footer-logo img {
-                image-rendering: -webkit-optimize-contrast;
-                image-rendering: crisp-edges;
-            }
-        }
-
-        /* Reduced Motion Preference */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-
-            .scroll-reveal {
-                opacity: 1;
-                transform: none;
-            }
-        }
-
-        /* Dark Mode Support (Optional Enhancement) */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-primary: #0a0a0f;
-                --bg-secondary: #12121a;
-            }
-        }
-
-        /* Print Styles */
-        @media print {
-            .navbar,
-            .nav-progress,
-            .hero-badge,
-            .btn,
-            .instagram-section,
-            .scroll-reveal {
-                display: none !important;
-            }
-
-            .hero-section {
-                padding-top: 2rem;
-                min-height: auto;
-            }
-
-            .section-header,
-            .sponsors-section,
-            .donation-section,
-            .benefits-section,
-            .payment-options {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-
-            body {
-                background: white;
-                color: black;
-            }
-
-            .sponsor-card,
-            .donation-card,
-            .benefit-card,
-            .payment-card {
-                border: 1px solid #ccc;
-                box-shadow: none;
-            }
-        }
-
-        /* Scroll Animations */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .scroll-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Add stagger effect for cards */
-        .sponsors-grid .scroll-reveal,
-        .donation-grid .scroll-reveal,
-        .benefits-grid .scroll-reveal,
-        .payment-options .scroll-reveal {
-            transition-delay: calc(var(--reveal-delay, 0) * 0.1s);
-        }}
-    </style>
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      background: var(--color-black);
+      color: var(--color-white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    
+    /* ========================================
+       NAVIGATION - Minimal editorial style
+       ======================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease;
+    }
+    
+    .navbar.scrolled {
+      background: rgba(12, 35, 64, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 1rem 3rem;
+      box-shadow: 0 4px 30px rgba(241, 90, 34, 0.2);
+    }
+    
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--color-white);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    
+    .nav-logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      margin-right: 2rem;
+    }
+    
+    .nav-link {
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.7;
+      transition: opacity 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .nav-link:hover, .nav-link.active {
+      opacity: 1;
+    }
+    
+    .btn-join {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 100%);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 15px rgba(241, 90, 34, 0.3);
+    }
+    
+    .btn-join:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 25px rgba(241, 90, 34, 0.5);
+      background: linear-gradient(135deg, #FF7B47 0%, #F15A22 100%);
+    }
+    
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    .hamburger-line {
+      width: 24px;
+      height: 2px;
+      background: var(--color-white);
+      transition: all 0.3s ease;
+    }
+    
+    /* ========================================
+       HERO SECTION - Modern Dark Gradient Design
+       ======================================== */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      /* Enhanced dark gradient with UTSA Navy & subtle orange accents */
+      background: linear-gradient(135deg, #0A0A0A 0%, #0C2340 40%, #1A3A5C 70%, #0C2340 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 140px 3rem 80px;
+    }
+    
+    /* Animated gradient orbs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at center, rgba(241, 90, 34, 0.2) 0%, transparent 60%);
+      animation: orbFloat1 20s ease-in-out infinite;
+      z-index: 0;
+      filter: blur(80px);
+    }
+    
+    /* Secondary animated orb */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      right: -10%;
+      width: 80%;
+      height: 80%;
+      background: 
+        radial-gradient(circle at center, rgba(91, 192, 235, 0.15) 0%, transparent 60%);
+      animation: orbFloat2 25s ease-in-out infinite;
+      z-index: 0;
+      filter: blur(90px);
+    }
+    
+    @keyframes orbFloat1 {
+      0%, 100% { 
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+      }
+      50% { 
+        transform: translate(40px, -60px) scale(1.15);
+        opacity: 0.8;
+      }
+    }
+    
+    @keyframes orbFloat2 {
+      0%, 100% { 
+        transform: translate(0, 0) scale(1);
+        opacity: 0.5;
+      }
+      50% { 
+        transform: translate(-50px, 40px) scale(1.2);
+        opacity: 0.7;
+      }
+    }
+    
+    /* Animated grid overlay */
+    .hero-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(rgba(241, 90, 34, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(241, 90, 34, 0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.4;
+      animation: gridPulse 5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+    
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1000px;
+      text-align: center;
+    }
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(241, 90, 34, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(241, 90, 34, 0.3);
+      border-radius: 50px;
+      padding: 1rem 2rem;
+      margin-bottom: 2.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-white);
+      animation: badgePulse 3s ease-in-out infinite;
+      box-shadow: 
+        0 0 20px rgba(241, 90, 34, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    }
+    
+    @keyframes badgePulse {
+      0%, 100% { 
+        box-shadow: 0 0 20px rgba(241, 90, 34, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      }
+      50% { 
+        box-shadow: 0 0 30px rgba(241, 90, 34, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      }
+    }
+    
+    .hero-badge i {
+      color: #FF7B47;
+      font-size: 1.1rem;
+      animation: heartBeat 2s ease-in-out infinite;
+    }
+    
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.15); }
+      50% { transform: scale(1); }
+    }
+    
+    /* Hero Stats Cards */
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, rgba(26, 58, 92, 0.6) 0%, rgba(20, 20, 20, 0.7) 100%);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(91, 192, 235, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(91, 192, 235, 0.1), transparent);
+      transition: left 0.6s;
+    }
+    
+    .stat-card:hover::before {
+      left: 100%;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(91, 192, 235, 0.5);
+      box-shadow: 
+        0 20px 60px rgba(91, 192, 235, 0.3),
+        0 0 40px rgba(241, 90, 34, 0.2);
+    }
+    
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #5BC0EB 0%, #F15A22 100%);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 1.8rem;
+      color: white;
+      box-shadow: 0 10px 30px rgba(91, 192, 235, 0.4);
+    }
+    
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #FFFFFF 0%, #5BC0EB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 11vw, 9rem);
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.05em;
+      color: #FFFFFF;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      text-shadow: 
+        0 0 30px rgba(91, 192, 235, 0.3),
+        0 0 60px rgba(241, 90, 34, 0.2),
+        0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-title span {
+      display: block;
+    }
+    
+    .hero-title span:first-child {
+      animation: slideInDown 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+    
+    .hero-title .accent {
+      background: linear-gradient(135deg, #5BC0EB 0%, #F15A22 50%, #FF7B47 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: slideInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), gradientFlow 4s ease-in-out infinite;
+      background-size: 200% 100%;
+      opacity: 0;
+      animation-fill-mode: forwards;
+      animation-delay: 0.2s;
+    }
+    
+    @keyframes slideInDown {
+      0% { opacity: 0; transform: translateY(-80px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideInUp {
+      0% { opacity: 0; transform: translateY(80px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes gradientFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .hero-description {
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+      text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 1s ease-out 0.4s;
+      animation-fill-mode: forwards;
+      opacity: 0;
+    }
+    
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeIn 1s ease-out 0.6s;
+      animation-fill-mode: forwards;
+      opacity: 0;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.2rem 2.5rem;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .btn i {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #5BC0EB 0%, #F15A22 100%);
+      color: white;
+      box-shadow: 
+        0 10px 40px rgba(91, 192, 235, 0.3),
+        0 0 20px rgba(241, 90, 34, 0.2);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 
+        0 20px 60px rgba(91, 192, 235, 0.4),
+        0 0 40px rgba(241, 90, 34, 0.3);
+    }
+    
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      border: 2px solid rgba(91, 192, 235, 0.4);
+      backdrop-filter: blur(10px);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(91, 192, 235, 0.15);
+      border-color: #5BC0EB;
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(91, 192, 235, 0.3);
+    }
+    
+    /* ========================================
+       SPONSORS SECTION - Modern Dark Design
+       ======================================== */
+    .sponsors-section {
+      background: linear-gradient(180deg, #000000 0%, #0A0A0A 50%, #000000 100%);
+      color: var(--color-white);
+      padding: var(--space-xl) 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Animated background accent */
+    .sponsors-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(241, 90, 34, 0.08) 0%, transparent 70%);
+      animation: accentFloat 15s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes accentFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(-30px, 40px) scale(1.1); }
+    }
+    
+    .section-header {
+      max-width: 900px;
+      margin: 0 auto var(--space-lg);
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .section-label {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: #5BC0EB;
+      margin-bottom: var(--space-sm);
+      font-weight: 700;
+    }
+    
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: var(--space-md);
+      background: linear-gradient(135deg, #FFFFFF 0%, #5BC0EB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .section-description {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+    
+    .sponsors-highlight {
+      background: linear-gradient(135deg, rgba(91, 192, 235, 0.1) 0%, rgba(241, 90, 34, 0.08) 100%);
+      border: 1px solid rgba(91, 192, 235, 0.2);
+      border-radius: 30px;
+      padding: var(--space-lg);
+      text-align: center;
+      margin-bottom: var(--space-lg);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+    
+    .sponsors-highlight::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #5BC0EB, #F15A22, #5BC0EB);
+      background-size: 300% 300%;
+      border-radius: 30px;
+      z-index: -1;
+      animation: borderGlow 5s ease infinite;
+      opacity: 0.5;
+    }
+    
+    @keyframes borderGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .sponsors-highlight h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      color: #5BC0EB;
+      margin-bottom: var(--space-sm);
+      text-shadow: 0 0 20px rgba(91, 192, 235, 0.4);
+    }
+    
+    .sponsors-highlight h3 i {
+      color: #F15A22;
+    }
+    
+    .sponsors-highlight p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.05rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .sponsors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-md);
+      max-width: 1300px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .sponsor-card {
+      background: linear-gradient(135deg, rgba(26, 58, 92, 0.4) 0%, rgba(20, 20, 20, 0.6) 100%);
+      padding: var(--space-lg);
+      border-radius: 30px;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 1px solid rgba(91, 192, 235, 0.1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    
+    .sponsor-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(91, 192, 235, 0.15), transparent);
+      transition: left 0.6s;
+    }
+    
+    .sponsor-card:hover::before {
+      left: 100%;
+    }
+    
+    .sponsor-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 
+        0 30px 80px rgba(91, 192, 235, 0.3),
+        0 0 40px rgba(241, 90, 34, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      border-color: rgba(91, 192, 235, 0.4);
+    }
+    
+    .sponsor-logo {
+      width: 140px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+      padding: 1.2rem;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s ease;
+    }
+    
+    .sponsor-card:hover .sponsor-logo {
+      transform: scale(1.05);
+      box-shadow: 0 15px 50px rgba(91, 192, 235, 0.4);
+    }
+    
+    .sponsor-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: grayscale(0%);
+      transition: filter 0.3s ease;
+    }
+    
+    .sponsor-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-white);
+      margin-bottom: var(--space-sm);
+      letter-spacing: -0.02em;
+    }
+    
+    .sponsor-type {
+      display: inline-block;
+      background: linear-gradient(135deg, #F15A22 0%, #FF7B47 100%);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      box-shadow: 0 8px 20px rgba(241, 90, 34, 0.4);
+    }
+    
+    /* ========================================
+       SPONSORSHIP SECTION - Premium Dark Design
+       ======================================== */
+    .sponsorship-section {
+      background: linear-gradient(180deg, #141414 0%, #0A0A0A 100%);
+      padding: var(--space-xl) 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Animated light beam effect */
+    .sponsorship-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(91, 192, 235, 0.05), transparent);
+      animation: lightBeam 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes lightBeam {
+      0% { left: -50%; }
+      50% { left: 100%; }
+      100% { left: 150%; }
+    }
+    
+    .sponsorship-section .section-header {
+      color: var(--color-white);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .sponsorship-section .section-title {
+      background: linear-gradient(135deg, #FFFFFF 0%, #5BC0EB 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .sponsorship-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: var(--space-lg);
+      max-width: 1300px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .sponsorship-card {
+      background: linear-gradient(135deg, rgba(26, 58, 92, 0.3) 0%, rgba(20, 20, 20, 0.7) 100%);
+      border-radius: 30px;
+      padding: var(--space-lg);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(91, 192, 235, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    /* Animated top border */
+    .sponsorship-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #5BC0EB 0%, #F15A22 50%, #5BC0EB 100%);
+      background-size: 200% 100%;
+      animation: borderSlide 3s ease-in-out infinite;
+    }
+    
+    @keyframes borderSlide {
+      0%, 100% { background-position: 0% 0%; }
+      50% { background-position: 100% 0%; }
+    }
+    
+    /* Glow effect on hover */
+    .sponsorship-card::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(91, 192, 235, 0.2) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+      pointer-events: none;
+    }
+    
+    .sponsorship-card:hover::after {
+      width: 500px;
+      height: 500px;
+    }
+    
+    .sponsorship-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 
+        0 40px 100px rgba(91, 192, 235, 0.3),
+        0 0 60px rgba(241, 90, 34, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      border-color: rgba(91, 192, 235, 0.5);
+    }
+    
+    .sponsorship-card.featured {
+      border: 2px solid #5BC0EB;
+      background: linear-gradient(135deg, rgba(91, 192, 235, 0.15) 0%, rgba(241, 90, 34, 0.1) 100%);
+    }
+    
+    .sponsorship-card.featured::before {
+      height: 5px;
+      animation-duration: 2s;
+    }
+    
+    .sponsorship-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .sponsorship-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #5BC0EB 0%, #F15A22 100%);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 
+        0 10px 30px rgba(91, 192, 235, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.3);
+      transition: transform 0.4s ease;
+    }
+    
+    .sponsorship-card:hover .sponsorship-icon {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 
+        0 15px 40px rgba(91, 192, 235, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    }
+    
+    .sponsorship-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--color-white);
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+    
+    .sponsorship-subtitle {
+      font-size: 0.95rem;
+      color: rgba(91, 192, 235, 0.8);
+      font-weight: 600;
+    }
+    
+    .sponsorship-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .sponsorship-content p {
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: var(--space-md);
+      line-height: 1.8;
+      font-size: 1.02rem;
+    }
+    
+    .pdf-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      background: linear-gradient(135deg, rgba(91, 192, 235, 0.15) 0%, rgba(241, 90, 34, 0.1) 100%);
+      border: 2px solid rgba(91, 192, 235, 0.3);
+      border-radius: 18px;
+      padding: var(--space-md);
+      text-decoration: none;
+      color: var(--color-white);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .pdf-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+    
+    .pdf-link:hover::before {
+      left: 100%;
+    }
+    
+    .pdf-link:hover {
+      background: linear-gradient(135deg, rgba(91, 192, 235, 0.25) 0%, rgba(241, 90, 34, 0.2) 100%);
+      border-color: #5BC0EB;
+      transform: translateX(10px);
+      box-shadow: 
+        0 10px 40px rgba(91, 192, 235, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+    
+    .pdf-link > i:first-child {
+      font-size: 2rem;
+      color: #F15A22;
+      transition: transform 0.4s ease;
+    }
+    
+    .pdf-link:hover > i:first-child {
+      transform: scale(1.1) rotate(-5deg);
+    }
+    
+    .pdf-link-text {
+      flex: 1;
+    }
+    
+    .pdf-link-title {
+      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    
+    .pdf-link-subtitle {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .pdf-link > i:last-child {
+      font-size: 1.2rem;
+      color: #5BC0EB;
+      transition: transform 0.4s ease;
+    }
+    
+    .pdf-link:hover > i:last-child {
+      transform: translateX(5px);
+    }
+    
+    /* ========================================
+       DONATION SECTION - Editorial style
+       ======================================== */
+    .donation-section {
+      background: var(--color-white);
+      color: var(--color-black);
+      padding: var(--space-xl) 3rem;
+    }
+    
+    .donation-section .section-label {
+      color: var(--color-primary);
+    }
+    
+    .donation-section .section-title {
+      color: var(--color-text-black);
+      background: none;
+      -webkit-text-fill-color: var(--color-text-black);
+    }
+    
+    .donation-section .section-description {
+      color: rgba(0, 0, 0, 0.7);
+    }
+    
+    .donation-card {
+      background: var(--color-off-white);
+      border-radius: 24px;
+      padding: var(--space-lg);
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto;
+      transition: all 0.4s ease;
+    }
+    
+    .donation-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+    }
+    
+    .donation-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      margin: 0 auto var(--space-md);
+    }
+    
+    .donation-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text-black);
+      margin-bottom: var(--space-xs);
+    }
+    
+    .donation-handle {
+      font-family: 'Space Grotesk', monospace;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      background: rgba(241, 90, 34, 0.1);
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      display: inline-block;
+      margin-bottom: var(--space-sm);
+    }
+    
+    .donation-description {
+      opacity: 0.7;
+      font-size: 1rem;
+    }
+    
+    /* ========================================
+       INSTAGRAM/SOCIAL SECTION
+       ======================================== */
+    .social-section {
+      background: var(--color-dark);
+      padding: var(--space-xl) 3rem;
+    }
+    
+    .social-section .section-header {
+      color: var(--color-white);
+    }
+    
+    .social-section .section-title {
+      color: var(--color-white);
+    }
+    
+    .social-section .section-title .accent {
+      color: var(--color-accent);
+    }
+    
+    .instagram-card {
+      background: var(--color-gray);
+      border-radius: 24px;
+      padding: var(--space-lg);
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .instagram-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    
+    .instagram-logo {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+    }
+    
+    .instagram-info h4 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-white);
+    }
+    
+    .instagram-info p {
+      font-size: 0.9rem;
+      opacity: 0.7;
+      color: var(--color-white);
+    }
+    
+    .instagram-text {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: var(--space-md);
+    }
+    
+    .instagram-follow-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .instagram-follow-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(225, 48, 108, 0.4);
+    }
+    
+    /* ========================================
+       FOOTER - Minimal editorial
+       ======================================== */
+    .footer {
+      background: var(--color-black);
+      padding: var(--space-lg) 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+    
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .footer-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    
+    .footer-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .footer-text h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+    
+    .footer-text p {
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .footer-link {
+      color: var(--color-white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      opacity: 1;
+    }
+    
+    .footer-social {
+      display: flex;
+      gap: var(--space-sm);
+    }
+    
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: var(--color-white);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-social a:hover {
+      background: var(--color-accent);
+      transform: translateY(-4px);
+    }
+    
+    .footer-bottom {
+      max-width: 1200px;
+      margin: var(--space-md) auto 0;
+      padding-top: var(--space-md);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.5;
+    }
+    
+    /* ========================================
+       SCROLL TO TOP
+       ======================================== */
+    .scroll-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--color-accent);
+      border: none;
+      border-radius: 50%;
+      color: var(--color-white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .scroll-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .scroll-to-top:hover {
+      background: var(--color-primary);
+      transform: translateY(-4px);
+    }
+    
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* ========================================
+       RESPONSIVE DESIGN
+       ======================================== */
+    @media (max-width: 1024px) {
+      .sponsors-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .sponsorship-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav-links {
+        gap: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem 1.5rem;
+      }
+      
+      .navbar.scrolled {
+        padding: 0.75rem 1.5rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .nav-toggle {
+        display: flex;
+      }
+      
+      .nav-brand span {
+        display: none;
+      }
+      
+      .hero {
+        min-height: 70vh;
+        padding: 100px 1.5rem 60px;
+      }
+      
+      .hero-title {
+        font-size: clamp(2.5rem, 12vw, 5rem);
+      }
+      
+      .sponsors-section,
+      .sponsorship-section,
+      .donation-section,
+      .social-section,
+      .footer {
+        padding: var(--space-lg) 1.5rem;
+      }
+      
+      .sponsors-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .sponsorship-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: var(--space-md);
+        text-align: center;
+      }
+      
+      .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-sm);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: clamp(2rem, 10vw, 4rem);
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .btn-join {
+        padding: 0.6rem 1rem;
+      }
+      
+      .btn-join span {
+        display: none;
+      }
+      
+      .sponsors-section,
+      .sponsorship-section,
+      .donation-section,
+      .social-section,
+      .footer {
+        padding: var(--space-md) 1rem;
+      }
+      
+      .scroll-to-top {
+        bottom: 1rem;
+        right: 1rem;
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+      }
+    }
+    
+    /* Mobile Navigation Menu */
+    .nav-menu-mobile {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: var(--color-black);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-md);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 998;
+    }
+    
+    .nav-menu-mobile.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .nav-menu-mobile .nav-link {
+      font-size: 1.5rem;
+      font-weight: 600;
+      opacity: 1;
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .nav-toggle.active .hamburger-line:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    /* Reduced Motion Preference */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      
+      .scroll-reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="animated-bg"></div>
-
-    <!-- Enhanced Navigation -->
-    <nav id="navbar" class="navbar" role="navigation" aria-label="Main navigation">
-        <div class="nav-container">
-            <a href="./" class="nav-brand" aria-label="UTSA NSBE Home">
-                <div class="nav-logo">
-                    <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
-                </div>
-            </a>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <div id="nav-menu" class="nav-menu">
-                <div class="nav-links-group">
-                    <a href="./" class="nav-link"><i class="fas fa-home"></i> Home</a>
-                    <a href="./about" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
-                    <a href="./leadership" class="nav-link"><i class="fas fa-users"></i> Leadership</a>
-                    <a href="./conferences" class="nav-link"><i class="fas fa-briefcase"></i> Conferences</a>
-                    <a href="./gallery" class="nav-link"><i class="fas fa-image"></i> Gallery</a>
-                    <a href="./donate" class="nav-link active"><i class="fas fa-heart"></i> Donate</a>
-                    <a href="./contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
-                </div>
-                <div class="nav-social">
-                    <a href="https://instagram.com/utsansbe" class="social-link" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="social-link" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://linktr.ee/utsansbe" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Linktree">
-                        <i class="fas fa-link" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- Scroll progress indicator -->
-        <div class="nav-progress" id="navProgress"></div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-heart"></i>
-                <span>Support Our Mission</span>
-            </div>
-            <h1 class="hero-title">
-                <span>Donate &</span>
-                <span class="accent"> Sponsor</span>
-            </h1>
-            <p class="hero-description">
-                Your generous contribution helps us empower the next generation of Black engineers through scholarships, conferences, professional development, and community outreach programs.
-            </p>
-            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="#sponsorship" class="btn btn-primary"><i class="fas fa-handshake"></i> Become a Sponsor</a>
-                <a href="#donate" class="btn btn-secondary"><i class="fas fa-gift"></i> Make a Donation</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Corporate Sponsors Section -->
-    <section id="sponsors" class="sponsors-section">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <h2 class="section-title">Our Corporate Sponsors</h2>
-                <p class="section-subtitle">
-                    These amazing organizations have invested in our future. We're grateful for their support!
-                </p>
-            </div>
-
-            <div class="sponsors-highlight scroll-reveal">
-                <div class="sponsors-highlight-content">
-                    <h3><i class="fas fa-star"></i> Thank You to Our Partners! <i class="fas fa-star"></i></h3>
-                    <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
-                        Corporate sponsorships make our mission possible. These companies are helping shape the future of Black engineers.
-                    </p>
-                </div>
-            </div>
-
-            <div class="sponsors-grid">
-                <div class="sponsor-card scroll-reveal">
-                    <div class="sponsor-logo">
-                        <img src="logoimages /visionitlogo.png" alt="Vision IT Logo">
-                    </div>
-                    <h3 class="sponsor-name">Vision IT</h3>
-                    <span class="sponsor-type">Gold Sponsor</span>
-                </div>
-
-                <div class="sponsor-card scroll-reveal">
-                    <div class="sponsor-logo">
-                        <img src="logoimages /hdrlogo.png" alt="HDR Logo">
-                    </div>
-                    <h3 class="sponsor-name">HDR</h3>
-                    <span class="sponsor-type">Gold Sponsor</span>
-                </div>
-
-                <div class="sponsor-card scroll-reveal">
-                    <div class="sponsor-logo">
-                        <img src="logoimages /delltechlogo.png" alt="Dell Technologies Logo">
-                    </div>
-                    <h3 class="sponsor-name">Dell Technologies</h3>
-                    <span class="sponsor-type">Gold Sponsor</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sponsorship Packets Section -->
-    <section id="sponsorship" class="donation-section">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <h2 class="section-title">Sponsorship Opportunities</h2>
-                <p class="section-subtitle">
-                    Partner with UTSA NSBE and make a lasting impact on the engineering community.
-                </p>
-            </div>
-
-            <div class="donation-grid">
-                <div class="donation-card featured scroll-reveal">
-                    <div class="donation-header">
-                        <div class="donation-icon">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                        <div>
-                            <h3 class="donation-title">Alumni Sponsorship</h3>
-                            <p class="donation-subtitle">Support current students as an alumnus</p>
-                        </div>
-                    </div>
-                    <div class="donation-content">
-                        <p>
-                            As an NSBE alumni, your contribution directly impacts current students by providing opportunities for professional development, conference attendance, and industry certifications.
-                        </p>
-                        <div class="pdf-links">
-                            <a href="https://drive.google.com/file/d/107EU4LzNMRh_rUo1mlI206dJVJNu-Z9k/view?ts=6962828e" class="pdf-link" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <div class="pdf-link-text">
-                                    <span class="pdf-link-title">Alumni Sponsorship Packet</span>
-                                    <span class="pdf-link-subtitle">Download PDF for sponsorship tiers & benefits</span>
-                                </div>
-                                <i class="fas fa-download"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="donation-card featured scroll-reveal">
-                    <div class="donation-header">
-                        <div class="donation-icon">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                        </div>
-                        <div>
-                            <h3 class="donation-title">Faculty Sponsorship</h3>
-                            <p class="donation-subtitle">Support from faculty & staff members</p>
-                        </div>
-                    </div>
-                    <div class="donation-content">
-                        <p>
-                            Faculty members can make a significant impact by supporting NSBE initiatives, mentorship programs, and student development opportunities.
-                        </p>
-                        <div class="pdf-links">
-                            <a href="https://drive.google.com/file/d/1a2b3c4d5e6f7g8h9i0j/view?usp=sharing" class="pdf-link" target="_blank">
-                                <i class="fas fa-file-pdf"></i>
-                                <div class="pdf-link-text">
-                                    <span class="pdf-link-title">Faculty Sponsorship Packet</span>
-                                    <span class="pdf-link-subtitle">Download PDF for sponsorship options</span>
-                                </div>
-                                <i class="fas fa-download"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Other Donations Section -->
-    <section id="donate" class="other-donations-section">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <h2 class="section-title">Other Donation Methods</h2>
-                <p class="section-subtitle">
-                    For any other donations, you can contribute directly using the following payment methods.
-                </p>
-            </div>
-
-        
-
-                <div class="payment-card scroll-reveal">
-                    <div class="payment-icon">
-                        <i class="fas fa-dollar-sign"></i>
-                    </div>
-                    <h3 class="payment-name">Cash App</h3>
-                    <div class="payment-handle">$UTSANSBE01</div>
-                    <p class="payment-description">
-                        Support us through Cash App for quick and easy donations. Every contribution makes a difference!
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Instagram Section -->
-    <section class="instagram-section">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <h2 class="section-title">Follow Our Journey</h2>
-                <p class="section-subtitle">
-                    Stay updated with our latest events, achievements, and community highlights.
-                </p>
-            </div>
-
-            <div class="instagram-embed scroll-reveal">
-                <div class="instagram-header">
-                    <div class="instagram-logo">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div class="instagram-info">
-                        <h4>@utsansbe</h4>
-                        <p>Official UTSA NSBE Instagram</p>
-                    </div>
-                </div>
-                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
-                    Thank you to our current corporate sponsors (Vision IT, HDR, Dell) for supporting our members — your partnership helps fund conferences, outreach, and professional development.
-                </p>
-        
-
-                    <a href="https://instagram.com/utsansbe" target="_blank" class="instagram-follow-btn">
-                        <i class="fab fa-instagram"></i>
-                        Follow @utsansbe
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <a href="./" class="nav-brand">
+      <div class="nav-logo">
+        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+      </div>
+      <span>UTSA NSBE</span>
+    </a>
+    
+    <div class="nav-cta">
+      <div class="nav-links">
+        <a href="./" class="nav-link">Home</a>
+        <a href="./about" class="nav-link">About</a>
+        <a href="./leadership" class="nav-link">Leadership</a>
+        <a href="./conferences" class="nav-link">Conferences</a>
+        <a href="./gallery" class="nav-link">Gallery</a>
+        <a href="./donate" class="nav-link active">Donate</a>
+        <a href="./contact" class="nav-link">Contact</a>
+      </div>
+      <a href="https://linktr.ee/utsansbe" class="btn-join" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-link"></i>
+        <span>Linktree</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </nav>
   
+  <!-- Mobile Menu -->
+  <div class="nav-menu-mobile" id="mobileMenu">
+    <a href="./" class="nav-link">Home</a>
+    <a href="./about" class="nav-link">About</a>
+    <a href="./leadership" class="nav-link">Leadership</a>
+    <a href="./conferences" class="nav-link">Conferences</a>
+    <a href="./gallery" class="nav-link">Gallery</a>
+    <a href="./donate" class="nav-link active">Donate</a>
+    <a href="./contact" class="nav-link">Contact</a>
+  </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
-                    </div>
-                    <div class="footer-brand-text">
-                        <h3>UTSA NSBE</h3>
-                        <p>National Society of Black Engineers</p>
-                    </div>
-                    <p class="footer-description">
-                        Empowering Black engineers through academic excellence, professional development, and community impact.
-                    </p>
-                    <div class="footer-social">
-                        <a href="https://instagram.com/utsansbe" class="footer-social-link" aria-label="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" class="footer-social-link" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://linktr.ee/utsansbe" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Linktree">
-                            <i class="fas fa-link"></i>
-                        </a>
-                    </div>
-                </div>
+  <!-- Hero Section - Bold Editorial Style -->
+  <section class="hero" id="home">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-heart"></i>
+        <span>Support Our Mission</span>
+      </div>
+      <h1 class="hero-title">
+        <span>Donate &</span>
+        <span class="accent">Sponsor</span>
+      </h1>
+     
+      <div class="hero-buttons">
+        <a href="#sponsorship" class="btn btn-primary"><i class="fas fa-handshake"></i> Become a Sponsor</a>
+        <a href="#donate" class="btn btn-secondary"><i class="fas fa-gift"></i> Make a Donation</a>
+      </div>
+    </div>
+  </section>
 
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="./">Home</a></li>
-                        <li><a href="./about">About</a></li>
-                        <li><a href="./leadership">Leadership</a></li>
-                        <li><a href="./conferences">Conferences</a></li>
-                        <li><a href="./gallery">Gallery</a></li>
-                        <li><a href="./donate">Donate</a></li>
-                        <li><a href="./contact">Contact</a></li>
-                    </ul>
-                </div>
+  <!-- Corporate Sponsors Section -->
+  <section id="sponsors" class="sponsors-section">
+    <div class="section-header scroll-reveal">
+      <p class="section-label">Our Partners</p>
+      <h2 class="section-title">Corporate Sponsors</h2>
+      <p class="section-description">
+        These amazing organizations have invested in our future. We're grateful for their support!
+      </p>
+    </div>
 
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-envelope"></i> utsa.nsbe.historian@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> UTSA Main Campus</li>
-                        <li><i class="fas fa-university"></i> San Antonio, TX</li>
-                    </ul>
-                </div>
-            </div>
+    <div class="sponsors-highlight scroll-reveal">
+      <h3>Thank You to Our Partners!</h3>
+      <p>
+        Corporate sponsorships make our mission possible!
+      </p>
+    </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2026 UTSA NSBE. All rights reserved. | Empowering Engineers Since 1975</p>
-            </div>
+    <div class="sponsors-grid">
+      <div class="sponsor-card scroll-reveal">
+        <div class="sponsor-logo">
+          <img src="logoimages /visionitlogo.png" alt="Vision IT Logo">
         </div>
-    </footer>
+        <h3 class="sponsor-name">Vision IT</h3>
+        <span class="sponsor-type">Gold Sponsor</span>
+      </div>
 
-    <script>
-        // Enhanced Navigation Toggle
-        const navToggle = document.getElementById('navToggle');
-        const navMenu = document.getElementById('nav-menu');
-        const navbar = document.getElementById('navbar');
-        const navProgress = document.getElementById('navProgress');
+      <div class="sponsor-card scroll-reveal">
+        <div class="sponsor-logo">
+          <img src="logoimages /hdrlogo.png" alt="HDR Logo">
+        </div>
+        <h3 class="sponsor-name">HDR</h3>
+        <span class="sponsor-type">Gold Sponsor</span>
+      </div>
 
-        if (navToggle && navMenu) {
-            navToggle.addEventListener('click', () => {
-                const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-                navToggle.setAttribute('aria-expanded', !isExpanded);
-                navToggle.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
+      <div class="sponsor-card scroll-reveal">
+        <div class="sponsor-logo">
+          <img src="logoimages /delltechlogo.png" alt="Dell Technologies Logo">
+        </div>
+        <h3 class="sponsor-name">Dell Technologies</h3>
+        <span class="sponsor-type">Gold Sponsor</span>
+      </div>
+    </div>
+  </section>
 
-            // Close menu when clicking a link
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    navToggle.setAttribute('aria-expanded', 'false');
-                    navToggle.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
-        }
+  <!-- Sponsorship Packets Section -->
+  <section id="sponsorship" class="sponsorship-section">
+    <div class="section-header scroll-reveal">
+      <p class="section-label">Get Involved</p>
+      <h2 class="section-title">Sponsorship Opportunities</h2>
+      <p class="section-description">
+        Partner with UTSA NSBE and make a lasting impact on the engineering community.
+      </p>
+    </div>
 
-        let ticking = false;
+    <div class="sponsorship-grid">
+      <div class="sponsorship-card featured scroll-reveal">
+        <div class="sponsorship-header">
+          
+          <div>
+            <h3 class="sponsorship-title">Alumni Sponsorship</h3>
+            <p class="sponsorship-subtitle">Support current students as an alumnus</p>
+          </div>
+        </div>
+        <div class="sponsorship-content">
+          <p>
+            As an NSBE alumni, your contribution directly impacts current students by providing opportunities for professional development, conference attendance, and industry certifications.
+          </p>
+          <a href="https://drive.google.com/file/d/107EU4LzNMRh_rUo1mlI206dJVJNu-Z9k/view?ts=6962828e" class="pdf-link" target="_blank">
+            <i class="fas fa-file-pdf"></i>
+            <div class="pdf-link-text">
+              <span class="pdf-link-title">Alumni Sponsorship Packet</span>
+              <span class="pdf-link-subtitle">Download PDF for sponsorship tiers & benefits</span>
+            </div>
+            <i class="fas fa-download"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="sponsorship-card featured scroll-reveal">
+        <div class="sponsorship-header">
+          
+          <div>
+            <h3 class="sponsorship-title">Faculty Sponsorship</h3>
+            <p class="sponsorship-subtitle">Support from faculty & staff members</p>
+          </div>
+        </div>
+        <div class="sponsorship-content">
+          <p>
+            Faculty members can make a significant impact by supporting NSBE initiatives, mentorship programs, and student development opportunities.
+          </p>
+          <a href="https://drive.google.com/file/d/107EU4LzNMRh_rUo1mlI206dJVJNu-Z9k/view?ts=6962828e" class="pdf-link" target="_blank">
+            <i class="fas fa-file-pdf"></i>
+            <div class="pdf-link-text">
+              <span class="pdf-link-title">Faculty Sponsorship Packet</span>
+              <span class="pdf-link-subtitle">Download PDF for sponsorship options</span>
+            </div>
+            <i class="fas fa-download"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Donations Section -->
+  <section id="donate" class="donation-section">
+    <div class="section-header scroll-reveal">
+      <p class="section-label">Support Us</p>
+      <h2 class="section-title">Other Donation Methods</h2>
+      <p class="section-description">
+        For any other donations, you can contribute directly using the following payment methods.
+      </p>
+    </div>
+
+    <div class="donation-card scroll-reveal">
+      <div class="donation-icon">
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <h3 class="donation-name">Cash App</h3>
+      <div class="donation-handle">$UTSANSBE01</div>
+      <p class="donation-description">
+        Support us through Cash App for quick and easy donations. Every contribution makes a difference!
+      </p>
+    </div>
+  </section>
+
+  <!-- Instagram/Social Section -->
+  <section class="social-section">
+    <div class="section-header scroll-reveal">
+      <p class="section-label">Stay Connected</p>
+      <h2 class="section-title">Follow our <span class="accent">journey</span></h2>
+      <p class="section-description">
+        Stay updated with our latest events, achievements, and community highlights.
+      </p>
+    </div>
+
+    <div class="instagram-card scroll-reveal">
+      <div class="instagram-header">
+        <div class="instagram-logo">
+          <i class="fab fa-instagram"></i>
+        </div>
+        <div class="instagram-info">
+          <h4>@utsansbe</h4>
+          <p>Official UTSA NSBE Instagram</p>
+        </div>
+      </div>
+      <p class="instagram-text">
+        Thank you to our current corporate sponsors (Vision IT, HDR, Dell) for supporting our members.
+      </p>
+      <a href="https://instagram.com/utsansbe" target="_blank" class="instagram-follow-btn">
+        <i class="fab fa-instagram"></i>
+        Follow @utsansbe
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+        </div>
+        <div class="footer-text">
+          <h3>UTSA NSBE</h3>
+          <p>National Society of Black Engineers</p>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <a href="./" class="footer-link">Home</a>
+        <a href="./about" class="footer-link">About</a>
+        <a href="./leadership" class="footer-link">Leadership</a>
+        <a href="./conferences" class="footer-link">Conferences</a>
+        <a href="./gallery" class="footer-link">Gallery</a>
+        <a href="./donate" class="footer-link">Donate</a>
+        <a href="./contact" class="footer-link">Contact</a>
+      </div>
+      
+      <div class="footer-social">
+        <a href="https://instagram.com/utsansbe" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/utsa-nsbe-31b4b91a8/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://linktr.ee/utsansbe" aria-label="Linktree"><i class="fas fa-link"></i></a>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 UTSA NSBE. All rights reserved. Building Excellence in Engineering.</p>
+    </div>
+  </footer>
+  
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    // Scroll reveal
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.scroll-reveal');
+      reveals.forEach((element, index) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 100;
         
-        function updateScrollEffects() {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPercent = (scrollTop / docHeight) * 100;
-
-            if (navProgress) {
-                navProgress.style.width = scrollPercent + '%';
-            }
-
-            if (navbar) {
-                if (scrollTop > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            }
-
-            ticking = false;
+        if (elementTop < windowHeight - elementVisible) {
+          element.style.transitionDelay = `${index * 0.1}s`;
+          element.classList.add('revealed');
         }
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(updateScrollEffects);
-                ticking = true;
-            }
-        }, { passive: true });
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
-
-        // Scroll reveal animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all scroll-reveal elements
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
-            observer.observe(el);
-        });
-
-        console.log('🚀 UTSA NSBE Donate Page - Enhanced!');
-    </script>
+      });
+    }
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      revealOnScroll();
+    });
+    
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close mobile menu on link click
+    mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+    
+    // Scroll to top
+    const scrollToTopBtn = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        scrollToTopBtn.classList.add('visible');
+      } else {
+        scrollToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+    
+    // Initial reveal check
+    revealOnScroll();
+    
+    console.log('🚀 UTSA NSBE Donate Page - Editorial Design!');
+  </script>
 </body>
 </html>
