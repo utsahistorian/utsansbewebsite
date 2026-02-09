@@ -2,319 +2,353 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Leaderboard - UTSA NSBE</title>
+    <meta name="description" content="View the UTSA NSBE member leaderboard and track member points and rankings.">
     <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
     <link rel="apple-touch-icon" href="images/logopic.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
+    <style>
+/* =================== RESET & VARIABLES =================== */
 :root {
-    /* Dark Theme Colors */
-    --color-background: #0a0a0a;
-    --color-card: #1a1a1a;
-    --color-primary: #ffffff;
-    --color-primary-foreground: #0a0a0a;
-    --color-secondary: #ff6b35;
+    --color-primary: #0C2340;
+    --color-primary-dark: #071628;
+    --color-secondary: #F15A22;
     --color-secondary-foreground: #ffffff;
-    --color-accent: #ffd23f;
-    --color-muted: #2a2a2a;
-    --color-muted-foreground: #a0a0a0;
-    --color-border: #333333;
-    --color-foreground: #e0e0e0;
+    --color-accent: #5BC0EB;
+    --color-black: #0a0a0a;
+    --color-card: rgba(255,255,255,0.04);
+    --color-white: #FFFFFF;
+    --color-muted: rgba(255,255,255,0.06);
+    --color-muted-foreground: rgba(255,255,255,0.65);
+    --color-border: rgba(255,255,255,0.08);
+    --color-foreground: #ffffff;
+    --color-background: #0a0a0a;
     --color-success: #10b981;
     --color-warning: #f59e0b;
     --color-error: #ef4444;
-    
-    /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
-    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.5);
-    
-    /* Transitions */
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 15px rgba(0,0,0,0.3);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.4);
+    --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    --transition-fast: all 0.2s cubic-bezier(0.4,0,0.2,1);
 }
 
-[data-theme="light"] {
-    --color-background: #ffffff;
-    --color-card: #f8f9fa;
-    --color-primary: #0a0a0a;
-    --color-primary-foreground: #ffffff;
-    --color-secondary: #ff6b35;
-    --color-secondary-foreground: #ffffff;
-    --color-accent: #ffd23f;
-    --color-muted: #f1f3f4;
-    --color-muted-foreground: #666666;
-    --color-border: #e0e0e0;
-    --color-foreground: #333333;
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
-    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.2);
-}
-
-* {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
-    transition: var(--transition);
-}
-
-/* =================== MAIN CONTENT =================== */
-
-.leaderboard-container {
-    min-height: 100vh;
     background: var(--color-background);
     color: var(--color-foreground);
-    position: relative;
+    min-height: 100vh;
 }
 
-.leaderboard-container::before {
-    content: '';
+/* =================== NAVBAR =================== */
+.navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 210, 63, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
+    z-index: 1000;
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.4s ease;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
-.leaderboard-header {
-    background: linear-gradient(135deg, 
-        rgba(255, 107, 53, 0.1) 0%, 
-        rgba(255, 210, 63, 0.05) 50%,
-        transparent 100%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--color-border);
-    position: relative;
+.navbar.scrolled {
+    background: rgba(12, 35, 64, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 4px 30px rgba(241, 90, 34, 0.15);
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--color-white);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.nav-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
     overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.leaderboard-header::before {
-    content: '';
-    position: absolute;
+.nav-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.nav-cta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-right: 1rem;
+}
+
+.nav-link {
+    color: var(--color-white);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.nav-link:hover, .nav-link.active {
+    opacity: 1;
+}
+
+.btn-join {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.2rem;
+    background: linear-gradient(135deg, #F15A22 0%, #FF7B47 100%);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(241, 90, 34, 0.3);
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+.btn-join:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(241, 90, 34, 0.5);
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.hamburger-line {
+    width: 22px;
+    height: 2px;
+    background: var(--color-white);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Hamburger -> X animation when menu is open */
+.nav-toggle.active .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.nav-toggle.active .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu - full screen overlay */
+.nav-menu-mobile {
+    display: none;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, 
-        rgba(255, 107, 53, 0.1) 0%, 
-        transparent 30%,
-        rgba(255, 210, 63, 0.1) 70%,
-        transparent 100%);
-    opacity: 0.5;
-}
-
-.header-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem 3rem;
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-
-.header-title {
-    font-size: clamp(3rem, 8vw, 5rem);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: fadeInUp 0.8s ease-out;
-}
-
-.header-subtitle {
-    font-size: 1.25rem;
-    color: var(--color-muted-foreground);
-    max-width: 600px;
-    margin: 0 auto 3rem;
-    animation: fadeInUp 0.8s ease-out 0.2s both;
-}
-
-.header-controls {
-    display: flex;
+    right: 0;
+    bottom: 0;
+    background: rgba(10,10,10,0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 1100;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    animation: fadeInUp 0.8s ease-out 0.4s both;
+    gap: 0.125rem;
+    padding: 1rem;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-.filter-controls {
+.nav-menu-mobile.open {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    animation: fadeInUp 0.8s ease-out 0.6s both;
+    animation: fadeIn 0.25s ease-out both;
 }
 
-.filter-btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    border: 2px solid var(--color-border);
-    background: var(--color-card);
+.nav-menu-mobile a.nav-link {
+    display: block;
+    padding: 0.875rem 2rem;
     color: var(--color-foreground);
-    transition: all 0.3s ease;
-    font-size: 0.9rem;
-    font-family: inherit;
-    position: relative;
-    overflow: hidden;
-}
-
-.filter-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
+    font-size: 1.05rem;
+    text-align: center;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
-    transition: left 0.5s;
+    max-width: 320px;
+    border-radius: 12px;
+    transition: background 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    opacity: 0.85;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
-.filter-btn:hover::before {
-    left: 100%;
-}
-
-.filter-btn:hover {
-    border-color: var(--color-secondary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
-}
-
-.filter-btn.active {
-    background: var(--color-secondary);
-    border-color: var(--color-secondary);
-    color: var(--color-secondary-foreground);
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-}
-
-.filter-btn i {
-    font-size: 0.95rem;
-}
-
-.btn {
-    padding: 0.875rem 1.75rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-    border: none;
-    transition: var(--transition);
-    font-size: 0.95rem;
-    position: relative;
-    overflow: hidden;
-    font-family: inherit;
-}
-
-.btn-primary {
-    background: var(--color-secondary);
-    color: var(--color-secondary-foreground);
-    box-shadow: var(--shadow-md);
-}
-
-.btn-outline {
-    background: transparent;
-    border: 2px solid var(--color-secondary);
+.nav-menu-mobile a.nav-link.active {
+    opacity: 1;
+    background: rgba(241, 90, 34, 0.1);
     color: var(--color-secondary);
 }
 
-.btn::before {
+.nav-menu-mobile a.nav-link:hover,
+.nav-menu-mobile a.nav-link:active {
+    background: rgba(255,255,255,0.06);
+    opacity: 1;
+}
+
+.nav-menu-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--color-white);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    line-height: 1;
+    border-radius: 10px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.2s ease;
+}
+
+.nav-menu-close:hover,
+.nav-menu-close:active {
+    background: rgba(255,255,255,0.12);
+}
+
+/* =================== HERO =================== */
+.hero {
+    position: relative;
+    min-height: 45vh;
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 5rem 1rem 2rem;
+}
+
+.hero::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
+    inset: 0;
+    background: radial-gradient(circle at 20% 30%, rgba(241,90,34,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(91,192,235,0.04) 0%, transparent 50%);
+    z-index: 0;
+}
+
+.hero-stack {
+    position: relative;
+    z-index: 3;
+    text-align: center;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
+    max-width: 800px;
+    padding: 0 1rem;
 }
 
-.btn:hover::before {
-    left: 100%;
+.hero-line {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.9;
 }
 
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-lg);
-}
-
-.btn-primary:hover {
-    background: #ff5722;
-}
-
-.btn-outline:hover {
-    background: var(--color-secondary);
-    color: var(--color-secondary-foreground);
-}
-
-.theme-toggle {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
+.hero-line-top {
+    font-size: clamp(1rem, 3vw, 1.4rem);
     color: var(--color-foreground);
-    padding: 0.875rem;
-    width: 3.5rem;
-    height: 3.5rem;
-    justify-content: center;
+    opacity: 0.9;
+    font-weight: 600;
 }
 
-.theme-toggle:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px) rotate(15deg);
+.hero-line-bottom {
+    font-size: clamp(2.5rem, 10vw, 5.5rem);
+    color: rgba(255,255,255,0.06);
+    margin-top: -0.15rem;
+    font-weight: 900;
 }
 
+.hero-subtitle {
+    text-align: center;
+    color: rgba(255,255,255,0.75);
+    margin-top: 0.75rem;
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+}
+
+/* =================== MAIN CONTENT =================== */
 .main-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 2rem 1rem;
 }
 
+/* =================== STATS =================== */
 .stats-summary {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
     animation: fadeInUp 0.6s ease-out;
 }
 
 .stat-card {
     background: var(--color-card);
-    border-radius: 20px;
-    padding: 2rem;
+    border-radius: 16px;
+    padding: 1.25rem 1rem;
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-sm);
-    transition: all 0.3s ease;
+    transition: var(--transition);
     position: relative;
     overflow: hidden;
+    text-align: center;
 }
 
 .stat-card::before {
@@ -329,169 +363,41 @@ body {
     transition: transform 0.3s ease;
 }
 
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
-}
-
-.stat-card:hover::before {
-    transform: scaleX(1);
-}
-
-.stat-icon {
-    font-size: 2.5rem;
-    color: var(--color-secondary);
-    margin-bottom: 1rem;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-.stat-card:hover .stat-icon {
-    transform: scale(1.1) rotate(5deg);
-}
+.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.stat-card:hover::before { transform: scaleX(1); }
 
 .stat-value {
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
     font-weight: 900;
-    color: var(--color-foreground);
-    margin-bottom: 0.5rem;
     background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    margin-bottom: 0.25rem;
 }
 
 .stat-label {
-    font-size: 0.95rem;
+    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
     color: var(--color-muted-foreground);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     font-weight: 600;
 }
 
-.cta-section {
-    text-align: center;
-    padding: 3rem 2rem;
-    background: linear-gradient(135deg, 
-        var(--color-card) 0%, 
-        rgba(255, 107, 53, 0.05) 50%,
-        var(--color-card) 100%);
-    border-radius: 24px;
-    border: 1px solid var(--color-border);
-    margin-bottom: 4rem;
-    position: relative;
-    overflow: hidden;
-    animation: fadeInUp 0.8s ease-out;
-}
-
-.cta-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
-}
-
-.cta-content {
-    position: relative;
-    z-index: 2;
-}
-
-.cta-icon {
-    font-size: 3.5rem;
-    color: var(--color-secondary);
-    margin-bottom: 1.5rem;
-    display: block;
-    filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
-}
-
-.trophy-float {
-    animation: trophyFloat 3s ease-in-out infinite;
-}
-
-.cta-title {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--color-foreground);
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.cta-action {
-    font-size: 1.25rem;
+/* =================== SECTION TITLE =================== */
+.section-title {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
     font-weight: 700;
-    color: var(--color-secondary);
-    background: rgba(255, 107, 53, 0.1);
-    padding: 0.75rem 2rem;
-    border-radius: 50px;
-    display: inline-block;
-    margin-bottom: 1rem;
-    transition: var(--transition);
-    border: 2px solid transparent;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    color: var(--color-foreground);
 }
 
-.cta-action:hover {
-    background: rgba(255, 107, 53, 0.2);
-    transform: translateY(-2px);
-    border-color: var(--color-secondary);
-}
-
-.cta-warning {
-    font-size: 1.125rem;
-    color: var(--color-muted-foreground);
-    font-style: italic;
-    opacity: 0.9;
-}
-
-.cta-decoration {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.decoration-circle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 107, 53, 0.03);
-    animation: float 8s ease-in-out infinite;
-}
-
-.decoration-circle:nth-child(1) {
-    width: 80px;
-    height: 80px;
-    top: 20%;
-    right: 10%;
-    animation-delay: 0s;
-}
-
-.decoration-circle:nth-child(2) {
-    width: 60px;
-    height: 60px;
-    bottom: 20%;
-    left: 10%;
-    animation-delay: 2s;
-}
-
-.decoration-circle:nth-child(3) {
-    width: 40px;
-    height: 40px;
-    top: 60%;
-    right: 30%;
-    animation-delay: 4s;
-}
-
+/* =================== SEARCH =================== */
 .search-section {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     display: flex;
     justify-content: center;
-    animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
 .search-container {
@@ -500,130 +406,118 @@ body {
     width: 100%;
 }
 
-.search-icon {
-    position: absolute;
-    left: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--color-muted-foreground);
-    font-size: 1.1rem;
-}
-
 .search-input {
     width: 100%;
-    padding: 1.25rem 1.5rem 1.25rem 3.5rem;
+    padding: 0.875rem 1rem 0.875rem 1rem;
     border: 2px solid var(--color-border);
     border-radius: 50px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     background: var(--color-card);
     color: var(--color-foreground);
     transition: var(--transition);
     box-shadow: var(--shadow-sm);
+    font-family: inherit;
 }
 
 .search-input:focus {
     outline: none;
     border-color: var(--color-secondary);
-    box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1), var(--shadow-md);
-    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(241, 90, 34, 0.15);
 }
 
 .search-input::placeholder {
     color: var(--color-muted-foreground);
 }
 
-.error-banner {
-    margin-bottom: 2rem;
-    padding: 1.25rem 1.5rem;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 16px;
-    display: none;
-    align-items: center;
-    gap: 1rem;
-    color: var(--color-error);
-    animation: slideDown 0.4s ease-out;
-    position: relative;
+.section-search {
+    padding: 0.75rem 1rem;
 }
 
-.error-banner.show {
-    display: flex;
+.section-search .search-input {
+    border-radius: 12px;
 }
 
-.error-close {
-    background: none;
-    border: none;
-    color: var(--color-error);
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 4px;
-    transition: var(--transition);
-    margin-left: auto;
-}
-
-.error-close:hover {
-    background: rgba(239, 68, 68, 0.1);
-}
-
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 800;
+/* =================== DIAMOND SPONSORS =================== */
+.diamond-section {
+    margin-bottom: 2.5rem;
     text-align: center;
-    margin-bottom: 3rem;
-    color: var(--color-foreground);
-    position: relative;
-    animation: fadeInUp 0.8s ease-out;
 }
 
-.title-decoration {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
-    border-radius: 2px;
+.diamond-subtitle {
+    color: var(--color-muted-foreground);
+    max-width: 800px;
+    margin: 0.25rem auto 1.25rem;
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+    padding: 0 0.5rem;
 }
 
-.podium-section {
-    margin-bottom: 4rem;
+.diamond-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 1100px;
+    margin: 0 auto 1.5rem;
 }
+
+.diamond-card {
+    background: var(--color-card);
+    border-radius: 14px;
+    padding: 0.875rem;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: var(--transition);
+    text-decoration: none;
+    color: inherit;
+}
+
+.diamond-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.diamond-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: rgba(255,255,255,0.02);
+    padding: 4px;
+    border: 1px solid rgba(255,255,255,0.04);
+    flex-shrink: 0;
+}
+
+.diamond-info { text-align: left; min-width: 0; }
+.diamond-name { font-weight: 700; color: var(--color-foreground); font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.diamond-site { font-size: 0.8rem; color: var(--color-muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* =================== PODIUM (TOP 3) =================== */
+.podium-section { margin-bottom: 2.5rem; }
 
 .podium-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
     max-width: 1000px;
     margin: 0 auto;
 }
 
 .podium-card {
     background: var(--color-card);
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
     text-align: center;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: var(--transition);
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
     position: relative;
     overflow: hidden;
-    cursor: pointer;
-}
-
-.podium-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
-    padding: 2px;
-    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .podium-card::before {
@@ -632,636 +526,1067 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 5px;
+    height: 4px;
     background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
 }
 
-.podium-card.rank-1::before {
-    background: linear-gradient(90deg, #ffd700, #ffed4a);
-}
-
-.podium-card.rank-2::before {
-    background: linear-gradient(90deg, #c0c0c0, #e2e8f0);
-}
-
-.podium-card.rank-3::before {
-    background: linear-gradient(90deg, #cd7f32, #f6ad55);
-}
+.podium-card.podium-1::before { background: linear-gradient(90deg, #ffd700, #ffed4a); }
+.podium-card.podium-2::before { background: linear-gradient(90deg, #c0c0c0, #e2e8f0); }
+.podium-card.podium-3::before { background: linear-gradient(90deg, #cd7f32, #f6ad55); }
 
 .podium-card:hover {
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3), 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 50px rgba(241, 90, 34, 0.3);
 }
 
-.podium-card:hover::after {
-    opacity: 1;
-}
-
-.podium-card.rank-1:hover {
-    box-shadow: 0 20px 60px rgba(255, 215, 0, 0.5), 0 8px 25px rgba(255, 215, 0, 0.3);
-}
-
-.podium-card.rank-2:hover {
-    box-shadow: 0 20px 60px rgba(192, 192, 192, 0.5), 0 8px 25px rgba(192, 192, 192, 0.3);
-}
-
-.podium-card.rank-3:hover {
-    box-shadow: 0 20px 60px rgba(205, 127, 50, 0.5), 0 8px 25px rgba(205, 127, 50, 0.3);
-}
-
-.rank-number {
+.podium-rank {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 5rem;
-    height: 5rem;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
     background: var(--color-secondary);
     color: var(--color-secondary-foreground);
-    margin: 0 auto 1.5rem;
     font-weight: 900;
-    font-size: 1.75rem;
+    font-size: 1.25rem;
     box-shadow: var(--shadow-md);
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
 }
 
-.rank-number::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    background: conic-gradient(from 180deg, transparent, var(--color-secondary), transparent);
-    animation: rotate 3s linear infinite;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.podium-card:hover .rank-number::before {
-    opacity: 1;
-}
-
-.rank-number::after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    background: var(--color-card);
-    border-radius: 50%;
-    z-index: -1;
-}
-
-.rank-number.rank-1 {
+.podium-card.podium-1 .podium-rank {
     background: linear-gradient(135deg, #ffd700, #ffed4a);
-    color: #000000;
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2);
+    color: #000;
     animation: goldGlow 2s ease-in-out infinite;
 }
 
-.rank-number.rank-2 {
+.podium-card.podium-2 .podium-rank {
     background: linear-gradient(135deg, #c0c0c0, #e2e8f0);
-    color: #000000;
-    box-shadow: 0 8px 25px rgba(192, 192, 192, 0.4), 0 0 40px rgba(192, 192, 192, 0.2);
+    color: #000;
     animation: silverGlow 2s ease-in-out infinite;
 }
 
-.rank-number.rank-3 {
+.podium-card.podium-3 .podium-rank {
     background: linear-gradient(135deg, #cd7f32, #f6ad55);
-    color: #ffffff;
-    box-shadow: 0 8px 25px rgba(205, 127, 50, 0.4), 0 0 40px rgba(205, 127, 50, 0.2);
+    color: #fff;
     animation: bronzeGlow 2s ease-in-out infinite;
 }
 
-.podium-card:hover .rank-number {
-    transform: scale(1.2) rotate(360deg);
-}
-
 .podium-name {
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
     font-weight: 700;
-    margin-bottom: 1rem;
     color: var(--color-foreground);
 }
 
 .podium-points {
-    font-size: 2.75rem;
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
     font-weight: 900;
     background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.5rem;
 }
 
 .podium-label {
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     color: var(--color-muted-foreground);
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     font-weight: 600;
 }
 
-.rankings-section {
-    animation: fadeInUp 0.8s ease-out 0.4s both;
-}
+/* =================== RANKINGS TABLE =================== */
+.rankings-section { margin-bottom: 2.5rem; }
 
 .rankings-table {
     background: var(--color-card);
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: var(--shadow-md);
     border: 1px solid var(--color-border);
 }
 
+.rankings-table-scroll {
+    max-height: 50vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
 .rankings-header {
     display: grid;
-    grid-template-columns: 100px 1fr 150px;
-    padding: 1.5rem 2rem;
-    background: linear-gradient(135deg, var(--color-muted), rgba(255, 107, 53, 0.05));
-    font-size: 0.875rem;
+    grid-template-columns: 60px 1fr 90px;
+    padding: 1rem 1rem;
+    background: rgba(255,255,255,0.03);
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.12em;
     text-align: center;
     color: var(--color-muted-foreground);
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .ranking-row {
     display: grid;
-    grid-template-columns: 100px 1fr 150px;
-    padding: 1.5rem 2rem;
+    grid-template-columns: 60px 1fr 90px;
+    padding: 0.875rem 1rem;
     border-top: 1px solid var(--color-border);
     align-items: center;
-    transition: var(--transition);
-    position: relative;
+    transition: var(--transition-fast);
     text-align: center;
 }
 
-.ranking-row::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: var(--color-secondary);
-    transition: var(--transition);
-}
-
 .ranking-row:hover {
-    background: linear-gradient(90deg, var(--color-muted) 0%, rgba(255, 107, 53, 0.05) 100%);
-    transform: translateX(12px) scale(1.02);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.ranking-row:hover::before {
-    width: 5px;
-    box-shadow: 0 0 10px var(--color-secondary);
+    background: rgba(241, 90, 34, 0.06);
 }
 
 .ranking-rank {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 800;
     color: var(--color-secondary);
-    background: rgba(255, 107, 53, 0.1);
-    padding: 0.5rem;
-    border-radius: 12px;
+    background: rgba(241, 90, 34, 0.1);
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
     margin: 0 auto;
     width: fit-content;
-    min-width: 2.5rem;
-    transition: all 0.3s ease;
-}
-
-.ranking-row:hover .ranking-rank {
-    background: var(--color-secondary);
-    color: var(--color-secondary-foreground);
-    transform: scale(1.1);
+    min-width: 2rem;
 }
 
 .ranking-name {
-    font-size: 1.125rem;
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
     font-weight: 600;
     color: var(--color-foreground);
+    text-align: left;
+    padding: 0 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .ranking-points {
-    font-size: 1.125rem;
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
     font-weight: 700;
     color: var(--color-secondary);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
 }
 
 .progress-bar-mini {
     width: 100%;
-    max-width: 120px;
-    height: 4px;
+    max-width: 80px;
+    height: 3px;
     background: var(--color-muted);
     border-radius: 2px;
     overflow: hidden;
+    margin: 0.25rem auto 0;
 }
 
 .progress-fill-mini {
     height: 100%;
     background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
     border-radius: 2px;
-    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+    transition: width 1s ease;
 }
 
+/* =================== GOLD SPONSORSHIP TABLE =================== */
+.gold-section { margin-bottom: 2.5rem; text-align: center; }
+
+.gold-grid { max-width: 1000px; margin: 0 auto; }
+
+.gold-table {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    box-shadow: var(--shadow-sm);
+}
+
+.gold-table-scroll {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.gold-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 90px;
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
+    align-items: center;
+    border-top: 1px solid var(--color-border);
+}
+
+.gold-row.header {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    color: var(--color-muted-foreground);
+    background: rgba(255,255,255,0.03);
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: none;
+}
+
+.gold-rank { font-weight: 900; color: var(--color-secondary); text-align: center; }
+.gold-name { font-weight: 700; color: var(--color-foreground); text-align: left; padding: 0 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gold-points { font-weight: 800; color: var(--color-secondary); text-align: center; }
+
+/* =================== SPRING SCHOLARSHIP TABLE =================== */
+.spring-section { margin-bottom: 2.5rem; }
+
+.spring-table {
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-card);
+    box-shadow: var(--shadow-sm);
+}
+
+.spring-table-scroll {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.spring-header, .spring-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 90px;
+    padding: 0.875rem 1rem;
+    align-items: center;
+    border-top: 1px solid var(--color-border);
+}
+
+.spring-header {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.75rem;
+    color: var(--color-muted-foreground);
+    background: rgba(255,255,255,0.03);
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-top: none;
+}
+
+.spring-name { font-weight: 700; color: var(--color-foreground); text-align: left; padding: 0 0.25rem; }
+.spring-points { font-weight: 800; color: var(--color-secondary); text-align: center; }
+
+/* =================== SORTABLE HEADERS =================== */
+.sortable {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    padding-right: 1rem;
+}
+
+.sortable::after {
+    content: '\25B2';
+    font-size: 0.55rem;
+    opacity: 0.2;
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.sortable.sorted-asc::after { transform: translateY(-50%) rotate(0deg); opacity: 0.9; }
+.sortable.sorted-desc::after { transform: translateY(-50%) rotate(180deg); opacity: 0.9; }
+
+/* =================== ERROR BANNER =================== */
+.error-banner {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--color-error);
+    font-size: 0.9rem;
+}
+
+.error-banner.show { display: flex; }
+.error-close {
+    background: none;
+    border: none;
+    color: var(--color-error);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    margin-left: auto;
+    font-size: 1.2rem;
+}
+
+/* =================== NO RESULTS =================== */
 .no-results {
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 2rem 1rem;
     color: var(--color-muted-foreground);
-    font-size: 1.125rem;
+    font-size: 0.95rem;
 }
 
 /* =================== ANIMATIONS =================== */
-
-@keyframes trophyBounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-15px); }
-    60% { transform: translateY(-10px); }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-20px) rotate(5deg); }
-    66% { transform: translateY(-10px) rotate(-5deg); }
-}
-
-@keyframes trophyFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
 }
 
 @keyframes goldGlow {
-    0%, 100% { box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2); }
-    50% { box-shadow: 0 8px 35px rgba(255, 215, 0, 0.6), 0 0 60px rgba(255, 215, 0, 0.4); }
+    0%, 100% { box-shadow: 0 6px 20px rgba(255,215,0,0.3); }
+    50% { box-shadow: 0 6px 30px rgba(255,215,0,0.5); }
 }
 
 @keyframes silverGlow {
-    0%, 100% { box-shadow: 0 8px 25px rgba(192, 192, 192, 0.4), 0 0 40px rgba(192, 192, 192, 0.2); }
-    50% { box-shadow: 0 8px 35px rgba(192, 192, 192, 0.6), 0 0 60px rgba(192, 192, 192, 0.4); }
+    0%, 100% { box-shadow: 0 6px 20px rgba(192,192,192,0.3); }
+    50% { box-shadow: 0 6px 30px rgba(192,192,192,0.5); }
 }
 
 @keyframes bronzeGlow {
-    0%, 100% { box-shadow: 0 8px 25px rgba(205, 127, 50, 0.4), 0 0 40px rgba(205, 127, 50, 0.2); }
-    50% { box-shadow: 0 8px 35px rgba(205, 127, 50, 0.6), 0 0 60px rgba(205, 127, 50, 0.4); }
+    0%, 100% { box-shadow: 0 6px 20px rgba(205,127,50,0.3); }
+    50% { box-shadow: 0 6px 30px rgba(205,127,50,0.5); }
 }
 
-/* =================== RESPONSIVE DESIGN =================== */
+/* =================== RANK CHANGE INDICATORS =================== */
+.rank-change { margin-left: 4px; display: inline-block; vertical-align: middle; font-size: 0.7rem; }
+.up-triangle { color: var(--color-success); }
+.down-triangle { color: var(--color-error); }
 
-@media (max-width: 768px) {
-    .header-title { font-size: 2.5rem; }
-    .header-subtitle { font-size: 1rem; margin-bottom: 2rem; }
-    .header-controls { gap: 0.75rem; flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto; }
-    .filter-controls { gap: 0.5rem; }
-    .filter-btn { padding: 0.625rem 1.25rem; font-size: 0.85rem; }
-    .btn { width: 100%; justify-content: center; }
-    
-    .stats-summary { grid-template-columns: 1fr; gap: 1rem; }
+/* =================== RESPONSIVE: TABLETS =================== */
+@media (min-width: 640px) {
+    .navbar { padding: 1rem 2rem; }
+    .main-content { padding: 2.5rem 1.5rem; }
+    .hero { min-height: 50vh; padding: 6rem 1.5rem 2.5rem; }
+    .stats-summary { gap: 1.25rem; }
     .stat-card { padding: 1.5rem; }
-    .stat-value { font-size: 2rem; }
-    
-    .podium-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .rankings-header, .ranking-row { 
-        grid-template-columns: 80px 1fr 120px; 
-        padding: 1rem 1.5rem; 
+
+    .rankings-header, .ranking-row { grid-template-columns: 80px 1fr 120px; padding: 1rem 1.5rem; }
+    .gold-row { grid-template-columns: 80px 1fr 120px; padding: 1rem 1.5rem; }
+    .gold-row.header { grid-template-columns: 80px 1fr 120px; padding: 1rem 1.5rem; }
+    .spring-header, .spring-row { grid-template-columns: 80px 1fr 120px; padding: 1rem 1.5rem; }
+}
+
+/* =================== RESPONSIVE: DESKTOP =================== */
+@media (min-width: 900px) {
+    .navbar { padding: 1.25rem 3rem; }
+    .nav-links { display: flex; }
+    .btn-join { display: inline-flex; }
+    .nav-toggle { display: none !important; }
+    .main-content { padding: 3rem 2rem; }
+    .hero { min-height: 55vh; padding: 7rem 2rem 3rem; }
+
+    .rankings-header, .ranking-row { grid-template-columns: 100px 1fr 150px; padding: 1.25rem 2rem; }
+    .gold-row { grid-template-columns: 80px 1fr 120px; }
+    .gold-row.header { grid-template-columns: 80px 1fr 120px; }
+    .spring-header, .spring-row { grid-template-columns: 100px 1fr 150px; }
+
+    .ranking-name { font-size: 1.05rem; }
+    .ranking-points { font-size: 1.05rem; }
+}
+
+/* =================== RESPONSIVE: MOBILE (< 640px) =================== */
+@media (max-width: 639px) {
+    .nav-links { display: none !important; }
+    .btn-join { display: none !important; }
+    .nav-toggle { display: flex !important; }
+
+    .hero { min-height: 32vh; padding: 4.5rem 1rem 1.5rem; }
+    .hero-line-top { font-size: clamp(0.85rem, 3.5vw, 1.1rem); }
+    .hero-line-bottom { font-size: clamp(2rem, 14vw, 3.5rem); }
+    .hero-subtitle { font-size: 0.8rem; margin-top: 0.5rem; }
+
+    .stats-summary {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
     }
-    
-    .main-content { padding: 2rem 1rem; }
-    .section-title { font-size: 2rem; margin-bottom: 2rem; }
-    .cta-title { font-size: 1.5rem; }
-    .cta-action { font-size: 1.1rem; padding: 0.5rem 1.5rem; }
-    .cta-warning { font-size: 1rem; }
-    
-    .search-input { padding: 1rem 1rem 1rem 3rem; }
-}
 
-@media (max-width: 480px) {
-    .header-content { padding: 3rem 1rem 2rem; }
-    .podium-card, .cta-section { padding: 2rem 1rem; }
-    .rankings-header, .ranking-row { 
-        grid-template-columns: 60px 1fr 100px; 
-        padding: 1rem; 
-        font-size: 0.8rem;
+    .stat-card { padding: 0.75rem 0.4rem; border-radius: 12px; }
+    .stat-value { font-size: clamp(1.1rem, 5vw, 1.4rem); margin-bottom: 0.1rem; }
+    .stat-label { font-size: 0.55rem; letter-spacing: 0.03em; }
+
+    .podium-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
     }
-    .ranking-rank { font-size: 1rem; padding: 0.25rem; }
-    .ranking-name { font-size: 1rem; }
-    .ranking-points { font-size: 1rem; }
-    
-    .loading-progress { width: 200px; }
-    .loading-icon { font-size: 2.5rem; }
+
+    .podium-card {
+        padding: 1.25rem 1rem;
+        border-radius: 14px;
+        flex-direction: row;
+        gap: 0.875rem;
+        text-align: left;
+    }
+    .podium-rank { width: 2.5rem; height: 2.5rem; font-size: 0.95rem; flex-shrink: 0; }
+    .podium-card-info { flex: 1; min-width: 0; }
+    .podium-name { font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .podium-points { font-size: 1.35rem; }
+    .podium-label { font-size: 0.6rem; }
+
+    .diamond-grid {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+    }
+
+    .diamond-card { padding: 0.75rem; gap: 0.6rem; border-radius: 12px; }
+    .diamond-logo { width: 44px; height: 44px; border-radius: 6px; }
+    .diamond-name { font-size: 0.85rem; }
+    .diamond-site { font-size: 0.7rem; }
+
+    .section-title { font-size: 1.05rem; margin-bottom: 0.875rem; }
+
+    .rankings-header, .ranking-row {
+        grid-template-columns: 42px 1fr 64px;
+        padding: 0.625rem 0.625rem;
+        font-size: 0.75rem;
+    }
+
+    .ranking-rank { font-size: 0.8rem; padding: 0.15rem 0.35rem; border-radius: 6px; min-width: 1.75rem; }
+    .ranking-name { font-size: 0.8rem; padding: 0 0.2rem; }
+    .ranking-points { font-size: 0.8rem; }
+
+    .gold-row, .gold-row.header {
+        grid-template-columns: 42px 1fr 64px;
+        padding: 0.625rem 0.625rem;
+    }
+
+    .spring-header, .spring-row {
+        grid-template-columns: 42px 1fr 64px;
+        padding: 0.625rem 0.625rem;
+    }
+
+    .search-input { padding: 0.65rem 0.75rem; font-size: 0.8rem; border-radius: 10px; }
+    .section-search { padding: 0.4rem 0.625rem; }
+
+    .progress-bar-mini { max-width: 50px; height: 2px; }
+
+    .rankings-table { border-radius: 12px; }
+    .gold-table { border-radius: 12px; }
+    .spring-table { border-radius: 12px; }
+
+    .search-section { margin-bottom: 1.5rem; }
+    .diamond-section { margin-bottom: 2rem; }
+    .gold-section { margin-bottom: 2rem; }
+    .podium-section { margin-bottom: 2rem; }
+    .rankings-section { margin-bottom: 2rem; }
+    .spring-section { margin-bottom: 2rem; }
 }
 
-/* =================== ACCESSIBILITY & FOCUS STATES =================== */
+/* Very small phones (iPhone SE, Galaxy Fold, etc.) */
+@media (max-width: 359px) {
+    .navbar { padding: 0.6rem 0.6rem; }
+    .nav-brand span { font-size: 0.7rem; letter-spacing: 0.04em; }
+    .nav-logo { width: 30px; height: 30px; border-radius: 6px; }
+    .hero { min-height: 28vh; padding: 3.5rem 0.6rem 1rem; }
+    .hero-line-top { font-size: 0.8rem; }
+    .hero-line-bottom { font-size: clamp(1.6rem, 16vw, 2.8rem); }
+    .hero-subtitle { font-size: 0.7rem; }
+    .main-content { padding: 1.25rem 0.4rem; }
 
-.focus-enhanced:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2) !important;
-    border-color: var(--color-secondary) !important;
+    .stats-summary { gap: 0.3rem; }
+    .stat-card { padding: 0.5rem 0.25rem; border-radius: 10px; }
+    .stat-value { font-size: 1rem; }
+    .stat-label { font-size: 0.5rem; }
+
+    .podium-card { padding: 1rem 0.75rem; gap: 0.6rem; }
+    .podium-rank { width: 2.25rem; height: 2.25rem; font-size: 0.85rem; }
+    .podium-name { font-size: 0.85rem; }
+    .podium-points { font-size: 1.15rem; }
+
+    .rankings-header, .ranking-row { grid-template-columns: 36px 1fr 54px; padding: 0.5rem 0.4rem; }
+    .gold-row, .gold-row.header { grid-template-columns: 36px 1fr 54px; padding: 0.5rem 0.4rem; }
+    .spring-header, .spring-row { grid-template-columns: 36px 1fr 54px; padding: 0.5rem 0.4rem; }
+
+    .ranking-rank { font-size: 0.7rem; padding: 0.1rem 0.25rem; min-width: 1.5rem; }
+    .ranking-name { font-size: 0.7rem; }
+    .ranking-points { font-size: 0.7rem; }
+    .gold-rank { font-size: 0.7rem; }
+    .gold-name { font-size: 0.7rem; }
+    .gold-points { font-size: 0.7rem; }
+
+    .section-title { font-size: 0.95rem; }
+    .search-input { padding: 0.55rem 0.6rem; font-size: 0.75rem; }
+    .diamond-logo { width: 38px; height: 38px; }
+    .diamond-name { font-size: 0.8rem; }
+
+    .nav-menu-mobile a.nav-link { font-size: 0.95rem; padding: 0.875rem 1.5rem; }
 }
 
-.btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.2);
+/* Landscape on small devices */
+@media (max-width: 639px) and (orientation: landscape) {
+    .hero { min-height: 50vh; padding: 4rem 1rem 1rem; }
+    .hero-line-bottom { font-size: clamp(1.5rem, 8vw, 2.5rem); }
+    .stats-summary { grid-template-columns: repeat(3, 1fr); }
+    .podium-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .podium-card { flex-direction: column; text-align: center; padding: 1rem 0.5rem; }
+    .podium-rank { margin: 0 auto; }
 }
 
+/* Touch-friendly: increase tap targets */
+@media (hover: none) and (pointer: coarse) {
+    .ranking-row { padding-top: 0.75rem; padding-bottom: 0.75rem; min-height: 48px; }
+    .gold-row:not(.header) { min-height: 48px; }
+    .spring-row { min-height: 48px; }
+    .sortable { padding: 0.5rem 1.25rem 0.5rem 0.25rem; }
+    .nav-toggle { padding: 0.75rem; }
+    .search-input { min-height: 44px; }
+}
+
+/* =================== SCROLLBAR =================== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-secondary); }
+
+/* =================== REDUCED MOTION =================== */
 @media (prefers-reduced-motion: reduce) {
-    * {
+    *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
 }
 
-/* =================== DARK/LIGHT THEME TRANSITIONS =================== */
-
-* {
-    transition: background-color 0.3s ease, 
-                border-color 0.3s ease, 
-                color 0.3s ease, 
-                box-shadow 0.3s ease,
-                transform 0.3s ease;
-}
-
-/* =================== CUSTOM SCROLLBAR =================== */
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--color-border);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-secondary);
-}
-
-/* =================== GLOWING TRIANGLES CSS =================== */
-
-.rank-change {
-    margin-left: 8px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.up-triangle {
-    color: var(--color-success); /* Green for up, using your success color */
-}
-
-.down-triangle {
-    color: var(--color-error); /* Red for down, using your error color */
-}
-
-.glow {
-    animation: glow 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-    from {
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
+/* =================== SAFE AREA (NOTCH PHONES) =================== */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .navbar {
+        padding-left: max(1.25rem, env(safe-area-inset-left));
+        padding-right: max(1.25rem, env(safe-area-inset-right));
     }
-    to {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+    .main-content {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
     }
 }
-</style>
-<body data-theme="dark">
-    <!-- Main Content -->
-    <div id="main-content" class="leaderboard-container">
-        <div class="leaderboard-header">
-            <div class="header-content">
-                <div class="header-title">Paid Member Leaderboard</div>
-                <div class="header-controls">
-                    <button id="refresh-btn" class="btn btn-primary">
-                        <i class="fas fa-sync-alt"></i>
-                        <span>Refresh</span>
-                    </button>
-                    <button id="theme-toggle" class="btn theme-toggle">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <a href="index.html" class="btn btn-outline">
-                        <i class="fas fa-home"></i>
-                        Home
-                    </a>
-                    <button id="export-btn" class="btn btn-outline">
-                        <i class="fas fa-download"></i>
-                        <span>Export</span>
-                    </button>
-                </div>
-                <div class="filter-controls" style="margin-top: 2rem;">
-                    <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-users"></i>
-                        All Members
-                    </button>
-                    <button class="filter-btn" data-filter="top10">
-                        <i class="fas fa-star"></i>
-                        Top 10
-                    </button>
-                    <button class="filter-btn" data-filter="top25">
-                        <i class="fas fa-crown"></i>
-                        Top 25
-                    </button>
-                </div>
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="./" class="nav-brand">
+            <div class="nav-logo">
+                <img src="images/logopic.jpg" alt="UTSA NSBE Logo" width="38" height="38">
             </div>
+            <span>UTSA NSBE</span>
+        </a>
+
+        <div class="nav-cta">
+            <div class="nav-links">
+                <a href="./" class="nav-link">Home</a>
+                <a href="./about" class="nav-link">About</a>
+                <a href="./leadership" class="nav-link">Leadership</a>
+                <a href="./conferences" class="nav-link">Conferences</a>
+                <a href="./leaderboard" class="nav-link active">Leaderboard</a>
+                <a href="./gallery" class="nav-link">Gallery</a>
+                <a href="./donate" class="nav-link">Donate</a>
+                <a href="./contact" class="nav-link">Contact</a>
+            </div>
+            <a href="https://linktr.ee/utsansbe" class="btn-join" target="_blank" rel="noopener noreferrer">
+                <span>Linktree</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
         </div>
+    </nav>
 
-        <div class="main-content">
-            <!-- Stats Summary -->
-            <div class="stats-summary">
-                <div class="stat-card">
-                    <i class="fas fa-users stat-icon"></i>
-                    <div class="stat-value" id="total-members">0</div>
-                    <div class="stat-label">Total Members</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-star stat-icon"></i>
-                    <div class="stat-value" id="total-points">0</div>
-                    <div class="stat-label">Total Points</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fas fa-chart-line stat-icon"></i>
-                    <div class="stat-value" id="avg-points">0</div>
-                    <div class="stat-label">Avg Points</div>
-                </div>
-            </div>
-
-            <!-- CTA Section -->
-            <div class="cta-section">
-                <div class="cta-content">
-                    <i class="fas fa-trophy cta-icon trophy-float"></i>
-                    <h2 class="cta-title">Step Up Your Game!</h2>
-                    <div class="cta-action">Success isn't optional, it's personal!</div>
-                </div>
-                <div class="cta-decoration">
-                    <div class="decoration-circle"></div>
-                    <div class="decoration-circle"></div>
-                    <div class="decoration-circle"></div>
-                </div>
-            </div>
-
-            <!-- Search Section -->
-            <div class="search-section">
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="search-input" class="search-input focus-enhanced" placeholder="Search by name...">
-                </div>
-            </div>
-
-            <!-- Error Banner -->
-            <div id="error-banner" class="error-banner">
-                <i class="fas fa-exclamation-circle"></i>
-                <p id="error-message"></p>
-                <button class="error-close" onclick="hideError()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <!-- Top 3 Podium -->
-            <div class="podium-section">
-                <h2 class="section-title">
-                    Top Performers
-                    <div class="title-decoration"></div>
-                </h2>
-                <div id="podium-grid" class="podium-grid">
-                    <!-- Top 3 will be populated here -->
-                </div>
-            </div>
-
-            <!-- Full Rankings -->
-            <div class="rankings-section">
-                <h2 class="section-title">
-                    Full Rankings
-                    <div class="title-decoration"></div>
-                </h2>
-                <div class="rankings-table">
-                    <div class="rankings-header">
-                        <div>Rank</div>
-                        <div>Name</div>
-                        <div>Points</div>
-                    </div>
-                    <div id="rankings-grid" class="rankings-grid">
-                        <!-- Rankings will be populated here -->
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Mobile Menu (full-screen overlay) -->
+    <div class="nav-menu-mobile" id="mobileMenu" role="dialog" aria-label="Navigation menu">
+        <button class="nav-menu-close" id="mobileMenuClose" aria-label="Close menu">&times;</button>
+        <a href="./" class="nav-link">Home</a>
+        <a href="./about" class="nav-link">About</a>
+        <a href="./leadership" class="nav-link">Leadership</a>
+        <a href="./conferences" class="nav-link">Conferences</a>
+        <a href="./leaderboard" class="nav-link active">Leaderboard</a>
+        <a href="./gallery" class="nav-link">Gallery</a>
+        <a href="./donate" class="nav-link">Donate</a>
+        <a href="./contact" class="nav-link">Contact</a>
+        <a href="https://linktr.ee/utsansbe" class="nav-link" target="_blank" rel="noopener noreferrer">Linktree</a>
     </div>
 
-    <script src="leaderboard.js"></script>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-stack">
+            <div class="hero-line hero-line-top">UTSA NSBE</div>
+            <div class="hero-line hero-line-bottom">Leaderboard</div>
+            <p class="hero-subtitle">Track member points, rankings, and sponsorship progress.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Stats Summary -->
+        <div class="stats-summary">
+            <div class="stat-card">
+                <div class="stat-value" id="total-members">0</div>
+                <div class="stat-label">Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="total-points">0</div>
+                <div class="stat-label">Total Pts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avg-points">0</div>
+                <div class="stat-label">Avg Pts</div>
+            </div>
+        </div>
+
+        <!-- Diamond Sponsors -->
+        <section class="diamond-section" aria-labelledby="diamond-title">
+            <h2 id="diamond-title" class="section-title">Diamond Sponsors &mdash; NSBE 52</h2>
+            <div id="diamond-grid" class="diamond-grid" role="list" aria-live="polite"></div>
+        </section>
+
+        <!-- Gold Sponsorship Race -->
+        <section class="gold-section" aria-labelledby="gold-title">
+            <h2 id="gold-title" class="section-title">Gold Sponsorship Race</h2>
+            <div class="gold-grid">
+                <div id="gold-table" class="gold-table" role="table" aria-live="polite">
+                    <div class="section-search">
+                        <input id="search-gold" class="search-input" placeholder="Search Gold Sponsorship..." aria-label="Search Gold Sponsorship">
+                    </div>
+                    <div class="gold-row header" role="row">
+                        <div class="sortable" data-section="gold" data-key="rank">Rank</div>
+                        <div class="sortable" data-section="gold" data-key="name">Name</div>
+                        <div class="sortable" data-section="gold" data-key="points">Points</div>
+                    </div>
+                    <div class="gold-table-scroll" id="gold-scroll"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search (global) -->
+        <div class="search-section">
+            <div class="search-container">
+                <input type="text" id="search-input" class="search-input" placeholder="Search by name..." aria-label="Search members by name">
+            </div>
+        </div>
+
+        <!-- Error Banner -->
+        <div id="error-banner" class="error-banner" role="alert">
+            <p id="error-message"></p>
+            <button class="error-close" onclick="document.getElementById('error-banner').classList.remove('show')" aria-label="Close">&times;</button>
+        </div>
+
+        <!-- Top 3 Podium -->
+        <section class="podium-section">
+            <h2 class="section-title">Top Performers</h2>
+            <div id="podium-grid" class="podium-grid"></div>
+        </section>
+
+        <!-- Full Rankings -->
+        <section class="rankings-section">
+            <h2 class="section-title">Full Rankings</h2>
+            <div class="rankings-table">
+                <div class="section-search">
+                    <input id="search-rankings" class="search-input" placeholder="Search Full Rankings..." aria-label="Search Full Rankings">
+                </div>
+                <div class="rankings-header">
+                    <div class="sortable" data-section="rankings" data-key="rank">Rank</div>
+                    <div class="sortable" data-section="rankings" data-key="name">Name</div>
+                    <div class="sortable" data-section="rankings" data-key="points">Points</div>
+                </div>
+                <div class="rankings-table-scroll" id="rankings-grid"></div>
+            </div>
+        </section>
+
+        <!-- Spring Scholarship Leaderboard -->
+        <section class="spring-section">
+            <h2 class="section-title">Spring Scholarship Leaderboard</h2>
+            <p class="diamond-subtitle">Top students for the Spring semester.</p>
+            <div id="spring-table" class="spring-table" role="table" aria-live="polite">
+                <div class="section-search">
+                    <input id="search-spring" class="search-input" placeholder="Search Spring Scholarship..." aria-label="Search Spring Scholarship">
+                </div>
+                <div class="spring-header" role="row">
+                    <div class="sortable" data-section="spring" data-key="rank">Rank</div>
+                    <div class="sortable" data-section="spring" data-key="name">Name</div>
+                    <div class="sortable" data-section="spring" data-key="points">Points</div>
+                </div>
+                <div class="spring-table-scroll" id="spring-scroll"></div>
+            </div>
+        </section>
+    </main>
+
     <script>
-        // Filter functionality
-        document.addEventListener('DOMContentLoaded', () => {
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const rankingRows = document.querySelectorAll('.ranking-row');
-            
-            // Calculate and display stats
-            function updateStats() {
-                const totalMembers = rankingRows.length;
-                let totalPoints = 0;
-                
-                rankingRows.forEach(row => {
-                    const pointsText = row.querySelector('.ranking-points').textContent.trim();
-                    const points = parseInt(pointsText.replace(/[^0-9]/g, ''));
-                    if (!isNaN(points)) {
-                        totalPoints += points;
-                    }
+    /* =================== UTILITIES =================== */
+    function parseCSV(text) {
+        const lines = text.trim().split(/\r?\n/).filter(Boolean);
+        if (lines.length === 0) return [];
+        const headerLine = lines.shift();
+        const re = /,(?=(?:[^"]*"[^"]*")*(?![^"]*"))/g;
+        const splitLine = (str) => str.split(re).map(s => s.replace(/^"|"$/g, '').trim());
+        const headers = splitLine(headerLine);
+        return lines.map(line => {
+            const cols = splitLine(line);
+            const obj = {};
+            headers.forEach((h, i) => obj[h] = cols[i] || '');
+            return obj;
+        });
+    }
+
+    function animateValue(el, end, duration) {
+        if (!el) return;
+        const start = 0;
+        const range = end - start;
+        if (range === 0) { el.textContent = '0'; return; }
+        const inc = range / (duration / 16);
+        let current = start;
+        const timer = setInterval(() => {
+            current += inc;
+            if ((inc > 0 && current >= end) || (inc < 0 && current <= end)) {
+                current = end;
+                clearInterval(timer);
+            }
+            el.textContent = Math.round(current).toLocaleString();
+        }, 16);
+    }
+
+    /* =================== MOBILE NAV =================== */
+    (function() {
+        const toggle = document.getElementById('navToggle');
+        const menu = document.getElementById('mobileMenu');
+        const closeBtn = document.getElementById('mobileMenuClose');
+        const navbar = document.getElementById('navbar');
+
+        function openMenu() {
+            menu.classList.add('open');
+            toggle.classList.add('active');
+            toggle.setAttribute('aria-expanded', 'true');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+            menu.classList.remove('open');
+            toggle.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.contains('open') ? closeMenu() : openMenu();
+        });
+
+        closeBtn.addEventListener('click', closeMenu);
+
+        document.addEventListener('click', (e) => {
+            if (!menu.classList.contains('open')) return;
+            if (menu.contains(e.target) || toggle.contains(e.target)) return;
+            closeMenu();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) closeMenu();
+        });
+
+        // Scrolled state
+        function onScroll() {
+            if (window.scrollY > 20) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    })();
+
+    /* =================== DIAMOND SPONSORS =================== */
+    (function() {
+        function render(sponsors) {
+            const grid = document.getElementById('diamond-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            if (!sponsors || sponsors.length === 0) {
+                grid.innerHTML = '<div class="no-results">No Diamond Sponsors found.</div>';
+                return;
+            }
+            sponsors.forEach(s => {
+                const a = document.createElement('a');
+                a.className = 'diamond-card';
+                a.role = 'listitem';
+                a.href = s.website || '#';
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+
+                const img = document.createElement('img');
+                img.className = 'diamond-logo';
+                img.alt = (s.name || 'Sponsor') + ' logo';
+                img.src = s.logo && s.logo.length ? s.logo : 'images/logopic.jpg';
+                img.width = 56;
+                img.height = 56;
+                img.loading = 'lazy';
+
+                const info = document.createElement('div');
+                info.className = 'diamond-info';
+                const name = document.createElement('div');
+                name.className = 'diamond-name';
+                name.textContent = s.name || 'Sponsor';
+                const site = document.createElement('div');
+                site.className = 'diamond-site';
+                try { site.textContent = s.website ? (new URL(s.website)).hostname : ''; } catch(e) { site.textContent = ''; }
+
+                info.appendChild(name);
+                info.appendChild(site);
+                a.appendChild(img);
+                a.appendChild(info);
+                grid.appendChild(a);
+            });
+        }
+
+        fetch('top.csv', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error('top.csv'); return r.text(); })
+            .then(text => {
+                let sp = parseCSV(text).filter(s => {
+                    const w = (s.website || '').toLowerCase();
+                    if (!w && !s.logo) return false;
+                    if (w.includes('example.com')) return false;
+                    return true;
                 });
-                
-                const avgPoints = totalMembers > 0 ? Math.round(totalPoints / totalMembers) : 0;
-                
-                // Animate numbers
-                animateValue('total-members', 0, totalMembers, 1000);
-                animateValue('total-points', 0, totalPoints, 1500);
-                animateValue('avg-points', 0, avgPoints, 1200);
+                render(sp);
+            })
+            .catch(() => {
+                document.getElementById('diamond-grid').innerHTML = '<div class="no-results">Unable to load Diamond Sponsors.</div>';
+            });
+    })();
+
+    /* =================== GOLD SPONSORSHIP =================== */
+    (function() {
+        function render(rows) {
+            const scroll = document.getElementById('gold-scroll');
+            if (!scroll) return;
+            scroll.innerHTML = '';
+            if (!rows || rows.length === 0) {
+                scroll.innerHTML = '<div class="no-results">No Gold Sponsorship entries found.</div>';
+                return;
             }
-            
-            function animateValue(id, start, end, duration) {
-                const element = document.getElementById(id);
-                if (!element) return;
-                
-                const range = end - start;
-                const increment = range / (duration / 16);
-                let current = start;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-                        current = end;
-                        clearInterval(timer);
-                    }
-                    element.textContent = Math.round(current).toLocaleString();
-                }, 16);
+            rows.forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'gold-row';
+                div.role = 'row';
+                div.innerHTML =
+                    '<div class="gold-rank">' + (r.rank || '') + '</div>' +
+                    '<div class="gold-name">' + (r.name || r.website || '&mdash;') + '</div>' +
+                    '<div class="gold-points">' + (r.points || '0') + '</div>';
+                scroll.appendChild(div);
+            });
+        }
+
+        fetch('gold.csv', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error('gold.csv'); return r.text(); })
+            .then(text => {
+                let rows = parseCSV(text).filter(r => {
+                    if (!r.name && !r.website) return false;
+                    if ((r.website || '').toLowerCase().includes('example.com')) return false;
+                    return true;
+                });
+                render(rows);
+            })
+            .catch(() => render([]));
+    })();
+
+    /* =================== LEADERBOARD (RANKINGS + SPRING + PODIUM) =================== */
+    (function() {
+        function renderRankings(rows) {
+            const grid = document.getElementById('rankings-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            if (!rows || rows.length === 0) {
+                grid.innerHTML = '<div class="no-results">No rankings found.</div>';
+                animateValue(document.getElementById('total-members'), 0, 400);
+                animateValue(document.getElementById('total-points'), 0, 400);
+                animateValue(document.getElementById('avg-points'), 0, 400);
+                return;
             }
-            
-            // Initialize stats
-            updateStats();
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    // Add active class to clicked button
-                    button.classList.add('active');
-                    
-                    const filter = button.getAttribute('data-filter');
-                    
-                    // Filter rows with animation
-                    rankingRows.forEach((row, index) => {
-                        const rank = parseInt(row.querySelector('.ranking-rank').textContent);
-                        let shouldShow = false;
-                        
-                        if (filter === 'all') {
-                            shouldShow = true;
-                        } else if (filter === 'top10') {
-                            shouldShow = rank <= 10;
-                        } else if (filter === 'top25') {
-                            shouldShow = rank <= 25;
-                        }
-                        
-                        if (shouldShow) {
-                            setTimeout(() => {
-                                row.style.display = 'grid';
-                                row.style.animation = 'fadeInUp 0.4s ease-out forwards';
-                            }, index * 30);
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
+
+            const maxPts = Math.max(...rows.map(r => parseFloat((r.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0), 1);
+
+            rows.forEach((r, idx) => {
+                const pts = parseFloat((r.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0;
+                const pct = Math.round((pts / maxPts) * 100);
+
+                const div = document.createElement('div');
+                div.className = 'ranking-row';
+                div.role = 'row';
+                div.tabIndex = 0;
+                div.style.animationDelay = (0.03 * idx) + 's';
+                div.innerHTML =
+                    '<div class="ranking-rank">' + (r.rank || (idx + 1)) + '</div>' +
+                    '<div class="ranking-name">' + (r.name || '') + '</div>' +
+                    '<div class="ranking-points">' + (r.points || '0') +
+                        '<div class="progress-bar-mini"><div class="progress-fill-mini" style="width:' + pct + '%"></div></div>' +
+                    '</div>';
+                grid.appendChild(div);
+            });
+
+            // Stats
+            const total = rows.length;
+            const totalPts = rows.reduce((a, c) => a + (parseFloat((c.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0), 0);
+            const avg = total > 0 ? Math.round(totalPts / total) : 0;
+            animateValue(document.getElementById('total-members'), total, 800);
+            animateValue(document.getElementById('total-points'), totalPts, 1000);
+            animateValue(document.getElementById('avg-points'), avg, 900);
+        }
+
+        function renderPodium(rows) {
+            const grid = document.getElementById('podium-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            const top = rows.slice(0, 3);
+            top.forEach((r, i) => {
+                const card = document.createElement('div');
+                card.className = 'podium-card podium-' + (i + 1);
+
+                // On mobile, podium cards are displayed as horizontal rows.
+                // We wrap the text in a div for flex layout.
+                card.innerHTML =
+                    '<div class="podium-rank">' + (r.rank || (i + 1)) + '</div>' +
+                    '<div class="podium-card-info">' +
+                        '<div class="podium-name">' + (r.name || '') + '</div>' +
+                        '<div class="podium-points">' + (r.points || '0') + '</div>' +
+                        '<div class="podium-label">Points</div>' +
+                    '</div>';
+                grid.appendChild(card);
+            });
+        }
+
+        function renderSpring(rows) {
+            const scroll = document.getElementById('spring-scroll');
+            if (!scroll) return;
+            scroll.innerHTML = '';
+            if (!rows || rows.length === 0) {
+                scroll.innerHTML = '<div class="no-results">No Spring Scholarship entries found.</div>';
+                return;
+            }
+            rows.forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'spring-row';
+                div.role = 'row';
+                div.innerHTML =
+                    '<div class="ranking-rank">' + (r.rank || '') + '</div>' +
+                    '<div class="ranking-name">' + (r.name || '&mdash;') + '</div>' +
+                    '<div class="ranking-points">' + (r.points || '0') + '</div>';
+                scroll.appendChild(div);
+            });
+        }
+
+        fetch('leaderboard.csv', { cache: 'no-cache' })
+            .then(r => { if (!r.ok) throw new Error('leaderboard.csv'); return r.text(); })
+            .then(text => {
+                const raw = parseCSV(text);
+                const rows = raw.map(r => ({
+                    rank: r.Rank || r.rank || '',
+                    name: r.Name || r.name || r.member || '',
+                    points: r.Points || r.points || '0'
+                })).filter(r => !!r.name);
+
+                renderRankings(rows);
+                renderPodium(rows);
+                renderSpring(rows.filter(r => r.points && !isNaN(parseFloat(r.points))));
+            })
+            .catch(err => {
+                console.error('Leaderboard load error:', err);
+                renderRankings([]);
+                renderSpring([]);
+            });
+    })();
+
+    /* =================== SEARCH HANDLERS =================== */
+    (function() {
+        function bindSearch(inputId, containerSel, nameClass) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            input.addEventListener('input', () => {
+                const q = input.value.toLowerCase().trim();
+                document.querySelectorAll(containerSel).forEach(row => {
+                    const name = (row.querySelector('.' + nameClass) || {}).textContent || '';
+                    row.style.display = name.toLowerCase().includes(q) ? '' : 'none';
                 });
             });
-            
-            // Add stagger animation on load
-            rankingRows.forEach((row, index) => {
-                setTimeout(() => {
-                    row.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                }, 100 + (index * 50));
+        }
+
+        // Global search filters full rankings
+        bindSearch('search-input', '#rankings-grid .ranking-row', 'ranking-name');
+        // Per-section searches
+        bindSearch('search-rankings', '#rankings-grid .ranking-row', 'ranking-name');
+        bindSearch('search-gold', '#gold-scroll .gold-row', 'gold-name');
+        bindSearch('search-spring', '#spring-scroll .spring-row', 'ranking-name');
+    })();
+
+    /* =================== SORTING =================== */
+    (function() {
+        const state = {};
+
+        document.querySelectorAll('.sortable').forEach(h => {
+            h.addEventListener('click', () => {
+                const section = h.dataset.section || 'rankings';
+                const key = h.dataset.key;
+                if (!state[section]) state[section] = { key: 'rank', dir: 'asc' };
+
+                if (state[section].key === key) {
+                    state[section].dir = state[section].dir === 'asc' ? 'desc' : 'asc';
+                } else {
+                    state[section].key = key;
+                    state[section].dir = 'asc';
+                }
+
+                // Update header classes for this section
+                h.closest('.rankings-header, .gold-row.header, .spring-header')
+                    ?.querySelectorAll('.sortable')
+                    .forEach(s => s.classList.remove('sorted-asc', 'sorted-desc'));
+                h.classList.add(state[section].dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+
+                // Determine container and row selectors
+                let containerId, rowClass, rankClass, nameClass, pointsClass;
+                if (section === 'gold') {
+                    containerId = 'gold-scroll'; rowClass = 'gold-row'; rankClass = 'gold-rank'; nameClass = 'gold-name'; pointsClass = 'gold-points';
+                } else if (section === 'spring') {
+                    containerId = 'spring-scroll'; rowClass = 'spring-row'; rankClass = 'ranking-rank'; nameClass = 'ranking-name'; pointsClass = 'ranking-points';
+                } else {
+                    containerId = 'rankings-grid'; rowClass = 'ranking-row'; rankClass = 'ranking-rank'; nameClass = 'ranking-name'; pointsClass = 'ranking-points';
+                }
+
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                const rows = Array.from(container.querySelectorAll('.' + rowClass));
+
+                rows.sort((a, b) => {
+                    const cls = key === 'name' ? nameClass : key === 'rank' ? rankClass : pointsClass;
+                    const va = (a.querySelector('.' + cls) || {}).textContent || '';
+                    const vb = (b.querySelector('.' + cls) || {}).textContent || '';
+                    if (key === 'name') return state[section].dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+                    const na = parseFloat(va.replace(/[^0-9.-]/g, '')) || 0;
+                    const nb = parseFloat(vb.replace(/[^0-9.-]/g, '')) || 0;
+                    return state[section].dir === 'asc' ? na - nb : nb - na;
+                });
+
+                rows.forEach(r => container.appendChild(r));
             });
         });
+    })();
     </script>
 </body>
 </html>
