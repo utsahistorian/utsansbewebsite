@@ -1,4 +1,26 @@
-const sampleData = [
+/* ============================
+   leaderboard.js
+   - Hard-coded Diamond Sponsors
+   - Reads: leaderboard.csv, gold.csv
+   - No UI / style changes
+============================ */
+
+/* ---------- Diamond Sponsors (hard-coded) ---------- */
+const diamondNames = [
+    "Aisha Karage",
+    "Cody Camacho",
+    "Jordan Turner",
+    "Ebubechi Dickson",
+    "Yoma Abobo",
+    "Nahom Sweet",
+    "Isi Ataghauman",
+    "Immanuel Fadairo",
+    "Chinaemerem Nwachukwu",
+    "John Rex"
+  ];
+  
+  /* ---------- Fallback leaderboard data ---------- */
+  const sampleData = [
     { rank: 1, name: "Alex Johnson", points: 21000 },
     { rank: 2, name: "Sarah Chen", points: 2720 },
     { rank: 3, name: "Mike Rodriguez", points: 2650 },
@@ -16,216 +38,225 @@ const sampleData = [
     { rank: 15, name: "Kevin Martinez", points: 1990 },
     { rank: 16, name: "Amanda Clark", points: 1950 },
     { rank: 17, name: "Daniel Lewis", points: 1910 },
-];
-let fullLeaderboard = [];
-let filteredData = [];
-let loading = true;
-let currentTheme = localStorage.getItem('theme') || 'dark';
-// DOM elements
-const loadingContainer = document.getElementById("loading");
-const mainContent = document.getElementById("main-content");
-const errorBanner = document.getElementById("error-banner");
-const errorMessage = document.getElementById("error-message");
-const podiumGrid = document.getElementById("podium-grid");
-const rankingsGrid = document.getElementById("rankings-grid");
-const refreshBtn = document.getElementById("refresh-btn");
-const themeToggle = document.getElementById("theme-toggle");
-const exportBtn = document.getElementById("export-btn");
-const searchInput = document.getElementById("search-input");
-// Event listeners
-refreshBtn.addEventListener("click", fetchLeaderboardData);
-themeToggle.addEventListener("click", toggleTheme);
-exportBtn.addEventListener("click", exportToCSV);
-searchInput.addEventListener("input", debounce(filterLeaderboard, 300));
-// Initialize
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.setAttribute('data-theme', currentTheme);
-    applyTheme();
-    fetchLeaderboardData();
-    // Fallback to hide loading screen after 5 seconds if fetch hangs
-    setTimeout(() => {
-        if (loading) {
-            setLoading(false);
-            console.warn("Loading timeout triggered, forcing hide.");
-        }
-    }, 5000);
-});
-// Debounce utility
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-// Theme functions
-function applyTheme() {
-    const icon = themeToggle.querySelector('i');
-    if (currentTheme === 'dark') {
-        icon.className = 'fas fa-sun';
-    } else {
-        icon.className = 'fas fa-moon';
+  ];
+  
+  let fullLeaderboard = [];
+  let filteredData = [];
+  let loading = true;
+  
+  /* ---------- DOM ---------- */
+  const diamondGrid = document.getElementById("diamond-grid");
+  const goldScroll = document.getElementById("gold-scroll");
+  const podiumGrid = document.getElementById("podium-grid");
+  const rankingsGrid = document.getElementById("rankings-grid");
+  const loadingContainer = document.getElementById("loading");
+  const mainContent = document.getElementById("main-content");
+  const errorBanner = document.getElementById("error-banner");
+  const errorMessage = document.getElementById("error-message");
+  const searchInput = document.getElementById("search-input");
+  
+  /* ---------- Init ---------- */
+  document.addEventListener("DOMContentLoaded", () => {
+    renderDiamondNames();
+    fetchLeaderboardAndGold();
+  });
+  
+  /* ============================
+     Fetch helpers
+  ============================ */
+  async function fetchText(path) {
+    const res = await fetch(path, { cache: "no-cache" });
+    if (!res.ok) throw new Error(path);
+    return res.text();
+  }
+  
+  /* ============================
+     CSV parsing (robust)
+  ============================ */
+  function parseCSV(text) {
+    const rows = [];
+    let row = [];
+    let cur = "";
+    let inQuotes = false;
+  
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      const n = text[i + 1];
+  
+      if (c === '"' && inQuotes && n === '"') {
+        cur += '"'; i++;
+      } else if (c === '"') {
+        inQuotes = !inQuotes;
+      } else if (c === "," && !inQuotes) {
+        row.push(cur); cur = "";
+      } else if ((c === "\n" || c === "\r") && !inQuotes) {
+        if (c === "\r" && n === "\n") i++;
+        row.push(cur);
+        if (row.some(v => v.trim())) rows.push(row);
+        row = []; cur = "";
+      } else {
+        cur += c;
+      }
     }
-}
-function toggleTheme() {
-    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('theme', currentTheme);
-    document.body.setAttribute('data-theme', currentTheme);
-    applyTheme();
-}
-// Fetch and parse data
-async function fetchLeaderboardData() {
+    row.push(cur);
+    if (row.some(v => v.trim())) rows.push(row);
+    return rows;
+  }
+  
+  function csvToObjects(text) {
+    const rows = parseCSV(text.trim());
+    if (!rows.length) return [];
+    const headers = rows[0];
+    return rows.slice(1).map(r => {
+      const obj = {};
+      headers.forEach((h, i) => obj[h.trim()] = (r[i] || "").trim());
+      return obj;
+    });
+  }
+  
+  /* ============================
+     Fetch leaderboard + gold
+  ============================ */
+  async function fetchLeaderboardAndGold() {
     setLoading(true);
     hideError();
-    console.log("Fetching:", "leaderboard.csv"); // Debug log
+  
+    // Leaderboard
     try {
-        const response = await fetch("leaderboard.csv");
-        console.log("Response:", response); // Debug log
-        if (!response.ok) {
-            throw new Error("Failed to fetch leaderboard data");
-        }
-        const csvText = await response.text();
-        const parsedData = parseCSV(csvText);
-        // Sort by points (descending), then by name (ascending) for ties
-        const sortedData = parsedData
-            .sort((a, b) => b.points - a.points || a.name.localeCompare(b.name))
-            .map((entry, index) => ({ ...entry, rank: index + 1 }));
-        fullLeaderboard = sortedData;
-        filteredData = fullLeaderboard.slice(0, 17);
-    } catch (err) {
-        console.error("Error fetching leaderboard:", err);
-        showError("Failed to load leaderboard data. Using sample data.");
-        fullLeaderboard = sampleData;
-        filteredData = [...sampleData];
-    } finally {
-        setLoading(false);
-        renderLeaderboard();
+      const csv = await fetchText("leaderboard.csv");
+      const data = csvToObjects(csv)
+        .map(r => ({
+          rank: 0,
+          name: r.Name || r.name || "",
+          points: parseFloat(r.Points || r.points || 0)
+        }))
+        .filter(r => r.name);
+  
+      fullLeaderboard = data
+        .sort((a, b) => b.points - a.points)
+        .map((r, i) => ({ ...r, rank: i + 1 }));
+  
+      filteredData = fullLeaderboard.slice(0, 17);
+    } catch {
+      showError("Failed to load leaderboard.csv. Using fallback data.");
+      fullLeaderboard = sampleData;
+      filteredData = [...sampleData];
     }
-}
-function parseCSV(csvText) {
-    const lines = csvText.trim().split("\n");
-    const headers = lines[0].split(",");
-    return lines.slice(1).map((line) => {
-        const values = line.split(",");
-        return {
-            rank: 0, // Will be set after sorting
-            name: values[1]?.replace(/"/g, "") || "Unknown",
-            points: Number.parseInt(values[2]) || 0,
-        };
-    });
-}
-// Loading and error functions
-function setLoading(isLoading) {
-    loading = isLoading;
-    if (isLoading) {
-        loadingContainer.classList.remove("hidden");
-        mainContent.classList.add("hidden");
-    } else {
-        loadingContainer.classList.add("hidden");
-        setTimeout(() => {
-            mainContent.classList.remove("hidden");
-        }, 500); // Match CSS transition duration
+  
+    // Gold race
+    try {
+      const csv = await fetchText("gold.csv");
+      const rows = csvToObjects(csv);
+      renderGold(rows);
+    } catch {
+      renderGold([]);
     }
-}
-function showError(message) {
-    errorMessage.textContent = message;
-    errorBanner.classList.add("show");
-}
-function hideError() {
-    errorBanner.classList.remove("show");
-}
-// Filter function
-function filterLeaderboard() {
-    const query = searchInput.value.toLowerCase().trim();
-    if (query === '') {
-        filteredData = fullLeaderboard.slice(0, 17);
-    } else {
-        filteredData = fullLeaderboard.filter(entry =>
-            entry.name.toLowerCase().includes(query)
-        );
-        filteredData.sort((a, b) => a.rank - b.rank);
-    }
+  
+    setLoading(false);
     renderLeaderboard();
-}
-// Export function
-function exportToCSV() {
-    const csvContent = "Rank,Name,Points\n" +
-        filteredData.map(entry => `${entry.rank},"${entry.name}",${entry.points}`).join("\n");
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    if (link.download !== undefined) {
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'leadership-board.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+  }
+  
+  /* ============================
+     Render: Diamond Sponsors
+  ============================ */
+  function renderDiamondNames() {
+    if (!diamondGrid) return;
+    diamondGrid.innerHTML = "";
+  
+    diamondNames.forEach(name => {
+      const div = document.createElement("div");
+      div.className = "diamond-card";
+      div.innerHTML = `
+        <div class="diamond-info">
+          <div class="diamond-name">${name}</div>
+        </div>
+      `;
+      diamondGrid.appendChild(div);
+    });
+  }
+  
+  /* ============================
+     Render: Gold race
+  ============================ */
+  function renderGold(rows) {
+    if (!goldScroll) return;
+    goldScroll.innerHTML = "";
+  
+    if (!rows.length) {
+      goldScroll.innerHTML = '<div class="no-results">No Gold Sponsorship entries found.</div>';
+      return;
     }
-}
-// Render helpers
-function getRankNumber(rank) {
-    let rankClass = 'rank-1';
-    if (rank === 2) {
-        rankClass = 'rank-2';
-    } else if (rank === 3) {
-        rankClass = 'rank-3';
-    }
-    return `<div class="rank-number ${rankClass}">${rank}</div>`;
-}
-function renderLeaderboard() {
-    podiumGrid.innerHTML = '';
-    rankingsGrid.innerHTML = '';
-    if (filteredData.length === 0) {
-        rankingsGrid.innerHTML = '<div class="no-results">No results found.</div>';
-        return;
-    }
-    const isSearching = searchInput.value.trim() !== '';
-    if (!isSearching) {
-        renderPodium();
-    }
-    renderRankings(isSearching);
-}
-function renderPodium() {
-    const top3 = filteredData.slice(0, 3);
-    podiumGrid.innerHTML = top3
-        .map((entry, index) => {
-            const rank = entry.rank;
-            const rankClass = `rank-${rank}`;
-            return `
-                <div class="podium-card ${rankClass}">
-                    ${getRankNumber(rank)}
-                    <h3 class="podium-name">${entry.name}</h3>
-                    <div class="podium-points">${entry.points.toLocaleString()}</div>
-                    <div class="podium-label">points</div>
-                </div>
-            `;
-        })
-        .join("");
-}
-function renderRankings(isSearching) {
-    const maxPoints = Math.max(...fullLeaderboard.map(d => d.points));
-    const startIndex = isSearching ? 0 : 3;
-    const remaining = filteredData.slice(startIndex);
-    rankingsGrid.innerHTML = remaining
-        .map((entry) => {
-            const progress = ((entry.points / maxPoints) * 100).toFixed(1);
-            return `
-                <div class="ranking-row">
-                    <div class="ranking-rank">${entry.rank}</div>
-                    <div class="ranking-name">${entry.name}</div>
-                    <div class="ranking-points">
-                        <span>${entry.points.toLocaleString()}</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${progress}%"></div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        })
-        .join("");
-}
+  
+    rows.forEach(r => {
+      const div = document.createElement("div");
+      div.className = "gold-row";
+      div.innerHTML = `
+        <div class="gold-rank">${r.Rank || ""}</div>
+        <div class="gold-name">${r.Name || ""}</div>
+        <div class="gold-points">${r.Points || "0"}</div>
+      `;
+      goldScroll.appendChild(div);
+    });
+  }
+  
+  /* ============================
+     Render: Leaderboard
+  ============================ */
+  function renderLeaderboard() {
+    if (!podiumGrid || !rankingsGrid) return;
+    podiumGrid.innerHTML = "";
+    rankingsGrid.innerHTML = "";
+  
+    if (!filteredData.length) return;
+  
+    renderPodium();
+    renderRankings();
+  }
+  
+  function renderPodium() {
+    podiumGrid.innerHTML = filteredData.slice(0, 3).map(r => `
+      <div class="podium-card rank-${r.rank}">
+        <div class="rank-number">${r.rank}</div>
+        <h3 class="podium-name">${r.name}</h3>
+        <div class="podium-points">${r.points.toLocaleString()}</div>
+        <div class="podium-label">points</div>
+      </div>
+    `).join("");
+  }
+  
+  function renderRankings() {
+    const max = Math.max(...fullLeaderboard.map(r => r.points), 1);
+    rankingsGrid.innerHTML = filteredData.slice(3).map(r => `
+      <div class="ranking-row">
+        <div class="ranking-rank">${r.rank}</div>
+        <div class="ranking-name">${r.name}</div>
+        <div class="ranking-points">
+          <span>${r.points.toLocaleString()}</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width:${(r.points / max) * 100}%"></div>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+  
+  /* ============================
+     UI helpers
+  ============================ */
+  function setLoading(v) {
+    loading = v;
+    if (!loadingContainer || !mainContent) return;
+    loadingContainer.classList.toggle("hidden", !v);
+    mainContent.classList.toggle("hidden", v);
+  }
+  
+  function showError(msg) {
+    if (!errorBanner || !errorMessage) return;
+    errorMessage.textContent = msg;
+    errorBanner.classList.add("show");
+  }
+  
+  function hideError() {
+    if (!errorBanner) return;
+    errorBanner.classList.remove("show");
+  }  

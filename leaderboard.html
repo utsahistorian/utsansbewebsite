@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Leaderboard - UTSA NSBE</title>
-    <meta name="description" content="View the UTSA NSBE member leaderboard and track member points and rankings.">
+    <meta name="description" content="Success Isn't optional, It's Personal.">
     <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
     <link rel="apple-touch-icon" href="images/logopic.jpg">
     <style>
@@ -394,18 +394,6 @@ body {
 }
 
 /* =================== SEARCH =================== */
-.search-section {
-    margin-bottom: 2rem;
-    display: flex;
-    justify-content: center;
-}
-
-.search-container {
-    position: relative;
-    max-width: 500px;
-    width: 100%;
-}
-
 .search-input {
     width: 100%;
     padding: 0.875rem 1rem 0.875rem 1rem;
@@ -478,20 +466,8 @@ body {
     box-shadow: var(--shadow-md);
 }
 
-.diamond-logo {
-    width: 56px;
-    height: 56px;
-    border-radius: 8px;
-    object-fit: contain;
-    background: rgba(255,255,255,0.02);
-    padding: 4px;
-    border: 1px solid rgba(255,255,255,0.04);
-    flex-shrink: 0;
-}
-
 .diamond-info { text-align: left; min-width: 0; }
 .diamond-name { font-weight: 700; color: var(--color-foreground); font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.diamond-site { font-size: 0.8rem; color: var(--color-muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* =================== PODIUM (TOP 3) =================== */
 .podium-section { margin-bottom: 2.5rem; }
@@ -534,11 +510,6 @@ body {
 .podium-card.podium-2::before { background: linear-gradient(90deg, #c0c0c0, #e2e8f0); }
 .podium-card.podium-3::before { background: linear-gradient(90deg, #cd7f32, #f6ad55); }
 
-.podium-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 50px rgba(241, 90, 34, 0.3);
-}
-
 .podium-rank {
     display: flex;
     align-items: center;
@@ -558,13 +529,11 @@ body {
     color: #000;
     animation: goldGlow 2s ease-in-out infinite;
 }
-
 .podium-card.podium-2 .podium-rank {
     background: linear-gradient(135deg, #c0c0c0, #e2e8f0);
     color: #000;
     animation: silverGlow 2s ease-in-out infinite;
 }
-
 .podium-card.podium-3 .podium-rank {
     background: linear-gradient(135deg, #cd7f32, #f6ad55);
     color: #fff;
@@ -594,106 +563,9 @@ body {
     font-weight: 600;
 }
 
-/* =================== RANKINGS TABLE =================== */
-.rankings-section { margin-bottom: 2.5rem; }
-
-.rankings-table {
-    background: var(--color-card);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--color-border);
-}
-
-.rankings-table-scroll {
-    max-height: 50vh;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-}
-
-.rankings-header {
-    display: grid;
-    grid-template-columns: 60px 1fr 90px;
-    padding: 1rem 1rem;
-    background: rgba(255,255,255,0.03);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    text-align: center;
-    color: var(--color-muted-foreground);
-    position: sticky;
-    top: 0;
-    z-index: 4;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.ranking-row {
-    display: grid;
-    grid-template-columns: 60px 1fr 90px;
-    padding: 0.875rem 1rem;
-    border-top: 1px solid var(--color-border);
-    align-items: center;
-    transition: var(--transition-fast);
-    text-align: center;
-}
-
-.ranking-row:hover {
-    background: rgba(241, 90, 34, 0.06);
-}
-
-.ranking-rank {
-    font-size: 1rem;
-    font-weight: 800;
-    color: var(--color-secondary);
-    background: rgba(241, 90, 34, 0.1);
-    padding: 0.3rem 0.5rem;
-    border-radius: 8px;
-    margin: 0 auto;
-    width: fit-content;
-    min-width: 2rem;
-}
-
-.ranking-name {
-    font-size: clamp(0.85rem, 2.5vw, 1rem);
-    font-weight: 600;
-    color: var(--color-foreground);
-    text-align: left;
-    padding: 0 0.5rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.ranking-points {
-    font-size: clamp(0.85rem, 2.5vw, 1rem);
-    font-weight: 700;
-    color: var(--color-secondary);
-}
-
-.progress-bar-mini {
-    width: 100%;
-    max-width: 80px;
-    height: 3px;
-    background: var(--color-muted);
-    border-radius: 2px;
-    overflow: hidden;
-    margin: 0.25rem auto 0;
-}
-
-.progress-fill-mini {
-    height: 100%;
-    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
-    border-radius: 2px;
-    transition: width 1s ease;
-}
-
-/* =================== GOLD SPONSORSHIP TABLE =================== */
+/* =================== GOLD TABLE =================== */
 .gold-section { margin-bottom: 2.5rem; text-align: center; }
-
 .gold-grid { max-width: 1000px; margin: 0 auto; }
-
 .gold-table {
     width: 100%;
     border-radius: 14px;
@@ -702,12 +574,7 @@ body {
     background: var(--color-card);
     box-shadow: var(--shadow-sm);
 }
-
-.gold-table-scroll {
-    max-height: 50vh;
-    overflow-y: auto;
-}
-
+.gold-table-scroll { max-height: 50vh; overflow-y: auto; }
 .gold-row {
     display: grid;
     grid-template-columns: 60px 1fr 90px;
@@ -716,7 +583,6 @@ body {
     align-items: center;
     border-top: 1px solid var(--color-border);
 }
-
 .gold-row.header {
     font-weight: 800;
     text-transform: uppercase;
@@ -731,14 +597,12 @@ body {
     -webkit-backdrop-filter: blur(8px);
     border-top: none;
 }
-
 .gold-rank { font-weight: 900; color: var(--color-secondary); text-align: center; }
 .gold-name { font-weight: 700; color: var(--color-foreground); text-align: left; padding: 0 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .gold-points { font-weight: 800; color: var(--color-secondary); text-align: center; }
 
-/* =================== SPRING SCHOLARSHIP TABLE =================== */
+/* =================== SPRING TABLE =================== */
 .spring-section { margin-bottom: 2.5rem; }
-
 .spring-table {
     max-width: 1000px;
     margin: 0 auto;
@@ -748,12 +612,7 @@ body {
     background: var(--color-card);
     box-shadow: var(--shadow-sm);
 }
-
-.spring-table-scroll {
-    max-height: 50vh;
-    overflow-y: auto;
-}
-
+.spring-table-scroll { max-height: 50vh; overflow-y: auto; }
 .spring-header, .spring-row {
     display: grid;
     grid-template-columns: 60px 1fr 90px;
@@ -761,7 +620,6 @@ body {
     align-items: center;
     border-top: 1px solid var(--color-border);
 }
-
 .spring-header {
     font-weight: 800;
     text-transform: uppercase;
@@ -777,33 +635,7 @@ body {
     border-top: none;
 }
 
-.spring-name { font-weight: 700; color: var(--color-foreground); text-align: left; padding: 0 0.25rem; }
-.spring-points { font-weight: 800; color: var(--color-secondary); text-align: center; }
-
-/* =================== SORTABLE HEADERS =================== */
-.sortable {
-    cursor: pointer;
-    position: relative;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    padding-right: 1rem;
-}
-
-.sortable::after {
-    content: '\25B2';
-    font-size: 0.55rem;
-    opacity: 0.2;
-    position: absolute;
-    right: 2px;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.sortable.sorted-asc::after { transform: translateY(-50%) rotate(0deg); opacity: 0.9; }
-.sortable.sorted-desc::after { transform: translateY(-50%) rotate(180deg); opacity: 0.9; }
-
-/* =================== ERROR BANNER =================== */
+/* =================== ERROR / NO RESULTS =================== */
 .error-banner {
     margin-bottom: 1.5rem;
     padding: 1rem;
@@ -816,7 +648,6 @@ body {
     color: var(--color-error);
     font-size: 0.9rem;
 }
-
 .error-banner.show { display: flex; }
 .error-close {
     background: none;
@@ -828,8 +659,6 @@ body {
     margin-left: auto;
     font-size: 1.2rem;
 }
-
-/* =================== NO RESULTS =================== */
 .no-results {
     text-align: center;
     padding: 2rem 1rem;
@@ -838,242 +667,39 @@ body {
 }
 
 /* =================== ANIMATIONS =================== */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
 @keyframes goldGlow {
     0%, 100% { box-shadow: 0 6px 20px rgba(255,215,0,0.3); }
     50% { box-shadow: 0 6px 30px rgba(255,215,0,0.5); }
 }
-
 @keyframes silverGlow {
     0%, 100% { box-shadow: 0 6px 20px rgba(192,192,192,0.3); }
     50% { box-shadow: 0 6px 30px rgba(192,192,192,0.5); }
 }
-
 @keyframes bronzeGlow {
     0%, 100% { box-shadow: 0 6px 20px rgba(205,127,50,0.3); }
     50% { box-shadow: 0 6px 30px rgba(205,127,50,0.5); }
 }
 
-/* =================== RANK CHANGE INDICATORS =================== */
-.rank-change { margin-left: 4px; display: inline-block; vertical-align: middle; font-size: 0.7rem; }
-.up-triangle { color: var(--color-success); }
-.down-triangle { color: var(--color-error); }
-
-/* =================== RESPONSIVE: TABLETS =================== */
-@media (min-width: 640px) {
-    .navbar { padding: 1rem 2rem; }
-    .main-content { padding: 2.5rem 1.5rem; }
-    .hero { min-height: 50vh; padding: 6rem 1.5rem 2.5rem; }
-    .stats-summary { gap: 1.25rem; }
-    .stat-card { padding: 1.5rem; }
-
-    .rankings-header, .ranking-row { grid-template-columns: 80px 1fr 120px; padding: 1rem 1.5rem; }
-    .gold-row { grid-template-columns: 80px 1fr 120px; padding: 1rem 1.5rem; }
-    .gold-row.header { grid-template-columns: 80px 1fr 120px; padding: 1rem 1.5rem; }
-    .spring-header, .spring-row { grid-template-columns: 80px 1fr 120px; padding: 1rem 1.5rem; }
+/* =================== SORTING =================== */
+.sortable {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    padding-right: 1rem;
 }
-
-/* =================== RESPONSIVE: DESKTOP =================== */
-@media (min-width: 900px) {
-    .navbar { padding: 1.25rem 3rem; }
-    .nav-links { display: flex; }
-    .btn-join { display: inline-flex; }
-    .nav-toggle { display: none !important; }
-    .main-content { padding: 3rem 2rem; }
-    .hero { min-height: 55vh; padding: 7rem 2rem 3rem; }
-
-    .rankings-header, .ranking-row { grid-template-columns: 100px 1fr 150px; padding: 1.25rem 2rem; }
-    .gold-row { grid-template-columns: 80px 1fr 120px; }
-    .gold-row.header { grid-template-columns: 80px 1fr 120px; }
-    .spring-header, .spring-row { grid-template-columns: 100px 1fr 150px; }
-
-    .ranking-name { font-size: 1.05rem; }
-    .ranking-points { font-size: 1.05rem; }
+.sortable::after {
+    content: '\25B2';
+    font-size: 0.55rem;
+    opacity: 0.2;
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
-
-/* =================== RESPONSIVE: MOBILE (< 640px) =================== */
-@media (max-width: 639px) {
-    .nav-links { display: none !important; }
-    .btn-join { display: none !important; }
-    .nav-toggle { display: flex !important; }
-
-    .hero { min-height: 32vh; padding: 4.5rem 1rem 1.5rem; }
-    .hero-line-top { font-size: clamp(0.85rem, 3.5vw, 1.1rem); }
-    .hero-line-bottom { font-size: clamp(2rem, 14vw, 3.5rem); }
-    .hero-subtitle { font-size: 0.8rem; margin-top: 0.5rem; }
-
-    .stats-summary {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-    }
-
-    .stat-card { padding: 0.75rem 0.4rem; border-radius: 12px; }
-    .stat-value { font-size: clamp(1.1rem, 5vw, 1.4rem); margin-bottom: 0.1rem; }
-    .stat-label { font-size: 0.55rem; letter-spacing: 0.03em; }
-
-    .podium-grid {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-    }
-
-    .podium-card {
-        padding: 1.25rem 1rem;
-        border-radius: 14px;
-        flex-direction: row;
-        gap: 0.875rem;
-        text-align: left;
-    }
-    .podium-rank { width: 2.5rem; height: 2.5rem; font-size: 0.95rem; flex-shrink: 0; }
-    .podium-card-info { flex: 1; min-width: 0; }
-    .podium-name { font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .podium-points { font-size: 1.35rem; }
-    .podium-label { font-size: 0.6rem; }
-
-    .diamond-grid {
-        grid-template-columns: 1fr;
-        gap: 0.6rem;
-    }
-
-    .diamond-card { padding: 0.75rem; gap: 0.6rem; border-radius: 12px; }
-    .diamond-logo { width: 44px; height: 44px; border-radius: 6px; }
-    .diamond-name { font-size: 0.85rem; }
-    .diamond-site { font-size: 0.7rem; }
-
-    .section-title { font-size: 1.05rem; margin-bottom: 0.875rem; }
-
-    .rankings-header, .ranking-row {
-        grid-template-columns: 42px 1fr 64px;
-        padding: 0.625rem 0.625rem;
-        font-size: 0.75rem;
-    }
-
-    .ranking-rank { font-size: 0.8rem; padding: 0.15rem 0.35rem; border-radius: 6px; min-width: 1.75rem; }
-    .ranking-name { font-size: 0.8rem; padding: 0 0.2rem; }
-    .ranking-points { font-size: 0.8rem; }
-
-    .gold-row, .gold-row.header {
-        grid-template-columns: 42px 1fr 64px;
-        padding: 0.625rem 0.625rem;
-    }
-
-    .spring-header, .spring-row {
-        grid-template-columns: 42px 1fr 64px;
-        padding: 0.625rem 0.625rem;
-    }
-
-    .search-input { padding: 0.65rem 0.75rem; font-size: 0.8rem; border-radius: 10px; }
-    .section-search { padding: 0.4rem 0.625rem; }
-
-    .progress-bar-mini { max-width: 50px; height: 2px; }
-
-    .rankings-table { border-radius: 12px; }
-    .gold-table { border-radius: 12px; }
-    .spring-table { border-radius: 12px; }
-
-    .search-section { margin-bottom: 1.5rem; }
-    .diamond-section { margin-bottom: 2rem; }
-    .gold-section { margin-bottom: 2rem; }
-    .podium-section { margin-bottom: 2rem; }
-    .rankings-section { margin-bottom: 2rem; }
-    .spring-section { margin-bottom: 2rem; }
-}
-
-/* Very small phones (iPhone SE, Galaxy Fold, etc.) */
-@media (max-width: 359px) {
-    .navbar { padding: 0.6rem 0.6rem; }
-    .nav-brand span { font-size: 0.7rem; letter-spacing: 0.04em; }
-    .nav-logo { width: 30px; height: 30px; border-radius: 6px; }
-    .hero { min-height: 28vh; padding: 3.5rem 0.6rem 1rem; }
-    .hero-line-top { font-size: 0.8rem; }
-    .hero-line-bottom { font-size: clamp(1.6rem, 16vw, 2.8rem); }
-    .hero-subtitle { font-size: 0.7rem; }
-    .main-content { padding: 1.25rem 0.4rem; }
-
-    .stats-summary { gap: 0.3rem; }
-    .stat-card { padding: 0.5rem 0.25rem; border-radius: 10px; }
-    .stat-value { font-size: 1rem; }
-    .stat-label { font-size: 0.5rem; }
-
-    .podium-card { padding: 1rem 0.75rem; gap: 0.6rem; }
-    .podium-rank { width: 2.25rem; height: 2.25rem; font-size: 0.85rem; }
-    .podium-name { font-size: 0.85rem; }
-    .podium-points { font-size: 1.15rem; }
-
-    .rankings-header, .ranking-row { grid-template-columns: 36px 1fr 54px; padding: 0.5rem 0.4rem; }
-    .gold-row, .gold-row.header { grid-template-columns: 36px 1fr 54px; padding: 0.5rem 0.4rem; }
-    .spring-header, .spring-row { grid-template-columns: 36px 1fr 54px; padding: 0.5rem 0.4rem; }
-
-    .ranking-rank { font-size: 0.7rem; padding: 0.1rem 0.25rem; min-width: 1.5rem; }
-    .ranking-name { font-size: 0.7rem; }
-    .ranking-points { font-size: 0.7rem; }
-    .gold-rank { font-size: 0.7rem; }
-    .gold-name { font-size: 0.7rem; }
-    .gold-points { font-size: 0.7rem; }
-
-    .section-title { font-size: 0.95rem; }
-    .search-input { padding: 0.55rem 0.6rem; font-size: 0.75rem; }
-    .diamond-logo { width: 38px; height: 38px; }
-    .diamond-name { font-size: 0.8rem; }
-
-    .nav-menu-mobile a.nav-link { font-size: 0.95rem; padding: 0.875rem 1.5rem; }
-}
-
-/* Landscape on small devices */
-@media (max-width: 639px) and (orientation: landscape) {
-    .hero { min-height: 50vh; padding: 4rem 1rem 1rem; }
-    .hero-line-bottom { font-size: clamp(1.5rem, 8vw, 2.5rem); }
-    .stats-summary { grid-template-columns: repeat(3, 1fr); }
-    .podium-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-    .podium-card { flex-direction: column; text-align: center; padding: 1rem 0.5rem; }
-    .podium-rank { margin: 0 auto; }
-}
-
-/* Touch-friendly: increase tap targets */
-@media (hover: none) and (pointer: coarse) {
-    .ranking-row { padding-top: 0.75rem; padding-bottom: 0.75rem; min-height: 48px; }
-    .gold-row:not(.header) { min-height: 48px; }
-    .spring-row { min-height: 48px; }
-    .sortable { padding: 0.5rem 1.25rem 0.5rem 0.25rem; }
-    .nav-toggle { padding: 0.75rem; }
-    .search-input { min-height: 44px; }
-}
-
-/* =================== SCROLLBAR =================== */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-secondary); }
-
-/* =================== REDUCED MOTION =================== */
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-}
-
-/* =================== SAFE AREA (NOTCH PHONES) =================== */
-@supports (padding: env(safe-area-inset-bottom)) {
-    .navbar {
-        padding-left: max(1.25rem, env(safe-area-inset-left));
-        padding-right: max(1.25rem, env(safe-area-inset-right));
-    }
-    .main-content {
-        padding-left: max(1rem, env(safe-area-inset-left));
-        padding-right: max(1rem, env(safe-area-inset-right));
-        padding-bottom: max(2rem, env(safe-area-inset-bottom));
-    }
-}
+.sortable.sorted-asc::after { transform: translateY(-50%) rotate(0deg); opacity: 0.9; }
+.sortable.sorted-desc::after { transform: translateY(-50%) rotate(180deg); opacity: 0.9; }
     </style>
 </head>
 <body>
@@ -1128,7 +754,7 @@ body {
         <div class="hero-stack">
             <div class="hero-line hero-line-top">UTSA NSBE</div>
             <div class="hero-line hero-line-bottom">Leaderboard</div>
-            <p class="hero-subtitle">Track member points, rankings, and sponsorship progress.</p>
+            <p class="hero-subtitle">Success Isn't optional, It's Personal.</p>
         </div>
     </section>
 
@@ -1153,7 +779,7 @@ body {
 
         <!-- Diamond Sponsors -->
         <section class="diamond-section" aria-labelledby="diamond-title">
-            <h2 id="diamond-title" class="section-title">Diamond Sponsors &mdash; NSBE 52</h2>
+            <h2 id="diamond-title" class="section-title">Diamond Sponsorship Qualifiers &mdash; NSBE 52</h2>
             <div id="diamond-grid" class="diamond-grid" role="list" aria-live="polite"></div>
         </section>
 
@@ -1175,13 +801,6 @@ body {
             </div>
         </section>
 
-        <!-- Search (global) -->
-        <div class="search-section">
-            <div class="search-container">
-                <input type="text" id="search-input" class="search-input" placeholder="Search by name..." aria-label="Search members by name">
-            </div>
-        </div>
-
         <!-- Error Banner -->
         <div id="error-banner" class="error-banner" role="alert">
             <p id="error-message"></p>
@@ -1190,30 +809,12 @@ body {
 
         <!-- Top 3 Podium -->
         <section class="podium-section">
-            <h2 class="section-title">Top Performers</h2>
+            <h2 class="section-title">Spring Scholarship Leaderboard</h2>
             <div id="podium-grid" class="podium-grid"></div>
-        </section>
-
-        <!-- Full Rankings -->
-        <section class="rankings-section">
-            <h2 class="section-title">Full Rankings</h2>
-            <div class="rankings-table">
-                <div class="section-search">
-                    <input id="search-rankings" class="search-input" placeholder="Search Full Rankings..." aria-label="Search Full Rankings">
-                </div>
-                <div class="rankings-header">
-                    <div class="sortable" data-section="rankings" data-key="rank">Rank</div>
-                    <div class="sortable" data-section="rankings" data-key="name">Name</div>
-                    <div class="sortable" data-section="rankings" data-key="points">Points</div>
-                </div>
-                <div class="rankings-table-scroll" id="rankings-grid"></div>
-            </div>
         </section>
 
         <!-- Spring Scholarship Leaderboard -->
         <section class="spring-section">
-            <h2 class="section-title">Spring Scholarship Leaderboard</h2>
-            <p class="diamond-subtitle">Top students for the Spring semester.</p>
             <div id="spring-table" class="spring-table" role="table" aria-live="polite">
                 <div class="section-search">
                     <input id="search-spring" class="search-input" placeholder="Search Spring Scholarship..." aria-label="Search Spring Scholarship">
@@ -1304,7 +905,6 @@ body {
             if (window.innerWidth > 900) closeMenu();
         });
 
-        // Scrolled state
         function onScroll() {
             if (window.scrollY > 20) navbar.classList.add('scrolled');
             else navbar.classList.remove('scrolled');
@@ -1313,63 +913,41 @@ body {
         onScroll();
     })();
 
-    /* =================== DIAMOND SPONSORS =================== */
+    /* =================== DIAMOND SPONSORS (HARDCODED NAMES) =================== */
     (function() {
-        function render(sponsors) {
-            const grid = document.getElementById('diamond-grid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            if (!sponsors || sponsors.length === 0) {
-                grid.innerHTML = '<div class="no-results">No Diamond Sponsors found.</div>';
-                return;
-            }
-            sponsors.forEach(s => {
-                const a = document.createElement('a');
-                a.className = 'diamond-card';
-                a.role = 'listitem';
-                a.href = s.website || '#';
-                a.target = '_blank';
-                a.rel = 'noopener noreferrer';
+        const diamondNames = [
+            "Aisha Karage",
+            "Cody Camacho",
+            "Jordan Turner",
+            "Ebubechi Dickson",
+            "Yoma Abobo",
+            "Nahom Sweet",
+            "Isi Ataghauman",
+            "Immanuel Fadairo",
+            "Chinaemerem Nwachukwu",
+            "John Rex"
+        ];
 
-                const img = document.createElement('img');
-                img.className = 'diamond-logo';
-                img.alt = (s.name || 'Sponsor') + ' logo';
-                img.src = s.logo && s.logo.length ? s.logo : 'images/logopic.jpg';
-                img.width = 56;
-                img.height = 56;
-                img.loading = 'lazy';
+        const grid = document.getElementById('diamond-grid');
+        if (!grid) return;
 
-                const info = document.createElement('div');
-                info.className = 'diamond-info';
-                const name = document.createElement('div');
-                name.className = 'diamond-name';
-                name.textContent = s.name || 'Sponsor';
-                const site = document.createElement('div');
-                site.className = 'diamond-site';
-                try { site.textContent = s.website ? (new URL(s.website)).hostname : ''; } catch(e) { site.textContent = ''; }
+        grid.innerHTML = '';
 
-                info.appendChild(name);
-                info.appendChild(site);
-                a.appendChild(img);
-                a.appendChild(info);
-                grid.appendChild(a);
-            });
+        if (!diamondNames || diamondNames.length === 0) {
+            grid.innerHTML = '<div class="no-results">No Diamond Sponsors found.</div>';
+            return;
         }
 
-        fetch('top.csv', { cache: 'no-cache' })
-            .then(r => { if (!r.ok) throw new Error('top.csv'); return r.text(); })
-            .then(text => {
-                let sp = parseCSV(text).filter(s => {
-                    const w = (s.website || '').toLowerCase();
-                    if (!w && !s.logo) return false;
-                    if (w.includes('example.com')) return false;
-                    return true;
-                });
-                render(sp);
-            })
-            .catch(() => {
-                document.getElementById('diamond-grid').innerHTML = '<div class="no-results">Unable to load Diamond Sponsors.</div>';
-            });
+        diamondNames.forEach(name => {
+            const card = document.createElement('div');
+            card.className = 'diamond-card';
+            card.role = 'listitem';
+            card.innerHTML =
+                '<div class="diamond-info">' +
+                    '<div class="diamond-name">' + name + '</div>' +
+                '</div>';
+            grid.appendChild(card);
+        });
     })();
 
     /* =================== GOLD SPONSORSHIP =================== */
@@ -1387,9 +965,9 @@ body {
                 div.className = 'gold-row';
                 div.role = 'row';
                 div.innerHTML =
-                    '<div class="gold-rank">' + (r.rank || '') + '</div>' +
-                    '<div class="gold-name">' + (r.name || r.website || '&mdash;') + '</div>' +
-                    '<div class="gold-points">' + (r.points || '0') + '</div>';
+                    '<div class="gold-rank">' + (r.Rank || r.rank || '') + '</div>' +
+                    '<div class="gold-name">' + (r.Name || r.name || '&mdash;') + '</div>' +
+                    '<div class="gold-points">' + (r.Points || r.points || '0') + '</div>';
                 scroll.appendChild(div);
             });
         }
@@ -1397,71 +975,22 @@ body {
         fetch('gold.csv', { cache: 'no-cache' })
             .then(r => { if (!r.ok) throw new Error('gold.csv'); return r.text(); })
             .then(text => {
-                let rows = parseCSV(text).filter(r => {
-                    if (!r.name && !r.website) return false;
-                    if ((r.website || '').toLowerCase().includes('example.com')) return false;
-                    return true;
-                });
+                const rows = parseCSV(text);
                 render(rows);
             })
             .catch(() => render([]));
     })();
 
-    /* =================== LEADERBOARD (RANKINGS + SPRING + PODIUM) =================== */
+    /* =================== LEADERBOARD (SPRING + PODIUM) =================== */
     (function() {
-        function renderRankings(rows) {
-            const grid = document.getElementById('rankings-grid');
-            if (!grid) return;
-            grid.innerHTML = '';
-
-            if (!rows || rows.length === 0) {
-                grid.innerHTML = '<div class="no-results">No rankings found.</div>';
-                animateValue(document.getElementById('total-members'), 0, 400);
-                animateValue(document.getElementById('total-points'), 0, 400);
-                animateValue(document.getElementById('avg-points'), 0, 400);
-                return;
-            }
-
-            const maxPts = Math.max(...rows.map(r => parseFloat((r.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0), 1);
-
-            rows.forEach((r, idx) => {
-                const pts = parseFloat((r.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0;
-                const pct = Math.round((pts / maxPts) * 100);
-
-                const div = document.createElement('div');
-                div.className = 'ranking-row';
-                div.role = 'row';
-                div.tabIndex = 0;
-                div.style.animationDelay = (0.03 * idx) + 's';
-                div.innerHTML =
-                    '<div class="ranking-rank">' + (r.rank || (idx + 1)) + '</div>' +
-                    '<div class="ranking-name">' + (r.name || '') + '</div>' +
-                    '<div class="ranking-points">' + (r.points || '0') +
-                        '<div class="progress-bar-mini"><div class="progress-fill-mini" style="width:' + pct + '%"></div></div>' +
-                    '</div>';
-                grid.appendChild(div);
-            });
-
-            // Stats
-            const total = rows.length;
-            const totalPts = rows.reduce((a, c) => a + (parseFloat((c.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0), 0);
-            const avg = total > 0 ? Math.round(totalPts / total) : 0;
-            animateValue(document.getElementById('total-members'), total, 800);
-            animateValue(document.getElementById('total-points'), totalPts, 1000);
-            animateValue(document.getElementById('avg-points'), avg, 900);
-        }
-
         function renderPodium(rows) {
             const grid = document.getElementById('podium-grid');
             if (!grid) return;
             grid.innerHTML = '';
-            const top = rows.slice(0, 3);
+            const top = (rows || []).slice(0, 3);
             top.forEach((r, i) => {
                 const card = document.createElement('div');
                 card.className = 'podium-card podium-' + (i + 1);
-
-                // On mobile, podium cards are displayed as horizontal rows.
-                // We wrap the text in a div for flex layout.
                 card.innerHTML =
                     '<div class="podium-rank">' + (r.rank || (i + 1)) + '</div>' +
                     '<div class="podium-card-info">' +
@@ -1497,20 +1026,40 @@ body {
             .then(r => { if (!r.ok) throw new Error('leaderboard.csv'); return r.text(); })
             .then(text => {
                 const raw = parseCSV(text);
+
                 const rows = raw.map(r => ({
                     rank: r.Rank || r.rank || '',
                     name: r.Name || r.name || r.member || '',
                     points: r.Points || r.points || '0'
                 })).filter(r => !!r.name);
 
-                renderRankings(rows);
-                renderPodium(rows);
-                renderSpring(rows.filter(r => r.points && !isNaN(parseFloat(r.points))));
+                const springRows = rows
+                    .map(r => {
+                        const pts = parseFloat((r.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0;
+                        return { rank: r.rank, name: r.name, points: pts };
+                    })
+                    .filter(r => r.name && !isNaN(r.points))
+                    .sort((a, b) => b.points - a.points)
+                    .map((r, i) => ({ ...r, rank: i + 1 }));
+
+                renderPodium(springRows);
+                renderSpring(springRows);
+
+                const total = springRows.length;
+                const totalPts = springRows.reduce((a, c) => a + (c.points || 0), 0);
+                const avg = total > 0 ? Math.round(totalPts / total) : 0;
+
+                animateValue(document.getElementById('total-members'), total, 800);
+                animateValue(document.getElementById('total-points'), totalPts, 1000);
+                animateValue(document.getElementById('avg-points'), avg, 900);
             })
             .catch(err => {
                 console.error('Leaderboard load error:', err);
-                renderRankings([]);
+                renderPodium([]);
                 renderSpring([]);
+                animateValue(document.getElementById('total-members'), 0, 400);
+                animateValue(document.getElementById('total-points'), 0, 400);
+                animateValue(document.getElementById('avg-points'), 0, 400);
             });
     })();
 
@@ -1528,10 +1077,6 @@ body {
             });
         }
 
-        // Global search filters full rankings
-        bindSearch('search-input', '#rankings-grid .ranking-row', 'ranking-name');
-        // Per-section searches
-        bindSearch('search-rankings', '#rankings-grid .ranking-row', 'ranking-name');
         bindSearch('search-gold', '#gold-scroll .gold-row', 'gold-name');
         bindSearch('search-spring', '#spring-scroll .spring-row', 'ranking-name');
     })();
@@ -1542,7 +1087,7 @@ body {
 
         document.querySelectorAll('.sortable').forEach(h => {
             h.addEventListener('click', () => {
-                const section = h.dataset.section || 'rankings';
+                const section = h.dataset.section || 'spring';
                 const key = h.dataset.key;
                 if (!state[section]) state[section] = { key: 'rank', dir: 'asc' };
 
@@ -1553,20 +1098,16 @@ body {
                     state[section].dir = 'asc';
                 }
 
-                // Update header classes for this section
-                h.closest('.rankings-header, .gold-row.header, .spring-header')
+                h.closest('.gold-row.header, .spring-header')
                     ?.querySelectorAll('.sortable')
                     .forEach(s => s.classList.remove('sorted-asc', 'sorted-desc'));
                 h.classList.add(state[section].dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
 
-                // Determine container and row selectors
                 let containerId, rowClass, rankClass, nameClass, pointsClass;
                 if (section === 'gold') {
                     containerId = 'gold-scroll'; rowClass = 'gold-row'; rankClass = 'gold-rank'; nameClass = 'gold-name'; pointsClass = 'gold-points';
-                } else if (section === 'spring') {
-                    containerId = 'spring-scroll'; rowClass = 'spring-row'; rankClass = 'ranking-rank'; nameClass = 'ranking-name'; pointsClass = 'ranking-points';
                 } else {
-                    containerId = 'rankings-grid'; rowClass = 'ranking-row'; rankClass = 'ranking-rank'; nameClass = 'ranking-name'; pointsClass = 'ranking-points';
+                    containerId = 'spring-scroll'; rowClass = 'spring-row'; rankClass = 'ranking-rank'; nameClass = 'ranking-name'; pointsClass = 'ranking-points';
                 }
 
                 const container = document.getElementById(containerId);
