@@ -7,8 +7,8 @@
   <meta name="description" content="Join UTSA NSBE to empower the next generation of Black engineers through academic excellence, professional development, and community impact.">
   
   <!-- Favicon -->
-  <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
-  <link rel="apple-touch-icon" href="images/logopic.jpg">
+  <link rel="icon" href="images/whitelogopic.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/whitelogopic.png">
   
   <!-- New editorial fonts - bold display + clean sans -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -131,14 +131,14 @@
     
     .nav-links {
       display: flex;
-      gap: 2rem;
+      gap: 2.4rem;
       margin-right: 2rem;
     }
     
     .nav-link {
       color: var(--color-white);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       font-weight: 500;
       opacity: 0.7;
       transition: opacity 0.3s ease;
@@ -280,7 +280,7 @@
     
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(6rem, 18vw, 22rem);
+      font-size: clamp(6rem, 16vw, 22rem);
       font-weight: 900;
       line-height: 0.85;
       letter-spacing: -0.04em;
@@ -312,13 +312,14 @@
     }
     
     .hero-title span {
-      display: block;
+      display: inline-block;
+      vertical-align: middle;
       position: relative;
     }
     
     .hero-title span:first-child {
       color: #FFFFFF;
-      animation: slideInLeft 1s ease-out;
+      animation: slideUp 0.9s ease-out 0s both;
     }
     
     .hero-title span:last-child {
@@ -326,7 +327,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: slideInRight 1s ease-out, gradientShimmer 3s ease-in-out infinite;
+      animation: slideUp 0.9s ease-out 0.08s both, gradientShimmer 3s ease-in-out infinite;
       background-size: 200% 100%;
     }
     
@@ -338,6 +339,11 @@
     @keyframes slideInRight {
       0% { opacity: 0; transform: translateX(100px); }
       100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
     
     @keyframes gradientShimmer {
@@ -1326,7 +1332,7 @@
       }
       
       .hero-title {
-        font-size: clamp(4rem, 15vw, 10rem);
+        font-size: clamp(4.5rem, 12vw, 16.5rem);
       }
       
       .hero-meta {
@@ -1468,7 +1474,7 @@
     
     @media (max-width: 480px) {
       .hero-title {
-        font-size: clamp(3rem, 12vw, 6rem);
+        font-size: clamp(3rem, 8vw, 11rem);
       }
       
       .hero-image-container {
@@ -1574,7 +1580,7 @@
   <nav class="navbar" id="navbar">
     <a href="./" class="nav-brand">
       <div class="nav-logo">
-        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+        <img src="images/whitelogopic.png" alt="UTSA NSBE Logo">
       </div>
       <span>UTSA NSBE</span>
     </a>
@@ -1584,10 +1590,10 @@
         <a href="./" class="nav-link active">Home</a>
         <a href="./about" class="nav-link">About</a>
         <a href="./leadership" class="nav-link">Leadership</a>
-        <a href="./conferences" class="nav-link">Conferences</a>
-        <a href="./leaderboard" class="nav-link">Leaderboard</a>
-        <a href="./gallery" class="nav-link">Gallery</a>
         <a href="./donate" class="nav-link">Donate</a>
+        <a href="./leaderboard" class="nav-link">Leaderboard</a>
+        <a href="./conferences" class="nav-link">Conferences</a>
+        <a href="./gallery" class="nav-link">Gallery</a>
         <a href="./contact" class="nav-link">Contact</a>
       </div>
     <a href="https://linktr.ee/utsansbe" class="btn-join" target="_blank" rel="noopener noreferrer">
@@ -1607,10 +1613,10 @@
     <a href="./" class="nav-link">Home</a>
     <a href="./about" class="nav-link">About</a>
     <a href="./leadership" class="nav-link">Leadership</a>
-    <a href="./conferences" class="nav-link">Conferences</a>
-    <a href="./leaderboard" class="nav-link">Leaderboard</a>
-    <a href="./gallery" class="nav-link">Gallery</a>
     <a href="./donate" class="nav-link">Donate</a>
+    <a href="./leaderboard" class="nav-link">Leaderboard</a>
+    <a href="./conferences" class="nav-link">Conferences</a>
+    <a href="./gallery" class="nav-link">Gallery</a>
     <a href="./contact" class="nav-link">Contact</a>
   </div>
 
@@ -1622,8 +1628,8 @@
     
     <div class="hero-title-container">
       <h1 class="hero-title">
-        <span>UTSA</span>
-        <span>NSBE</span>
+        <span class="hero-title-utsa">UTSA</span>
+        <span class="hero-title-nsbe">NSBE</span>
       </h1>
     </div>
     
@@ -1882,7 +1888,7 @@
     <div class="footer-content">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+          <img src="images/whitelogopic.png" alt="UTSA NSBE Logo">
         </div>
         <div class="footer-text">
           <h3>UTSA NSBE</h3>

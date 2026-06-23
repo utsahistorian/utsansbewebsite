@@ -7,8 +7,8 @@
   <meta name="description" content="Meet the dedicated leadership team of UTSA NSBE, driving excellence and innovation in engineering education.">
   
   <!-- Favicon -->
-  <link rel="icon" href="images/logopic.jpg" type="image/jpeg">
-  <link rel="apple-touch-icon" href="images/logopic.jpg">
+  <link rel="icon" href="images/whitelogopic.png" type="image/jpeg">
+  <link rel="apple-touch-icon" href="images/whitelogopic.png">
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -376,20 +376,20 @@
       }
     }
     
-    .hero-subtitle-top {
+    .hero-subtitle-middle {
       font-family: var(--font-display);
       font-size: clamp(0.85rem, 1.5vw, 1.1rem);
       font-weight: 700;
       color: #F15A22;
       text-transform: uppercase;
       letter-spacing: 0.5em;
-      margin-bottom: 2rem;
-      animation: fadeSlideUp 1s ease-out;
+      margin-bottom: 0.5rem;
+      animation: fadeSlideFromRight 1s ease-out 0.8s backwards;
       display: inline-block;
       position: relative;
     }
     
-    .hero-subtitle-top::after {
+    .hero-subtitle-middle::after {
       content: '';
       position: absolute;
       bottom: -8px;
@@ -400,9 +400,15 @@
       box-shadow: 0 0 10px rgba(241, 90, 34, 0.6);
     }
     
-    @keyframes fadeSlideUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
+    @keyframes fadeSlideFromRight {
+      0% { 
+        opacity: 0; 
+        transform: translateY(50px); 
+      }
+      100% { 
+        opacity: 1;
+         transform: translateY(0); 
+        }
     }
     
     .hero-title {
@@ -412,7 +418,8 @@
       line-height: 0.9;
       letter-spacing: -0.03em;
       text-transform: uppercase;
-      margin-bottom: 2.5rem;
+      margin-bottom: 0.5rem;
+      margin-top: 3rem;
       position: relative;
     }
     
@@ -484,7 +491,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
-      margin-top: 3rem;
+      margin-top: 1.5rem;
       max-width: 900px;
       animation: fadeSlideUp 1.5s ease-out 1s backwards;
     }
@@ -1357,7 +1364,7 @@
         text-align: center;
       }
       
-      .hero-subtitle-top::after {
+      .hero-subtitle-middle::after {
         left: 50%;
         transform: translateX(-50%);
       }
@@ -1381,7 +1388,7 @@
         border-width: 2px;
       }
       
-      .hero-subtitle-top {
+      .hero-subtitle-middle {
         font-size: 0.75rem;
         letter-spacing: 0.3em;
       }
@@ -1498,7 +1505,7 @@
         aspect-ratio: 4/3;
       }
       
-      .hero-subtitle-top {
+      .hero-subtitle-middle {
         font-size: 0.65rem;
         letter-spacing: 0.25em;
       }
@@ -1575,7 +1582,7 @@
   <nav class="navbar" id="navbar">
     <a href="./" class="nav-brand">
       <div class="nav-logo">
-        <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+        <img src="images/whitelogopic.png" alt="UTSA NSBE Logo">
       </div>
       <span>UTSA NSBE</span>
     </a>
@@ -1628,12 +1635,13 @@
     
     <!-- LEFT SIDE: Vertical Typography & Stats -->
     <div class="hero-title-container">
-      <div class="hero-subtitle-top">2026-2027 Leadership</div>
       <h1 class="hero-title">
         <span class="hero-title-word">MEET</span>
         <span class="hero-title-word">OUR</span>
         <span class="hero-title-word">TEAM</span>
       </h1>
+      
+      <div class="hero-subtitle-middle">2026-2027 Leadership</div>
       
       <div class="hero-meta">
         <div class="hero-meta-item">
@@ -1972,7 +1980,7 @@
     <div class="footer-content">
       <div class="footer-brand">
         <div class="footer-logo">
-          <img src="images/logopic.jpg" alt="UTSA NSBE Logo">
+          <img src="images/whitelogopic.png" alt="UTSA NSBE Logo">
         </div>
         <div class="footer-text">
           <h3>UTSA NSBE</h3>
