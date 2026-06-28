@@ -62,7 +62,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 1rem 1.25rem;
+    padding: 1.5rem 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -75,26 +75,27 @@ body {
 .navbar.scrolled {
     background: rgba(12, 35, 64, 0.98);
     backdrop-filter: blur(20px);
-    box-shadow: 0 4px 30px rgba(241, 90, 34, 0.15);
+    padding: 1rem 3rem;
+    box-shadow: 0 4px 30px rgba(241, 90, 34, 0.2);
 }
 
 .nav-brand {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.75rem;
     text-decoration: none;
     color: var(--color-white);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     flex-shrink: 0;
 }
 
 .nav-logo {
-    width: 38px;
-    height: 38px;
+    width: 45px;
+    height: 45px;
     border-radius: 8px;
     overflow: hidden;
     flex-shrink: 0;
@@ -112,19 +113,19 @@ body {
 .nav-cta {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 1rem;
 }
 
 .nav-links {
     display: flex;
-    gap: 1.5rem;
-    margin-right: 1rem;
+    gap: 2.4rem;
+    margin-right: 2rem;
 }
 
 .nav-link {
     color: var(--color-white);
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
     font-weight: 500;
     opacity: 0.7;
     transition: opacity 0.3s ease;
@@ -140,13 +141,13 @@ body {
 .btn-join {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.6rem 1.2rem;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
     background: linear-gradient(135deg, #F15A22 0%, #FF7B47 100%);
     color: var(--color-white);
     text-decoration: none;
     border-radius: 50px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
     box-shadow: 0 4px 15px rgba(241, 90, 34, 0.3);
     white-space: nowrap;
@@ -745,6 +746,35 @@ body {
 }
 .sortable.sorted-asc::after { transform: translateY(-50%) rotate(0deg); opacity: 0.9; }
 .sortable.sorted-desc::after { transform: translateY(-50%) rotate(180deg); opacity: 0.9; }
+
+/* =================== COMING SOON =================== */
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.coming-soon-msg {
+    text-align: center;
+    padding: 5rem 1.5rem 6rem;
+    animation: fadeSlideUp 3s ease-out both;
+}
+
+.coming-soon-msg h2 {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+}
+
+.coming-soon-msg p {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: #ffffff;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.75;
+    opacity: 0.9;
+}
     </style>
 </head>
 <body>
@@ -763,10 +793,10 @@ body {
                 <a href="./" class="nav-link">Home</a>
                 <a href="./about" class="nav-link">About</a>
                 <a href="./leadership" class="nav-link">Leadership</a>
-                <a href="./conferences" class="nav-link">Conferences</a>
-                <a href="./leaderboard" class="nav-link active">Leaderboard</a>
-                <a href="./gallery" class="nav-link">Gallery</a>
                 <a href="./donate" class="nav-link">Donate</a>
+                <a href="./leaderboard" class="nav-link active">Leaderboard</a>
+                <a href="./conferences" class="nav-link">Conferences</a>
+                <a href="./gallery" class="nav-link">Gallery</a>
                 <a href="./contact" class="nav-link">Contact</a>
             </div>
             <a href="https://linktr.ee/utsansbe" class="btn-join" target="_blank" rel="noopener noreferrer">
@@ -786,12 +816,11 @@ body {
         <a href="./" class="nav-link">Home</a>
         <a href="./about" class="nav-link">About</a>
         <a href="./leadership" class="nav-link">Leadership</a>
-        <a href="./conferences" class="nav-link">Conferences</a>
-        <a href="./leaderboard" class="nav-link active">Leaderboard</a>
-        <a href="./gallery" class="nav-link">Gallery</a>
         <a href="./donate" class="nav-link">Donate</a>
+        <a href="./leaderboard" class="nav-link active">Leaderboard</a>
+        <a href="./conferences" class="nav-link">Conferences</a>
+        <a href="./gallery" class="nav-link">Gallery</a>
         <a href="./contact" class="nav-link">Contact</a>
-        <a href="https://linktr.ee/utsansbe" class="nav-link" target="_blank" rel="noopener noreferrer">Linktree</a>
     </div>
 
     <!-- Hero -->
@@ -799,12 +828,18 @@ body {
         <div class="hero-stack">
             <div class="hero-line hero-line-top">UTSA NSBE</div>
             <div class="hero-line hero-line-bottom">Leaderboard</div>
-            <p class="hero-subtitle">Success Isn't optional, It's Personal.</p>
+            <p class="hero-subtitle">Strive For More, Settle For Nothing Less.</p>
         </div>
     </section>
 
-    <!-- Main Content -->
-    <main class="main-content">
+    <!-- Coming Soon Message -->
+    <div class="coming-soon-msg">
+        <h2>Points Collection Coming Soon</h2>
+        <p>Points will begin being collected during the upcoming school year &mdash; check back then to see where you stand on the leaderboard!</p>
+    </div>
+
+    <!-- TEMPORARILY DISABLED: Main content & leaderboard stats. Re-enable when points collection begins. -->
+    <main class="main-content" style="display:none" aria-hidden="true">
 
         <!-- Stats Summary -->
         <div class="stats-summary">
@@ -960,6 +995,7 @@ body {
 
     /* =================== DIAMOND SPONSORS (HARDCODED NAMES) =================== */
     (function() {
+        return; /* TEMPORARILY DISABLED - Points collection not yet active */
         const diamondNames = [
             "Aisha Karage",
             "Cody Camacho",
@@ -997,6 +1033,7 @@ body {
 
     /* =================== GOLD SPONSORSHIP =================== */
     (function() {
+        return; /* TEMPORARILY DISABLED - Points collection not yet active */
         function render(rows) {
             const scroll = document.getElementById('gold-scroll');
             if (!scroll) return;
@@ -1028,6 +1065,7 @@ body {
 
     /* =================== LEADERBOARD (SPRING + PODIUM) =================== */
     (function() {
+        return; /* TEMPORARILY DISABLED - Points collection not yet active */
         function renderPodium(rows) {
             const grid = document.getElementById('podium-grid');
             if (!grid) return;
@@ -1110,6 +1148,7 @@ body {
 
     /* =================== SEARCH HANDLERS =================== */
     (function() {
+        return; /* TEMPORARILY DISABLED - Points collection not yet active */
         function bindSearch(inputId, containerSel, nameClass) {
             const input = document.getElementById(inputId);
             if (!input) return;
@@ -1128,6 +1167,7 @@ body {
 
     /* =================== SORTING =================== */
     (function() {
+        return; /* TEMPORARILY DISABLED - Points collection not yet active */
         const state = {};
 
         document.querySelectorAll('.sortable').forEach(h => {
