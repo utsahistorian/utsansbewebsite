@@ -610,7 +610,7 @@
       50% { transform: scale(1.15); }
     }
     
-    /* Video Modal */
+    /* Calendar Lightbox */
     .video-modal {
       display: none;
       position: fixed;
@@ -637,8 +637,8 @@
     
     .video-modal-content {
       position: relative;
-      width: 90%;
-      max-width: 1200px;
+      max-width: 86vw;
+      max-height: 84vh;
       animation: slideUp 0.4s ease;
     }
     
@@ -655,10 +655,10 @@
     
     .video-modal-close {
       position: absolute;
-      top: -50px;
-      right: 0;
-      background: transparent;
-      border: 2px solid var(--color-white);
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.55);
+      border: 2px solid rgba(255, 255, 255, 0.9);
       color: var(--color-white);
       width: 40px;
       height: 40px;
@@ -669,6 +669,7 @@
       cursor: pointer;
       font-size: 1.2rem;
       transition: all 0.3s ease;
+      z-index: 2;
     }
     
     .video-modal-close:hover {
@@ -677,10 +678,15 @@
       transform: rotate(90deg);
     }
     
-    .video-modal-content video {
-      width: 100%;
+    .video-modal-content img {
+      display: block;
+      max-width: 100%;
+      max-height: 84vh;
+      width: auto;
+      height: auto;
       border-radius: 12px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      object-fit: contain;
     }
     
     /* ========================================
@@ -1647,9 +1653,9 @@
       <span class="hero-meta-item">Est. 2002</span>
       <span class="hero-meta-item">2026-2027</span>
       <span class="hero-meta-item">San Antonio</span>
-      <button class="btn-video-hero" id="openVideoBtn">
-        <i class="fas fa-play-circle"></i>
-        <span>2025 Nationals</span>
+      <button class="btn-video-hero" id="openCalendarBtn">
+        <i class="fas fa-calendar-days"></i>
+        <span>View Calendar</span>
       </button>
     </div>
     
@@ -1689,16 +1695,13 @@
     </p>
   </section>
   
-  <!-- Video Modal -->
+  <!-- Calendar Lightbox -->
   <div class="video-modal" id="videoModal">
     <div class="video-modal-content">
-      <button class="video-modal-close" id="closeVideoBtn">
+      <button class="video-modal-close" id="closeCalendarBtn" aria-label="Close calendar image">
         <i class="fas fa-times"></i>
       </button>
-      <video id="recapVideo" controls>
-        <source src="videos/2025recap.mov" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+      <img id="calendarImage" src="images/Website Calendar Placeholder (1).png" alt="UTSA NSBE calendar placeholder">
     </div>
   </div>
   
@@ -2025,36 +2028,28 @@
       });
     });
     
-    // Video Modal
-    const openVideoBtn = document.getElementById('openVideoBtn');
-    const closeVideoBtn = document.getElementById('closeVideoBtn');
+    // Calendar lightbox
+    const openCalendarBtn = document.getElementById('openCalendarBtn');
+    const closeCalendarBtn = document.getElementById('closeCalendarBtn');
     const videoModal = document.getElementById('videoModal');
-    const recapVideo = document.getElementById('recapVideo');
+    const calendarImage = document.getElementById('calendarImage');
     
-    if (openVideoBtn && videoModal && closeVideoBtn) {
-      openVideoBtn.addEventListener('click', () => {
+    if (openCalendarBtn && videoModal && closeCalendarBtn) {
+      openCalendarBtn.addEventListener('click', () => {
         videoModal.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
       
-      closeVideoBtn.addEventListener('click', () => {
+      closeCalendarBtn.addEventListener('click', () => {
         videoModal.classList.remove('active');
         document.body.style.overflow = '';
-        if (recapVideo) {
-          recapVideo.pause();
-          recapVideo.currentTime = 0;
-        }
       });
       
-      // Close modal when clicking outside video
+      // Close modal when clicking outside the image
       videoModal.addEventListener('click', (e) => {
         if (e.target === videoModal) {
           videoModal.classList.remove('active');
           document.body.style.overflow = '';
-          if (recapVideo) {
-            recapVideo.pause();
-            recapVideo.currentTime = 0;
-          }
         }
       });
       
@@ -2063,12 +2058,14 @@
         if (e.key === 'Escape' && videoModal.classList.contains('active')) {
           videoModal.classList.remove('active');
           document.body.style.overflow = '';
-          if (recapVideo) {
-            recapVideo.pause();
-            recapVideo.currentTime = 0;
-          }
         }
       });
+
+      if (calendarImage) {
+        calendarImage.addEventListener('error', () => {
+          calendarImage.alt = 'Calendar image failed to load';
+        });
+      }
     }
     
     // Initialize
