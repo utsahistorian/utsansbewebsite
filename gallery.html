@@ -455,22 +455,129 @@
             color: var(--color-white);
         }
 
+        .gallery-browser {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .year-folders {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .year-folder-button {
+            width: 100%;
+            min-height: 220px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: linear-gradient(135deg, rgba(12, 35, 64, 0.95) 0%, rgba(26, 58, 92, 0.85) 100%);
+            border-radius: 28px;
+            padding: 2rem 1.25rem;
+            color: var(--color-white);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .year-folder-button:hover {
+            transform: translateY(-6px);
+            border-color: rgba(241, 90, 34, 0.7);
+            box-shadow: 0 20px 55px rgba(241, 90, 34, 0.25);
+        }
+
+        .year-folder-button i {
+            font-size: 3.2rem;
+            color: var(--color-accent-light);
+            filter: drop-shadow(0 0 16px rgba(241, 90, 34, 0.25));
+        }
+
+        .year-folder-button span {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .year-gallery-view {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .year-view-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-white);
+            border-radius: 999px;
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            border-color: rgba(241, 90, 34, 0.5);
+            color: var(--color-accent-light);
+        }
+
+        .back-button.close-button {
+            width: 46px;
+            height: 46px;
+            padding: 0;
+            border: none;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            color: var(--color-white);
+            box-shadow: 0 10px 24px rgba(241, 90, 34, 0.35);
+            font-size: 1.2rem;
+        }
+
+        .back-button.close-button:hover {
+            transform: rotate(90deg) scale(1.05);
+            color: var(--color-white);
+            border-color: transparent;
+        }
+
+        .year-view-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-top: 0.2rem;
+        }
+
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
         .photo-card {
             position: relative;
-            border-radius: 16px;
+            border-radius: 18px;
             overflow: hidden;
             cursor: pointer;
             background: var(--color-gray);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            aspect-ratio: 4/3;
+            aspect-ratio: 4 / 3;
             opacity: 0;
             animation: fadeInUp 0.6s ease forwards;
         }
@@ -486,24 +593,10 @@
             }
         }
 
-        .photo-card:nth-child(1) { animation-delay: 0.1s; }
-        .photo-card:nth-child(2) { animation-delay: 0.15s; }
-        .photo-card:nth-child(3) { animation-delay: 0.2s; }
-        .photo-card:nth-child(4) { animation-delay: 0.25s; }
-        .photo-card:nth-child(5) { animation-delay: 0.3s; }
-        .photo-card:nth-child(6) { animation-delay: 0.35s; }
-        .photo-card:nth-child(7) { animation-delay: 0.4s; }
-        .photo-card:nth-child(8) { animation-delay: 0.45s; }
-        .photo-card:nth-child(9) { animation-delay: 0.5s; }
-        .photo-card:nth-child(n+10) { animation-delay: 0.55s; }
-
         .photo-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.8));
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -536,7 +629,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 1.5rem;
+            padding: 1.25rem;
             z-index: 2;
             transform: translateY(20px);
             opacity: 0;
@@ -550,10 +643,9 @@
 
         .photo-title {
             font-family: var(--font-display);
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: white;
-            margin-bottom: 0.5rem;
         }
 
         .photo-icon {
@@ -561,15 +653,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 60px;
-            height: 60px;
+            width: 58px;
+            height: 58px;
             background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             z-index: 2;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 8px 20px rgba(241, 90, 34, 0.4);
@@ -577,6 +669,15 @@
 
         .photo-card:hover .photo-icon {
             transform: translate(-50%, -50%) scale(1);
+        }
+
+        .year-view-empty {
+            padding: 2rem;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px dashed rgba(91, 192, 235, 0.35);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
         }
 
         /* ========================================
@@ -1506,11 +1607,37 @@
         <div class="container">
             <div class="section-header">
                 <p class="section-subtitle">Our Memories</p>
-                <h2 class="section-title">Event Highlights</h2>
+                <h2 class="section-title">Browse by School Year</h2>
             </div>
 
-            <div class="photo-grid" id="photoGrid">
-                <!-- Photos will be dynamically loaded here -->
+            <div class="gallery-browser" id="galleryBrowser">
+                <div class="year-folders">
+                    <button class="year-folder-button" type="button" data-year="2024-2025">
+                        <i class="fas fa-folder-open"></i>
+                        <span>2024-2025</span>
+                    </button>
+
+                    <button class="year-folder-button" type="button" data-year="2025-2026">
+                        <i class="fas fa-folder-open"></i>
+                        <span>2025-2026</span>
+                    </button>
+
+                    <button class="year-folder-button" type="button" data-year="2026-2027">
+                        <i class="fas fa-folder-open"></i>
+                        <span>2026-2027</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="year-gallery-view" id="yearGalleryView" hidden>
+                <div class="year-view-header">
+                    <button class="back-button close-button" id="backToYears" type="button" aria-label="Close gallery view">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                    <h3 class="year-view-title" id="yearViewTitle"></h3>
+                </div>
+
+                <div id="yearContent"></div>
             </div>
         </div>
     </section>
@@ -1674,6 +1801,16 @@
     <!-- JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const navbar = document.getElementById('navbar');
+            const galleryBrowser = document.getElementById('galleryBrowser');
+            const yearGalleryView = document.getElementById('yearGalleryView');
+            const backToYears = document.getElementById('backToYears');
+            const yearViewTitle = document.getElementById('yearViewTitle');
+            const yearContent = document.getElementById('yearContent');
+            const gallerySection = document.querySelector('.gallery-section');
+
             const galleryPhotos = [
                 { src: 'images/homepage1.jpg', title: 'NSBE Community' },
                 { src: 'images/homepage2.jpg', title: 'Team Excellence' },
@@ -1693,9 +1830,167 @@
                 { src: 'images/igpic2.jpg', title: 'Social Media Feature' }
             ];
 
-            const navToggle = document.getElementById('navToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const navbar = document.getElementById('navbar');
+            const yearCollections = {
+                '2024-2025': galleryPhotos,
+                '2025-2026': [],
+                '2026-2027': []
+            };
+
+            function showFolderBrowser() {
+                if (galleryBrowser) galleryBrowser.hidden = false;
+                if (yearGalleryView) yearGalleryView.hidden = true;
+            }
+
+            function scrollToGallerySection() {
+                if (gallerySection) {
+                    gallerySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            function renderYearPhotos(photos) {
+                if (!yearContent) return;
+
+                if (!photos || photos.length === 0) {
+                    yearContent.innerHTML = `
+                        <div class="year-view-empty">
+                            <h4>No photos yet</h4>
+                            <p>Photos for this school year will appear here once they are assigned.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const photoGrid = document.createElement('div');
+                photoGrid.className = 'photo-grid';
+
+                photos.forEach((photo, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'photo-card';
+                    card.innerHTML = `
+                        <img src="${photo.src}" alt="${photo.title}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                        <div class="photo-icon">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                        <div class="photo-overlay">
+                            <div class="photo-title">${photo.title}</div>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => openLightbox(index, photos));
+                    photoGrid.appendChild(card);
+                });
+
+                yearContent.innerHTML = '';
+                yearContent.appendChild(photoGrid);
+            }
+
+            function showYearView(yearKey) {
+                const photos = yearCollections[yearKey] || [];
+                if (galleryBrowser) galleryBrowser.hidden = true;
+                if (yearGalleryView) yearGalleryView.hidden = false;
+                if (yearViewTitle) yearViewTitle.textContent = yearKey;
+                renderYearPhotos(photos);
+            }
+
+            document.querySelectorAll('.year-folder-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    showYearView(button.dataset.year);
+                });
+            });
+
+            if (backToYears) {
+                backToYears.addEventListener('click', () => {
+                    showFolderBrowser();
+                    requestAnimationFrame(scrollToGallerySection);
+                });
+            }
+
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            const lightboxLoading = document.getElementById('lightboxLoading');
+            let currentPhotoIndex = 0;
+            let currentPhotoSet = [];
+
+            function openLightbox(index, photos) {
+                currentPhotoIndex = index;
+                currentPhotoSet = photos;
+                updateLightboxImage();
+                if (lightbox) {
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeLightbox() {
+                if (lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            function updateLightboxImage() {
+                const photo = currentPhotoSet[currentPhotoIndex];
+                if (!photo || !lightboxImage || !lightboxCaption || !lightboxLoading) return;
+
+                lightboxLoading.style.display = 'block';
+                lightboxImage.style.display = 'none';
+
+                const img = new Image();
+                img.onload = function() {
+                    lightboxImage.src = photo.src;
+                    lightboxImage.alt = photo.title;
+                    lightboxLoading.style.display = 'none';
+                    lightboxImage.style.display = 'block';
+                };
+                img.onerror = function() {
+                    lightboxLoading.style.display = 'none';
+                    lightboxCaption.textContent = 'Image failed to load';
+                };
+                img.src = photo.src;
+                lightboxCaption.textContent = `${photo.title} (${currentPhotoIndex + 1} of ${currentPhotoSet.length})`;
+            }
+
+            function showPrevious() {
+                if (!currentPhotoSet.length) return;
+                currentPhotoIndex = (currentPhotoIndex - 1 + currentPhotoSet.length) % currentPhotoSet.length;
+                updateLightboxImage();
+            }
+
+            function showNext() {
+                if (!currentPhotoSet.length) return;
+                currentPhotoIndex = (currentPhotoIndex + 1) % currentPhotoSet.length;
+                updateLightboxImage();
+            }
+
+            if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+            if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevious);
+            if (lightboxNext) lightboxNext.addEventListener('click', showNext);
+
+            if (lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox || !lightbox.classList.contains('active')) return;
+                switch (e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        showPrevious();
+                        break;
+                    case 'ArrowRight':
+                        showNext();
+                        break;
+                }
+            });
 
             // Mobile menu toggle
             if (navToggle && mobileMenu) {
@@ -1705,7 +2000,6 @@
                     document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
                 });
 
-                // Close mobile menu on link click
                 mobileMenu.querySelectorAll('.nav-link').forEach(link => {
                     link.addEventListener('click', () => {
                         navToggle.classList.remove('active');
@@ -1739,160 +2033,6 @@
                 }
             }, { passive: true });
 
-            // Load gallery photos
-            const photoGrid = document.getElementById('photoGrid');
-            
-            if (photoGrid) {
-                galleryPhotos.forEach((photo, index) => {
-                    const photoCard = document.createElement('div');
-                    photoCard.className = 'photo-card';
-                    photoCard.innerHTML = `
-                        <img src="${photo.src}" alt="${photo.title}" loading="lazy" onerror="this.parentElement.style.display='none'">
-                        <div class="photo-icon">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                        <div class="photo-overlay">
-                            <div class="photo-title">${photo.title}</div>
-                        </div>
-                    `;
-                    photoCard.addEventListener('click', () => openLightbox(index));
-                    photoGrid.appendChild(photoCard);
-                });
-            }
-
-            // Lightbox functionality
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImage = document.getElementById('lightboxImage');
-            const lightboxCaption = document.getElementById('lightboxCaption');
-            const lightboxClose = document.getElementById('lightboxClose');
-            const lightboxPrev = document.getElementById('lightboxPrev');
-            const lightboxNext = document.getElementById('lightboxNext');
-            const lightboxLoading = document.getElementById('lightboxLoading');
-
-            let currentPhotoIndex = 0;
-
-            function openLightbox(index) {
-                currentPhotoIndex = index;
-                updateLightboxImage();
-                lightbox.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                preloadAdjacentImages(index);
-            }
-
-            function closeLightbox() {
-                lightbox.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            function updateLightboxImage() {
-                const photo = galleryPhotos[currentPhotoIndex];
-                if (photo && lightboxImage && lightboxCaption && lightboxLoading) {
-                    lightboxLoading.style.display = 'block';
-                    lightboxImage.style.display = 'none';
-                    
-                    const img = new Image();
-                    img.onload = function() {
-                        lightboxImage.src = photo.src;
-                        lightboxImage.alt = photo.title;
-                        lightboxLoading.style.display = 'none';
-                        lightboxImage.style.display = 'block';
-                    };
-                    img.onerror = function() {
-                        lightboxLoading.style.display = 'none';
-                        lightboxCaption.textContent = 'Image failed to load';
-                    };
-                    img.src = photo.src;
-                    
-                    lightboxCaption.textContent = `${photo.title} (${currentPhotoIndex + 1} of ${galleryPhotos.length})`;
-                }
-            }
-
-            function preloadAdjacentImages(index) {
-                const nextIndex = (index + 1) % galleryPhotos.length;
-                const prevIndex = (index - 1 + galleryPhotos.length) % galleryPhotos.length;
-                
-                [nextIndex, prevIndex].forEach(i => {
-                    const img = new Image();
-                    img.src = galleryPhotos[i].src;
-                });
-            }
-
-            function showPrevious() {
-                currentPhotoIndex = (currentPhotoIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
-                updateLightboxImage();
-                preloadAdjacentImages(currentPhotoIndex);
-            }
-
-            function showNext() {
-                currentPhotoIndex = (currentPhotoIndex + 1) % galleryPhotos.length;
-                updateLightboxImage();
-                preloadAdjacentImages(currentPhotoIndex);
-            }
-
-            // Event listeners for lightbox
-            if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
-            if (lightboxPrev) lightboxPrev.addEventListener('click', showPrevious);
-            if (lightboxNext) lightboxNext.addEventListener('click', showNext);
-
-            // Close lightbox when clicking outside the image
-            if (lightbox) {
-                lightbox.addEventListener('click', (e) => {
-                    if (e.target === lightbox) {
-                        closeLightbox();
-                    }
-                });
-            }
-
-            // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (!lightbox.classList.contains('active')) return;
-
-                switch(e.key) {
-                    case 'Escape':
-                        closeLightbox();
-                        break;
-                    case 'ArrowLeft':
-                        showPrevious();
-                        break;
-                    case 'ArrowRight':
-                        showNext();
-                        break;
-                }
-            });
-
-            // Touch swipe for lightbox
-            let touchStartX = 0;
-            let touchEndX = 0;
-            let touchStartY = 0;
-            let touchEndY = 0;
-
-            if (lightbox) {
-                lightbox.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                    touchStartY = e.changedTouches[0].screenY;
-                }, { passive: true });
-
-                lightbox.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    touchEndY = e.changedTouches[0].screenY;
-                    handleSwipe();
-                }, { passive: true });
-            }
-
-            function handleSwipe() {
-                const swipeThreshold = 50;
-                const diffX = touchStartX - touchEndX;
-                const diffY = Math.abs(touchStartY - touchEndY);
-
-                if (Math.abs(diffX) > swipeThreshold && diffY < swipeThreshold * 2) {
-                    if (diffX > 0) {
-                        showNext();
-                    } else {
-                        showPrevious();
-                    }
-                }
-            }
-
             // Smooth scroll for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
@@ -1906,7 +2046,6 @@
                     }
                 });
             });
-            
         });
     </script>
 </body>
