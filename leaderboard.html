@@ -7,6 +7,7 @@
     <meta name="description" content="Success Isn't optional, It's Personal.">
     <link rel="icon" href="images/whitelogopic.png" type="image/jpeg">
     <link rel="apple-touch-icon" href="images/whitelogopic.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
 /* =================== RESET & VARIABLES =================== */
 :root {
@@ -15,6 +16,15 @@
     --color-secondary: #F15A22;
     --color-secondary-foreground: #ffffff;
     --color-accent: #5BC0EB;
+
+    /* Tier Colors & Metallic Glows */
+    --color-gold: #FFD700;
+    --color-gold-glow: rgba(255, 215, 0, 0.35);
+    --color-silver: #E2E8F0;
+    --color-silver-glow: rgba(226, 232, 240, 0.25);
+    --color-bronze: #CD7F32;
+    --color-bronze-glow: rgba(205, 127, 50, 0.3);
+
     --color-black: #0a0a0a;
     --color-card: rgba(255,255,255,0.04);
     --color-white: #FFFFFF;
@@ -23,16 +33,11 @@
     --color-border: rgba(255,255,255,0.08);
     --color-foreground: #ffffff;
     --color-background: #0a0a0a;
-    --color-success: #10b981;
-    --color-warning: #f59e0b;
-    --color-error: #ef4444;
     --font-display: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
     --shadow-md: 0 4px 15px rgba(0,0,0,0.3);
-    --shadow-lg: 0 10px 40px rgba(0,0,0,0.4);
     --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-    --transition-fast: all 0.2s cubic-bezier(0.4,0,0.2,1);
 }
 
 *, *::before, *::after {
@@ -134,9 +139,7 @@ body {
     white-space: nowrap;
 }
 
-.nav-link:hover, .nav-link.active {
-    opacity: 1;
-}
+.nav-link:hover, .nav-link.active { opacity: 1; }
 
 .btn-join {
     display: inline-flex;
@@ -178,19 +181,10 @@ body {
     border-radius: 2px;
 }
 
-/* Hamburger -> X animation when menu is open */
-.nav-toggle.active .hamburger-line:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-.nav-toggle.active .hamburger-line:nth-child(2) {
-    opacity: 0;
-    transform: scaleX(0);
-}
-.nav-toggle.active .hamburger-line:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-}
+.nav-toggle.active .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active .hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.active .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* Mobile menu - full screen overlay */
 .nav-menu-mobile {
     display: none;
     position: fixed;
@@ -208,7 +202,6 @@ body {
     gap: 0.125rem;
     padding: 1rem;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
 }
 
 .nav-menu-mobile.open {
@@ -225,8 +218,6 @@ body {
     width: 100%;
     max-width: 320px;
     border-radius: 12px;
-    transition: background 0.15s ease;
-    -webkit-tap-highlight-color: transparent;
     opacity: 0.85;
     font-weight: 500;
     text-transform: uppercase;
@@ -237,12 +228,6 @@ body {
     opacity: 1;
     background: rgba(241, 90, 34, 0.1);
     color: var(--color-secondary);
-}
-
-.nav-menu-mobile a.nav-link:hover,
-.nav-menu-mobile a.nav-link:active {
-    background: rgba(255,255,255,0.06);
-    opacity: 1;
 }
 
 .nav-menu-close {
@@ -257,58 +242,12 @@ body {
     padding: 0.5rem 0.75rem;
     line-height: 1;
     border-radius: 10px;
-    -webkit-tap-highlight-color: transparent;
-    transition: background 0.2s ease;
 }
 
-.nav-menu-close:hover,
-.nav-menu-close:active {
-    background: rgba(255,255,255,0.12);
-}
-
-/* =================== NAVBAR RESPONSIVE =================== */
 @media (max-width: 900px) {
-    .navbar {
-        padding: 0.75rem 1rem;
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    .btn-join {
-        display: none;
-    }
-
-    .nav-toggle {
-        display: flex;
-    }
-}
-
-@media (max-width: 520px) {
-    .nav-brand span {
-        display: none;
-    }
-
-    .nav-logo {
-        width: 34px;
-        height: 34px;
-    }
-
-    .nav-toggle {
-        padding: 0.4rem;
-    }
-
-    .nav-menu-mobile {
-        padding-top: 4.5rem;
-        gap: 0.25rem;
-    }
-
-    .nav-menu-mobile a.nav-link {
-        font-size: 0.95rem;
-        max-width: 280px;
-        padding: 0.75rem 1.5rem;
-    }
+    .navbar { padding: 0.75rem 1rem; }
+    .nav-links, .btn-join { display: none; }
+    .nav-toggle { display: flex; }
 }
 
 /* =================== HERO =================== */
@@ -381,8 +320,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
-    margin-bottom: 2.5rem;
-    animation: fadeInUp 0.6s ease-out;
+    margin-bottom: 3rem;
 }
 
 .stat-card {
@@ -391,26 +329,18 @@ body {
     padding: 1.25rem 1rem;
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-sm);
-    transition: var(--transition);
+    text-align: center;
     position: relative;
     overflow: hidden;
-    text-align: center;
 }
 
 .stat-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 3px;
     background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
 }
-
-.stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.stat-card:hover::before { transform: scaleX(1); }
 
 .stat-value {
     font-size: clamp(1.5rem, 4vw, 2.25rem);
@@ -418,7 +348,6 @@ body {
     background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
     margin-bottom: 0.25rem;
 }
 
@@ -430,226 +359,228 @@ body {
     font-weight: 600;
 }
 
-/* =================== SECTION TITLE =================== */
+/* =================== AWARD PODIUM (TOP 3 IN THE RUNNING) =================== */
+.tier-section {
+    margin-bottom: 3.5rem;
+    text-align: center;
+}
+
 .section-title {
-    font-size: clamp(1.2rem, 4vw, 1.5rem);
-    font-weight: 700;
+    font-size: clamp(1.4rem, 4vw, 1.85rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
     text-align: center;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.35rem;
     color: var(--color-foreground);
 }
 
-/* =================== SEARCH =================== */
-.search-input {
-    width: 100%;
-    padding: 0.875rem 1rem 0.875rem 1rem;
-    border: 2px solid var(--color-border);
-    border-radius: 50px;
-    font-size: 0.9rem;
-    background: var(--color-card);
-    color: var(--color-foreground);
-    transition: var(--transition);
-    box-shadow: var(--shadow-sm);
-    font-family: inherit;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: var(--color-secondary);
-    box-shadow: 0 0 0 3px rgba(241, 90, 34, 0.15);
-}
-
-.search-input::placeholder {
-    color: var(--color-muted-foreground);
-}
-
-.section-search {
-    padding: 0.75rem 1rem;
-}
-
-.section-search .search-input {
-    border-radius: 12px;
-}
-
-/* =================== DIAMOND SPONSORS =================== */
-.diamond-section {
-    margin-bottom: 2.5rem;
-    text-align: center;
-}
-
-.diamond-subtitle {
+.tier-subtitle {
     color: var(--color-muted-foreground);
     max-width: 800px;
-    margin: 0.25rem auto 1.25rem;
-    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+    margin: 0 auto 2rem;
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
     padding: 0 0.5rem;
 }
 
-.diamond-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    max-width: 1100px;
-    margin: 0 auto 1.5rem;
-}
-
-.diamond-card {
-    background: var(--color-card);
-    border-radius: 14px;
-    padding: 0.875rem;
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-sm);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    transition: var(--transition);
-    text-decoration: none;
-    color: inherit;
-}
-
-.diamond-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-}
-
-.diamond-info { text-align: left; min-width: 0; }
-.diamond-name { font-weight: 700; color: var(--color-foreground); font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-/* =================== PODIUM (TOP 3) =================== */
-.podium-section { margin-bottom: 2.5rem; }
-
 .podium-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: center;
     gap: 1.25rem;
-    max-width: 1000px;
+    max-width: 950px;
     margin: 0 auto;
 }
 
 .podium-card {
-    background: var(--color-card);
-    border-radius: 20px;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    transition: var(--transition);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
+    flex: 1 1 260px;
+    max-width: 290px;
     position: relative;
-    overflow: hidden;
+    border-radius: 20px;
+    padding: 1.8rem 1.25rem 1.4rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    text-align: center;
+    transition: var(--transition);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    overflow: hidden;
 }
 
 .podium-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+    top: 0; left: 15%; right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
 }
 
-.podium-card.podium-1::before { background: linear-gradient(90deg, #ffd700, #ffed4a); }
-.podium-card.podium-2::before { background: linear-gradient(90deg, #c0c0c0, #e2e8f0); }
-.podium-card.podium-3::before { background: linear-gradient(90deg, #cd7f32, #f6ad55); }
+.podium-card:hover {
+    transform: translateY(-6px);
+}
 
-.podium-rank {
+/* --- Rank Badge & Crown --- */
+.podium-badge-wrap {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.podium-badge {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-    background: var(--color-secondary);
-    color: var(--color-secondary-foreground);
-    font-weight: 900;
     font-size: 1.25rem;
-    box-shadow: var(--shadow-md);
-}
-
-.podium-card.podium-1 .podium-rank {
-    background: linear-gradient(135deg, #ffd700, #ffed4a);
-    color: #000;
-    animation: goldGlow 2s ease-in-out infinite;
-}
-.podium-card.podium-2 .podium-rank {
-    background: linear-gradient(135deg, #c0c0c0, #e2e8f0);
-    color: #000;
-    animation: silverGlow 2s ease-in-out infinite;
-}
-.podium-card.podium-3 .podium-rank {
-    background: linear-gradient(135deg, #cd7f32, #f6ad55);
-    color: #fff;
-    animation: bronzeGlow 2s ease-in-out infinite;
-}
-
-.podium-name {
-    font-size: clamp(1.1rem, 3vw, 1.35rem);
-    font-weight: 700;
-    color: var(--color-foreground);
-}
-
-.podium-points {
-    font-size: clamp(1.75rem, 5vw, 2.5rem);
     font-weight: 900;
-    background: linear-gradient(135deg, var(--color-secondary), var(--color-accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 2;
 }
 
-.podium-label {
-    font-size: 0.75rem;
-    color: var(--color-muted-foreground);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-weight: 600;
+.podium-crown {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    color: #ffd700;
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.7));
+    z-index: 3;
 }
 
-/* =================== GOLD TABLE =================== */
-.gold-section { margin-bottom: 2.5rem; text-align: center; }
-.gold-grid { max-width: 1000px; margin: 0 auto; }
-.gold-table {
-    width: 100%;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid var(--color-border);
-    background: var(--color-card);
-    box-shadow: var(--shadow-sm);
-}
-.gold-table-scroll { max-height: 50vh; overflow-y: auto; }
-.gold-row {
-    display: grid;
-    grid-template-columns: 60px 1fr 90px;
-    gap: 0.5rem;
-    padding: 0.875rem 1rem;
-    align-items: center;
-    border-top: 1px solid var(--color-border);
-}
-.gold-row.header {
+/* --- Name & Points Layout --- */
+.podium-name {
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-size: 0.75rem;
-    color: var(--color-muted-foreground);
-    background: rgba(255,255,255,0.03);
-    position: sticky;
-    top: 0;
-    z-index: 4;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-top: none;
+    font-size: 1.05rem;
+    color: var(--color-foreground);
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+    white-space: normal;
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.gold-rank { font-weight: 900; color: var(--color-secondary); text-align: center; }
-.gold-name { font-weight: 700; color: var(--color-foreground); text-align: left; padding: 0 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.gold-points { font-weight: 800; color: var(--color-secondary); text-align: center; }
 
-/* =================== SPRING TABLE =================== */
-.spring-section { margin-bottom: 2.5rem; }
-.spring-table {
+.podium-pts-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.06);
+}
+
+/* --- 1st Place (Gold Champion) --- */
+.rank-gold {
+    order: 2;
+    background: linear-gradient(180deg, rgba(255, 215, 0, 0.12) 0%, rgba(20, 17, 10, 0.75) 100%);
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    box-shadow: 0 10px 35px var(--color-gold-glow), 0 0 20px rgba(255, 215, 0, 0.15) inset;
+    transform: scale(1.04);
+}
+.rank-gold:hover {
+    transform: scale(1.04) translateY(-6px);
+    box-shadow: 0 15px 40px rgba(255, 215, 0, 0.45), 0 0 25px rgba(255, 215, 0, 0.2) inset;
+}
+.rank-gold .podium-badge {
+    background: linear-gradient(135deg, #FFE066, #FFB300);
+    color: #1A1100;
+    box-shadow: 0 0 18px var(--color-gold-glow);
+}
+.rank-gold .podium-pts-tag {
+    color: #FFE066;
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* --- 2nd Place (Silver Elite) --- */
+.rank-silver {
+    order: 1;
+    background: linear-gradient(180deg, rgba(226, 232, 240, 0.08) 0%, rgba(18, 20, 24, 0.75) 100%);
+    border: 1px solid rgba(226, 232, 240, 0.3);
+    box-shadow: 0 8px 25px var(--color-silver-glow);
+}
+.rank-silver:hover {
+    box-shadow: 0 12px 30px rgba(226, 232, 240, 0.35);
+}
+.rank-silver .podium-badge {
+    background: linear-gradient(135deg, #FFFFFF, #94A3B8);
+    color: #0F172A;
+    box-shadow: 0 0 14px var(--color-silver-glow);
+}
+.rank-silver .podium-pts-tag {
+    color: #E2E8F0;
+    border: 1px solid rgba(226, 232, 240, 0.25);
+    background: rgba(226, 232, 240, 0.08);
+}
+
+/* --- 3rd Place (Bronze Contender) --- */
+.rank-bronze {
+    order: 3;
+    background: linear-gradient(180deg, rgba(205, 127, 50, 0.09) 0%, rgba(24, 16, 12, 0.75) 100%);
+    border: 1px solid rgba(205, 127, 50, 0.35);
+    box-shadow: 0 8px 25px var(--color-bronze-glow);
+}
+.rank-bronze:hover {
+    box-shadow: 0 12px 30px rgba(205, 127, 50, 0.4);
+}
+.rank-bronze .podium-badge {
+    background: linear-gradient(135deg, #F6AD55, #CD7F32);
+    color: #271406;
+    box-shadow: 0 0 14px var(--color-bronze-glow);
+}
+.rank-bronze .podium-pts-tag {
+    color: #F6AD55;
+    border: 1px solid rgba(205, 127, 50, 0.3);
+    background: rgba(205, 127, 50, 0.08);
+}
+
+@media (max-width: 768px) {
+    .podium-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .podium-card {
+        width: 100%;
+        max-width: 340px;
+    }
+    .rank-gold { order: 1; transform: none; }
+    .rank-silver { order: 2; }
+    .rank-bronze { order: 3; }
+    .rank-gold:hover { transform: translateY(-4px); }
+}
+
+/* =================== FULL MASTER ROSTER =================== */
+.overall-section { margin-bottom: 2.5rem; }
+.search-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    background: var(--color-card);
+    color: var(--color-foreground);
+    margin-bottom: 1rem;
+    font-family: inherit;
+}
+.search-input:focus { outline: none; border-color: var(--color-secondary); }
+
+.overall-table {
     max-width: 1000px;
     margin: 0 auto;
     border-radius: 14px;
@@ -658,15 +589,15 @@ body {
     background: var(--color-card);
     box-shadow: var(--shadow-sm);
 }
-.spring-table-scroll { max-height: 50vh; overflow-y: auto; }
-.spring-header, .spring-row {
+.overall-table-scroll { max-height: 60vh; overflow-y: auto; }
+.overall-header, .overall-row {
     display: grid;
     grid-template-columns: 60px 1fr 90px;
     padding: 0.875rem 1rem;
     align-items: center;
     border-top: 1px solid var(--color-border);
 }
-.spring-header {
+.overall-header {
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -676,35 +607,13 @@ body {
     position: sticky;
     top: 0;
     z-index: 4;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     border-top: none;
 }
+.overall-rank { font-weight: 900; color: var(--color-secondary); text-align: center; }
+.overall-name { font-weight: 700; color: var(--color-foreground); text-align: left; padding: 0 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.overall-points { font-weight: 800; color: var(--color-secondary); text-align: center; }
 
-/* =================== ERROR / NO RESULTS =================== */
-.error-banner {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 12px;
-    display: none;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--color-error);
-    font-size: 0.9rem;
-}
-.error-banner.show { display: flex; }
-.error-close {
-    background: none;
-    border: none;
-    color: var(--color-error);
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 4px;
-    margin-left: auto;
-    font-size: 1.2rem;
-}
+/* =================== NO RESULTS =================== */
 .no-results {
     text-align: center;
     padding: 2rem 1rem;
@@ -712,28 +621,8 @@ body {
     font-size: 0.95rem;
 }
 
-/* =================== ANIMATIONS =================== */
-@keyframes goldGlow {
-    0%, 100% { box-shadow: 0 6px 20px rgba(255,215,0,0.3); }
-    50% { box-shadow: 0 6px 30px rgba(255,215,0,0.5); }
-}
-@keyframes silverGlow {
-    0%, 100% { box-shadow: 0 6px 20px rgba(192,192,192,0.3); }
-    50% { box-shadow: 0 6px 30px rgba(192,192,192,0.5); }
-}
-@keyframes bronzeGlow {
-    0%, 100% { box-shadow: 0 6px 20px rgba(205,127,50,0.3); }
-    50% { box-shadow: 0 6px 30px rgba(205,127,50,0.5); }
-}
-
 /* =================== SORTING =================== */
-.sortable {
-    cursor: pointer;
-    position: relative;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    padding-right: 1rem;
-}
+.sortable { cursor: pointer; position: relative; user-select: none; padding-right: 1rem; }
 .sortable::after {
     content: '\25B2';
     font-size: 0.55rem;
@@ -746,35 +635,6 @@ body {
 }
 .sortable.sorted-asc::after { transform: translateY(-50%) rotate(0deg); opacity: 0.9; }
 .sortable.sorted-desc::after { transform: translateY(-50%) rotate(180deg); opacity: 0.9; }
-
-/* =================== COMING SOON =================== */
-@keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-.coming-soon-msg {
-    text-align: center;
-    padding: 5rem 1.5rem 6rem;
-    animation: fadeSlideUp 3s ease-out both;
-}
-
-.coming-soon-msg h2 {
-    font-size: clamp(1.5rem, 5vw, 2.2rem);
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 1rem;
-    letter-spacing: 0.02em;
-}
-
-.coming-soon-msg p {
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    color: #ffffff;
-    max-width: 560px;
-    margin: 0 auto;
-    line-height: 1.75;
-    opacity: 0.9;
-}
     </style>
 </head>
 <body>
@@ -833,16 +693,10 @@ body {
         </div>
     </section>
 
-    <!-- Coming Soon Message -->
-    <div class="coming-soon-msg">
-        <h2>Points Collection Coming Soon</h2>
-        <p>Points will begin being collected during the upcoming school year.<br>Check back then to see where you stand on the leaderboard!</p>
-    </div>
+    <!-- Main Content -->
+    <main class="main-content">
 
-    <!-- TEMPORARILY DISABLED: Main content & leaderboard stats. Re-enable when points collection begins. -->
-    <main class="main-content" style="display:none" aria-hidden="true">
-
-        <!-- Stats Summary -->
+        <!-- Chapter Statistics Summary -->
         <div class="stats-summary">
             <div class="stat-card">
                 <div class="stat-value" id="total-members">0</div>
@@ -858,57 +712,31 @@ body {
             </div>
         </div>
 
-        <!-- Diamond Sponsors -->
-        <section class="diamond-section" aria-labelledby="diamond-title">
-            <h2 id="diamond-title" class="section-title">Diamond Sponsorship Qualifiers &mdash; NSBE 52</h2>
-            <div id="diamond-grid" class="diamond-grid" role="list" aria-live="polite"></div>
+        <!-- Modern Award Podium: Top 3 in the Running -->
+        <section class="tier-section" id="section-top3-tier" aria-labelledby="top3-title">
+            <h2 id="top3-title" class="section-title">Top 3 in the Running</h2>
+            <p class="tier-subtitle">Current leaders setting the benchmark for chapter distinction - Fall Regional Conference</p>
+            <div id="top3-grid" class="podium-grid" role="list" aria-live="polite"></div>
         </section>
 
-        <!-- Gold Sponsorship Race -->
-        <section class="gold-section" aria-labelledby="gold-title">
-            <h2 id="gold-title" class="section-title">Gold Sponsorship Race</h2>
-            <div class="gold-grid">
-                <div id="gold-table" class="gold-table" role="table" aria-live="polite">
-                    <div class="section-search">
-                        <input id="search-gold" class="search-input" placeholder="Search Gold Sponsorship..." aria-label="Search Gold Sponsorship">
-                    </div>
-                    <div class="gold-row header" role="row">
-                        <div class="sortable" data-section="gold" data-key="rank">Rank</div>
-                        <div class="sortable" data-section="gold" data-key="name">Name</div>
-                        <div class="sortable" data-section="gold" data-key="points">Points</div>
-                    </div>
-                    <div class="gold-table-scroll" id="gold-scroll"></div>
-                </div>
+        <!-- Full Chapter Standings (Unfiltered Master Roster) -->
+        <section class="overall-section" id="section-overall-standings">
+            <h2 class="section-title">Full Chapter Standings</h2>
+            <p class="tier-subtitle">Complete chapter roster ranked sequentially - check your points here</p>
+            <div style="max-width: 1000px; margin: 0 auto;">
+                <input id="search-overall" class="search-input" placeholder="Search Chapter Standings..." aria-label="Search Chapter Standings">
             </div>
-        </section>
-
-        <!-- Error Banner -->
-        <div id="error-banner" class="error-banner" role="alert">
-            <p id="error-message"></p>
-            <button class="error-close" onclick="document.getElementById('error-banner').classList.remove('show')" aria-label="Close">&times;</button>
-        </div>
-
-        <!-- Top 3 Podium -->
-        <section class="podium-section">
-            <h2 class="section-title">Spring Scholarship Leaderboard</h2>
-            <div id="podium-grid" class="podium-grid"></div>
-        </section>
-
-        <!-- Spring Scholarship Leaderboard -->
-        <section class="spring-section">
-            <div id="spring-table" class="spring-table" role="table" aria-live="polite">
-                <div class="section-search">
-                    <input id="search-spring" class="search-input" placeholder="Search Spring Scholarship..." aria-label="Search Spring Scholarship">
+            <div id="overall-table" class="overall-table" role="table" aria-live="polite">
+                <div class="overall-header" role="row">
+                    <div class="sortable" data-key="rank">Rank</div>
+                    <div class="sortable" data-key="name">Name</div>
+                    <div class="sortable" data-key="points">Points</div>
                 </div>
-                <div class="spring-header" role="row">
-                    <div class="sortable" data-section="spring" data-key="rank">Rank</div>
-                    <div class="sortable" data-section="spring" data-key="name">Name</div>
-                    <div class="sortable" data-section="spring" data-key="points">Points</div>
-                </div>
-                <div class="spring-table-scroll" id="spring-scroll"></div>
+                <div class="overall-table-scroll" id="overall-scroll"></div>
             </div>
         </section>
     </main>
+
 
     <script>
     /* =================== UTILITIES =================== */
@@ -994,114 +822,43 @@ body {
         onScroll();
     })();
 
-    /* =================== DIAMOND SPONSORS (HARDCODED NAMES) =================== */
+    /* =================== LEADERBOARD (TOP 3 + FULL STANDINGS) =================== */
     (function() {
-        return; /* TEMPORARILY DISABLED - Points collection not yet active */
-        const diamondNames = [
-            "Aisha Karage",
-            "Cody Camacho",
-            "Jordan Turner",
-            "Ebubechi Dickson",
-            "Yoma Abobo",
-            "Nahom Sweet",
-            "Isi Ataghauman",
-            "Immanuel Fadairo",
-            "Chinaemerem Nwachukwu",
-            "John Rex"
-        ];
-
-        const grid = document.getElementById('diamond-grid');
-        if (!grid) return;
-
-        grid.innerHTML = '';
-
-        if (!diamondNames || diamondNames.length === 0) {
-            grid.innerHTML = '<div class="no-results">No Diamond Sponsors found.</div>';
-            return;
-        }
-
-        diamondNames.forEach(name => {
-            const card = document.createElement('div');
-            card.className = 'diamond-card';
-            card.role = 'listitem';
-            card.innerHTML =
-                '<div class="diamond-info">' +
-                    '<div class="diamond-name">' + name + '</div>' +
-                '</div>';
-            grid.appendChild(card);
-        });
-    })();
-
-    /* =================== GOLD SPONSORSHIP =================== */
-    (function() {
-        return; /* TEMPORARILY DISABLED - Points collection not yet active */
-        function render(rows) {
-            const scroll = document.getElementById('gold-scroll');
-            if (!scroll) return;
-            scroll.innerHTML = '';
-            if (!rows || rows.length === 0) {
-                scroll.innerHTML = '<div class="no-results">No Gold Sponsorship entries found.</div>';
-                return;
-            }
-            rows.forEach(r => {
-                const div = document.createElement('div');
-                div.className = 'gold-row';
-                div.role = 'row';
-                div.innerHTML =
-                    '<div class="gold-rank">' + (r.Rank || r.rank || '') + '</div>' +
-                    '<div class="gold-name">' + (r.Name || r.name || '&mdash;') + '</div>' +
-                    '<div class="gold-points">' + (r.Points || r.points || '0') + '</div>';
-                scroll.appendChild(div);
-            });
-        }
-
-        fetch('gold.csv', { cache: 'no-cache' })
-            .then(r => { if (!r.ok) throw new Error('gold.csv'); return r.text(); })
-            .then(text => {
-                const rows = parseCSV(text);
-                render(rows);
-            })
-            .catch(() => render([]));
-    })();
-
-    /* =================== LEADERBOARD (SPRING + PODIUM) =================== */
-    (function() {
-        return; /* TEMPORARILY DISABLED - Points collection not yet active */
-        function renderPodium(rows) {
-            const grid = document.getElementById('podium-grid');
+        function renderTop3(rows) {
+            const grid = document.getElementById('top3-grid');
             if (!grid) return;
             grid.innerHTML = '';
-            const top = (rows || []).slice(0, 3);
-            top.forEach((r, i) => {
+            const tierClasses = ['rank-gold', 'rank-silver', 'rank-bronze'];
+            rows.slice(0, 3).forEach((r, i) => {
                 const card = document.createElement('div');
-                card.className = 'podium-card podium-' + (i + 1);
+                card.className = 'podium-card ' + tierClasses[i];
                 card.innerHTML =
-                    '<div class="podium-rank">' + (r.rank || (i + 1)) + '</div>' +
-                    '<div class="podium-card-info">' +
-                        '<div class="podium-name">' + (r.name || '') + '</div>' +
-                        '<div class="podium-points">' + (r.points || '0') + '</div>' +
-                        '<div class="podium-label">Points</div>' +
-                    '</div>';
+                    '<div class="podium-badge-wrap">' +
+                        (i === 0 ? '<i class="fas fa-crown podium-crown"></i>' : '') +
+                        '<div class="podium-badge">' + r.rank + '</div>' +
+                    '</div>' +
+                    '<div class="podium-name">' + r.name + '</div>' +
+                    '<div class="podium-pts-tag">' + r.points.toLocaleString() + ' pts</div>';
                 grid.appendChild(card);
             });
         }
 
-        function renderSpring(rows) {
-            const scroll = document.getElementById('spring-scroll');
+        function renderOverall(rows) {
+            const scroll = document.getElementById('overall-scroll');
             if (!scroll) return;
             scroll.innerHTML = '';
             if (!rows || rows.length === 0) {
-                scroll.innerHTML = '<div class="no-results">No Spring Scholarship entries found.</div>';
+                scroll.innerHTML = '<div class="no-results">No standings found.</div>';
                 return;
             }
             rows.forEach(r => {
                 const div = document.createElement('div');
-                div.className = 'spring-row';
+                div.className = 'overall-row';
                 div.role = 'row';
                 div.innerHTML =
-                    '<div class="ranking-rank">' + (r.rank || '') + '</div>' +
-                    '<div class="ranking-name">' + (r.name || '&mdash;') + '</div>' +
-                    '<div class="ranking-points">' + (r.points || '0') + '</div>';
+                    '<div class="overall-rank">' + r.rank + '</div>' +
+                    '<div class="overall-name">' + (r.name || '&mdash;') + '</div>' +
+                    '<div class="overall-points">' + r.points.toLocaleString() + '</div>';
                 scroll.appendChild(div);
             });
         }
@@ -1111,26 +868,20 @@ body {
             .then(text => {
                 const raw = parseCSV(text);
 
-                const rows = raw.map(r => ({
-                    rank: r.Rank || r.rank || '',
-                    name: r.Name || r.name || r.member || '',
-                    points: r.Points || r.points || '0'
-                })).filter(r => !!r.name);
-
-                const springRows = rows
-                    .map(r => {
-                        const pts = parseFloat((r.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0;
-                        return { rank: r.rank, name: r.name, points: pts };
-                    })
-                    .filter(r => r.name && !isNaN(r.points))
+                const rows = raw
+                    .map(r => ({
+                        name: r.Name || r.name || '',
+                        points: parseFloat((r.Points || r.points || '0').toString().replace(/[^0-9.-]/g, '')) || 0
+                    }))
+                    .filter(r => !!r.name)
                     .sort((a, b) => b.points - a.points)
                     .map((r, i) => ({ ...r, rank: i + 1 }));
 
-                renderPodium(springRows);
-                renderSpring(springRows);
+                renderTop3(rows);
+                renderOverall(rows);
 
-                const total = springRows.length;
-                const totalPts = springRows.reduce((a, c) => a + (c.points || 0), 0);
+                const total = rows.length;
+                const totalPts = rows.reduce((a, c) => a + (c.points || 0), 0);
                 const avg = total > 0 ? Math.round(totalPts / total) : 0;
 
                 animateValue(document.getElementById('total-members'), total, 800);
@@ -1139,75 +890,54 @@ body {
             })
             .catch(err => {
                 console.error('Leaderboard load error:', err);
-                renderPodium([]);
-                renderSpring([]);
+                renderTop3([]);
+                renderOverall([]);
                 animateValue(document.getElementById('total-members'), 0, 400);
                 animateValue(document.getElementById('total-points'), 0, 400);
                 animateValue(document.getElementById('avg-points'), 0, 400);
             });
     })();
 
-    /* =================== SEARCH HANDLERS =================== */
+    /* =================== SEARCH HANDLER =================== */
     (function() {
-        return; /* TEMPORARILY DISABLED - Points collection not yet active */
-        function bindSearch(inputId, containerSel, nameClass) {
-            const input = document.getElementById(inputId);
-            if (!input) return;
-            input.addEventListener('input', () => {
-                const q = input.value.toLowerCase().trim();
-                document.querySelectorAll(containerSel).forEach(row => {
-                    const name = (row.querySelector('.' + nameClass) || {}).textContent || '';
-                    row.style.display = name.toLowerCase().includes(q) ? '' : 'none';
-                });
+        const input = document.getElementById('search-overall');
+        if (!input) return;
+        input.addEventListener('input', () => {
+            const q = input.value.toLowerCase().trim();
+            document.querySelectorAll('#overall-scroll .overall-row').forEach(row => {
+                const name = (row.querySelector('.overall-name') || {}).textContent || '';
+                row.style.display = name.toLowerCase().includes(q) ? '' : 'none';
             });
-        }
-
-        bindSearch('search-gold', '#gold-scroll .gold-row', 'gold-name');
-        bindSearch('search-spring', '#spring-scroll .spring-row', 'ranking-name');
+        });
     })();
 
     /* =================== SORTING =================== */
     (function() {
-        return; /* TEMPORARILY DISABLED - Points collection not yet active */
-        const state = {};
+        const state = { key: 'rank', dir: 'asc' };
 
-        document.querySelectorAll('.sortable').forEach(h => {
+        document.querySelectorAll('.overall-header .sortable').forEach(h => {
             h.addEventListener('click', () => {
-                const section = h.dataset.section || 'spring';
                 const key = h.dataset.key;
-                if (!state[section]) state[section] = { key: 'rank', dir: 'asc' };
+                state.dir = (state.key === key && state.dir === 'asc') ? 'desc' : 'asc';
+                state.key = key;
 
-                if (state[section].key === key) {
-                    state[section].dir = state[section].dir === 'asc' ? 'desc' : 'asc';
-                } else {
-                    state[section].key = key;
-                    state[section].dir = 'asc';
-                }
-
-                h.closest('.gold-row.header, .spring-header')
+                h.closest('.overall-header')
                     ?.querySelectorAll('.sortable')
                     .forEach(s => s.classList.remove('sorted-asc', 'sorted-desc'));
-                h.classList.add(state[section].dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+                h.classList.add(state.dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
 
-                let containerId, rowClass, rankClass, nameClass, pointsClass;
-                if (section === 'gold') {
-                    containerId = 'gold-scroll'; rowClass = 'gold-row'; rankClass = 'gold-rank'; nameClass = 'gold-name'; pointsClass = 'gold-points';
-                } else {
-                    containerId = 'spring-scroll'; rowClass = 'spring-row'; rankClass = 'ranking-rank'; nameClass = 'ranking-name'; pointsClass = 'ranking-points';
-                }
-
-                const container = document.getElementById(containerId);
+                const container = document.getElementById('overall-scroll');
                 if (!container) return;
-                const rows = Array.from(container.querySelectorAll('.' + rowClass));
+                const rows = Array.from(container.querySelectorAll('.overall-row'));
 
                 rows.sort((a, b) => {
-                    const cls = key === 'name' ? nameClass : key === 'rank' ? rankClass : pointsClass;
+                    const cls = key === 'name' ? 'overall-name' : key === 'rank' ? 'overall-rank' : 'overall-points';
                     const va = (a.querySelector('.' + cls) || {}).textContent || '';
                     const vb = (b.querySelector('.' + cls) || {}).textContent || '';
-                    if (key === 'name') return state[section].dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+                    if (key === 'name') return state.dir === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
                     const na = parseFloat(va.replace(/[^0-9.-]/g, '')) || 0;
                     const nb = parseFloat(vb.replace(/[^0-9.-]/g, '')) || 0;
-                    return state[section].dir === 'asc' ? na - nb : nb - na;
+                    return state.dir === 'asc' ? na - nb : nb - na;
                 });
 
                 rows.forEach(r => container.appendChild(r));
@@ -1217,3 +947,4 @@ body {
     </script>
 </body>
 </html>
+
