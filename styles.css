@@ -1809,6 +1809,7 @@ p {
   border: 1px solid transparent;
   background: var(--gradient-mixed) border-box; /* Changed to mixed gradient */
   -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
